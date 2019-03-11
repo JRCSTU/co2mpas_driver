@@ -120,3 +120,21 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0)
             return current_gear, gear_cnt
         else:
             return current_gear, gear_cnt
+
+def gear_linear(speed_per_gear,gs_style):
+
+    n_gears = len(speed_per_gear)
+
+    gs_style = min(gs_style,1)
+    gs_style = max(gs_style,0)
+
+    gs = []
+
+    for gear in range(n_gears - 1):
+        speed_by_gs = speed_per_gear[gear][-1]*gs_style + speed_per_gear[gear][0]*(1-gs_style)
+        speed_for_continuity = speed_per_gear[gear+1][0]
+        cutoff_s = max(speed_by_gs,speed_for_continuity)
+
+        gs.append(cutoff_s)
+
+    return gs

@@ -4,7 +4,7 @@ import main_functions as mf
 import reading_n_organizing as rno
 
 
-def simple_run(speed, rpm):
+def simple_run():
     db_name = 'car_db_sample'
     car_id = 24211
     gs_style = 0.8
@@ -26,4 +26,4 @@ def simple_run(speed, rpm):
     return 0
 
 
-simple_run(speed=190 / 3.6, rpm=4000)
+simple_run()

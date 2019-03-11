@@ -283,7 +283,7 @@ def plot_speed_acceleration_from_coefs(coefs_per_gear, speed_per_gear, acc_per_g
         plt.plot(x_new, a_new, 'rx')
 
 
-def get_spline_out_of_coefs(coefs_per_gear):
+def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     '''
 
     Use the coefs to get a "spline" that could be used.
@@ -298,7 +298,14 @@ def get_spline_out_of_coefs(coefs_per_gear):
 
     spline_from_poly = []
 
-    for fit_coef in coefs_per_gear:
+    """For the first gear, some points are added at the beginning to avoid unrealistic drops """
+    x_new = np.insert(np.arange(starting_speed, 70, 0.1),[0,0],[0,starting_speed/2])
+    a_new = np.array([np.dot(coefs_per_gear[0], np.power(i, vars)) for i in x_new])
+    a_new[0] = a_new[2]
+    a_new[1] = a_new[2]
+    spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
+
+    for fit_coef in coefs_per_gear[1:]:
         x_new = np.arange(0, 70, 0.1)
         a_new = np.array([np.dot(fit_coef, np.power(i, vars)) for i in x_new])
         spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
