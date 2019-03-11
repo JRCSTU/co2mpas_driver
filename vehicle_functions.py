@@ -238,6 +238,25 @@ def calculate_curve_to_use(acc, Alimit, car_res_curve, start, stop, sp_bins):
     return interp1d(sp_bins, final_acc)
 
 
+def calculate_curves_to_use(cs_acc_per_gear,Start,Stop,Alimit,car_res_curve,sp_bins):
+
+    Res = []
+
+    for gear, acc in enumerate(cs_acc_per_gear):
+        start = Start[gear] * 0.9
+        stop = Stop[gear]
+
+        final_acc = acc(sp_bins) - car_res_curve(sp_bins)
+        final_acc[final_acc > Alimit] = Alimit
+
+        final_acc[(sp_bins < start)] = 0
+        final_acc[(sp_bins > stop)] = 0
+        final_acc[final_acc < 0] = 0
+
+        Res.append(interp1d(sp_bins, final_acc))
+
+    return Res
+
 def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     '''
 
