@@ -69,6 +69,14 @@ def calculate_full_load_speeds_and_powers(full_load_curve, my_car):
 
 # The maximum force that the vehicle can have on the road
 def Armax(my_car, road_type=1):
+    '''
+
+    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+
+    :param my_car: vehicle specs object
+    :param road_type: road condition (1: normal, 2: wet, 3: icy)
+    :return:
+    '''
     if my_car.car_type == 2:  # forward-wheel drive vehicles
         fmass = 0.6 * my_car.veh_mass
     elif my_car.car_type == 4:  # rear-wheel drive vehicles
@@ -238,8 +246,7 @@ def calculate_curve_to_use(acc, Alimit, car_res_curve, start, stop, sp_bins):
     return interp1d(sp_bins, final_acc)
 
 
-def calculate_curves_to_use(cs_acc_per_gear,Start,Stop,Alimit,car_res_curve,sp_bins):
-
+def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve, sp_bins):
     Res = []
 
     for gear, acc in enumerate(cs_acc_per_gear):
@@ -256,6 +263,7 @@ def calculate_curves_to_use(cs_acc_per_gear,Start,Stop,Alimit,car_res_curve,sp_b
         Res.append(interp1d(sp_bins, final_acc))
 
     return Res
+
 
 def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     '''
@@ -318,7 +326,7 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     spline_from_poly = []
 
     """For the first gear, some points are added at the beginning to avoid unrealistic drops """
-    x_new = np.insert(np.arange(starting_speed, 70, 0.1),[0,0],[0,starting_speed/2])
+    x_new = np.insert(np.arange(starting_speed, 70, 0.1), [0, 0], [0, starting_speed / 2])
     a_new = np.array([np.dot(coefs_per_gear[0], np.power(i, vars)) for i in x_new])
     a_new[0] = a_new[2]
     a_new[1] = a_new[2]
@@ -330,3 +338,30 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
         spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
 
     return spline_from_poly
+
+
+def ev_curve(my_car):
+    motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
+    # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
+    veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (
+                60 * my_car.final_drive * my_car.gr)  # m/s
+    veh_max_acc = my_car.motor_max_torque * (my_car.final_drive * my_car.gr) * my_car.driveline_efficiency / (
+                my_car.tire_radius * my_car.veh_mass)  # m/s2
+
+    veh_speed = list(np.arange(0, my_car.veh_max_speed + 0.1, 0.1))  # m/s
+    veh_acc = []
+    for k in range(len(veh_speed)):
+        if 0 <= veh_speed[k] <= veh_base_speed:
+            veh_acc.append(veh_max_acc)
+        elif veh_speed[k] > veh_base_speed:
+            veh_acc.append(
+                my_car.engine_max_power * 1000 * my_car.driveline_efficiency / (veh_speed[k] * my_car.veh_mass))
+        else:
+            print("You can't move backward!")
+            exit()
+
+    cs_acc_ev = CubicSpline(veh_speed, veh_acc)
+    start = veh_speed[0]
+    stop = veh_speed[-1]
+
+    return [cs_acc_ev], [start], [stop]

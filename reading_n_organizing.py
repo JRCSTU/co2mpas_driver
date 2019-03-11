@@ -35,7 +35,7 @@ def load_db_to_dictionary(name):
     file.close()
     return Out
 
-def get_vehicle_from_db(db_dict,car_id):
+def get_vehicle_from_db(db_dict,car_id,**kwargs):
     '''
 
     :param db_dict: dict of dicts ,A dictionary produced by the "load_db_to_dictionary@" function
@@ -45,6 +45,6 @@ def get_vehicle_from_db(db_dict,car_id):
 
     my_car = db_dict[car_id]
 
-    my_car_specs = vcc.veh_specs(my_car)
+    my_car_specs = vcc.veh_specs(my_car,**kwargs)
 
     return my_car_specs

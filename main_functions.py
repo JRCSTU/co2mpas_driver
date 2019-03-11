@@ -106,3 +106,16 @@ def gear_4degree_curves_with_linear_gs(my_car, gs_style):
     gs = fg.gear_linear(speed_per_gear,gs_style)
 
     return Curves, poly_spline, (Start, Stop), gs
+
+def get_ev_curve_main(my_car):
+    '''Full load curves of speed and torque'''
+    cs_acc_per_gear, Start, Stop = vf.ev_curve(my_car)
+
+    sp_bins = np.arange(0, 60.1, 0.1)
+    '''Get resistances'''
+    car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car, sp_bins)
+
+    '''Calculate Curves'''
+    Curves = vf.calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve, sp_bins)
+
+    return Curves, (Start, Stop)
