@@ -5,8 +5,8 @@ import reading_n_organizing as rno
 
 
 def simple_run():
-    db_name = 'db/car_db_sample'
-    car_id = 24211
+    db_name = 'db/delete_car_db_ICEV_EV'
+    car_id = 28938
     gs_style = 0.8
     degree = 4
 

@@ -56,6 +56,8 @@ class veh_specs(object):
             else:
                 self.idle_engine_speed = (850, 50)
 
+            self.veh_max_speed = int(float(my_car["Performance-Top speed"]) / 3.6)  # m/s
+
             if 'lco' in kwargs:
                 if kwargs['lco']:
                     '''Used for Light Co2mpass'''

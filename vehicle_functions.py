@@ -1,17 +1,11 @@
 # Computation of the MFC vehicle acceleration - speed curve.
 # coding=utf-8
 import functools as functools
-
 import numpy as np
 from scipy.interpolate import CubicSpline, interp1d
-import find_gear as fg
 import defaults as defaults
-
-###for DEBUG
 import matplotlib.pyplot as plt
 
-
-##end DEBUG
 
 def get_full_load(ignition_type):
     """
@@ -178,7 +172,7 @@ def get_load_speed_n_torque(my_car):
     return full_load_speeds, full_load_torque
 
 
-def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torque):
+def get_speeds_n_accelerations_per_gear_old(my_car, full_load_speeds, full_load_torque):
     '''
 
     Speed and acceleration points per gear are calculated based on full load curve
@@ -202,6 +196,40 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
                 acc_per_gear[j].append(
                     full_load_torque[i] * (my_car.final_drive * my_car.gr[j]) * my_car.driveline_efficiency / (
                             my_car.tire_radius * my_car.veh_mass))
+    return speed_per_gear, acc_per_gear
+
+
+def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torque):
+    '''
+
+    Speed and acceleration points per gear are calculated based on full load curve, new version works with array and
+    forbid acceleration over the maximum vehicle speed
+
+    :param my_car:
+    :param full_load_speeds:
+    :param full_load_torque:
+    :return:
+    '''
+    speed_per_gear, acc_per_gear = [], []
+
+    full_load_speeds = np.array(full_load_speeds)
+    full_load_torque = np.array(full_load_torque)
+
+    for j in range(len(my_car.gr)):
+        mask = full_load_speeds > 1.25 * my_car.idle_engine_speed[0]
+
+        temp_speed = 2 * np.pi * my_car.tire_radius * full_load_speeds[mask] * (1 - my_car.driveline_slippage) / (
+                60 * my_car.final_drive * my_car.gr[j])
+        speed_per_gear.append(temp_speed)
+
+        temp_acc = full_load_torque[mask] * (my_car.final_drive * my_car.gr[j]) * my_car.driveline_efficiency / (
+                my_car.tire_radius * my_car.veh_mass)
+
+        ### Force acceleration 0 over the max speed
+        temp_acc[my_car.veh_max_speed < temp_speed] = 0
+
+        acc_per_gear.append(temp_acc)
+
     return speed_per_gear, acc_per_gear
 
 
