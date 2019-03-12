@@ -6,7 +6,7 @@ import vehicle_functions as vf
 
 def simple_run():
     db_name = 'delete_car_db_ICEV_EV'
-    car_id = 47847
+    car_id = 47839
 
 
     db = rno.load_db_to_dictionary(db_name)
@@ -16,10 +16,11 @@ def simple_run():
 
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]
-        stop = min(StartStop[1][gear], 50)
+        stop = 50#min(StartStop[1][gear], 70)
         x = np.arange(start, stop, 1)
         y = curve(x)
-        plt.plot(x, y)
+        plt.plot(x, y,'x')
+        plt.grid()
     plt.show()
 
     return 0

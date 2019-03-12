@@ -344,24 +344,18 @@ def ev_curve(my_car):
     motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
     # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
     veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (
-                60 * my_car.final_drive * my_car.gr)  # m/s
+            60 * my_car.final_drive * my_car.gr)  # m/s
     veh_max_acc = my_car.motor_max_torque * (my_car.final_drive * my_car.gr) * my_car.driveline_efficiency / (
-                my_car.tire_radius * my_car.veh_mass)  # m/s2
+            my_car.tire_radius * my_car.veh_mass)  # m/s2
 
-    veh_speed = list(np.arange(0, my_car.veh_max_speed + 0.1, 0.1))  # m/s
-    veh_acc = []
-    for k in range(len(veh_speed)):
-        if 0 <= veh_speed[k] <= veh_base_speed:
-            veh_acc.append(veh_max_acc)
-        elif veh_speed[k] > veh_base_speed:
-            veh_acc.append(
-                my_car.engine_max_power * 1000 * my_car.driveline_efficiency / (veh_speed[k] * my_car.veh_mass))
-        else:
-            print("You can't move backward!")
-            exit()
+    speeds = np.arange(0, my_car.veh_max_speed + 0.1, 0.1)  # m/s
 
-    cs_acc_ev = CubicSpline(veh_speed, veh_acc)
-    start = veh_speed[0]
-    stop = veh_speed[-1]
+    accelerations = my_car.engine_max_power * 1000 * my_car.driveline_efficiency / (speeds * my_car.veh_mass)
+    accelerations[accelerations > veh_max_acc] = veh_max_acc
+    accelerations[accelerations < 0] = 0
+
+    cs_acc_ev = CubicSpline(speeds, accelerations)
+    start = 0
+    stop = my_car.veh_max_speed
 
     return [cs_acc_ev], [start], [stop]
