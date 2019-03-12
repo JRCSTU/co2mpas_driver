@@ -5,7 +5,7 @@ import reading_n_organizing as rno
 import vehicle_functions as vf
 
 def simple_run():
-    db_name = 'delete_car_db_ICEV_EV'
+    db_name = 'db/delete_car_db_ICEV_EV'
     car_id = 47839
 
 

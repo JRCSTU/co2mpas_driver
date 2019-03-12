@@ -4,7 +4,7 @@ import vehicle_functions as vf
 import find_gear as fg
 
 
-db_name = 'car_db_sample'
+db_name = 'db/car_db_sample'
 car_id = 24211
 gs_style = 1
 

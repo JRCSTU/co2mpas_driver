@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import reading_n_organizing as rno
 import main_functions as mf
 
-db_name = 'car_db_sample'
+db_name = 'db/car_db_sample'
 car_id = 24225
 
 db = rno.load_db_to_dictionary(db_name)

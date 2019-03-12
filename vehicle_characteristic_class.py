@@ -30,8 +30,10 @@ class veh_specs(object):
             self.driveline_slippage = 0
             if my_car["General Specifications-Transmission"] == 'automatic':
                 self.driveline_efficiency = 0.90
+                self.transmission = 'automatic'
             else:
                 self.driveline_efficiency = 0.93
+                self.transmission = 'manual'
             self.final_drive = float(my_car["Transmission  / Gear ratio-Final drive"])
             self.veh_mass = float(my_car["Weights-Empty mass"])
             self.top_speed = int(float(my_car["Performance-Top speed"]) / 3.6)
