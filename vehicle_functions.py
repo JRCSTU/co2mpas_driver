@@ -225,9 +225,6 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
         temp_acc = full_load_torque[mask] * (my_car.final_drive * my_car.gr[j]) * my_car.driveline_efficiency / (
                 my_car.tire_radius * my_car.veh_mass)
 
-        ### Force acceleration 0 over the max speed
-        temp_acc[my_car.veh_max_speed < temp_speed] = 0
-
         acc_per_gear.append(temp_acc)
 
     return speed_per_gear, acc_per_gear
@@ -295,7 +292,7 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
     Stop = []
     for i in speed_per_gear:
         Start.append(i[0])
-        Stop.append(i[-1])
+        Stop.append( min(i[-1],my_car.veh_max_speed))
     Start[0] = 0
     return Start, Stop
 
