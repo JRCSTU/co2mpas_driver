@@ -6,7 +6,6 @@ class veh_specs(object):
     # The class "constructor"
     def __init__(self, my_car, **kwargs):
 
-
         if 'electric' not in kwargs or not kwargs['electric']:
             self.engine_max_power = int(my_car["Fuel Engine-Max power"])  # kW
             self.engine_max_speed_at_max_power = int(my_car["Fuel Engine-Max power RPM"])  # rpm
@@ -55,7 +54,6 @@ class veh_specs(object):
             else:
                 self.idle_engine_speed = (850, 50)
 
-
             if 'lco' in kwargs:
                 if kwargs['lco']:
                     '''Used for Light Co2mpass'''
@@ -71,11 +69,11 @@ class veh_specs(object):
             if kwargs['electric']:
                 self.fuel_type = my_car["Drive-Fuel"]
                 if self.fuel_type != 'electricity':
-                    raise("NOT ELECTRIC")
+                    raise ("NOT ELECTRIC")
                 self.ignition_type = 'electricity'
 
-                self.engine_max_power = int(my_car["Electric Engine-Total max power"])   # kW
-                self.motor_max_torque = int(my_car["Electric Engine-Max torque"])       # Nm
+                self.engine_max_power = int(my_car["Electric Engine-Total max power"])  # kW
+                self.motor_max_torque = int(my_car["Electric Engine-Max torque"])  # Nm
                 self.gr = 1
                 self.tire_radius = float(my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
                 self.driveline_slippage = 0
@@ -100,6 +98,9 @@ class veh_specs(object):
 
 
 class hardcoded_params(object):
+    '''
+    The class is used for some params that are hard coded
+    '''
 
     # The class "constructor"
     def __init__(self):

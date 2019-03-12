@@ -5,7 +5,7 @@ import numpy as np
 import functions as func
 import vehicle_characteristic_class as vcc
 import find_gear as fg
-
+import vehicle_functions as vf
 
 def light_co2mpas_series(my_car, sp, gs, sim_step):
     '''
@@ -20,8 +20,7 @@ def light_co2mpas_series(my_car, sp, gs, sim_step):
     hardcoded_params = vcc.hardcoded_params()
 
     n_wheel_drive = my_car.car_type
-    road_loads = func.estimate_f_coefficients(my_car.type_of_car, my_car.car_width, my_car.car_height,
-                                              my_car.kerb_weight, passengers=0)
+    road_loads = vf.estimate_f_coefficients(my_car, passengers=0)
 
     slope = 0
     # FIX First convert km/h to m/s in order to have acceleration in m/s^2

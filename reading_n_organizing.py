@@ -38,6 +38,10 @@ def load_db_to_dictionary(name):
 def get_vehicle_from_db(db_dict,car_id,**kwargs):
     '''
 
+    kwargs can be:
+    lco = True          # Light co2mpas is to be used, so the relevant parameters must be imported
+    electric = True     # The vehicle is an EV
+
     :param db_dict: dict of dicts ,A dictionary produced by the "load_db_to_dictionary@" function
     :param car_id: int, The car id in the db
     :return: veh_specs object

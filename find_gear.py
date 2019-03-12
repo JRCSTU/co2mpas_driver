@@ -18,17 +18,15 @@ def find_car_gear(my_car, speed, rpm):
     return res.argmin()
 
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
-
     '''
 
-    Full load curve is fitted to a polynomial of degree
+    Gets coefficients and speed boundaries and returns Tans value for per speed per gear
 
-    :param speed_per_gear:
-    :param acc_per_gear:
-    :param degree:
-    :return: coefs_per_gear: the coefficients of the polynomial for each gear
+    :param coefs_per_gear:
+    :param Start:
+    :param Stop:
+    :return:
     '''
-
     degree = len(coefs_per_gear[0]) - 1
     vars = np.arange(degree, -1, -1)
 
@@ -43,18 +41,28 @@ def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
 
     return Tans
 
-def find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, cutoff):
+def find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
+    '''
 
+    Find where gear is changed, vased on tans and gs_style
+
+    :param tmp_min:
+    :param tmp_max:
+    :param tan:
+    :param tmp_min_next:
+    :param cutoff:
+    :return:
+    '''
     max_tan = np.max(tan)
     min_tan = np.min(tan)
     acc_range = max_tan - min_tan
 
     # tan starts from positive and goes negative, so I use (1 - cutoff) for the percentage
-    if cutoff > 0.99:
-        cutoff = 1
-    elif cutoff < 0.01:
-        cutoff = 0.01
-    tan_cutoff = (1 - cutoff) * acc_range + min_tan
+    if gs_style > 0.99:
+        gs_style = 1
+    elif gs_style < 0.01:
+        gs_style = 0.01
+    tan_cutoff = (1 - gs_style) * acc_range + min_tan
 
     # Search_from = int(tmp_min_next * 10)
     Search_from = int((tmp_min_next - tmp_min)*10)+1
@@ -68,7 +76,16 @@ def find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, cutoff):
     return gear_cut
 
 def gear_points_for_AIMSUN_tan(Tans,gs_style,Start,Stop):
+    '''
 
+    Get the gear cuts to be used for Aimsun
+
+    :param Tans:
+    :param gs_style:
+    :param Start:
+    :param Stop:
+    :return:
+    '''
     n_gears = len(Tans)
     gs_cut = [gs_style for i in range(n_gears)]
 
@@ -86,6 +103,17 @@ def gear_points_for_AIMSUN_tan(Tans,gs_style,Start,Stop):
     return gs
 
 def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0):
+    '''
+
+    Return the gear that must be used and the clutch condition
+
+    :param gs:
+    :param curr_speed:
+    :param current_gear:
+    :param gear_cnt:
+    :param automatic:
+    :return:
+    '''
     ####THIS IS MODEL PARAMETERS FOR UPSHIFT AND DOWNSHIFT
     upshift_offs = 0.0  ####CHANGED FROM 0.05 TO 0
     downshift_off = 0.1
@@ -122,7 +150,14 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0)
             return current_gear, gear_cnt
 
 def gear_linear(speed_per_gear,gs_style):
+    '''
 
+    Return the gear limits based on gs_style, using linear gear swifting strategy
+
+    :param speed_per_gear:
+    :param gs_style:
+    :return:
+    '''
     n_gears = len(speed_per_gear)
 
     gs_style = min(gs_style,1)

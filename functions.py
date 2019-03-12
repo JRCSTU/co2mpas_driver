@@ -2,37 +2,6 @@ import math
 import numpy
 
 
-def n_wheel_drive(n_wheel_drive):
-    if n_wheel_drive == 'front' or n_wheel_drive == 'rear':
-        return 2
-    else:
-        return 4
-
-
-def estimate_f_coefficients(type_of_car, width, height, kerb_weight, passengers=0):
-    # Empty dict
-    d = {}
-    # Fill in the entries one by one
-    d["cabriolet"] = 0.28
-    d["sedan"] = 0.27
-    d["hatchback"] = 0.3
-    d["stationwagon"] = 0.28
-    d["suv/crossover"] = 0.35
-    d["mpv"] = 0.3
-    d["coupe"] = 0.27
-    d["pick-up"] = 0.4
-
-    rolling_res_coef = 0.009  # Constant for the moment
-    theor_aero_coeff = d[type_of_car]
-
-    operating_mass = kerb_weight + 100 + 75 * passengers
-    f0 = (operating_mass + 100) * rolling_res_coef * 9.81
-    f2 = 0.5 * 1.2 * (0.84 * width * height * theor_aero_coeff) / pow(3.6, 2)
-    f1 = -71.735 * f2 + 2.7609
-
-    return f0, f1, f2
-
-
 def calculate_wheel_power(velocities, acc, road_loads, veh_mass, slope):
     """
     Calculates the wheel power [kW].
@@ -265,21 +234,6 @@ def calculate_gear_box_speeds_in_v1(
         return 0
 
     return final_drive_speed * gear_box_ratios[gear - 1]
-
-
-def find_gear(counter, final_drive_speed, gear_box_ratios, thres):
-    if counter[1] < 30:
-        return (counter[0], 0)
-    gear_numbers = numpy.arange(1, len(gear_box_ratios) + 1)
-    gear_box_speeds_in = final_drive_speed * gear_box_ratios
-    try:
-        m = min(i for i, j in zip(gear_box_speeds_in, gear_numbers) if i >= thres)
-        m_clutch = 0
-        m_gear = [j for i, j in zip(gear_box_speeds_in, gear_numbers) if m == i][0]
-    except:
-        m_gear = 1
-        m_clutch = 1
-    return (m_gear, m_clutch)
 
 
 def gear_box_torques_in(

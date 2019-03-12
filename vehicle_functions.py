@@ -103,7 +103,17 @@ def Armax(my_car, road_type=1):
 
 # Calculates a spline with the resistances
 def veh_resistances(f0, f1, f2, sp, total_mass):
-    # f0 + f1 * v + f2 * v2
+    '''
+
+    Return the resistances that a vehicle faces, per speed
+
+    :param f0:
+    :param f1:
+    :param f2:
+    :param sp:
+    :param total_mass:
+    :return:
+    '''
     Fresistance = []
     for i in range(len(sp)):
         Fresistance.append(f0 + f1 * sp[i] * 3.6 + f2 * pow(sp[i] * 3.6, 2))
@@ -122,7 +132,15 @@ def veh_resistances(f0, f1, f2, sp, total_mass):
 
 
 def estimate_f_coefficients(my_car, passengers=0):
-    # Empty dict
+    '''
+
+    f0, f1, f2 coefficients of resistance are estimated
+
+    :param my_car:
+    :param passengers:
+    :return:
+    '''
+
     d = {}
     # Fill in the entries one by one
     d["cabriolet"] = 0.28
@@ -161,6 +179,15 @@ def get_load_speed_n_torque(my_car):
 
 
 def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torque):
+    '''
+
+    Speed and acceleration points per gear are calculated based on full load curve
+
+    :param my_car:
+    :param full_load_speeds:
+    :param full_load_torque:
+    :return:
+    '''
     speed_per_gear, acc_per_gear = [], []
 
     for j in range(len(my_car.gr)):
@@ -179,6 +206,15 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
 
 
 def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear, acc_per_gear):
+    '''
+
+    Based on speed/acceleration points per gear, cubic splines are calculated (old MFC)
+
+    :param my_car:
+    :param speed_per_gear:
+    :param acc_per_gear:
+    :return:
+    '''
     cs_acc_per_gear = []
     for j in range(len(my_car.gr)):
         # cs_acc_per_gear.append([])
@@ -195,6 +231,16 @@ def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear,
 
 
 def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
+    """
+
+    Calculate Speed boundaries for each gear
+
+    :param my_car:
+    :param speed_per_gear:
+    :param acc_per_gear:
+    :param cs_acc_per_gear:
+    :return:
+    """
     # To ensure that a higher gear starts from higher speed
     for j in range(len(my_car.gr) - 1, 0, -1):
         for k in range(len(speed_per_gear[j])):
@@ -227,6 +273,14 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
 
 
 def get_resistances(my_car, sp_bins):
+    '''
+
+    Calculate resistances and return spline
+
+    :param my_car:
+    :param sp_bins:
+    :return:
+    '''
     f0, f1, f2 = estimate_f_coefficients(my_car, 0)
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins), my_car.veh_mass)
     Alimit = Armax(my_car)
@@ -234,6 +288,18 @@ def get_resistances(my_car, sp_bins):
 
 
 def calculate_curve_to_use(acc, Alimit, car_res_curve, start, stop, sp_bins):
+    '''
+
+    Get the final speed acceleration curves based on full load curves and resistances for a gear
+
+    :param acc:
+    :param Alimit:
+    :param car_res_curve:
+    :param start:
+    :param stop:
+    :param sp_bins:
+    :return:
+    '''
     final_acc = acc(sp_bins) - car_res_curve(sp_bins)
     final_acc[final_acc > Alimit] = Alimit
 
@@ -247,6 +313,18 @@ def calculate_curve_to_use(acc, Alimit, car_res_curve, start, stop, sp_bins):
 
 
 def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve, sp_bins):
+    '''
+
+    Get the final speed acceleration curves based on full load curves and resistances for all curves
+
+    :param acc:
+    :param Alimit:
+    :param car_res_curve:
+    :param start:
+    :param stop:
+    :param sp_bins:
+    :return:
+    '''
     Res = []
 
     for gear, acc in enumerate(cs_acc_per_gear):
@@ -341,6 +419,13 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
 
 
 def ev_curve(my_car):
+    '''
+
+    Full load curve of EVs (based on Yinglong)
+
+    :param my_car:
+    :return:
+    '''
     motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
     # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
     veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (

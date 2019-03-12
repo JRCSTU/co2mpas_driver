@@ -8,7 +8,7 @@ car_id = 24225
 
 db = rno.load_db_to_dictionary(db_name)
 
-my_car = rno.get_vehicle_from_db(db, car_id)
+my_car = rno.get_vehicle_from_db(db, car_id, lco = True)
 
 # Curves, cs_acc_per_gear, StartStop = mf.gear_curves(my_car)
 
