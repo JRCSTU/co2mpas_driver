@@ -6,7 +6,7 @@ import reading_n_organizing as rno
 
 def simple_run():
     db_name = 'db/delete_car_db_ICEV_EV'
-    car_id = 44239
+    car_id = 44249
     gs_style = 0.8
     degree = 4
 
@@ -17,10 +17,10 @@ def simple_run():
 
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]
-        stop = min(StartStop[1][gear], 50)
+        stop = StartStop[1][gear]
         x = np.arange(start, stop, 1)
         y = curve(x)
-        plt.plot(x, y)
+        plt.plot(x, y,'x')
     plt.show()
 
     return 0

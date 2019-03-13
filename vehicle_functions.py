@@ -354,7 +354,7 @@ def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve,
 
     for gear, acc in enumerate(cs_acc_per_gear):
         start = Start[gear] * 0.9
-        stop = Stop[gear]
+        stop = Stop[gear] + 0.1
 
         final_acc = acc(sp_bins) - car_res_curve(sp_bins)
         final_acc[final_acc > Alimit] = Alimit
