@@ -4,7 +4,7 @@ import reading_n_organizing as rno
 import curve_functions as mf
 
 db_name = '../db/EuroSegmentCar'
-car_id = 24225
+car_id = 35135
 
 db = rno.load_db_to_dictionary(db_name)
 

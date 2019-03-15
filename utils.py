@@ -333,43 +333,6 @@ def stds_redirected(stdout=None, stderr=None):
 _key_value_regex = re.compile(r'^\s*([/_A-Za-z][\w/\.]*)\s*([+*?:@]?)=\s*(.*?)\s*$')
 
 
-def parse_key_value_pair(arg):
-    """Argument-type for syntax like: KEY [+*?:]= VALUE."""
-    import pandalone.utils as putils
-    import json
-
-    _value_parsers = {
-        '+': int,
-        '*': float,
-        '?': putils.str2bool,
-        ':': json.loads,
-        '@': eval,
-        #'@': ast.literal_eval ## best-effort security: http://stackoverflow.com/questions/3513292/python-make-eval-safe
-    }
-    m = _key_value_regex.match(arg)
-    if m:
-        (key, type_sym, value) = m.groups()
-        if type_sym:
-            try:
-                value = _value_parsers[type_sym](value)
-            except Exception as ex:
-                raise ValueError("Failed parsing key(%s)%s=VALUE(%s) due to: %s" %
-                                 (key, type_sym, value, ex)) from ex
-
-        return [key, value]
-    else:
-        raise ValueError("Not a KEY=VALUE syntax: %s" % arg)
-
-
-def fromiter(gen, dtype, keys=None, count=-1):
-    import schedula.utils as dsp_utl
-
-    a = np.fromiter(gen, dtype=dtype, count=count)
-    _keys = a.dtype.names
-    if _keys:
-        return dsp_utl.selector(keys or _keys, a, output_type='list')
-    return a
-
 
 ##############################
 ## Maintain ordered YAML

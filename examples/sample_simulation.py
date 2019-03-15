@@ -9,7 +9,7 @@ import gear_functions as fg
 def simple_run():
     ''':parameters of the simulation'''
     db_name = '../db/EuroSegmentCar'
-    car_id = 26573
+    car_id = 39393
     gs_style = 0.2
     vdes = 350
     v_start = 0
@@ -30,7 +30,7 @@ def simple_run():
 
     '''Initialize speed and gear'''
     speed = v_start
-    gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0, selected_car.transmission)
+    gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
 
     '''Core loop'''

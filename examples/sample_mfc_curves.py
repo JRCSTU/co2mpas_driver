@@ -6,7 +6,7 @@ import reading_n_organizing as rno
 
 def simple_run():
     db_name = '../db/EuroSegmentCar'
-    car_id = 24211
+    car_id = 35135
     gs_style = 0.8
     degree = 2
 

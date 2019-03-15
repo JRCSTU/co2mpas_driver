@@ -7,7 +7,7 @@ import vehicle_specs_class as vcc
 import gear_functions as fg
 import vehicle_functions as vf
 
-def light_co2mpas_series(my_car, sp, gs, sim_step):
+def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
     '''
 
     :param my_car:
@@ -16,6 +16,16 @@ def light_co2mpas_series(my_car, sp, gs, sim_step):
     :param sim_step:    in sec
     :return:
     '''
+
+    gear_list_Flag = False
+    if 'gear_list' in kwargs:
+        gear_list_Flag = True
+        gear_list = kwargs['gear_list']
+        if 'clutch_duration' in kwargs:
+            clutch_duration = kwargs['clutch_duration']
+        else:
+            clutch_duration = int(0.5 % sim_step)
+        clutch_list = fg.create_clutch_list(gear_list,clutch_duration)
 
     hardcoded_params = vcc.hardcoded_params()
 
@@ -39,13 +49,18 @@ def light_co2mpas_series(my_car, sp, gs, sim_step):
 
     # gear is the current gear and gear_count countes the time-steps in order to prevent continuous gear shifting.
     gear = 0
-    # The driver cannot shift gear in less than 3 seconds from the previous shift.
-    gear_count = int(3 / sim_step)
+    # Initializing gear count.
+    gear_count = 30
 
     for i in range(1, len(sp)):
         speed = sp[i]
         acceleration = ap[i - 1]
-        gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear, gear_count, my_car.gb_type)
+
+        if gear_list_Flag:
+            gear = gear_list[i]
+            gear_count = clutch_list[i]
+        else:
+            gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear, gear_count, my_car.gb_type)
         fc = light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gear,
                                    gear_count,
                                    sim_step)
