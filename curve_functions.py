@@ -1,6 +1,6 @@
 import vehicle_functions as vf
 import numpy as np
-import find_gear as fg
+import gear_functions as fg
 import matplotlib.pyplot as plt
 
 
@@ -27,9 +27,11 @@ def gear_curves(my_car):
 
     return Curves, cs_acc_per_gear, (Start, Stop)
 
-
 def gear_curves_n_gs(my_car, gs_style, degree):
-    '''Full load curves of speed and torque'''
+    '''
+    Not used in the last version of MFC (for reference).
+    Full load curves of speed and torque
+    '''
     full_load_speeds, full_load_torque = vf.get_load_speed_n_torque(my_car)
 
     '''Speed and acceleration ranges and poitns for each gear'''
@@ -51,7 +53,7 @@ def gear_curves_n_gs(my_car, gs_style, degree):
     '''Get gs'''
     coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, degree)
     Tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
-    gs = fg.gear_points_for_AIMSUN_tan(Tans, gs_style, Start, Stop)
+    gs = fg.gear_points_from_tan(Tans, gs_style, Start, Stop)
 
     return Curves, cs_acc_per_gear, (Start, Stop), gs
 
@@ -78,7 +80,7 @@ def gear_curves_n_gs_from_poly(my_car, gs_style, degree):
     Curves = vf.calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins)
 
     Tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
-    gs = fg.gear_points_for_AIMSUN_tan(Tans, gs_style, Start, Stop)
+    gs = fg.gear_points_from_tan(Tans, gs_style, Start, Stop)
 
     return Curves, poly_spline, (Start, Stop), gs
 

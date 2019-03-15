@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import main_functions as mf
+import curve_functions as mf
 import reading_n_organizing as rno
 
 
 def simple_run():
-    db_name = 'db/car_db_sample'
-    car_id = 24211
+    db_name = '../db/EuroSegmentCar'
+    car_id = 8183
     gs_style = 0.8
     degree = 2
 

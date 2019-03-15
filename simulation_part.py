@@ -1,5 +1,4 @@
-import numpy as np
-import find_gear as fg
+import gear_functions as fg
 
 
 def accMFC(s, driver_style, sdes, acc_p_curve):

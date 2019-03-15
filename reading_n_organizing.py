@@ -1,4 +1,4 @@
-import vehicle_characteristic_class as vcc
+import vehicle_specs_class as vcc
 
 def load_db_to_dictionary(name):
     '''

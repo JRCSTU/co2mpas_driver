@@ -1,9 +1,9 @@
-import light_co2mpas as lco
+import generic_co2mpas as lco
 import matplotlib.pyplot as plt
 import reading_n_organizing as rno
-import main_functions as mf
+import curve_functions as mf
 
-db_name = 'db/car_db_sample'
+db_name = '../db/EuroSegmentCar'
 car_id = 24225
 
 db = rno.load_db_to_dictionary(db_name)

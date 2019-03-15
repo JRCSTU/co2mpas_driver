@@ -2,11 +2,11 @@ import numpy as np
 
 def find_car_gear(my_car, speed, rpm):
     '''
-
-    Use speed and rpm to find the gear
-
-    speed: m/s
-    :return:
+    Use speed and rpm to estimate the current gear.
+    :param my_car: Car specs. type:Dict
+    :param speed: Car speed m/s
+    :param rpm: Engine RPM
+    :return: Integer corresponding to the current gear.
     '''
 
     gr_str = np.array([ 1/float(i)/my_car.final_drive for i in my_car.gr ])
@@ -75,15 +75,15 @@ def find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 
     return gear_cut
 
-def gear_points_for_AIMSUN_tan(Tans,gs_style,Start,Stop):
+def gear_points_from_tan(Tans, gs_style, Start, Stop):
     '''
 
-    Get the gear cuts to be used for Aimsun
+    Get the gear cuts based on gear shifting style and tangent values.
 
-    :param Tans:
-    :param gs_style:
-    :param Start:
-    :param Stop:
+    :param Tans: tangent values per gear.
+    :param gs_style: Gear shifting style
+    :param Start: Start speed per gear curve.
+    :param Stop: Stop speed per gear curve.
     :return:
     '''
     n_gears = len(Tans)
@@ -104,7 +104,6 @@ def gear_points_for_AIMSUN_tan(Tans,gs_style,Start,Stop):
 
 def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0):
     '''
-
     Return the gear that must be used and the clutch condition
 
     :param gs:
@@ -114,12 +113,13 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0)
     :param automatic:
     :return:
     '''
-    ####THIS IS MODEL PARAMETERS FOR UPSHIFT AND DOWNSHIFT
-    upshift_offs = 0.0  ####CHANGED FROM 0.05 TO 0
+
+    # Model buffer for up shifting and down shifting.
+    upshift_offs = 0.0
     downshift_off = 0.1
 
     gear_limits = [0]
-    gear_limits.extend(gs)  ###maybe this should be done earlier to save memory
+    gear_limits.extend(gs)
     gear_limits.append(200)
 
     if gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off <= curr_speed < gear_limits[
@@ -129,7 +129,6 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0)
         else:
             gear_cnt -= 1
             if automatic == 1:
-                # reduce acceleration due to GS
                 return current_gear, gear_cnt
             else:
                 return current_gear, gear_cnt
@@ -144,14 +143,12 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, automatic=0)
             else:
                 gear_search += 1
         if automatic == 1:
-            # reduce acceleration due to GS
             return current_gear, gear_cnt
         else:
             return current_gear, gear_cnt
 
 def gear_linear(speed_per_gear,gs_style):
     '''
-
     Return the gear limits based on gs_style, using linear gear swifting strategy
 
     :param speed_per_gear:

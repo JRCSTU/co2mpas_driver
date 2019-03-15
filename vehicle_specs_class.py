@@ -5,6 +5,14 @@ class veh_specs(object):
 
     # The class "constructor"
     def __init__(self, my_car, **kwargs):
+        '''
+        kwargs can be:
+        lco = True          # Light co2mpas is to be used, so the relevant parameters must be imported
+        electric = True     # The vehicle is an EV
+
+        :param my_car:
+        :param kwargs:
+        '''
 
         if 'electric' not in kwargs or not kwargs['electric']:
             self.engine_max_power = int(my_car["Fuel Engine-Max power"])  # kW

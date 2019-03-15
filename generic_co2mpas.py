@@ -3,8 +3,8 @@
 import math
 import numpy as np
 import functions as func
-import vehicle_characteristic_class as vcc
-import find_gear as fg
+import vehicle_specs_class as vcc
+import gear_functions as fg
 import vehicle_functions as vf
 
 def light_co2mpas_series(my_car, sp, gs, sim_step):
@@ -37,15 +37,16 @@ def light_co2mpas_series(my_car, sp, gs, sim_step):
         my_car.veh_params = hardcoded_params.params_gearbox_losses['Automatic']
         my_car.gb_type = 1
 
-    ###initialize gear and gear count
+    # gear is the current gear and gear_count countes the time-steps in order to prevent continuous gear shifting.
     gear = 0
-    gear_count = 30
+    # The driver cannot shift gear in less than 3 seconds from the previous shift.
+    gear_count = int(3 / sim_step)
 
     for i in range(1, len(sp)):
         speed = sp[i]
         acceleration = ap[i - 1]
         gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear, gear_count, my_car.gb_type)
-        fc = light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gs, gear,
+        fc = light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gear,
                                    gear_count,
                                    sim_step)
 
@@ -54,12 +55,11 @@ def light_co2mpas_series(my_car, sp, gs, sim_step):
     return fp
 
 
-def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gs, gear, gear_count,
+def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gear, gear_count,
                           sim_step):
     n_wheel_drive = my_car.car_type
 
     # The power on wheels in kW
-    # Check if it is current or previous speed
     veh_wheel_power = \
         func.calculate_wheel_power \
             (speed, acceleration, road_loads,
@@ -93,9 +93,6 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
             (veh_wheel_torque, my_car.final_drive, \
              final_drive_torque_losses)
 
-    # FIX Input of speeds in m/s
-    # gear, gear_count = acc.gear_for_speed_profiles(gs, speed / 3.6, gear,gear_count, my_car.gb_type)
-
     gear_box_speeds_in = \
         func.calculate_gear_box_speeds_in_v1 \
             (gear, final_drive_speed,
@@ -127,17 +124,19 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
         (params, engine_cm, br_eff_pres, 100)
 
     if br_eff_pres > 20:
+        # Control for unrealistic Break Mean Effective Pressure values.
         print('BMEP> %.2f bar, EngineCM: %.2f, Gear: %d : Check out the MFC output. The engine will blow up!!!!' % (
             br_eff_pres, engine_cm, gear))
 
     if br_eff_pres > -0.5:
+        # Fuel mean effective pressure
         VMEP = func.calculate_VMEP \
             (fuel_A, fuel_B, fuel_C)
     else:
         VMEP = 0
     lower_heating_value = hardcoded_params.LHV[my_car.fuel_type]
 
-    # fuel consumption in grams per time step
+    # Fuel consumption in grams.
     fc = func.calc_fuel_consumption(VMEP, my_car.fuel_eng_capacity, lower_heating_value, gear_box_speeds_in, sim_step)
 
     return fc

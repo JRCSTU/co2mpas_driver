@@ -1,14 +1,14 @@
 import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
-import main_functions as mf
+import curve_functions as mf
 import reading_n_organizing as rno
-import find_gear as fg
+import gear_functions as fg
 
 
 def simple_run():
     ''':parameters of the simulation'''
-    db_name = 'db/delete_car_db_ICEV_EV'
+    db_name = '../db/EuroSegmentCar'
     car_id = 26573
     gs_style = 0.2
     vdes = 350
