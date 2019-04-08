@@ -18,7 +18,7 @@ class veh_specs(object):
             self.engine_max_power = float(my_car["Fuel Engine-Max power"])  # kW
             self.engine_max_speed_at_max_power = float(my_car["Fuel Engine-Max power RPM"])  # rpm
             gr_str = my_car["Transmission  / Gear ratio-Gear Box Ratios"]  # [3.33, 1.95, 1.29, 0.98, 0.76]
-            if gr_str[0] == ['[']:
+            if gr_str[0] == '[':
                 gr_str = gr_str[1:-1]
             gr_str = gr_str.split('-')
             gr = []
@@ -50,7 +50,7 @@ class veh_specs(object):
             self.type_of_car = my_car["General Specifications-Carbody"].strip()
             self.car_width = float(my_car["Exterior sizes-Width"])
             self.car_height = float(my_car["Exterior sizes-Height"])
-            self.kerb_weight = float(my_car["Weights-Unladen mass"])
+            # self.kerb_weight = float(my_car["Weights-Unladen mass"])
             self.wheelbase = float(my_car["Exterior sizes-Wheelbase"])
             car_type = my_car["Drive-Wheel drive"]
             if car_type == 'front':
@@ -101,7 +101,7 @@ class veh_specs(object):
                 self.type_of_car = my_car["General Specifications-Carbody"].strip()
                 self.car_width = float(my_car["Exterior sizes-Width"])
                 self.car_height = float(my_car["Exterior sizes-Height"])
-                self.kerb_weight = float(my_car["Weights-Unladen mass"])
+                # self.kerb_weight = float(my_car["Weights-Unladen mass"])
                 self.car_type = my_car["Drive-Wheel drive"]
                 if self.car_type == 'front':
                     self.car_type = 2

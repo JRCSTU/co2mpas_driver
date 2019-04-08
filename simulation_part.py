@@ -12,13 +12,13 @@ def accMFC(s, driver_style, sdes, acc_p_curve):
     :param acc_p_curve:         speed acceleration curve of the gear in use
     :return:
     '''
-    r = s / sdes
-    if r > 1:
-        onoff = (1 - pow(r, 60))
-    elif r > 0.5:
-        onoff = 10 * (1 - r)
+    if s / sdes > 0.5:
+        if sdes > s:
+            onoff = (1 - pow(s / sdes, 60))
+        else:
+            onoff = 10 * (1 - s / sdes)
     else:
-        onoff = (1 - 0.8 * pow(1 - r, 60))
+        onoff = (1 - 0.8 * pow(1 - s / sdes , 60))
     acc = acc_p_curve(s) * driver_style * onoff
 
     return acc
