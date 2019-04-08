@@ -18,7 +18,7 @@ class veh_specs(object):
             self.engine_max_power = float(my_car["Fuel Engine-Max power"])  # kW
             self.engine_max_speed_at_max_power = float(my_car["Fuel Engine-Max power RPM"])  # rpm
             gr_str = my_car["Transmission  / Gear ratio-Gear Box Ratios"]  # [3.33, 1.95, 1.29, 0.98, 0.76]
-            if gr_str[0] == ['[']:
+            if gr_str[0] == '[':
                 gr_str = gr_str[1:-1]
             gr_str = gr_str.split('-')
             gr = []

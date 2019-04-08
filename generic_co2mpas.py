@@ -157,15 +157,15 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
     return fc
 
 ##   OLDER FUNCTION
-# def light_co2mpas_series(my_car, sp, gs, sim_step):
+# def light_co2mpas_series(selected_car, sp, gs, sim_step):
 #
 #     ## speed is in km/h
 #
 #     hardcoded_params = vcc.hardcoded_params()
 #
-#     n_wheel_drive = my_car.car_type
-#     road_loads = func.estimate_f_coefficients(my_car.type_of_car, my_car.car_width, my_car.car_height,
-#                                               my_car.kerb_weight, passengers=0)
+#     n_wheel_drive = selected_car.car_type
+#     road_loads = func.estimate_f_coefficients(selected_car.type_of_car, selected_car.car_width, selected_car.car_height,
+#                                               selected_car.kerb_weight, passengers=0)
 #
 #     slope = 0
 #     # FIX First convert km/h to m/s in order to have acceleration in m/s^2
@@ -182,12 +182,12 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
 #         veh_wheel_power = \
 #             func.calculate_wheel_power \
 #                 (sp[i], ap[i - 1], road_loads,
-#                  my_car.veh_mass, slope)
+#                  selected_car.veh_mass, slope)
 #
 #         # The speed on the wheels in [RPM]
 #         veh_wheel_speed = \
 #             func.calculate_wheel_speeds \
-#                 (sp[i], my_car.r_dynamic)
+#                 (sp[i], selected_car.r_dynamic)
 #
 #         # # The torque on the wheels in [N*m]
 #         veh_wheel_torque = \
@@ -197,22 +197,22 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
 #         # Calculates final drive speed in RPM
 #         final_drive_speed = \
 #             func.calculate_final_drive_speeds_in \
-#                 (veh_wheel_speed, my_car.final_drive)
+#                 (veh_wheel_speed, selected_car.final_drive)
 #
 #         # Final drive torque losses [N*m].
 #         final_drive_torque_losses = \
 #             func.calculate_final_drive_torque_losses_v1 \
 #                 (n_wheel_drive, \
-#                  veh_wheel_torque, my_car.final_drive, \
+#                  veh_wheel_torque, selected_car.final_drive, \
 #                  hardcoded_params.final_drive_efficiency)
 #
 #         # Final drive torque in [N*m].
 #         final_drive_torque_in = \
 #             func.calculate_final_drive_torques_in \
-#                 (veh_wheel_torque, my_car.final_drive, \
+#                 (veh_wheel_torque, selected_car.final_drive, \
 #                  final_drive_torque_losses)
 #
-#         if my_car.gearbox_type == 'manual':
+#         if selected_car.gearbox_type == 'manual':
 #             veh_params = hardcoded_params.params_gearbox_losses['Manual']
 #             gb_type = 0
 #         else:
@@ -227,12 +227,12 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
 #         gear_box_speeds_in = \
 #             func.calculate_gear_box_speeds_in_v1 \
 #                 (simulated_gear[0], final_drive_speed,
-#                  my_car.gr, 0)
+#                  selected_car.gr, 0)
 #         lgear_box_speeds_in.append(gear_box_speeds_in)
 #
 #         gearbox_params = \
 #             func.create_gearbox_params \
-#                 (veh_params, my_car.engine_max_torque)
+#                 (veh_params, selected_car.engine_max_torque)
 #
 #         gear_box_torques_in = \
 #             func.gear_box_torques_in \
@@ -247,12 +247,12 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
 #         br_eff_pres = \
 #             func.calculate_brake_mean_effective_pressures \
 #                 (gear_box_speeds_in, gear_box_power_out,
-#                  my_car.fuel_eng_capacity, hardcoded_params.min_engine_on_speed)
+#                  selected_car.fuel_eng_capacity, hardcoded_params.min_engine_on_speed)
 #
-#         engine_cm = func.mean_piston_speed(gear_box_speeds_in, my_car.fuel_engine_stroke)
+#         engine_cm = func.mean_piston_speed(gear_box_speeds_in, selected_car.fuel_engine_stroke)
 #
 #         params = func.parameters \
-#             (my_car.max_power, my_car.fuel_eng_capacity, my_car.fuel_type, my_car.fuel_turbo)
+#             (selected_car.max_power, selected_car.fuel_eng_capacity, selected_car.fuel_type, selected_car.fuel_turbo)
 #         fuel_A, fuel_B, fuel_C = func.calculate_fuel_ABC \
 #             (params, engine_cm, br_eff_pres, 100)
 #
@@ -265,11 +265,11 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
 #                 (fuel_A, fuel_B, fuel_C)
 #         else:
 #             VMEP = 0
-#         lower_heating_value = hardcoded_params.LHV[my_car.fuel_type]
+#         lower_heating_value = hardcoded_params.LHV[selected_car.fuel_type]
 #
 #         # fuel consumption in grams per time step
 #         fc = func.calc_fuel_consumption \
-#             (VMEP, my_car.fuel_eng_capacity, lower_heating_value, \
+#             (VMEP, selected_car.fuel_eng_capacity, lower_heating_value, \
 #              gear_box_speeds_in, sim_step)
 #         fp.append(fc)
 #

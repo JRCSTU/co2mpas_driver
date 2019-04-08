@@ -4,11 +4,15 @@ import reading_n_organizing as rno
 import curve_functions as mf
 
 db_name = '../db/EuroSegmentCar'
-car_id = 35135
+# A sample car id from the database
+car_id = 39393
+# The gear shifting style as described in the TRR paper.
+gs_style = 0.9
 
+'''import vehicle object, curves and gear shifting strategy'''
 db = rno.load_db_to_dictionary(db_name)
 
-my_car = rno.get_vehicle_from_db(db, car_id, lco = True)
+selected_car = rno.get_vehicle_from_db(db, car_id, lco = True)
 
 # Sample speed profile.
 sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.073841667, 0.067722222, 0.041172222,
@@ -31,22 +35,23 @@ sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.0738416
       16.04134167, 16.17628056, 16.30461111, 16.4286, 16.54910556, 16.66977778, 16.77255278, 16.85622222, 16.94144444,
       17.02344444, 17.09977778, 17.17553056, 17.24705278, 17.31889444, 17.39001389, 17.44721389]
 
-# Gear shifting points as can be derived from
-gs = [5.715589018826222, 10.974960637586783, 16.396951475513028, 22.832902038337586]
+
+
+'''
+    The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
+    before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
+    '''
+Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
+
+# # Gear shifting points as can be derived from
+# gs = [5.715589018826222, 10.974960637586783, 16.396951475513028, 22.832902038337586]
 sim_step = 0.1
 
 '''
 Function "light_co2mpas_series" computes the CO2 emissions in grams for a series of speed profile. If the gear-shifting
 is not given as input it uses the an internal function to compute the current gear.
 '''
-fp = lco.light_co2mpas_series(my_car, sp, gs, sim_step)
+fp = lco.light_co2mpas_series(selected_car, sp, gs, sim_step)
 
-plt.plot(fp)
-# plt.plot(fp2)
+plt.plot(sp[:-1],fp)
 plt.show()
-
-# print(fp)
-#
-# plt.plot(fp)
-# plt.plot(sp)
-# plt.show()

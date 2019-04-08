@@ -65,7 +65,7 @@ def calculate_full_load_speeds_and_powers(full_load_curve, my_car):
 def Armax(my_car, road_type=1):
     '''
 
-    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+    Calculating the maximum acceleration possible for the vehicle object selected_car, under road_type conditions
 
     :param my_car: vehicle specs object
     :param road_type: road condition (1: normal, 2: wet, 3: icy)
@@ -198,31 +198,6 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
         acc_per_gear.append(temp_acc)
 
     return speed_per_gear, acc_per_gear
-
-
-def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear, acc_per_gear):
-    '''
-
-    Based on speed/acceleration points per gear, cubic splines are calculated (old MFC)
-
-    :param my_car:
-    :param speed_per_gear:
-    :param acc_per_gear:
-    :return:
-    '''
-    cs_acc_per_gear = []
-    for j in range(len(my_car.gr)):
-        # cs_acc_per_gear.append([])
-        a = np.round((speed_per_gear[j][0]), 2) - 0.01
-        b = np.round((speed_per_gear[j][-1]), 2) + 0.01
-        prefix_list = [a - k * 0.1 for k in range(10, -1, -1)]
-        suffix_list = [b + k * 0.1 for k in range(0, 11, 1)]
-        cs_acc_per_gear.append(CubicSpline(
-            prefix_list + list(speed_per_gear[j]) + suffix_list,
-            [acc_per_gear[j][0]] * len(prefix_list) + list(acc_per_gear[j]) + [acc_per_gear[j][-1]] * len(suffix_list))
-        )
-
-    return cs_acc_per_gear
 
 
 def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
@@ -371,7 +346,7 @@ def ev_curve(my_car):
     :return:
     '''
     motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
-    # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
+    # motor_max_speed = selected_car.veh_max_speed * (60 * selected_car.final_drive * selected_car.gr) / (1 - selected_car.driveline_slippage) / (2 * np.pi * selected_car.tire_radius)  # rpm
     veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (
         60 * my_car.final_drive * my_car.gr)  # m/s
     veh_max_acc = my_car.motor_max_torque * (my_car.final_drive * my_car.gr) * my_car.driveline_efficiency / (

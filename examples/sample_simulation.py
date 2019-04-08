@@ -5,6 +5,8 @@ import curve_functions as mf
 import reading_n_organizing as rno
 import gear_functions as fg
 
+#
+#ValueError: could not convert string to float: '[3.91'
 
 def simple_run():
     ''':parameters of the simulation'''
@@ -46,8 +48,7 @@ def simple_run():
     Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     '''
-        The difference betweeen "gear_4degree_curves_with_linear_gs" and "gear_curves_n_gs_from_poly" is the
-        computation of the engine acceleration potential curves
+        Alternative function for retreival of acceleration potential curves.
     '''
     # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(selected_car, gs_style,4)
 

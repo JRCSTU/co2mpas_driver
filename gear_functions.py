@@ -1,24 +1,5 @@
 import numpy as np
 
-
-def find_car_gear(my_car, speed, rpm):
-    '''
-    Use speed and rpm to estimate the current gear.
-    :param my_car: Car specs. type:Dict
-    :param speed: Car speed m/s
-    :param rpm: Engine RPM
-    :return: Integer corresponding to the current gear.
-    '''
-
-    gr_str = np.array([1 / float(i) / my_car.final_drive for i in my_car.gr])
-
-    ratio = speed * 60 / my_car.wheelbase / rpm
-
-    res = np.abs(gr_str - ratio)
-
-    return res.argmin()
-
-
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     '''
 

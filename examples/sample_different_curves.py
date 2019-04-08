@@ -13,7 +13,7 @@ def simple_run():
     db = rno.load_db_to_dictionary(db_name)
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
-    Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(selected_car, gs_style, degree)
+    Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]

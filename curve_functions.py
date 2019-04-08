@@ -86,6 +86,16 @@ def gear_curves_n_gs_from_poly(my_car, gs_style, degree):
 
 
 def gear_4degree_curves_with_linear_gs(my_car, gs_style):
+    '''
+
+    :param my_car: Specs of the selected car (object).
+    :param gs_style: The gear shifting style parameters as described in TRR paper.
+    :return:
+    Curves: List of interpolation object, i.e. one acceleration curve per gear,
+    poly_spline: the engine acceleration potential curves, one curve per gear (acceleration before aggregatings resistance.
+    (Start, Stop): The start and stop speed in m/s for each gear
+    gs: List of thresholds for gear shifting (where the driver should shift).
+    '''
     '''Full load curves of speed and torque'''
     full_load_speeds, full_load_torque = vf.get_load_speed_n_torque(my_car)
 
