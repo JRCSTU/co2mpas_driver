@@ -16,7 +16,7 @@ def simple_run():
 
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]
-        stop = 50#min(StartStop[1][gear], 70)
+        stop = min(StartStop[1][gear], 70)
         x = np.arange(start, stop, 1)
         y = curve(x)
         plt.plot(x, y,'x')
