@@ -12,18 +12,19 @@ def accMFC(s, driver_style, sdes, acc_p_curve):
     :param acc_p_curve:         speed acceleration curve of the gear in use
     :return:
     '''
-    if s / sdes > 0.5:
-        if sdes > s:
-            onoff = (1 - pow(s / sdes, 60))
-        else:
-            onoff = 10 * (1 - s / sdes)
+    r = s / sdes
+    if r > 1:
+        onoff = (1 - pow(r, 60))
+    elif r > 0.5:
+        onoff = 10 * (1 - r)
     else:
-        onoff = (1 - 0.8 * pow(1 - s / sdes , 60))
+        onoff = (1 - 0.8 * pow(1 - r, 60))
     acc = acc_p_curve(s) * driver_style * onoff
 
     return acc
 
-def clutch_on(gear_count,acc,my_car):
+
+def clutch_on(gear_count, acc, my_car):
     '''
 
     If clutch is on, maximum acceleration is decreased depending on the transmission
@@ -34,17 +35,17 @@ def clutch_on(gear_count,acc,my_car):
     :return:
     '''
 
-    if gear_count>0:
+    if gear_count > 0:
 
         if my_car.transmission == 'manual':
             return 0.
         else:
-            return acc*2/3
+            return acc * 2 / 3
     else:
         return acc
 
-def simulation_step_function(selected_car,speed,gear,gear_count,gs,Curves,vdes,driver_style,sim_step):
 
+def simulation_step_function(selected_car, speed, gear, gear_count, gs, Curves, vdes, driver_style, sim_step):
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, gear, gear_count)
     acceleration = accMFC(speed, driver_style, vdes, Curves[gear - 1])
     acceleration = clutch_on(gear_count, acceleration, selected_car)

@@ -5,8 +5,9 @@ import reading_n_organizing as rno
 
 
 def simple_run():
-    db_name = '../db/EuroSegmentCar'
-    car_id = 8183
+    # db_name = '../db/car_db_sample'
+    db_name = '../db/2019_Mar_car_database'
+    car_id = 10
     gs_style = 0.8
     degree = 4
 
@@ -18,9 +19,9 @@ def simple_run():
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]
         stop = StartStop[1][gear]
-        x = np.arange(start, stop, 1)
+        x = np.arange(start, stop, 0.2)
         y = curve(x)
-        plt.plot(x, y,'x')
+        plt.plot(x, y)
     plt.show()
 
     return 0

@@ -15,10 +15,12 @@ class veh_specs(object):
         '''
 
         if 'electric' not in kwargs or not kwargs['electric']:
-            self.engine_max_power = int(my_car["Fuel Engine-Max power"])  # kW
-            self.engine_max_speed_at_max_power = int(my_car["Fuel Engine-Max power RPM"])  # rpm
+            self.engine_max_power = float(my_car["Fuel Engine-Max power"])  # kW
+            self.engine_max_speed_at_max_power = float(my_car["Fuel Engine-Max power RPM"])  # rpm
             gr_str = my_car["Transmission  / Gear ratio-Gear Box Ratios"]  # [3.33, 1.95, 1.29, 0.98, 0.76]
-            gr_str = gr_str[1:-1].split('-')
+            if gr_str[0] == ['[']:
+                gr_str = gr_str[1:-1]
+            gr_str = gr_str.split('-')
             gr = []
             for i in range(len(gr_str)):
                 gr.append(float(gr_str[i]))
@@ -45,7 +47,7 @@ class veh_specs(object):
             self.final_drive = float(my_car["Transmission  / Gear ratio-Final drive"])
             self.veh_mass = float(my_car["Weights-Empty mass"])
             self.top_speed = int(float(my_car["Performance-Top speed"]) / 3.6)
-            self.type_of_car = my_car["General Specifications-Carbody"]
+            self.type_of_car = my_car["General Specifications-Carbody"].strip()
             self.car_width = float(my_car["Exterior sizes-Width"])
             self.car_height = float(my_car["Exterior sizes-Height"])
             self.kerb_weight = float(my_car["Weights-Unladen mass"])
@@ -84,8 +86,8 @@ class veh_specs(object):
                     raise ("NOT ELECTRIC")
                 self.ignition_type = 'electricity'
 
-                self.engine_max_power = int(my_car["Electric Engine-Total max power"])  # kW
-                self.motor_max_torque = int(my_car["Electric Engine-Max torque"])  # Nm
+                self.engine_max_power = float(my_car["Electric Engine-Total max power"])  # kW
+                self.motor_max_torque = float(my_car["Electric Engine-Max torque"])  # Nm
                 self.gr = 1
                 self.tire_radius = float(my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
                 self.driveline_slippage = 0
@@ -96,7 +98,7 @@ class veh_specs(object):
                 self.final_drive = float(my_car["Transmission  / Gear ratio-Final drive"])
                 self.veh_mass = float(my_car["Weights-Empty mass"])
                 self.veh_max_speed = int(float(my_car["Performance-Top speed"]) / 3.6)  # m/s
-                self.type_of_car = my_car["General Specifications-Carbody"]
+                self.type_of_car = my_car["General Specifications-Carbody"].strip()
                 self.car_width = float(my_car["Exterior sizes-Width"])
                 self.car_height = float(my_car["Exterior sizes-Height"])
                 self.kerb_weight = float(my_car["Weights-Unladen mass"])

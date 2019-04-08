@@ -2,26 +2,41 @@ import numpy as np
 import matplotlib.pyplot as plt
 import curve_functions as mf
 import reading_n_organizing as rno
-
+import vehicle_functions as vf
+import gear_functions as fg
 
 def simple_run():
-    db_name = '../db/EuroSegmentCar'
-    car_id = 35135
+    # db_name = '../db/car_db_sample'
+    db_name = '../db/2019_Mar_car_database'
+    car_id = 3
     gs_style = 0.8
-    degree = 2
+    degree = 4
 
     db = rno.load_db_to_dictionary(db_name)
-    selected_car = rno.get_vehicle_from_db(db, car_id)
+    my_car = rno.get_vehicle_from_db(db, car_id)
 
-    Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs(selected_car,gs_style,degree)
+    '''Full load curves of speed and torque'''
+    full_load_speeds, full_load_torque = vf.get_load_speed_n_torque(my_car)
 
-    for gear, curve in enumerate(Curves):
-        start = StartStop[0][gear]
-        stop = min(StartStop[1][gear], 50)
-        x = np.arange(start, stop, 1)
-        y = curve(x)
-        plt.plot(x, y)
-    plt.show()
+    '''Speed and acceleration ranges and poitns for each gear'''
+    speed_per_gear, acc_per_gear = vf.get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torque)
+
+    '''Extract speed acceleration Splines'''
+    coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, 4)
+    poly_spline = vf.get_spline_out_of_coefs(coefs_per_gear, speed_per_gear[0][0])
+
+    '''Start/stop speed for each gear'''
+    Start, Stop = vf.get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline)
+
+    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+    '''Get resistances'''
+    car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car, sp_bins)
+
+    '''Calculate Curves'''
+    Curves = vf.calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins)
+
+    '''Get gs'''
+    gs = fg.gear_linear(speed_per_gear, gs_style)
 
     return 0
 
