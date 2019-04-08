@@ -10,8 +10,7 @@ db = rno.load_db_to_dictionary(db_name)
 
 my_car = rno.get_vehicle_from_db(db, car_id, lco = True)
 
-# Curves, cs_acc_per_gear, StartStop = mf.gear_curves(my_car)
-
+# Sample speed profile.
 sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.073841667, 0.067722222, 0.041172222,
       0.094272222, 0.240147222, 0.421988889, 0.601022222, 0.805477778, 1.067511111, 1.360083333, 1.650283333, 1.913175,
       2.176333333, 2.444797222, 2.700288889, 2.946313889, 3.189297222, 3.448358333, 3.704702778, 3.940416667,
@@ -31,9 +30,15 @@ sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.0738416
       14.96040278, 15.09104722, 15.22573889, 15.36123611, 15.49455833, 15.63419444, 15.77003889, 15.90303333,
       16.04134167, 16.17628056, 16.30461111, 16.4286, 16.54910556, 16.66977778, 16.77255278, 16.85622222, 16.94144444,
       17.02344444, 17.09977778, 17.17553056, 17.24705278, 17.31889444, 17.39001389, 17.44721389]
+
+# Gear shifting points as can be derived from
 gs = [5.715589018826222, 10.974960637586783, 16.396951475513028, 22.832902038337586]
 sim_step = 0.1
 
+'''
+Function "light_co2mpas_series" computes the CO2 emissions in grams for a series of speed profile. If the gear-shifting
+is not given as input it uses the an internal function to compute the current gear.
+'''
 fp = lco.light_co2mpas_series(my_car, sp, gs, sim_step)
 
 plt.plot(fp)

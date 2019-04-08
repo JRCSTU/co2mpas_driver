@@ -8,20 +8,47 @@ import gear_functions as fg
 
 def simple_run():
     ''':parameters of the simulation'''
+    #Vehicle databased based on the Euro Car Segment classification
     db_name = '../db/EuroSegmentCar'
+    # A sample car id from the database
     car_id = 39393
-    gs_style = 0.2
-    vdes = 350
+    # The gear shifting style as described in the TRR paper.
+    gs_style = 0.9
+
+    # The desired speed
+    vdes = 40
+
+    # Current speed
     v_start = 0
+
+    # The simulation step in seconds
     sim_step = 0.1
+
+    # The driving style as described in the TRR paper.
     driver_style = 1
-    duration = 100  # sec
+
+    # Duration of the simulation in seconds.
+    duration = 100
+
+    # sample time series
     times = np.arange(0, duration + sim_step, sim_step)
 
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_name)
+
+    # The vehicle specs as returned from the database
     selected_car = rno.get_vehicle_from_db(db, car_id)
+
+    '''
+    The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
+    before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
+    '''
     Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
+
+    '''
+        The difference betweeen "gear_4degree_curves_with_linear_gs" and "gear_curves_n_gs_from_poly" is the
+        computation of the engine acceleration potential curves
+    '''
     # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(selected_car, gs_style,4)
 
     '''Lists to gather simulation data'''
@@ -30,6 +57,9 @@ def simple_run():
 
     '''Initialize speed and gear'''
     speed = v_start
+    '''
+    Returns the gear that must be used and the clutch condition
+    '''
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
 
