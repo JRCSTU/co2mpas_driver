@@ -50,7 +50,7 @@ class veh_specs(object):
             self.type_of_car = my_car["General Specifications-Carbody"].strip()
             self.car_width = float(my_car["Exterior sizes-Width"])
             self.car_height = float(my_car["Exterior sizes-Height"])
-            self.kerb_weight = float(my_car["Weights-Unladen mass"])
+            # self.kerb_weight = float(my_car["Weights-Unladen mass"])
             self.wheelbase = float(my_car["Exterior sizes-Wheelbase"])
             car_type = my_car["Drive-Wheel drive"]
             if car_type == 'front':
@@ -101,7 +101,7 @@ class veh_specs(object):
                 self.type_of_car = my_car["General Specifications-Carbody"].strip()
                 self.car_width = float(my_car["Exterior sizes-Width"])
                 self.car_height = float(my_car["Exterior sizes-Height"])
-                self.kerb_weight = float(my_car["Weights-Unladen mass"])
+                # self.kerb_weight = float(my_car["Weights-Unladen mass"])
                 self.car_type = my_car["Drive-Wheel drive"]
                 if self.car_type == 'front':
                     self.car_type = 2

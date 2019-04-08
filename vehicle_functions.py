@@ -149,7 +149,7 @@ def estimate_f_coefficients(my_car, passengers=0):
     rolling_res_coef = 0.009  # Constant for the moment
     theor_aero_coeff = d[my_car.type_of_car]
 
-    operating_mass = my_car.kerb_weight + 100 + 75 * passengers
+    operating_mass = my_car.veh_mass + 100 + 75 * passengers
     f0 = (operating_mass + 100) * rolling_res_coef * 9.81
     f2 = 0.5 * 1.2 * (0.84 * my_car.car_width * my_car.car_height * theor_aero_coeff) / pow(3.6, 2)
     f1 = -71.735 * f2 + 2.7609
