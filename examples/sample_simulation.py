@@ -32,7 +32,7 @@ def simple_run():
 
     # sample time series
     times = np.arange(0, duration + sim_step, sim_step)
-git 
+
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_name)
 
