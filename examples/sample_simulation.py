@@ -18,13 +18,13 @@ def simple_run():
     gs_style = 0.9
 
     # The desired speed
-    vdes = 40
+    vdes = 10
 
     # Current speed
     v_start = 0
 
     # The simulation step in seconds
-    sim_step = 0.1
+    sim_step = 0.8
 
     # The driving style as described in the TRR paper.
     driver_style = 1
