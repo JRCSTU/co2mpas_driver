@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import numpy as np
 import matplotlib.pyplot as plt
 import curve_functions as mf
@@ -26,4 +28,5 @@ def simple_run():
     return 0
 
 
-simple_run()
+if __name__ == '__main__':
+    simple_run()

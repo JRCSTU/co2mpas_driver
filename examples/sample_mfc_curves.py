@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import numpy as np
 import matplotlib.pyplot as plt
 import curve_functions as mf
@@ -7,8 +9,8 @@ import gear_functions as fg
 
 def simple_run():
     # db_name = '../db/car_db_sample'
-    db_name = '../db/2019_Mar_car_database'
-    car_id = 3
+    db_name = '../db/EuroSegmentCar_cleaned'
+    car_id = 40516
     gs_style = 0.8
     degree = 4
 
@@ -41,4 +43,5 @@ def simple_run():
     return 0
 
 
-simple_run()
+if __name__ == '__main__':
+    simple_run()

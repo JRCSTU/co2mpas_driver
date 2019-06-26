@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 import vehicle_functions as vf
 import numpy as np
 import gear_functions as fg

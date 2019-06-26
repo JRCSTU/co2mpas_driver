@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,7 +10,7 @@ import gear_functions as fg
 
 def simple_run():
     ''':parameters of the simulation'''
-    #Vehicle databased based on the Euro Car Segment classification
+    # Vehicle databased based on the Euro Car Segment classification
     db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
     car_id = 39393
@@ -92,4 +94,5 @@ def simple_run():
     return 0
 
 
-simple_run()
+if __name__ == '__main__':
+    simple_run()

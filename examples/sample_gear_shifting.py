@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import matplotlib.pyplot as plt
 import reading_n_organizing as rno
 import vehicle_functions as vf
@@ -6,7 +8,7 @@ import plot_templates as pt
 
 
 db_name = '../db/EuroSegmentCar'
-car_id = 24211
+car_id = 27748
 gs_style = 1
 
 db = rno.load_db_to_dictionary(db_name)

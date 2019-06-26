@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 import generic_co2mpas as lco
 import matplotlib.pyplot as plt
 import reading_n_organizing as rno
