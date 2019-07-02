@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("..")
 import generic_co2mpas as lco
@@ -7,6 +8,10 @@ import curve_functions as mf
 
 db_name = '../db/EuroSegmentCar'
 car_id = 35135
+
+# file path without extension of the file
+db_name = os.path.dirname(db_name) + '/' + \
+        os.path.splitext(os.path.basename(db_name))[0]
 
 db = rno.load_db_to_dictionary(db_name)
 
@@ -37,10 +42,11 @@ sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.0738416
 gs = [5.715589018826222, 10.974960637586783, 16.396951475513028, 22.832902038337586]
 sim_step = 0.1
 
-'''
-Function "light_co2mpas_series" computes the CO2 emissions in grams for a series of speed profile. If the gear-shifting
-is not given as input it uses the an internal function to compute the current gear.
-'''
+"""
+Function "light_co2mpas_series" computes the CO2 emissions in grams for a series
+of speed profile. If the gear-shifting is not given as input it uses the an 
+internal function to compute the current gear.
+"""
 fp = lco.light_co2mpas_series(my_car, sp, gs, sim_step)
 
 plt.plot(fp)

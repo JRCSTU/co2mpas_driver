@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("..")
 import numpy as np
@@ -6,15 +7,19 @@ import curve_functions as mf
 import reading_n_organizing as rno
 import vehicle_functions as vf
 
+
 def simple_run():
     db_name = '../db/EuroSegmentCar'
     car_id = 47844
 
+    # file path without extension of the file
+    db_name = os.path.dirname(db_name) + '/' + \
+              os.path.splitext(os.path.basename(db_name))[0]
 
     db = rno.load_db_to_dictionary(db_name)
-    selected_car = rno.get_vehicle_from_db(db, car_id, electric = True)
+    selected_car = rno.get_vehicle_from_db(db, car_id, electric=True)
 
-    Curves,StartStop = mf.get_ev_curve_main(selected_car)
+    Curves, StartStop = mf.get_ev_curve_main(selected_car)
 
     for gear, curve in enumerate(Curves):
         start = StartStop[0][gear]

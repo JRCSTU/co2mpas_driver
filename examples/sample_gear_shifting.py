@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("..")
 import matplotlib.pyplot as plt
@@ -10,6 +11,10 @@ import plot_templates as pt
 db_name = '../db/EuroSegmentCar'
 car_id = 27748
 gs_style = 1
+
+# file path without extension of the file
+db_name = os.path.dirname(db_name) + '/' + \
+        os.path.splitext(os.path.basename(db_name))[0]
 
 db = rno.load_db_to_dictionary(db_name)
 
@@ -29,6 +34,6 @@ Tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
 gs = fg.gear_points_from_tan(Tans, gs_style, Start, Stop)
 
 for gear in gs:
-    plt.plot([gear,gear],[0,5],'k')
+    plt.plot([gear, gear], [0, 5], 'k')
 
 plt.show()

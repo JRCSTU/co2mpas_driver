@@ -1,4 +1,4 @@
-'''The two functions of light co2mpass to be used'''
+"""The two functions of light co2mpass to be used"""
 
 import math
 import numpy as np
@@ -7,29 +7,31 @@ import vehicle_specs_class as vcc
 import gear_functions as fg
 import vehicle_functions as vf
 
-def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
-    '''
 
+def light_co2mpas_series(my_car, sp, gs, sim_step, **kwargs):
+    """
     :param my_car:
     :param sp:          In km/h!!!
     :param gs:
     :param sim_step:    in sec
     :return:
-    '''
+    """
 
-    gear_list_Flag = False
+    gear_list = {}
+    clutch_list = []
+    gear_list_flag = False
     if 'gear_list' in kwargs:
-        gear_list_Flag = True
+        gear_list_flag = True
         gear_list = kwargs['gear_list']
         if 'clutch_duration' in kwargs:
             clutch_duration = kwargs['clutch_duration']
         else:
             clutch_duration = int(0.5 % sim_step)
-        clutch_list = fg.create_clutch_list(gear_list,clutch_duration)
+        clutch_list = fg.create_clutch_list(gear_list, clutch_duration)
 
-    hardcoded_params = vcc.hardcoded_params()
+    hardcoded_params = vcc.HardcodedParams()
 
-    n_wheel_drive = my_car.car_type
+    # n_wheel_drive = my_car.car_type
     road_loads = vf.estimate_f_coefficients(my_car, passengers=0)
 
     slope = 0
@@ -37,7 +39,7 @@ def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
     ap = np.diff([i / (3.6 * sim_step) for i in sp])
 
     # gear number and gear count for shifting duration
-    simulated_gear = [0, 30]
+    # simulated_gear = [0, 30]
     fp = []
 
     if my_car.gearbox_type == 'manual':
@@ -47,7 +49,8 @@ def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
         my_car.veh_params = hardcoded_params.params_gearbox_losses['Automatic']
         my_car.gb_type = 1
 
-    # gear is the current gear and gear_count countes the time-steps in order to prevent continuous gear shifting.
+    # gear is the current gear and gear_count counts the time-steps
+    # in order to prevent continuous gear shifting.
     gear = 0
     # Initializing gear count.
     gear_count = 30
@@ -56,7 +59,7 @@ def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
         speed = sp[i]
         acceleration = ap[i - 1]
 
-        if gear_list_Flag:
+        if gear_list_flag:
             gear = gear_list[i]
             gear_count = clutch_list[i]
         else:
@@ -70,8 +73,8 @@ def light_co2mpas_series(my_car, sp, gs, sim_step,**kwargs):
     return fp
 
 
-def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_loads, slope, gear, gear_count,
-                          sim_step):
+def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params,
+                          road_loads, slope, gear, gear_count, sim_step):
     n_wheel_drive = my_car.car_type
 
     # The power on wheels in kW
@@ -152,9 +155,12 @@ def light_co2mpas_instant(my_car, speed, acceleration, hardcoded_params, road_lo
     lower_heating_value = hardcoded_params.LHV[my_car.fuel_type]
 
     # Fuel consumption in grams.
-    fc = func.calc_fuel_consumption(VMEP, my_car.fuel_eng_capacity, lower_heating_value, gear_box_speeds_in, sim_step)
+    fc = func.calc_fuel_consumption(VMEP, my_car.fuel_eng_capacity,
+                                    lower_heating_value, gear_box_speeds_in,
+                                    sim_step)
 
     return fc
+
 
 ##   OLDER FUNCTION
 # def light_co2mpas_series(my_car, sp, gs, sim_step):

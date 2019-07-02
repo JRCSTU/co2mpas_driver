@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("..")
 import simulation_part as sp
@@ -9,7 +10,7 @@ import gear_functions as fg
 
 
 def simple_run():
-    ''':parameters of the simulation'''
+    """:parameters of the simulation"""
     # Vehicle databased based on the Euro Car Segment classification
     db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
@@ -18,7 +19,7 @@ def simple_run():
     gs_style = 0.9
 
     # The desired speed
-    vdes = 40
+    v_des = 40
 
     # Current speed
     v_start = 0
@@ -35,45 +36,56 @@ def simple_run():
     # sample time series
     times = np.arange(0, duration + sim_step, sim_step)
 
+    # file path without extension of the file
+    db_name = os.path.dirname(db_name) + '/' + \
+              os.path.splitext(os.path.basename(db_name))[0]
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_name)
 
     # The vehicle specs as returned from the database
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
-    '''
-    The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
-    before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
-    '''
+    """
+    The final acceleration curvers (Curves), the engine acceleration potential 
+    curves (cs_acc_per_gear), before the calculation of the resistances and the
+    limitation due to max possible acceleration (friction) .
+    """
     Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
-    '''
-        The difference betweeen "gear_4degree_curves_with_linear_gs" and "gear_curves_n_gs_from_poly" is the
-        computation of the engine acceleration potential curves
-    '''
-    # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(selected_car, gs_style,4)
+    """
+    The difference betweeen "gear_4degree_curves_with_linear_gs" and 
+    "gear_curves_n_gs_from_poly" is the computation of the engine acceleration 
+    potential curves
+    """
+    # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(
+    # selected_car, gs_style, 4)
 
-    '''Lists to gather simulation data'''
+    """Lists to gather simulation data"""
     Speeds = [v_start]
     Acceleration = [0]
 
-    '''Initialize speed and gear'''
+    """Initialize speed and gear"""
     speed = v_start
-    '''
+    """
     Returns the gear that must be used and the clutch condition
-    '''
+    """
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
 
-    '''Core loop'''
+    """Core loop"""
     for t in times:
-        speed, gear, gear_count = sp.simulation_step_function(selected_car,speed,gear,gear_count,gs,Curves,vdes,driver_style,sim_step)
+        speed, gear, gear_count = sp.simulation_step_function(selected_car,
+                                                              speed, gear,
+                                                              gear_count, gs,
+                                                              Curves, v_des,
+                                                              driver_style,
+                                                              sim_step)
 
-        '''Gather data'''
+        """Gather data"""
         Speeds.append(speed)
         Acceleration.append((Speeds[-1] - Speeds[-2])/sim_step)
 
-    '''Plot'''
+    """Plot"""
     plt.figure('Time-Speed')
     plt.plot(times, Speeds[1:])
     plt.grid()

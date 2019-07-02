@@ -1,7 +1,7 @@
 import vehicle_specs_class as vcc
 
 
-def load_db_to_dictionary(name):
+def load_db_to_dictionary(db_name):
     """
     input: file (without .csv)
     return: dict of dictionaries, every dict item is a car, every dict key is
@@ -9,21 +9,21 @@ def load_db_to_dictionary(name):
     value of the characteristic
 
     """
-    # First replace any , with - in the csv
-    with open(name+'.csv', 'r', encoding="ISO-8859-1") as file:
-        A = file.readline()  # This will return the first line in the file
+    # reading csv file into dictionary
+    with open(db_name + '.csv', 'r', encoding="ISO-8859-1") as file:
+        header_line = file.readline()  # returns the header line in the file
         characteristics = []
         out = {}
 
         # create the list of the names of the characteristic
-        while A != '':
-            k = A.find(',')
+        while header_line != '':
+            k = header_line.find(',')
             if k == -1:
-                characteristics.append(A)
-                A = ''
+                characteristics.append(header_line)
+                header_line = ''
             else:
-                characteristics.append(A[:k])
-                A = A[k + 1:]
+                characteristics.append(header_line[:k])
+                header_line = header_line[k + 1:]
 
         # for every line of the csv creates a dictionary
         # then for every cell of the line, stores the value to the dictionary
@@ -40,7 +40,7 @@ def load_db_to_dictionary(name):
         return out
 
 
-def get_vehicle_from_db(db_dict,car_id,**kwargs):
+def get_vehicle_from_db(db_dict, car_id, **kwargs):
     """
 
     kwargs can be:
@@ -52,9 +52,9 @@ def get_vehicle_from_db(db_dict,car_id,**kwargs):
     :return: veh_specs object
 
     """
-
+    # select desired car with its id
     my_car = db_dict[car_id]
 
-    my_car_specs = vcc.veh_specs(my_car,**kwargs)
+    my_car_specs = vcc.VehSpecs(my_car, **kwargs)
 
     return my_car_specs

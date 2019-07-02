@@ -193,15 +193,15 @@ class Functions(co2_utl.Constants):
         #: Multiplication factors of the engine parameters [-].
         factors = {
             'vva': {
-                #0: {},
+                # 0: {},
                 1: {'a': 0.98, 'l': 0.92},
             },
             'lb': {
-                #0: {},
+                # 0: {},
                 1: {'a': 1.1, 'b' : 0.72, 'c': 0.76, 'a2': 1.25, 'l2': 2.85}
             },
             'egr': {
-                #0: {},
+                # 0: {},
                 1: {'a': 1.02, 'b': 1.1, 'c': 1.5, 'a2': 1.1},  # positive turbo
                 2: {'a': 1.02, 'b': 1.1, 'c': 1.5, 'a2': 1.1},  # positive natural aspiration
                 3: {'b': 1.08, 'c': 1.15, 'a2': 1.1}, # compression

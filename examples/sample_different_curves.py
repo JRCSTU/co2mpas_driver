@@ -1,3 +1,4 @@
+import os
 import sys
 sys.path.append("..")
 import numpy as np
@@ -12,6 +13,10 @@ def simple_run():
     car_id = 39393
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     degree = 2
+
+    # file path without extension of the file
+    db_name = os.path.dirname(db_name) + '/' + \
+              os.path.splitext(os.path.basename(db_name))[0]
 
     db = rno.load_db_to_dictionary(db_name)
     selected_car = rno.get_vehicle_from_db(db, car_id)
