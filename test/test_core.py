@@ -5,7 +5,8 @@
 # Licensed under the EUPL (the 'Licence');
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
-
+import sys
+sys.path.append("..")
 import unittest
 from stu_mfc import dsp
 import ddt
@@ -89,14 +90,27 @@ class Core(unittest.TestCase):
                                 -1.56050718e-03, 4.98965867e-02,
                                 4.17716458e-01]],
             'gs': [11.099394813678138, 21.068295711148313, 31.573209113839276,
-                   43.61659815726251]
+                   43.61659815726251],
+            'stating_speed': 2.5155890188262195,
+            'spline_from_poly': None,
+            'veh_max_speed': 48,
+            'cs_acc_per_gear': None,
+            'car_type': 'hatchback',
+            'car_width': 1.627,
+            'car_height': 1.488,
+            'sp_bins': None,
+            'Start': None,
+            'Stop': None,
+            'Alimit': None,
+            'car_res_curve': None,
+            'res': None
 
         }
 
     @ddt.data(
         (['ignition_type', 'engine_max_speed_at_max_power', 'engine_max_power',
           'idle_engine_speed'],
-         ['full_load_torque', 'full_load_torque']
+         ['full_load_torque', 'full_load_speeds']
          ),
         (
             ['veh_mass', 'tire_radius', 'full_load_speeds',
@@ -104,6 +118,14 @@ class Core(unittest.TestCase):
              'full_load_torque', 'gr'],
             ['speed_per_gear', 'acc_per_gear']
         ),
+        (
+            ['speed_per_gear', 'acc_per_gear', 'degree'],
+            ['coefs_per_gear']
+        ),
+        (
+            ['speed_per_gear', 'gs_style'],
+            ['gs']
+        )
 
     )
     def test_core(self, keys):
