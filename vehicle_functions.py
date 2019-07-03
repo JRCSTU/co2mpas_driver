@@ -235,6 +235,9 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
     :param cs_acc_per_gear:
     :return:
     """
+    import copy
+    speed_per_gear = copy.deepcopy(speed_per_gear)
+    acc_per_gear = copy.deepcopy(acc_per_gear)
     # To ensure that a higher gear starts from higher speed
     for j in range(len(my_car.gr) - 1, 0, -1):
         for k in range(len(speed_per_gear[j])):

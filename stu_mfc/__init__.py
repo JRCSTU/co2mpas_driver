@@ -1,5 +1,6 @@
-import schedula as sh
+import copy
 import numpy as np
+import schedula as sh
 from scipy.interpolate import CubicSpline, interp1d
 
 dsp = sh.Dispatcher()
@@ -102,7 +103,7 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     return coefs_per_gear
 
 
-@sh.add_function(dsp, outputs=['poly_spline'])
+@sh.add_function(dsp, outputs=['spline_from_poly'])
 def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     """
     Use the coefs to get a "spline" that could be used.
@@ -151,6 +152,8 @@ def get_start_stop(gr, veh_max_speed, speed_per_gear, acc_per_gear,
     :param acc_per_gear:
     :return:
     """
+    speed_per_gear = copy.deepcopy(speed_per_gear)
+    acc_per_gear = copy.deepcopy(acc_per_gear)
     # To ensure that a higher gear starts from higher speed
     for j in range(len(gr) - 1, 0, -1):
         for k in range(len(speed_per_gear[j])):
