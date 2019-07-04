@@ -63,21 +63,23 @@ def calculate_full_load_speeds_and_powers(
 
 
 # The maximum force that the vehicle can have on the road
-def Armax(my_car, road_type=1):
+def Armax(car_type, veh_mass, engine_max_power, road_type=1):
     """
 
     Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
 
-    :param my_car: vehicle specs object
+    :param car_type:
+    :param veh_mass:
+    :param engine_max_power:
     :param road_type: road condition (1: normal, 2: wet, 3: icy)
     :return:
     """
-    if my_car.car_type == 2:  # forward-wheel drive vehicles
-        fmass = 0.6 * my_car.veh_mass
-    elif my_car.car_type == 4:  # rear-wheel drive vehicles
-        fmass = 0.45 * my_car.veh_mass
+    if car_type == 2:  # forward-wheel drive vehicles
+        fmass = 0.6 * veh_mass
+    elif car_type == 4:  # rear-wheel drive vehicles
+        fmass = 0.45 * veh_mass
     else:  # all-wheel drive vehicles, 4x4
-        fmass = 1 * my_car.veh_mass
+        fmass = 1 * veh_mass
 
     if road_type == 1:
         mh_base = 0.75  # for normal road
@@ -89,12 +91,12 @@ def Armax(my_car, road_type=1):
     # 0.8 dry, 0.6 light rain, 0.4 heavy rain, 0.1 icy
     alpha = 43.398
     beta = 5.1549
-    mh = mh_base * (alpha * np.log(my_car.engine_max_power) + beta) / 190
+    mh = mh_base * (alpha * np.log(engine_max_power) + beta) / 190
 
     # * cos(f) for the gradient of the road. Here we consider as 0
     Frmax = fmass * 9.8066 * mh
 
-    return Frmax / my_car.veh_mass
+    return Frmax / veh_mass
 
 
 # Calculates a spline with the resistances

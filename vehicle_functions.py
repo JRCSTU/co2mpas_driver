@@ -224,7 +224,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear,
     return cs_acc_per_gear
 
 
-def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
+def get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline):
     """
 
     Calculate Speed boundaries for each gear
@@ -253,7 +253,7 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
     for j in range(len(my_car.gr) - 1):
         for k in range(np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
             if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
-                        cs_acc_per_gear[j + 1](speed_per_gear[j][k]) > cs_acc_per_gear[j](speed_per_gear[j][k])):
+                        poly_spline[j + 1](speed_per_gear[j][k]) > poly_spline[j](speed_per_gear[j][k])):
                 max_point = k
                 speed_per_gear[j] = speed_per_gear[j][:max_point]
                 acc_per_gear[j] = acc_per_gear[j][:max_point]
@@ -284,12 +284,12 @@ def get_resistances(my_car, sp_bins):
     return car_res_curve, car_res_curve_force, Alimit
 
 
-def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve, sp_bins):
+def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
     """
 
     Get the final speed acceleration curves based on full load curves and resistances for all curves
 
-    :param acc:
+    :param poly_spline:
     :param Alimit:
     :param car_res_curve:
     :param start:
@@ -299,7 +299,7 @@ def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve,
     """
     Res = []
 
-    for gear, acc in enumerate(cs_acc_per_gear):
+    for gear, acc in enumerate(poly_spline):
         start = Start[gear] * 0.9
         stop = Stop[gear] + 0.1
 

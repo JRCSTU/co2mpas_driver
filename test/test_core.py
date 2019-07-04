@@ -22,30 +22,42 @@ class Core(unittest.TestCase):
         with open(osp.join(osp.dirname(__file__), 'res.yaml')) as f:
             self.data = yaml.load(f, yaml.CLoader)
 
-    @ddt.data(
-        (['ignition_type', 'engine_max_speed_at_max_power', 'engine_max_power',
-          'idle_engine_speed'],
-         ['full_load_torque', 'full_load_speeds']
+    @ddt.idata((
+        (
+            ['coefs_per_gear', 'Start', 'Stop'],
+            ['Tans']
+        ),
+
+        (
+                ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power', 'car_width',
+                 'car_height', 'sp_bins'],
+                ['Alimit']
+        ),
+        (
+                ['gr', 'veh_max_speed', 'speed_per_gear', 'acc_per_gear',
+                 'coefs_per_gear', 'starting_speed'],
+                ['Start', 'Stop']
+        ),
+        (
+                ['ignition_type', 'engine_max_speed_at_max_power', 'engine_max_power',
+                    'idle_engine_speed'],
+                ['full_load_torque', 'full_load_speeds']
          ),
         (
-            ['veh_mass', 'tire_radius', 'full_load_speeds',
-             'driveline_efficiency', 'driveline_slippage', 'final_drive',
-             'full_load_torque', 'gr', 'idle_engine_speed'],
-            ['speed_per_gear', 'acc_per_gear']
+                ['veh_mass', 'tire_radius', 'full_load_speeds',
+                 'driveline_efficiency', 'driveline_slippage', 'final_drive',
+                 'full_load_torque', 'gr', 'idle_engine_speed'],
+                ['speed_per_gear', 'acc_per_gear']
         ),
         (
-            ['speed_per_gear', 'acc_per_gear', 'degree'],
-            ['coefs_per_gear']
+                ['speed_per_gear', 'acc_per_gear', 'degree'],
+                ['coefs_per_gear']
         ),
         (
-            ['speed_per_gear', 'gs_style'],
-            ['gs']
+                ['speed_per_gear', 'gs_style'],
+                ['gs']
         ),
-        (
-            ['coefs_per_gear', 'starting_speed'],
-            ['poly_spline']
-        )
-    )
+    ))
     def test_core(self, keys):
         inputs, outputs = keys
         res = dsp(sh.selector(inputs, self.data), outputs)

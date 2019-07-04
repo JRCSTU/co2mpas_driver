@@ -234,7 +234,6 @@ coefs_per_gear:
   - false
   - !!binary |
     Rd4IE9Rnhr5bGJ3W4dz5Pkm5FtI9kVm//xbfnwuMqT9zfH/P3bvaPw==
-cs_acc_per_gear: null
 degree: 4
 driveline_efficiency: 0.9
 driveline_slippage: 0
@@ -1085,7 +1084,7 @@ speed_per_gear:
   - !!binary |
     Tu8BbxXKKkCZm2Sbq5YyQIs/SH9MyDdAfuMrY+35PEC4w4cjxxVBQLKVeZWXrkNArGdrB2hHRkCj
     OV15OOBIQJ4LT+sIeUtAlt1AXdkRTkDHV5nnVFVQQMVAkiC9oVFA
-spline_from_poly: null
+poly_spline: null
 starting_speed: 2.5155890188262195
 tire_radius: 0.31115000000000004
 top_speed: 48

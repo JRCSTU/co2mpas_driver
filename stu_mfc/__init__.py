@@ -44,23 +44,33 @@ def get_load_speed_n_torque(
 # Speed and acceleration ranges and points for each gear
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
 def get_speeds_n_accelerations_per_gear(gr, idle_engine_speed, tire_radius,
-            driveline_slippage, final_drive, driveline_efficiency, veh_mass,
-            full_load_speeds, full_load_torque):
+                                        driveline_slippage, final_drive,
+                                        driveline_efficiency, veh_mass,
+                                        full_load_speeds, full_load_torque):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
     forbid acceleration over the maximum vehicle speed
 
     :param gr:
+    :type gr: list
     :param idle_engine_speed:
+    :type idle_engine_speed: tuple
     :param tire_radius:
+    :type tire_radius: float
     :param driveline_slippage:
+    :type driveline_slippage: int
     :param final_drive:
+    :type final_drive: float
     :param driveline_efficiency:
+    :type driveline_efficiency: float
     :param veh_mass:
+    :type veh_mass: float
     :param full_load_speeds:
+    :type full_load_speeds: ndarray
     :param full_load_torque:
-    :return:
+    :type full_load_torque: ndarray
+    :return: speed_per_gear
     """
     speed_per_gear, acc_per_gear = [], []
 
@@ -103,7 +113,7 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     return coefs_per_gear
 
 
-@sh.add_function(dsp, outputs=['spline_from_poly'])
+@sh.add_function(dsp, outputs=['poly_spline'])
 def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     """
     Use the coefs to get a "spline" that could be used.
@@ -117,7 +127,7 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     degree = len(coefs_per_gear[0]) - 1
     vars = np.arange(degree, -1, -1)
 
-    spline_from_poly = []
+    poly_spline = []
 
     """
     For the first gear, some points are added at the beginning to avoid
@@ -129,20 +139,20 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
         [np.dot(coefs_per_gear[0], np.power(i, vars)) for i in x_new])
     a_new[0] = a_new[2]
     a_new[1] = a_new[2]
-    spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
+    poly_spline.append(interp1d(x_new, a_new, fill_value='extrapolate'))
 
     for fit_coef in coefs_per_gear[1:]:
         x_new = np.arange(0, 70, 0.1)
         a_new = np.array([np.dot(fit_coef, np.power(i, vars)) for i in x_new])
-        spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
+        poly_spline.append(interp1d(x_new, a_new, fill_value='extrapolate'))
 
-    return spline_from_poly
+    return poly_spline
 
 
 # Start/stop speed for each gear
 @sh.add_function(dsp, outputs=['Start', 'Stop'])
 def get_start_stop(gr, veh_max_speed, speed_per_gear, acc_per_gear,
-                   cs_acc_per_gear):
+                   poly_spline):
     """
     Calculate Speed boundaries for each gear
 
@@ -150,6 +160,7 @@ def get_start_stop(gr, veh_max_speed, speed_per_gear, acc_per_gear,
     :param veh_max_speed:
     :param speed_per_gear:
     :param acc_per_gear:
+    :param poly_spline:
     :return:
     """
     speed_per_gear = copy.deepcopy(speed_per_gear)
@@ -169,7 +180,7 @@ def get_start_stop(gr, veh_max_speed, speed_per_gear, acc_per_gear,
     for j in range(len(gr) - 1):
         for k in range(np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
             if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
-                        cs_acc_per_gear[j + 1](speed_per_gear[j][k]) > cs_acc_per_gear[j](speed_per_gear[j][k])):
+                        poly_spline[j + 1](speed_per_gear[j][k]) > poly_spline[j](speed_per_gear[j][k])):
                 max_point = k
                 speed_per_gear[j] = speed_per_gear[j][:max_point]
                 acc_per_gear[j] = acc_per_gear[j][:max_point]
@@ -193,10 +204,11 @@ def define_sp_bins(Stop):
 
 # Calculate Curves
 @sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force', 'Alimit'])
-def get_resistances(car_type, veh_mass, engine_max_power, car_width, car_height, sp_bins):
+def get_resistances(type_of_car, car_type, veh_mass, engine_max_power, car_width, car_height, sp_bins):
     """
     Calculate resistances and return spline
 
+    :param type_of_car:
     :param car_type:
     :param veh_mass:
     :param engine_max_power:
@@ -208,7 +220,7 @@ def get_resistances(car_type, veh_mass, engine_max_power, car_width, car_height,
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
-    f0, f1, f2 = estimate_f_coefficients(veh_mass, car_type, car_width, car_height)
+    f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height)
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins), veh_mass)
     Alimit = Armax(car_type, veh_mass, engine_max_power)
     return car_res_curve, car_res_curve_force, Alimit
@@ -244,11 +256,11 @@ def gear_linear(speed_per_gear, gs_style):
 
 
 @sh.add_function(dsp, outputs=['Curves'])
-def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve, sp_bins):
+def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
     """
     Get the final speed acceleration curves based on full load curves and resistances for all curves
 
-    :param cs_acc_per_gear:
+    :param poly_spline:
     :param acc:
     :param Alimit:
     :param car_res_curve:
@@ -259,7 +271,7 @@ def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve,
     """
     Res = []
 
-    for gear, acc in enumerate(cs_acc_per_gear):
+    for gear, acc in enumerate(poly_spline):
         start = Start[gear] * 0.9
         stop = Stop[gear] + 0.1
 
@@ -273,6 +285,38 @@ def calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit, car_res_curve,
         Res.append(interp1d(sp_bins, final_acc))
 
     return Res
+
+
+#
+dsp.add_function(
+    function_id='find_list_of_tans_from_coefs',
+    inputs=['coefs_per_gear', 'Start', 'Stop'],
+    outputs=['Tans']
+)
+
+
+@sh.add_function(dsp, outputs=['Tans'])
+def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
+    """
+    Gets coefficients and speed boundaries and returns Tans value for per speed per gear
+
+    :param coefs_per_gear:
+    :param Start:
+    :param Stop:
+    :return:
+    """
+    degree = len(coefs_per_gear[0]) - 1
+    vars = np.arange(degree, -1, -1)
+
+    Tans = []
+
+    for gear, coefs in enumerate(coefs_per_gear):
+        x_new = np.arange(Start[gear], Stop[gear], 0.1)
+        a_new = np.array([np.dot(coefs, np.power(i, vars)) for i in x_new])
+
+        Tans.append(np.diff(a_new) * 10)
+
+    return Tans
 
 
 if __name__ == '__main__':
