@@ -24,9 +24,15 @@ class Core(unittest.TestCase):
 
     @ddt.idata((
         (
-            ['coefs_per_gear', 'Start', 'Stop'],
-            ['Tans']
+                ['gearbox_type', 'veh_params', 'gb_type', 'car_type', 'veh_mass', 'r_dynamic', 'final_drive', 'gr',
+                    'engine_max_torque', 'max_power', 'fuel_eng_capacity', 'fuel_engine_stroke', 'fuel_type',
+                    'fuel_turbo', 'type_of_car', 'car_width', 'car_height', 'sp', 'gs', 'sim_step'],
+                ['fp']
         ),
+        # (
+        #     ['gr', 'speed_per_gear', 'acc_per_gear'],
+        #     ['cs_acc_per_gear']
+        # ),
 
         (
                 ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power', 'car_width',

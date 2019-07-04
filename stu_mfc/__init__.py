@@ -1,6 +1,8 @@
 import copy
 import numpy as np
 import schedula as sh
+import math
+import functions as func
 from scipy.interpolate import CubicSpline, interp1d
 
 dsp = sh.Dispatcher()
@@ -287,14 +289,6 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_
     return Res
 
 
-#
-dsp.add_function(
-    function_id='find_list_of_tans_from_coefs',
-    inputs=['coefs_per_gear', 'Start', 'Stop'],
-    outputs=['Tans']
-)
-
-
 @sh.add_function(dsp, outputs=['Tans'])
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     """
@@ -317,6 +311,123 @@ def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
         Tans.append(np.diff(a_new) * 10)
 
     return Tans
+
+
+@sh.add_function(dsp, outputs=['cs_acc_per_gear'])
+def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear, acc_per_gear):
+    """
+    Based on speed/acceleration points per gear, cubic splines are calculated
+    (old MFC)
+
+    :param gr:
+    :param speed_per_gear:
+    :param acc_per_gear:
+    :return:
+    """
+    cs_acc_per_gear = []
+    for j in range(len(gr)):
+        # cs_acc_per_gear.append([])
+        a = np.round((speed_per_gear[j][0]), 2) - 0.01
+        b = np.round((speed_per_gear[j][-1]), 2) + 0.01
+        prefix_list = [a - k * 0.1 for k in range(10, -1, -1)]
+        suffix_list = [b + k * 0.1 for k in range(0, 11, 1)]
+        cs_acc_per_gear.append(CubicSpline(
+            prefix_list + list(speed_per_gear[j]) + suffix_list,
+            [acc_per_gear[j][0]] * len(prefix_list) + list(acc_per_gear[j]) + [
+                acc_per_gear[j][-1]] * len(suffix_list))
+        )
+
+    return cs_acc_per_gear
+
+
+@sh.add_function(dsp, outputs=['fp'])
+def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, r_dynamic, final_drive, gr,
+                         engine_max_torque, max_power, fuel_eng_capacity, fuel_engine_stroke, fuel_type, fuel_turbo,
+                         type_of_car, car_width, car_height, sp, gs, sim_step, **kwargs):
+    """
+    :param gearbox_type:
+    :param veh_params:
+    :param gb_type:
+    :param car_type:
+    :param veh_mass:
+    :param r_dynamic:
+    :param final_drive:
+    :param gr:
+    :param engine_max_torque:
+    :param max_power:
+    :param fuel_eng_capacity:
+    :param fuel_engine_stroke:
+    :param fuel_type:
+    :param fuel_turbo:
+    :param type_of_car:
+    :param car_width:
+    :param car_height:
+    :param sp:          In km/h!!!
+    :param gs:
+    :param sim_step:    in sec
+    :return:
+    """
+
+    from .gear_functions import create_clutch_list
+    from .vehicle_specs_class import HardcodedParams
+    from .co2mpas import estimate_f_coefficients
+    from .gear_functions import gear_for_speed_profiles
+    from .generic_co2mpas import light_co2mpas_instant
+
+    gear_list = {}
+    clutch_list = []
+    gear_list_flag = False
+    if 'gear_list' in kwargs:
+        gear_list_flag = True
+        gear_list = kwargs['gear_list']
+        if 'clutch_duration' in kwargs:
+            clutch_duration = kwargs['clutch_duration']
+        else:
+            clutch_duration = int(0.5 % sim_step)
+        clutch_list = create_clutch_list(gear_list, clutch_duration)
+
+    hardcoded_params = HardcodedParams()
+
+    # n_wheel_drive = my_car.car_type
+    road_loads = estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height, passengers=0)
+
+    slope = 0
+    # FIX First convert km/h to m/s in order to have acceleration in m/s^2
+    ap = np.diff([i / (3.6 * sim_step) for i in sp])
+
+    # gear number and gear count for shifting duration
+    # simulated_gear = [0, 30]
+    fp = []
+
+    if gearbox_type == 'manual':
+        veh_params = hardcoded_params.params_gearbox_losses['Manual']
+        gb_type = 0
+    else:
+        veh_params = hardcoded_params.params_gearbox_losses['Automatic']
+        gb_type = 1
+
+    # gear is the current gear and gear_count counts the time-steps
+    # in order to prevent continuous gear shifting.
+    gear = 0
+    # Initializing gear count.
+    gear_count = 30
+
+    for i in range(1, len(sp)):
+        speed = sp[i]
+        acceleration = ap[i - 1]
+
+        if gear_list_flag:
+            gear = gear_list[i]
+            gear_count = clutch_list[i]
+        else:
+            gear, gear_count = gear_for_speed_profiles(gs, speed / 3.6, gear, gear_count, gb_type)
+        fc = light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_params, engine_max_torque,
+                                   fuel_eng_capacity, speed, acceleration, max_power, fuel_engine_stroke, fuel_type,
+                                   fuel_turbo, hardcoded_params, road_loads,  slope, gear, gear_count, sim_step)
+
+        fp.append(fc)
+
+    return fp
 
 
 if __name__ == '__main__':
