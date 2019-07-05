@@ -16,6 +16,7 @@ import numpy.testing as nt
 import yaml
 import os.path as osp
 
+
 @ddt.ddt
 class Core(unittest.TestCase):
     def setUp(self):
@@ -36,11 +37,6 @@ class Core(unittest.TestCase):
               'clutch_duration'],
              ['current_gear', 'gear_cnt']
         ),
-        # (
-        #     ['gr', 'speed_per_gear', 'acc_per_gear'],
-        #     ['cs_acc_per_gear']
-        # ),
-
         (
             ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
              'car_width', 'car_height', 'sp_bins'],

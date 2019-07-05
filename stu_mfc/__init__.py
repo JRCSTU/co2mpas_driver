@@ -4,43 +4,114 @@ import schedula as sh
 import math
 import functions as func
 from scipy.interpolate import CubicSpline, interp1d
+from stu_mfc.co2mpas import get_full_load, \
+    calculate_full_load_speeds_and_powers, estimate_f_coefficients
+
+from stu_mfc.gear_functions import create_clutch_list, gear_for_speed_profiles
+from stu_mfc.vehicle_specs_class import HardcodedParams
+
+# from stu_mfc.generic_co2mpas import light_co2mpas_instant
+from stu_mfc.functions import calculate_wheel_power, calculate_wheel_speeds, \
+    calculate_wheel_torques, calculate_final_drive_speeds_in, \
+    calculate_final_drive_torque_losses_v1, calculate_final_drive_torques_in, \
+    calculate_gear_box_speeds_in_v1, create_gearbox_params, gear_box_torques_in, \
+    calculate_brake_mean_effective_pressures, mean_piston_speed, parameters, \
+    calculate_fuel_ABC, calculate_VMEP, calc_fuel_consumption, \
+    calculate_gear_box_power_out
 
 dsp = sh.Dispatcher()
+dsp.add_func(get_full_load, outputs=['full_load_curve'])
+dsp.add_func(
+    calculate_full_load_speeds_and_powers,
+    outputs=['full_load_speeds', 'full_load_powers']
+)
+dsp.add_func(
+    estimate_f_coefficients,
+    outputs=['road_loads']
+)
+dsp.add_func(
+    calculate_wheel_power,
+    outputs=['veh_wheel_power']
+)
+dsp.add_func(
+    calculate_wheel_speeds,
+    outputs=['veh_wheel_speed']
+)
+dsp.add_func(
+    calculate_wheel_torques,
+    outputs=['veh_wheel_torque']
+)
+dsp.add_func(
+    calculate_final_drive_speeds_in,
+    outputs=['final_drive_speed']
+)
+dsp.add_func(
+    calculate_final_drive_torque_losses_v1,
+    outputs=['final_drive_torque_losses']
+)
+dsp.add_func(
+    calculate_final_drive_torques_in,
+    outputs=['final_drive_torque_in']
+)
+dsp.add_func(
+    calculate_gear_box_speeds_in_v1,
+    outputs=['gear_box_speeds_in']
+)
+dsp.add_func(
+    create_gearbox_params,
+    outputs=['gearbox_params']
+)
+dsp.add_func(
+    gear_box_torques_in,
+    outputs=['gear_box_torques_in_']
+)
+dsp.add_func(
+    calculate_gear_box_power_out,
+    outputs=['gear_box_power_out']
+)
+dsp.add_func(
+    calculate_brake_mean_effective_pressures,
+    outputs=['br_eff_pres']
+)
+dsp.add_func(
+    mean_piston_speed,
+    outputs=['engine_cm']
+)
+dsp.add_func(
+    parameters,
+    outputs=['params']
+)
+dsp.add_func(
+    calculate_fuel_ABC,
+    outputs=['fuel_A', 'fuel_B', 'fuel_C']
+)
+dsp.add_func(
+    calculate_VMEP,
+    outputs=['VMEP']
+)
+dsp.add_func(
+    calc_fuel_consumption,
+    outputs=['fc']
+)
 
 
-@sh.add_function(dsp, outputs=['full_load_speeds', 'full_load_torque'])
-def get_load_speed_n_torque(
-        ignition_type, engine_max_power, engine_max_speed_at_max_power,
-        idle_engine_speed):
+@sh.add_function(dsp, outputs=['full_load_torque'])
+def calculate_full_load_torque(full_load_powers, full_load_speeds):
     """
     Full load curves of speed and torque.
 
-    :param ignition_type:
+    :param full_load_powers:
         Engine ignition type (positive or compression).
-    :type ignition_type: str
+    :type full_load_powers: str
 
-    :param engine_max_power:
+    :param full_load_speeds:
         Engine nominal power [kW].
-    :type engine_max_power: float
-
-    :param engine_max_speed_at_max_power:
-        Engine nominal speed at engine nominal power [RPM].
-    :type engine_max_speed_at_max_power: float
-
-    :param idle_engine_speed:
-        Engine speed idle median and std [RPM].
-    :type idle_engine_speed: (float, float)
-
-    :return:
+    :type full_load_speeds: float
+    :return: full_load_torque
     """
-    from .co2mpas import get_full_load, calculate_full_load_speeds_and_powers
-    full_load = get_full_load(ignition_type)
-    full_load_speeds, full_load_powers = calculate_full_load_speeds_and_powers(
-        full_load, engine_max_power, engine_max_speed_at_max_power,
-        idle_engine_speed
-    )
     full_load_torque = full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
-    return full_load_speeds, full_load_torque
+
+    return full_load_torque
 
 
 # Speed and acceleration ranges and points for each gear
@@ -205,8 +276,10 @@ def define_sp_bins(Stop):
 
 
 # Calculate Curves
-@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force', 'Alimit'])
-def get_resistances(type_of_car, car_type, veh_mass, engine_max_power, car_width, car_height, sp_bins):
+@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force',
+                               'Alimit'])
+def get_resistances(type_of_car, car_type, veh_mass, engine_max_power,
+                    car_width, car_height, sp_bins):
     """
     Calculate resistances and return spline
 
@@ -222,8 +295,10 @@ def get_resistances(type_of_car, car_type, veh_mass, engine_max_power, car_width
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
-    f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height)
-    car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins), veh_mass)
+    f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width,
+                                         car_height)
+    car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins),
+                                                         veh_mass)
     Alimit = Armax(car_type, veh_mass, engine_max_power)
     return car_res_curve, car_res_curve_force, Alimit
 
@@ -258,9 +333,11 @@ def gear_linear(speed_per_gear, gs_style):
 
 
 @sh.add_function(dsp, outputs=['Curves'])
-def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
+def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
+                            sp_bins):
     """
-    Get the final speed acceleration curves based on full load curves and resistances for all curves
+    Get the final speed acceleration curves based on full load curves and
+    resistances for all curves
 
     :param poly_spline:
     :param acc:
@@ -292,7 +369,8 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_
 @sh.add_function(dsp, outputs=['Tans'])
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     """
-    Gets coefficients and speed boundaries and returns Tans value for per speed per gear
+    Gets coefficients and speed boundaries and returns Tans value for per speed
+    per gear
 
     :param coefs_per_gear:
     :param Start:
@@ -314,7 +392,8 @@ def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
 
 
 @sh.add_function(dsp, outputs=['cs_acc_per_gear'])
-def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear, acc_per_gear):
+def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear,
+                                                         acc_per_gear):
     """
     Based on speed/acceleration points per gear, cubic splines are calculated
     (old MFC)
@@ -341,9 +420,11 @@ def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear, acc
 
 
 @sh.add_function(dsp, outputs=['fp'])
-def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, r_dynamic, final_drive, gr,
-                         engine_max_torque, max_power, fuel_eng_capacity, fuel_engine_stroke, fuel_type, fuel_turbo,
-                         type_of_car, car_width, car_height, sp, gs, sim_step, **kwargs):
+def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass,
+                         r_dynamic, final_drive, gr, engine_max_torque,
+                         max_power, fuel_eng_capacity, fuel_engine_stroke,
+                         fuel_type, fuel_turbo, type_of_car, car_width,
+                         car_height, fc, sp, gs, sim_step, **kwargs):
     """
     :param gearbox_type:
     :param veh_params:
@@ -362,17 +443,12 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, 
     :param type_of_car:
     :param car_width:
     :param car_height:
+    :param fc:
     :param sp:          In km/h!!!
     :param gs:
     :param sim_step:    in sec
     :return:
     """
-
-    from .gear_functions import create_clutch_list
-    from .vehicle_specs_class import HardcodedParams
-    from .co2mpas import estimate_f_coefficients
-    from .gear_functions import gear_for_speed_profiles
-    from .generic_co2mpas import light_co2mpas_instant
 
     gear_list = {}
     clutch_list = []
@@ -389,7 +465,8 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, 
     hardcoded_params = HardcodedParams()
 
     # n_wheel_drive = my_car.car_type
-    road_loads = estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height, passengers=0)
+    # road_loads = estimate_f_coefficients(veh_mass, type_of_car, car_width,
+    #                                      car_height, passengers=0)
 
     slope = 0
     # FIX First convert km/h to m/s in order to have acceleration in m/s^2
@@ -420,55 +497,18 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, 
             gear = gear_list[i]
             gear_count = clutch_list[i]
         else:
-            gear, gear_count = gear_for_speed_profiles(gs, speed / 3.6, gear, gear_count, gb_type)
-        fc = light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_params, engine_max_torque,
-                                   fuel_eng_capacity, speed, acceleration, max_power, fuel_engine_stroke, fuel_type,
-                                   fuel_turbo, hardcoded_params, road_loads,  slope, gear, gear_count, sim_step)
+            gear, gear_count = gear_for_speed_profiles(gs, speed / 3.6, gear,
+                                                       gear_count, gb_type)
+        # fc = light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive,
+        #                            gr, veh_params, engine_max_torque,
+        #                            fuel_eng_capacity, speed, acceleration,
+        #                            max_power, fuel_engine_stroke, fuel_type,
+        #                            fuel_turbo, hardcoded_params, road_loads,
+        #                            slope, gear, gear_count, sim_step)
 
         fp.append(fc)
 
     return fp
-
-
-@sh.add_function(dsp, outputs=['current_gear', 'gear_cnt'])
-def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, clutch_duration=5):
-    """
-    Return the gear that must be used and the clutch condition
-
-    :param gs:
-    :param curr_speed:
-    :param current_gear:
-    :param gear_cnt:
-    :param clutch_duration: in sim step
-    :return:
-    """
-
-    # Model buffer for up shifting and down shifting.
-    upshift_offs = 0.0
-    downshift_off = 0.1
-
-    gear_limits = [0]
-    gear_limits.extend(gs)
-    gear_limits.append(200)
-
-    if gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off <= curr_speed < gear_limits[
-        current_gear] + gear_limits[current_gear] * upshift_offs:
-        if gear_cnt == 0:
-            return current_gear, gear_cnt
-        else:
-            gear_cnt -= 1
-            return current_gear, gear_cnt
-    else:
-        iter = 1
-        gear_search = 1
-        while iter == 1:
-            if gear_limits[gear_search - 1] <= curr_speed < gear_limits[gear_search]:
-                gear_cnt = clutch_duration  # in simulation steps for 0.5 second
-                current_gear = gear_search
-                iter = 0
-            else:
-                gear_search += 1
-        return current_gear, gear_cnt
 
 
 if __name__ == '__main__':

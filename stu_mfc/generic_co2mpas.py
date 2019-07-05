@@ -2,7 +2,7 @@
 
 import math
 import numpy as np
-import functions as func
+from stu_mfc import functions as func
 import vehicle_specs_class as vcc
 import gear_functions as fg
 import vehicle_functions as vf
@@ -127,8 +127,8 @@ def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_pa
              gear_box_speeds_in,
              final_drive_speed, gearbox_params, gear_count)
 
-    gear_box_power_out = \
-        2 * math.pi * gear_box_torques_in * gear_box_speeds_in / 60000
+    gear_box_power_out = func.calculate_gear_box_power_out(gear_box_torques_in *
+                                                           gear_box_speeds_in)
 
     br_eff_pres = \
         func.calculate_brake_mean_effective_pressures \
