@@ -430,5 +430,46 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass, 
     return fp
 
 
+@sh.add_function(dsp, outputs=['current_gear', 'gear_cnt'])
+def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, clutch_duration=5):
+    """
+    Return the gear that must be used and the clutch condition
+
+    :param gs:
+    :param curr_speed:
+    :param current_gear:
+    :param gear_cnt:
+    :param clutch_duration: in sim step
+    :return:
+    """
+
+    # Model buffer for up shifting and down shifting.
+    upshift_offs = 0.0
+    downshift_off = 0.1
+
+    gear_limits = [0]
+    gear_limits.extend(gs)
+    gear_limits.append(200)
+
+    if gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off <= curr_speed < gear_limits[
+        current_gear] + gear_limits[current_gear] * upshift_offs:
+        if gear_cnt == 0:
+            return current_gear, gear_cnt
+        else:
+            gear_cnt -= 1
+            return current_gear, gear_cnt
+    else:
+        iter = 1
+        gear_search = 1
+        while iter == 1:
+            if gear_limits[gear_search - 1] <= curr_speed < gear_limits[gear_search]:
+                gear_cnt = clutch_duration  # in simulation steps for 0.5 second
+                current_gear = gear_search
+                iter = 0
+            else:
+                gear_search += 1
+        return current_gear, gear_cnt
+
+
 if __name__ == '__main__':
     dsp.plot()

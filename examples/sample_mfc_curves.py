@@ -39,7 +39,7 @@ def simple_run():
     Start, Stop = vf.get_start_stop(my_car, speed_per_gear, acc_per_gear,
                                     poly_spline)
 
-    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+    sp_bins = vf.speed_bins(Stop)
     """Get resistances"""
     car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car,
                                                                     sp_bins)

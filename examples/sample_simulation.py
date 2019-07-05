@@ -14,7 +14,7 @@ def simple_run():
     # Vehicle databased based on the Euro Car Segment classification
     db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
-    car_id = 39393
+    car_id = 35135  # 39393
     # The gear shifting style as described in the TRR paper.
     gs_style = 0.9
 

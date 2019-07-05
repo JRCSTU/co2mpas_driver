@@ -15,7 +15,7 @@ db_name = os.path.dirname(db_name) + '/' + \
 
 db = rno.load_db_to_dictionary(db_name)
 
-my_car = rno.get_vehicle_from_db(db, car_id, lco = True)
+my_car = rno.get_vehicle_from_db(db, car_id, lco=True)
 
 # Sample speed profile.
 sp = [0.075647222, 0.138130556, 0.165027778, 0.093338889, 0.050647222, 0.073841667, 0.067722222, 0.041172222,

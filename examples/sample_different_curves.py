@@ -10,7 +10,7 @@ import reading_n_organizing as rno
 def simple_run():
     # Database of vehicles with a unique id
     db_name = '../db/EuroSegmentCar'
-    car_id = 39393
+    car_id = 35135  # 39393
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     degree = 2
 

@@ -9,7 +9,7 @@ import plot_templates as pt
 
 
 db_name = '../db/EuroSegmentCar'
-car_id = 27748
+car_id = 35135  # 27748
 gs_style = 1
 
 # file path without extension of the file

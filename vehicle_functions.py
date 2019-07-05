@@ -269,6 +269,11 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline):
     return Start, Stop
 
 
+def speed_bins(Stop):
+    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+    return sp_bins
+
+
 def get_resistances(my_car, sp_bins):
     """
 
