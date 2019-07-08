@@ -24,6 +24,7 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
+        # light_co2mpas_series()
         (
              ['gearbox_type', 'veh_params', 'gb_type', 'car_type',
               'veh_mass', 'r_dynamic', 'final_drive', 'gr',
@@ -32,36 +33,43 @@ class Core(unittest.TestCase):
               'car_width', 'car_height', 'sp', 'gs', 'sim_step'],
              ['fp']
          ),
+        # gear_for_speed_profiles()
         (
              ['gs', 'curr_speed', 'current_gear', 'gear_cnt',
               'clutch_duration'],
              ['current_gear', 'gear_cnt']
         ),
+        # get_resistances()
         (
             ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
              'car_width', 'car_height', 'sp_bins'],
             ['Alimit']
         ),
+        # get_start_stop()
         (
             ['gr', 'veh_max_speed', 'speed_per_gear', 'acc_per_gear',
              'coefs_per_gear', 'starting_speed'],
             ['Start', 'Stop']
         ),
+        # calculate_full_load_speeds_and_powers()
         (
             ['ignition_type', 'engine_max_speed_at_max_power',
              'engine_max_power', 'idle_engine_speed'],
             ['full_load_torque', 'full_load_speeds']
          ),
+        # get_speeds_n_accelerations_per_gear()
         (
             ['veh_mass', 'tire_radius', 'full_load_speeds',
              'driveline_efficiency', 'driveline_slippage', 'final_drive',
              'full_load_torque', 'gr', 'idle_engine_speed'],
             ['speed_per_gear', 'acc_per_gear']
         ),
+        # get_tan_coefs()
         (
             ['speed_per_gear', 'acc_per_gear', 'degree'],
             ['coefs_per_gear']
         ),
+        # gear_linear()
         (
             ['speed_per_gear', 'gs_style'],
             ['gs']

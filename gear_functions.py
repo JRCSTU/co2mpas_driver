@@ -107,7 +107,8 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop):
     return gs
 
 
-def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, clutch_duration=5):
+def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
+                            clutch_duration=5):
     """
     Return the gear that must be used and the clutch condition
 

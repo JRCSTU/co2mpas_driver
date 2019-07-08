@@ -288,7 +288,13 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, cs_acc_per_gear):
     return Start, Stop
 
 
-def get_resistances(my_car, sp_bins):
+def speed_bins(Stop):
+    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+    return sp_bins
+
+
+def get_resistances(veh_mass, type_of_car, car_width, car_height,
+                    car_type, engine_max_power, sp_bins):
     """
 
     Calculate resistances and return spline
@@ -297,11 +303,12 @@ def get_resistances(my_car, sp_bins):
     :param sp_bins:
     :return:
     """
-    f0, f1, f2 = estimate_f_coefficients(my_car, 0)
+    f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width,
+                                         car_height, 0)
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2,
                                                          list(sp_bins),
-                                                         my_car.veh_mass)
-    Alimit = Armax(my_car)
+                                                         veh_mass)
+    Alimit = Armax(car_type, veh_mass, engine_max_power)
     return car_res_curve, car_res_curve_force, Alimit
 
 

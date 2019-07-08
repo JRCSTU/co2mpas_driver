@@ -3,7 +3,6 @@ os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
 import copy
 import numpy as np
 import schedula as sh
-import math
 from scipy.interpolate import CubicSpline, interp1d
 from stu_mfc.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, estimate_f_coefficients

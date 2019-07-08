@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.append("..")
 import numpy as np
 import matplotlib.pyplot as plt
 import curve_functions as mf
@@ -23,8 +21,8 @@ def simple_run():
     # Select a car based on its id
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
-    curves, cs_acc_per_gear, start_stop, gs = mf.gear_4degree_curves_with_linear_gs(
-        selected_car, gs_style)
+    curves, cs_acc_per_gear, start_stop, gs = \
+        mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     for gear, curve in enumerate(curves):
         start = start_stop[0][gear]

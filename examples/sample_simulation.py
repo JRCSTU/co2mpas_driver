@@ -1,6 +1,4 @@
 import os
-import sys
-sys.path.append("..")
 import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +12,7 @@ def simple_run():
     # Vehicle databased based on the Euro Car Segment classification
     db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
-    car_id = 35135  # 39393
+    car_id = 39393
     # The gear shifting style as described in the TRR paper.
     gs_style = 0.9
 
@@ -50,7 +48,8 @@ def simple_run():
     curves (cs_acc_per_gear), before the calculation of the resistances and the
     limitation due to max possible acceleration (friction) .
     """
-    Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
+    Curves, cs_acc_per_gear, StartStop, gs = \
+        mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     """
     The difference betweeen "gear_4degree_curves_with_linear_gs" and 
