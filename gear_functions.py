@@ -154,8 +154,14 @@ def gear_linear(speed_per_gear, gs_style):
     strategy
 
     :param speed_per_gear:
+        Speed per gear [m/s]
+    :type speed_per_gear:
     :param gs_style:
+        Gear shifting style
+    :type gs_style:
     :return:
+        Gear limits
+    :rtype:
     """
     n_gears = len(speed_per_gear)
 
