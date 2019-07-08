@@ -9,7 +9,8 @@ class VehSpecs(object):
     def __init__(self, my_car, **kwargs):
         """
         kwargs can be:
-        lco = True          # Light co2mpas is to be used, so the relevant parameters must be imported
+        lco = True          # Light co2mpas is to be used, so the relevant
+                                parameters must be imported
         electric = True     # The vehicle is an EV
 
         :param my_car:
@@ -19,7 +20,8 @@ class VehSpecs(object):
 
         if 'electric' not in kwargs or not kwargs['electric']:
             self.engine_max_power = float(my_car["Fuel Engine-Max power"])  # kW
-            self.engine_max_speed_at_max_power = float(my_car["Fuel Engine-Max power RPM"])  # rpm
+            self.engine_max_speed_at_max_power = float(
+                my_car["Fuel Engine-Max power RPM"])  # rpm
             gr_str = my_car["Transmission  / Gear ratio-Gear Box Ratios"]  # [3.33, 1.95, 1.29, 0.98, 0.76]
             if gr_str[0] == '[':
                 gr_str = gr_str[1:-1]
@@ -104,7 +106,8 @@ class VehSpecs(object):
                 self.tire_radius = float(
                     my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
                 self.driveline_slippage = 0
-                if my_car["General Specifications-Transmission"] == 'single-speed fixed gear':
+                if my_car["General Specifications-Transmission"] == \
+                        'single-speed fixed gear':
                     self.driveline_efficiency = 0.90
                 else:
                     self.driveline_efficiency = 0.93
