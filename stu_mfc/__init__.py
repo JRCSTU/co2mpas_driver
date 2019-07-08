@@ -1,8 +1,9 @@
+import os
+os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
 import copy
 import numpy as np
 import schedula as sh
 import math
-import functions as func
 from scipy.interpolate import CubicSpline, interp1d
 from stu_mfc.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, estimate_f_coefficients
@@ -10,7 +11,7 @@ from stu_mfc.co2mpas import get_full_load, \
 from stu_mfc.gear_functions import create_clutch_list, gear_for_speed_profiles
 from stu_mfc.vehicle_specs_class import HardcodedParams
 
-# from stu_mfc.generic_co2mpas import light_co2mpas_instant
+from stu_mfc.generic_co2mpas import light_co2mpas_instant
 from stu_mfc.functions import calculate_wheel_power, calculate_wheel_speeds, \
     calculate_wheel_torques, calculate_final_drive_speeds_in, \
     calculate_final_drive_torque_losses_v1, calculate_final_drive_torques_in, \
@@ -71,7 +72,8 @@ dsp.add_func(
 )
 dsp.add_func(
     calculate_brake_mean_effective_pressures,
-    outputs=['br_eff_pres']
+    outputs=['br_eff_pres'],
+    inputs=['gear_box_speeds_in, gear_box_power_out', 'fuel_eng_capacity', 'min_engine_on_speed']
 )
 dsp.add_func(
     mean_piston_speed,
@@ -423,8 +425,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear,
 def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass,
                          r_dynamic, final_drive, gr, engine_max_torque,
                          max_power, fuel_eng_capacity, fuel_engine_stroke,
-                         fuel_type, fuel_turbo, type_of_car, car_width,
-                         car_height, fc, sp, gs, sim_step, **kwargs):
+                         fuel_type, fuel_turbo, road_loads, sp, gs, sim_step, **kwargs):
     """
     :param gearbox_type:
     :param veh_params:
@@ -499,12 +500,12 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass,
         else:
             gear, gear_count = gear_for_speed_profiles(gs, speed / 3.6, gear,
                                                        gear_count, gb_type)
-        # fc = light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive,
-        #                            gr, veh_params, engine_max_torque,
-        #                            fuel_eng_capacity, speed, acceleration,
-        #                            max_power, fuel_engine_stroke, fuel_type,
-        #                            fuel_turbo, hardcoded_params, road_loads,
-        #                            slope, gear, gear_count, sim_step)
+        fc = light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive,
+                                   gr, veh_params, engine_max_torque,
+                                   fuel_eng_capacity, speed, acceleration,
+                                   max_power, fuel_engine_stroke, fuel_type,
+                                   fuel_turbo, hardcoded_params, road_loads,
+                                   slope, gear, gear_count, sim_step)
 
         fp.append(fc)
 

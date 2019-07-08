@@ -127,7 +127,7 @@ def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_pa
              gear_box_speeds_in,
              final_drive_speed, gearbox_params, gear_count)
 
-    gear_box_power_out = func.calculate_gear_box_power_out(gear_box_torques_in *
+    gear_box_power_out = func.calculate_gear_box_power_out(gear_box_torques_in,
                                                            gear_box_speeds_in)
 
     br_eff_pres = \

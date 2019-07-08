@@ -175,8 +175,11 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
 
     :param my_car:
     :param full_load_speeds:
+    :type full_load_speeds: numpy.array
     :param full_load_torque:
-    :return:
+    :type full_load_torque: numpy.array
+    :return: speed_per_gear:
+    :rtype: list
     """
     speed_per_gear, acc_per_gear = [], []
 
