@@ -7,10 +7,10 @@ from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import gear_functions as fg
 
 
-def simple_run():
+def simple_run(db_name):
     """:parameters of the simulation"""
     # Vehicle databased based on the Euro Car Segment classification
-    db_name = '../db/EuroSegmentCar'
+    # db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
     car_id = 39393
     # The gear shifting style as described in the TRR paper.

@@ -5,8 +5,8 @@ from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 
 
-def simple_run():
-    db_name = '../db/EuroSegmentCar'
+def simple_run(db_name):
+    # db_name = '../db/EuroSegmentCar'
     car_id = 47844
 
     # file path without extension of the file

@@ -7,9 +7,8 @@ from new_MFC.common import vehicle_functions as vf
 from new_MFC.common import gear_functions as fg
 
 
-def simple_run():
+def simple_run(db_name):
     # db_name = '../db/car_db_sample'
-    db_name = '../db/EuroSegmentCar_cleaned'
     car_id = 40516
     gs_style = 0.8
     # degree = 4
