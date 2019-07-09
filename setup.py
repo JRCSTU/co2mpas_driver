@@ -19,11 +19,9 @@ if __name__ == '__main__':
         with open('README.md') as f:
             return f.read()
 
+    test_deps = ['pytest']
 
     # url = 'https://github.com/ashenafimenza/%s' % name
-    extras = {
-        'plot': ['graphviz', 'matplotlib'],
-    }
 
     setup(
         name=name,
@@ -57,7 +55,7 @@ if __name__ == '__main__':
             'schedula',
             'numpy',
         ],
-        extras_require=extras,
+        tests_require=test_deps,
         package_data={
             'new_MFC': [
                 'test/*.yaml',

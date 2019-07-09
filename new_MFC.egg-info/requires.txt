@@ -1,7 +1,3 @@
 PyYAML
 schedula
 numpy
-
-[plot]
-graphviz
-matplotlib
