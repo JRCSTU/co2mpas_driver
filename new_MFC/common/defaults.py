@@ -11,7 +11,7 @@ It provides constants for the CO2MPAS formulas.
 """
 
 import numpy as np
-import utils as co2_utl
+from new_MFC.common import utils as co2_utl
 
 
 #: Container of node default values.

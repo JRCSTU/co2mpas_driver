@@ -1,8 +1,6 @@
-import sys
-sys.path.append("../")
-import vehicle_functions as vf
+from new_MFC.common import vehicle_functions as vf
 import numpy as np
-import gear_functions as fg
+from new_MFC.common import gear_functions as fg
 import matplotlib.pyplot as plt
 
 

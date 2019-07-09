@@ -1,4 +1,4 @@
-import gear_functions as fg
+from new_MFC.common import gear_functions as fg
 
 
 def accMFC(s, driver_style, sdes, acc_p_curve):

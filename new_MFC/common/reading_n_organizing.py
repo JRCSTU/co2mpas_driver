@@ -1,4 +1,4 @@
-import vehicle_specs_class as vcc
+from new_MFC.common import vehicle_specs_class as vcc
 
 
 def load_db_to_dictionary(db_name):

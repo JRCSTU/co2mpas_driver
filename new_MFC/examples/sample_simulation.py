@@ -1,10 +1,10 @@
 import os
-import simulation_part as sp
+from new_MFC.common import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
-import curve_functions as mf
-import reading_n_organizing as rno
-import gear_functions as fg
+from new_MFC.common import curve_functions as mf
+from new_MFC.common import reading_n_organizing as rno
+from new_MFC.common import gear_functions as fg
 
 
 def simple_run():

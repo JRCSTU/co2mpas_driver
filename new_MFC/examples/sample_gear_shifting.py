@@ -1,9 +1,9 @@
 import os
 import matplotlib.pyplot as plt
-import reading_n_organizing as rno
-import vehicle_functions as vf
-import gear_functions as fg
-import plot_templates as pt
+from new_MFC.common import reading_n_organizing as rno
+from new_MFC.common import vehicle_functions as vf
+from new_MFC.common import gear_functions as fg
+from new_MFC.common import plot_templates as pt
 
 
 db_name = '../db/EuroSegmentCar'

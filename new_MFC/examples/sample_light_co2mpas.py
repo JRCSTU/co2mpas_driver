@@ -1,7 +1,7 @@
 import os
-import generic_co2mpas as lco
+from new_MFC.common import generic_co2mpas as lco
 import matplotlib.pyplot as plt
-import reading_n_organizing as rno
+from new_MFC.common import reading_n_organizing as rno
 
 db_name = '../db/EuroSegmentCar'
 car_id = 35135

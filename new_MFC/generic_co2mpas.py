@@ -2,9 +2,9 @@
 
 import numpy as np
 from new_MFC import functions as func
-import vehicle_specs_class as vcc
-import gear_functions as fg
-import vehicle_functions as vf
+from new_MFC.common import vehicle_specs_class as vcc
+from new_MFC.common import gear_functions as fg
+from new_MFC.common import vehicle_functions as vf
 
 
 def light_co2mpas_series(my_car, sp, gs, sim_step, **kwargs):

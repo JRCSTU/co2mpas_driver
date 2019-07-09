@@ -1,8 +1,8 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import curve_functions as mf
-import reading_n_organizing as rno
+from new_MFC.common import curve_functions as mf
+from new_MFC.common import reading_n_organizing as rno
 
 
 def simple_run():

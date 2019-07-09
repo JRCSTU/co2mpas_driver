@@ -57,17 +57,11 @@ if __name__ == '__main__':
             'schedula',
             'numpy',
         ],
-        entry_points={
-            'console_scripts': [
-                '%(p)s = %(p)s.new_MFC:new_MFC' % {'p': name},
-            ],
-        },
         extras_require=extras,
         package_data={
-            '': [
+            'new_MFC': [
                 'test/*.yaml',
-                'db/*.csv',
-                '*.py'
+                'db/*.csv'
             ]
         },
         include_package_data=True,

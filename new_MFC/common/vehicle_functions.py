@@ -3,7 +3,7 @@
 import functools as functools
 import numpy as np
 from scipy.interpolate import CubicSpline, interp1d
-import defaults as defaults
+from new_MFC.common import defaults as defaults
 
 
 def get_full_load(ignition_type):
