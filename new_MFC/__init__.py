@@ -4,14 +4,14 @@ import copy
 import numpy as np
 import schedula as sh
 from scipy.interpolate import CubicSpline, interp1d
-from stu_mfc.co2mpas import get_full_load, \
+from new_MFC.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, estimate_f_coefficients
 
-from stu_mfc.gear_functions import create_clutch_list, gear_for_speed_profiles
-from stu_mfc.vehicle_specs_class import HardcodedParams
+from new_MFC.gear_functions import create_clutch_list, gear_for_speed_profiles
+from new_MFC.vehicle_specs_class import HardcodedParams
 
-from stu_mfc.generic_co2mpas import light_co2mpas_instant
-from stu_mfc.functions import calculate_wheel_power, calculate_wheel_speeds, \
+from new_MFC.generic_co2mpas import light_co2mpas_instant
+from new_MFC.functions import calculate_wheel_power, calculate_wheel_speeds, \
     calculate_wheel_torques, calculate_final_drive_speeds_in, \
     calculate_final_drive_torque_losses_v1, calculate_final_drive_torques_in, \
     calculate_gear_box_speeds_in_v1, create_gearbox_params, gear_box_torques_in, \
@@ -72,8 +72,7 @@ dsp.add_func(
 dsp.add_func(
     calculate_brake_mean_effective_pressures,
     outputs=['br_eff_pres'],
-    inputs=['gear_box_speeds_in, gear_box_power_out', 'fuel_eng_capacity',
-            'min_engine_on_speed']
+    inputs=['gear_box_speeds_in, gear_box_power_out', 'fuel_eng_capacity', 'min_engine_on_speed']
 )
 dsp.add_func(
     mean_piston_speed,
@@ -296,12 +295,10 @@ def get_resistances(type_of_car, car_type, veh_mass, engine_max_power,
     :return:
     """
 
-    from .co2mpas import estimate_f_coefficients, veh_resistances, \
-        Armax
+    from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
     f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width,
                                          car_height)
-    car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2,
-                                                         list(sp_bins),
+    car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins),
                                                          veh_mass)
     Alimit = Armax(car_type, veh_mass, engine_max_power)
     return car_res_curve, car_res_curve_force, Alimit
@@ -427,8 +424,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear,
 def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass,
                          r_dynamic, final_drive, gr, engine_max_torque,
                          max_power, fuel_eng_capacity, fuel_engine_stroke,
-                         fuel_type, fuel_turbo, road_loads, sp, gs, sim_step,
-                         **kwargs):
+                         fuel_type, fuel_turbo, road_loads, sp, gs, sim_step, **kwargs):
     """
     :param gearbox_type:
     :param veh_params:

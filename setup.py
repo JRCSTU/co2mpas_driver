@@ -20,7 +20,7 @@ if __name__ == '__main__':
             return f.read()
 
 
-    url = 'https://github.com/ashenafimenza/%s' % name
+    # url = 'https://github.com/ashenafimenza/%s' % name
     extras = {
         'plot': ['graphviz', 'matplotlib'],
     }
@@ -29,14 +29,12 @@ if __name__ == '__main__':
         name=name,
         version='1.0.0',
         packages=find_packages(),
-        url=url,
-        license='EUPL',
-        author='',
-        author_email='',
+        license="European Union Public Licence 1.1 or later (EUPL 1.1+)",
         description='A lightweight microsimulation free-flow acceleration model'
                     '(MFC) that is able to capture the vehicle acceleration '
                     'dynamics accurately and consistently',
         long_description=readme(),
+        project_urls={"Sources": "https://github.com/ashenafimenza/new_MFC"},
         classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
@@ -61,19 +59,18 @@ if __name__ == '__main__':
         ],
         entry_points={
             'console_scripts': [
-                '%(p)s = %(p)s.stu_mfc:stu_mfc' % {'p': name},
+                '%(p)s = %(p)s.new_MFC:new_MFC' % {'p': name},
             ],
         },
         extras_require=extras,
-        include_package_data=True,
         package_data={
-            'new_MFC': [
+            '': [
                 'test/*.yaml',
                 'db/*.csv',
                 '*.py'
-
             ]
         },
+        include_package_data=True,
         zip_safe=True,
         options={'bdist_wheel': {'universal': True}},
         platforms=['any'],

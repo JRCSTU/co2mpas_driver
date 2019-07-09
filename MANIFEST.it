@@ -1,4 +1,3 @@
-include *.yaml *.py
-include README.md
+include *.py
 recursive-include db *.csv
 recursive-include test *.yaml

@@ -1,8 +1,7 @@
 """The two functions of light co2mpass to be used"""
 
-import math
 import numpy as np
-from stu_mfc import functions as func
+from new_MFC import functions as func
 import vehicle_specs_class as vcc
 import gear_functions as fg
 import vehicle_functions as vf

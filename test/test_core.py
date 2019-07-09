@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from stu_mfc import dsp
+from new_MFC import dsp
 import ddt
 import schedula as sh
 import numpy.testing as nt
@@ -22,6 +22,16 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
+        # light_co2mpas_series()
+        (
+                ['gearbox_type', 'veh_params', 'gb_type', 'car_type',
+                 'veh_mass', 'r_dynamic', 'final_drive', 'gr',
+                 'engine_max_torque', 'max_power', 'fuel_eng_capacity',
+                 'fuel_engine_stroke', 'fuel_type', 'fuel_turbo',
+                 'type_of_car',
+                 'car_width', 'car_height', 'sp', 'gs', 'sim_step'],
+                ['fp']
+        ),
         # get_resistances()
         (
             ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
@@ -62,16 +72,6 @@ class Core(unittest.TestCase):
                 ['gs', 'curr_speed', 'current_gear', 'gear_cnt',
                  'clutch_duration'],
                 ['current_gear', 'gear_cnt']
-        ),
-        # light_co2mpas_series()
-        (
-                ['gearbox_type', 'veh_params', 'gb_type', 'car_type',
-                 'veh_mass', 'r_dynamic', 'final_drive', 'gr',
-                 'engine_max_torque', 'max_power', 'fuel_eng_capacity',
-                 'fuel_engine_stroke', 'fuel_type', 'fuel_turbo',
-                 'type_of_car',
-                 'car_width', 'car_height', 'sp', 'gs', 'sim_step'],
-                ['fp']
         )
     ))
     def test_core(self, keys):
