@@ -23,21 +23,18 @@
     The project folder structure looks like: 
     
         new_MFC
-        ├───.idea
-        │   └───dictionaries
-        ├───.pytest_cache
-        │   └───v
-        │       └───cache
+        ├───LICENSE.txt
         ├───bin
         ├───new_MFC
         │   ├───common
-        │   │   └───__pycache__
         │   ├───db
         │   ├───examples
-        │   │   └───__pycache__
         │   ├───test
-        │   └───__pycache__
-        └───__pycache__
+        ├───MANIFEST.it
+        ├───README.md
+        ├───requirements.txt
+        ├───setup.py
+        └───.gitignore
 
 4. **Compile your package**
    Change your directory into the root of the project and execute the command below
@@ -72,11 +69,6 @@
 
             new_MFC
             ├───LICENSE.txt
-            ├───.idea
-            │   └───dictionaries
-            ├───.pytest_cache
-            │   └───v
-            │       └───cache
             ├───bin
             ├───build
             │   ├───bdist.win-amd64
@@ -90,12 +82,9 @@
             │   ├───new_MFC-1.0.0-py2.py3-none-any.whl
             ├───new_MFC
             │   ├───common
-            │   │   └───__pycache__
             │   ├───db
             │   ├───examples
-            │   │   └───__pycache__
             │   ├───test
-            │   └───__pycache__
             ├───new_MFC.egg-info
             ├───MANIFEST.it
             ├───README.md
