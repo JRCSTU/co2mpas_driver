@@ -51,14 +51,22 @@
             python setup.py sdist
    
    2. **Built distribution**
+         
+         **wheel format**
+         
+            python setup.py bdist_wheel
             
-         exe
+         **Creating Windows Installers**
             
             python setup.py bdist_wininst
             
-         wheel format
+         or the **bdist** command with the --formats option:
          
-            python setup.py bdist_wheel
+            python setup.py bdist --formats=wininst
+            
+         to build a 64bit version of your extension.
+         
+            python setup.py build --plat-name=win-amd64 bdist_wininst   
             
          This will create a folder structure like this:
 
@@ -89,7 +97,7 @@
             ├───new_MFC.egg-info
             └───__pycache__
 
-         * **Build**
+         * **Build** build package information.
          * **dist** This contains the wheel file format which is the standard 
             built package.
          * **new_MFC.egg-info** This contains compiled byte code, package 
