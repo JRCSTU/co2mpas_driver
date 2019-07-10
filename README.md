@@ -2,7 +2,7 @@
 
 # Please cite: Makridis, M., Fontaras, G., Ciuffo, B.F., Mattas, K., 2019. MFC free-flow model: Introducing vehicle dynamics in microsimulation. TRR.
 
-##How to package new_MFC project for distribution
+## How to package new_MFC project for distribution
 <!--move them to CONTRIBUTING.md -->
 
 1. **Register on PyPi**: https://pypi.org/account/register/ or GitHub and upload 
