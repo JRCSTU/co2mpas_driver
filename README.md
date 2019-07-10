@@ -20,10 +20,6 @@
     project. we have also the README.md and LICENSE.txt for the licence of the
     project.
     
-    **work flow of the whole project**
-    
-    ![GitHub Logo](work_flow_mfc.png)
-    
     The project folder structure looks like: 
     
         new_MFC
