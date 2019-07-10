@@ -71,6 +71,7 @@
          This will create a folder structure like this:
 
             new_MFC
+            ├───LICENSE.txt
             ├───.idea
             │   └───dictionaries
             ├───.pytest_cache
@@ -86,6 +87,7 @@
             │           ├───examples
             │           └───test
             ├───dist
+            │   ├───new_MFC-1.0.0-py2.py3-none-any.whl
             ├───new_MFC
             │   ├───common
             │   │   └───__pycache__
@@ -95,8 +97,12 @@
             │   ├───test
             │   └───__pycache__
             ├───new_MFC.egg-info
-            └───__pycache__
-
+            ├───MANIFEST.it
+            ├───README.md
+            ├───requirements.txt
+            ├───setup.py
+            └───.gitignore
+            
          * **Build** build package information.
          * **dist** This contains the wheel file format which is the standard 
             built package.
