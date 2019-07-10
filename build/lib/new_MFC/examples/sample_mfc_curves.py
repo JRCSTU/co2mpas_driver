@@ -1,4 +1,5 @@
 import os
+import os.path as osp
 import numpy as np
 import matplotlib.pyplot as plt
 from new_MFC.common import curve_functions as mf
@@ -6,9 +7,12 @@ from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import vehicle_functions as vf
 from new_MFC.common import gear_functions as fg
 
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
 
-def simple_run(db_name):
-    # db_name = '../db/car_db_sample'
+
+def simple_run():
+    db_name = '../db/car_db_sample'
     car_id = 40516
     gs_style = 0.8
     # degree = 4

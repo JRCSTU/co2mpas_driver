@@ -9,11 +9,24 @@
 new_MFC setup.
 
 """
+
+import os
+import shutil
+from os import path as osp
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
+
 name = 'new_MFC'
 
 if __name__ == '__main__':
     from setuptools import setup, find_packages
+    dir_list = ['build', 'dist', '{}.egg-info'.format(name)]
 
+    for d in dir_list:
+        try:
+            shutil.rmtree(d)
+        except:
+            pass
 
     def readme():
         with open('README.md') as f:
@@ -32,6 +45,7 @@ if __name__ == '__main__':
                     '(MFC) that is able to capture the vehicle acceleration '
                     'dynamics accurately and consistently',
         long_description=readme(),
+        long_description_content_type='text/markdown',
         project_urls={"Sources": "https://github.com/ashenafimenza/new_MFC"},
         classifiers=[
             'Development Status :: 4 - Beta',
@@ -62,8 +76,20 @@ if __name__ == '__main__':
                 'db/*.csv'
             ]
         },
+        entry_points={
+            "console_scripts": [
+                                "sample_4degree_with_linear=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_different_curves=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_EV=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_gear_shifting=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_light_co2mpas=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_mfc_curves=new_MFC.examples.sample_4degree_with_linear:simple_run",
+                                "sample_simulation=new_MFC.examples.sample_4degree_with_linear:simple_run"]
+        },
         include_package_data=True,
         zip_safe=True,
-        options={'bdist_wheel': {'universal': True}},
+        options={
+            'bdist_wheel': {'universal': True}
+        },
         platforms=['any'],
     )

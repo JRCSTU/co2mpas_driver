@@ -10,6 +10,7 @@ new_MFC/vehicle_specs_class.py
 new_MFC.egg-info/PKG-INFO
 new_MFC.egg-info/SOURCES.txt
 new_MFC.egg-info/dependency_links.txt
+new_MFC.egg-info/entry_points.txt
 new_MFC.egg-info/requires.txt
 new_MFC.egg-info/top_level.txt
 new_MFC.egg-info/zip-safe

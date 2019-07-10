@@ -1,15 +1,17 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: new-MFC
 Version: 1.0.0
 Summary: A lightweight microsimulation free-flow acceleration model(MFC) that is able to capture the vehicle acceleration dynamics accurately and consistently
 Home-page: UNKNOWN
-Author: UNKNOWN
-Author-email: UNKNOWN
 License: European Union Public Licence 1.1 or later (EUPL 1.1+)
 Project-URL: Sources, https://github.com/ashenafimenza/new_MFC
 Description: # The present work implements a lightweight microsimulation free-flow acceleration model (MFC) that is able to capture the vehicle acceleration dynamics accurately and consistently, it provides a link between the model and the driver and can be easily implemented and tested without raising the computational complexity. The proposed model has been developed by the Joint Research Centre of the European Commission. 
         
         # Please cite: Makridis, M., Fontaras, G., Ciuffo, B.F., Mattas, K., 2019. MFC free-flow model: Introducing vehicle dynamics in microsimulation. TRR.
+        
+        How to package new_MFC project for distribution
+        
+        1.Source distribution
         
 Platform: any
 Classifier: Development Status :: 4 - Beta
@@ -27,3 +29,4 @@ Classifier: Operating System :: MacOS :: MacOS X
 Classifier: Operating System :: Microsoft :: Windows
 Classifier: Operating System :: POSIX
 Classifier: Operating System :: Unix
+Description-Content-Type: text/markdown

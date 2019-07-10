@@ -1,11 +1,15 @@
 import os
+from os import path as osp
 from new_MFC.common import generic_co2mpas as lco
 import matplotlib.pyplot as plt
 from new_MFC.common import reading_n_organizing as rno
 
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
 
-def simple_run(db_name):
-    # db_name = '../db/EuroSegmentCar'
+
+def simple_run():
+    db_name = '../db/EuroSegmentCar'
     car_id = 35135
 
     # file path without extension of the file

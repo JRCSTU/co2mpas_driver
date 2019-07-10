@@ -1,4 +1,5 @@
 import os
+import os.path as osp
 from new_MFC.common import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,11 +7,14 @@ from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import gear_functions as fg
 
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
 
-def simple_run(db_name):
+
+def simple_run():
     """:parameters of the simulation"""
     # Vehicle databased based on the Euro Car Segment classification
-    # db_name = '../db/EuroSegmentCar'
+    db_name = '../db/EuroSegmentCar'
     # A sample car id from the database
     car_id = 39393
     # The gear shifting style as described in the TRR paper.

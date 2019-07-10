@@ -1,13 +1,17 @@
 import os
+from os import path as osp
 import numpy as np
 import matplotlib.pyplot as plt
 from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
 
-def simple_run(db_name):
+
+def simple_run():
     # Database of vehicles with a unique id
-    # db_name = '../db/EuroSegmentCar'
+    db_name = '../db/EuroSegmentCar'
     car_id = 39393
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     degree = 2

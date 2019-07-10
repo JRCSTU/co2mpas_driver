@@ -1,13 +1,17 @@
 import os
+from os import path as osp
 import matplotlib.pyplot as plt
 from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import vehicle_functions as vf
 from new_MFC.common import gear_functions as fg
 from new_MFC.common import plot_templates as pt
 
+my_dir = osp.dirname(osp.abspath(__file__))
+os.chdir(my_dir)
 
-def simple_run(db_name):
-    # db_name = '../db/EuroSegmentCar'
+
+def simple_run():
+    db_name = '../db/EuroSegmentCar'
     car_id = 27748
     gs_style = 1
 
