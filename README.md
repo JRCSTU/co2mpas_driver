@@ -7,7 +7,9 @@
 
 1. **Register on PyPi**: https://pypi.org/account/register/ or GitHub and upload 
     to make your package be accessible publicly.
-
+    
+    ![GitHub Logo](work_flow_mfc.png)
+    
 2. **Check the required tools**
     It is important to make sure that pip, setuptools, and wheel are up to date      
     
@@ -16,7 +18,7 @@
 3. **Setup your project**
     create a setup.py file in your project root directory. This file will contain
     all of the packages metadata information. In the project folder we have
-    a package with an __init__.py file that plots the work flow of the whole 
+    a package with an \__init__.py file that plots the work flow of the whole 
     project. we have also the README.md and LICENSE.txt for the licence of the
     project.
     
