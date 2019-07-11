@@ -508,5 +508,40 @@ def light_co2mpas_series(gearbox_type, veh_params, gb_type, car_type, veh_mass,
     return fp
 
 
+# Start/stop speed for each gear
+dsp.add_function(
+    function_id='get_cubic_splines_of_speed_acceleration_relationship',
+    inputs=['gr', 'speed_per_gear', 'acc_per_gear'],
+    outputs=['poly_spline']
+)
+
+
+@sh.add_function(dsp, outputs=['poly_spline'])
+def get_cubic_splines_of_speed_acceleration_relationship(gr, speed_per_gear, acc_per_gear):
+    """
+    Based on speed/acceleration points per gear, cubic splines are calculated
+    (old MFC)
+
+    :param my_car:
+    :param speed_per_gear:
+    :param acc_per_gear:
+    :return:
+    """
+    cs_acc_per_gear = []
+    for j in range(len(gr)):
+        # cs_acc_per_gear.append([])
+        a = np.round((speed_per_gear[j][0]), 2) - 0.01
+        b = np.round((speed_per_gear[j][-1]), 2) + 0.01
+        prefix_list = [a - k * 0.1 for k in range(10, -1, -1)]
+        suffix_list = [b + k * 0.1 for k in range(0, 11, 1)]
+        cs_acc_per_gear.append(CubicSpline(
+            prefix_list + list(speed_per_gear[j]) + suffix_list,
+            [acc_per_gear[j][0]] * len(prefix_list) + list(acc_per_gear[j]) + [
+                acc_per_gear[j][-1]] * len(suffix_list))
+        )
+
+    return cs_acc_per_gear
+
+
 if __name__ == '__main__':
     dsp.plot()

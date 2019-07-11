@@ -13,12 +13,12 @@ def gear_curves(my_car):
         my_car, full_load_speeds, full_load_torque)
 
     """Extract speed acceleration Cubic Splines"""
-    cs_acc_per_gear = vf.get_cubic_splines_of_speed_acceleration_relationship(
+    poly_spline = vf.get_cubic_splines_of_speed_acceleration_relationship(
         my_car, speed_per_gear, acc_per_gear)
 
     """Start/stop speed for each gear"""
     Start, Stop = vf.get_start_stop(my_car, speed_per_gear, acc_per_gear,
-                                    cs_acc_per_gear)
+                                    poly_spline)
 
     sp_bins = np.arange(0, Stop[-1] + 1, 0.1)
 
@@ -27,10 +27,10 @@ def gear_curves(my_car):
                                                                     sp_bins)
 
     """Calculate Curves"""
-    Curves = vf.calculate_curves_to_use(cs_acc_per_gear, Start, Stop, Alimit,
+    Curves = vf.calculate_curves_to_use(poly_spline, Start, Stop, Alimit,
                                         car_res_curve, sp_bins)
 
-    return Curves, cs_acc_per_gear, (Start, Stop)
+    return Curves, poly_spline, (Start, Stop)
 
 
 def gear_curves_n_gs(my_car, gs_style, degree):

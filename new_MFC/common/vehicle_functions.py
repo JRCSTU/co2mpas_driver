@@ -186,6 +186,7 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds,
     forbid acceleration over the maximum vehicle speed
 
     :param my_car:
+    :type my_car: dictionary
     :param full_load_speeds:
     :type full_load_speeds: numpy.array
     :param full_load_torque:
@@ -247,7 +248,7 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline):
     :param my_car:
     :param speed_per_gear:
     :param acc_per_gear:
-    :param cs_acc_per_gear:
+    :param poly_spline:
     :return:
     """
     import copy
@@ -409,9 +410,11 @@ def ev_curve(my_car):
     :param my_car:
     :return:
     """
-    motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
+    motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque
+                                                         / 60 * 2 * np.pi) ** -1  # rpm
     # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
-    veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (
+    veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * \
+                     (1 - my_car.driveline_slippage) / (
         60 * my_car.final_drive * my_car.gr)  # m/s
     veh_max_acc = my_car.motor_max_torque * (
             my_car.final_drive * my_car.gr) * my_car.driveline_efficiency / (
@@ -420,7 +423,8 @@ def ev_curve(my_car):
     speeds = np.arange(0, my_car.veh_max_speed + 0.1, 0.1)  # m/s
 
     with np.errstate(divide='ignore'):
-        accelerations = my_car.engine_max_power * 1000 * my_car.driveline_efficiency / (speeds * my_car.veh_mass)
+        accelerations = my_car.engine_max_power * 1000 * \
+                        my_car.driveline_efficiency / (speeds * my_car.veh_mass)
 
     accelerations[accelerations > veh_max_acc] = veh_max_acc
     accelerations[accelerations < 0] = 0
