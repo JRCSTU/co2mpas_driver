@@ -1,4 +1,4 @@
-from new_MFC.common import vehicle_functions as vf
+from new_MFC import vehicle_functions as vf
 import numpy as np
 from new_MFC.common import gear_functions as fg
 import matplotlib.pyplot as plt

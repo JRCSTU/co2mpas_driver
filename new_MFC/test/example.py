@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from new_MFC.core import dsp
+from new_MFC.__init__ import dsp
 import ddt
 import schedula as sh
 import numpy.testing as nt
@@ -18,16 +18,26 @@ import os.path as osp
 @ddt.ddt
 class Core(unittest.TestCase):
     def setUp(self):
-        with open(osp.join(osp.dirname(__file__), 'res.yaml')) as f:
+        with open(osp.join(osp.dirname(__file__), 'res2.yaml')) as f:
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
-        # calculate_full_load_speeds_and_powers()
+        # calculate_full_load_torques()
         (
-            ['full_load_curve', 'engine_max_power',
-             'engine_max_speed_at_max_power', 'idle_engine_speed'],
-            ['full_load_speeds', 'full_load_powers']
+                ['full_load_powers', 'full_load_speeds'],
+                ['full_load_torques']
         ),
+        # # get_full_load()
+        # (
+        #         ['ignition_type'],
+        #         ['full_load_curve']
+        # ),
+        # calculate_full_load_speeds_and_powers()
+        # (
+        #     ['full_load_curve', 'engine_max_power',
+        #      'engine_max_speed_at_max_power', 'idle_engine_speed'],
+        #     ['full_load_speeds', 'full_load_powers']
+        # )
     ))
     def test_core(self, keys):
         inputs, outputs = keys
