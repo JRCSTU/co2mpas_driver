@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from new_MFC.__init__ import dsp
+from new_MFC.core import dsp
 import ddt
 import schedula as sh
 import numpy.testing as nt
@@ -18,7 +18,8 @@ import os.path as osp
 @ddt.ddt
 class Core(unittest.TestCase):
     def setUp(self):
-        with open(osp.join(osp.dirname(__file__), 'res2.yaml')) as f:
+        with open(osp.join(osp.dirname(__file__),
+                           'gear_4degree_curves_with_linear_gs.yaml')) as f:
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
@@ -27,17 +28,19 @@ class Core(unittest.TestCase):
                 ['full_load_powers', 'full_load_speeds'],
                 ['full_load_torques']
         ),
-        # # get_full_load()
+        # # calculate_full_load_speeds_and_powers()
         # (
-        #         ['ignition_type'],
-        #         ['full_load_curve']
+        #         ['full_load_curve', 'engine_max_power',
+        #          'engine_max_speed_at_max_power', 'idle_engine_speed'],
+        #         ['full_load_speeds', 'full_load_powers']
         # ),
-        # calculate_full_load_speeds_and_powers()
+        # get_speeds_n_accelerations_per_gear()
         # (
-        #     ['full_load_curve', 'engine_max_power',
-        #      'engine_max_speed_at_max_power', 'idle_engine_speed'],
-        #     ['full_load_speeds', 'full_load_powers']
-        # )
+        #     ['gear_box_ratios', 'idle_engine_speed', 'tire_radius',
+        #      'driveline_slippage', 'final_drive', 'driveline_efficiency',
+        #      'veh_mass', 'full_load_speeds', 'full_load_torques'],
+        #     ['speed_per_gear', 'acc_per_gear']
+        # ),
     ))
     def test_core(self, keys):
         inputs, outputs = keys

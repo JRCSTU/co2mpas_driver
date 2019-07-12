@@ -163,11 +163,11 @@ def get_load_speed_n_torque(my_car):
 
     full_load = get_full_load(my_car.ignition_type)
     full_load_speeds, full_load_powers = calculate_full_load_speeds_and_powers(full_load, my_car)
-    full_load_torque = full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
-    return full_load_speeds, full_load_torque
+    full_load_torques = full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
+    return full_load_speeds, full_load_torques
 
 
-def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torque):
+def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
@@ -181,7 +181,7 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
     speed_per_gear, acc_per_gear = [], []
 
     full_load_speeds = np.array(full_load_speeds)
-    full_load_torque = np.array(full_load_torque)
+    full_load_torque = np.array(full_load_torques)
 
     for j in range(len(my_car.gr)):
         mask = full_load_speeds > 1.25 * my_car.idle_engine_speed[0]

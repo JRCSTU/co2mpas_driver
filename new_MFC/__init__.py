@@ -78,7 +78,7 @@ def get_speeds_n_accelerations_per_gear(
                              60 * final_drive * gear_box_ratios[j])
         speed_per_gear.append(temp_speed)
 
-        temp_acc = full_load_torque[mask] * (final_drive * gear_box_ratios[
+        temp_acc = full_load_torques[mask] * (final_drive * gear_box_ratios[
             j]) * driveline_efficiency / (
                            tire_radius * veh_mass)
 

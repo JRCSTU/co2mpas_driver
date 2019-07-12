@@ -12,7 +12,7 @@ os.chdir(my_dir)
 
 
 def simple_run():
-    db_name = '../db/car_db_sample'
+    db_name = '../db/EuroSegmentCar'
     car_id = 40516
     gs_style = 0.8
     # degree = 4
