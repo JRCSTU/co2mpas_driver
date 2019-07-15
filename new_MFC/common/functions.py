@@ -288,6 +288,12 @@ def gear_box_torques_in(
     return res
 
 
+def calculate_gear_box_power_out(gear_box_torques_in_, gear_box_speeds_in):
+    gear_box_power_out = \
+        2 * math.pi * gear_box_torques_in_ * gear_box_speeds_in / 60000
+    return gear_box_power_out
+
+
 def create_gearbox_params(params, max_engine_torque):
     gbp10 = params['gbp10']['m'] * max_engine_torque + params['gbp10']['q']
     gbp00 = params['gbp00']['m'] * max_engine_torque + params['gbp00']['q']
@@ -428,11 +434,11 @@ def parameters(max_power, capacity, eng_fuel, fuel_turbo):
 #
 #     return -engine_wfb_idle / engine_wfa_idle
 
-def calculate_fuel_ABC(params, mean_piston_speed, n_powers, n_temperatures):
+def calculate_fuel_ABC(params, mean_piston_spd, n_powers, n_temperatures):
     p = params
-    A = p['a2'] + p['b2'] * mean_piston_speed
-    B = p['a'] + (p['b'] + p['c'] * mean_piston_speed) * mean_piston_speed
-    C = numpy.power(n_temperatures, 0) * (p['l'] + p['l2'] * mean_piston_speed ** 2)
+    A = p['a2'] + p['b2'] * mean_piston_spd
+    B = p['a'] + (p['b'] + p['c'] * mean_piston_spd) * mean_piston_spd
+    C = numpy.power(n_temperatures, 0) * (p['l'] + p['l2'] * mean_piston_spd ** 2)
     C -= n_powers
 
     return A, B, C

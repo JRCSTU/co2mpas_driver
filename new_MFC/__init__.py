@@ -9,10 +9,10 @@ from new_MFC.co2mpas import get_full_load, \
     calculate_full_load_torques
 
 from new_MFC.gear_functions import create_clutch_list, gear_for_speed_profiles
-from new_MFC.vehicle_specs_class import HardcodedParams
+from new_MFC.common.vehicle_specs_class import HardcodedParams
 
 from new_MFC.generic_co2mpas import light_co2mpas_instant
-from new_MFC.functions import calculate_wheel_power, calculate_wheel_speeds, \
+from new_MFC.common.functions import calculate_wheel_power, calculate_wheel_speeds, \
     calculate_wheel_torques, calculate_final_drive_speeds_in, \
     calculate_final_drive_torque_losses_v1, calculate_final_drive_torques_in, \
     calculate_gear_box_speeds_in_v1, create_gearbox_params, gear_box_torques_in, \
