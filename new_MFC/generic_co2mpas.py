@@ -72,7 +72,7 @@ def light_co2mpas_series(my_car, sp, gs, sim_step, **kwargs):
     return fp
 
 
-def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_params, engine_max_torque,
+def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gear_box_ratios, veh_params, engine_max_torque,
                                    fuel_eng_capacity, speed, acceleration, max_power, fuel_engine_stroke, fuel_type,
                                    fuel_turbo, hardcoded_params, road_loads,  slope, gear, gear_count, sim_step):
     n_wheel_drive = car_type
@@ -114,7 +114,7 @@ def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gr, veh_pa
     gear_box_speeds_in = \
         func.calculate_gear_box_speeds_in_v1 \
             (gear, final_drive_speed,
-             gr, 0)
+             gear_box_ratios, 0)
 
     gearbox_params = \
         func.create_gearbox_params \

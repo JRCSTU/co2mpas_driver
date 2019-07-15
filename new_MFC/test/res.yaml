@@ -273,7 +273,7 @@ full_load_torque: !!python/object/apply:numpy.core.multiarray._reconstruct
   - !!binary |
     2AQ2pcDHUkByCj3NMstWQMm1pqasHVlA5CP28+aOWkBTga+kqXlbQLzjst3xAFxAvrWINNFMXEBj
     EBvvxl5cQOcnTPg/6ltAKKhcbgX+WkDy4gx174BZQLVDhBRZeVZA6HUsMtmPUkA=
-gr:
+gear_box_ratios:
 - 4.1
 - 2.16
 - 1.34

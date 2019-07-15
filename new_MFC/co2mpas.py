@@ -62,6 +62,25 @@ def calculate_full_load_speeds_and_powers(
     return full_load_speeds, full_load_powers
 
 
+def calculate_full_load_torques(full_load_speeds, full_load_powers):
+    """
+    Full load curves of speed and torque.
+
+    :param full_load_powers:
+        Engine ignition type (positive or compression).
+    :type full_load_powers: str
+
+    :param full_load_speeds:
+        Engine nominal power [kW].
+    :type full_load_speeds: float
+    :return: full_load_torques
+    """
+    full_load_torques = full_load_powers * 1000 * (
+            full_load_speeds / 60 * 2 * np.pi) ** -1
+
+    return full_load_torques
+
+
 # The maximum force that the vehicle can have on the road
 def Armax(car_type, veh_mass, engine_max_power, road_type=1):
     """
