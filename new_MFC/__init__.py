@@ -103,17 +103,18 @@ dsp.add_func(
 
 # Speed and acceleration ranges and points for each gear
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
-def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire_radius,
-                                        driveline_slippage, final_drive,
-                                        driveline_efficiency, veh_mass,
-                                        full_load_speeds, full_load_torques):
+def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed,
+                                        tire_radius, driveline_slippage,
+                                        final_drive, driveline_efficiency,
+                                        veh_mass, full_load_speeds,
+                                        full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
     forbid acceleration over the maximum vehicle speed
 
-    :param gr:
-    :type gr: list
+    :param gear_box_ratios:
+    :type gear_box_ratios: list
     :param idle_engine_speed:
     :type idle_engine_speed: tuple
     :param tire_radius:
