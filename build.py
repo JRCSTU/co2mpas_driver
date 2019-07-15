@@ -37,6 +37,4 @@ setup(name="new_MFC",
       executables=[exe],
       options={'bdist_msi': bdist_msi_options})
 
-# Please run this script with a second file
-# py build.py build
-# py build.py bdist_msi
+# Please run build.bat file to generate an MSI installable file

@@ -5,7 +5,8 @@ import numpy as np
 import schedula as sh
 from scipy.interpolate import CubicSpline, interp1d
 from new_MFC.co2mpas import get_full_load, \
-    calculate_full_load_speeds_and_powers, estimate_f_coefficients, calculate_full_load_torques
+    calculate_full_load_speeds_and_powers, estimate_f_coefficients, \
+    calculate_full_load_torques
 
 from new_MFC.gear_functions import create_clutch_list, gear_for_speed_profiles
 from new_MFC.vehicle_specs_class import HardcodedParams
