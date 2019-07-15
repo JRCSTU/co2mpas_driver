@@ -101,31 +101,12 @@ dsp.add_func(
 )
 
 
-@sh.add_function(dsp, outputs=['full_load_torque'])
-def calculate_full_load_torque(full_load_powers, full_load_speeds):
-    """
-    Full load curves of speed and torque.
-
-    :param full_load_powers:
-        Engine ignition type (positive or compression).
-    :type full_load_powers: str
-
-    :param full_load_speeds:
-        Engine nominal power [kW].
-    :type full_load_speeds: float
-    :return: full_load_torque
-    """
-    full_load_torque = full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
-
-    return full_load_torque
-
-
 # Speed and acceleration ranges and points for each gear
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
 def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire_radius,
                                         driveline_slippage, final_drive,
                                         driveline_efficiency, veh_mass,
-                                        full_load_speeds, full_load_torque):
+                                        full_load_speeds, full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
@@ -147,14 +128,14 @@ def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire
     :type veh_mass: float
     :param full_load_speeds:
     :type full_load_speeds: ndarray
-    :param full_load_torque:
-    :type full_load_torque: ndarray
+    :param full_load_torques:
+    :type full_load_torques: ndarray
     :return: speed_per_gear
     """
     speed_per_gear, acc_per_gear = [], []
 
     full_load_speeds = np.array(full_load_speeds)
-    full_load_torque = np.array(full_load_torque)
+    full_load_torques = np.array(full_load_torques)
 
     for j in range(len(gear_box_ratios)):
         mask = full_load_speeds > 1.25 * idle_engine_speed[0]
@@ -164,7 +145,7 @@ def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire
                              60 * final_drive * gear_box_ratios[j])
         speed_per_gear.append(temp_speed)
 
-        temp_acc = full_load_torque[mask] * (final_drive * gear_box_ratios[
+        temp_acc = full_load_torques[mask] * (final_drive * gear_box_ratios[
             j]) * driveline_efficiency / (
                            tire_radius * veh_mass)
 
