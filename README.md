@@ -101,7 +101,7 @@
 5. **Install on your local machine**
     You can install on your machine using:
     
-        python -m pip install dist/new_MFC-1.0.0-py2.py3-none-any.whl
+        pip install dist/new_MFC-1.0.0-py2.py3-none-any.whl
         
 6. **Uninstall your package**
 
