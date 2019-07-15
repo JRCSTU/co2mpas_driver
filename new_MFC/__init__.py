@@ -296,6 +296,7 @@ def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 
     return gear_cut
 
+
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['gs'])
 def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     """
@@ -335,7 +336,7 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
     """
     Calculate Speed boundaries for each gear
 
-    :param gr:
+    :param gear_box_ratios:
     :param veh_max_speed:
     :param speed_per_gear:
     :param acc_per_gear:
@@ -361,7 +362,7 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
                 np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
             if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
                     poly_spline[j + 1](speed_per_gear[j][k]) > poly_spline[j](
-                speed_per_gear[j][k])):
+                    speed_per_gear[j][k])):
                 max_point = k
                 speed_per_gear[j] = speed_per_gear[j][:max_point]
                 acc_per_gear[j] = acc_per_gear[j][:max_point]
@@ -514,7 +515,6 @@ def get_cubic_splines_of_speed_acceleration_relationship(gear_box_ratios, speed_
     """
     if not use_cubic:
         return sh.NONE
-    from scipy.interpolate import CubicSpline
     cs_acc_per_gear = []
     for j in range(len(gear_box_ratios)):
         # cs_acc_per_gear.append([])

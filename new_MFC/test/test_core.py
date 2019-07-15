@@ -22,6 +22,12 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
+        # calculate_full_load_speeds_and_powers()
+        (
+                ['ignition_type', 'engine_max_speed_at_max_power',
+                 'engine_max_power', 'idle_engine_speed'],
+                ['full_load_torque', 'full_load_speeds']
+        ),
         # get_speeds_n_accelerations_per_gear()
         (
                 ['veh_mass', 'tire_radius', 'full_load_speeds',
@@ -51,12 +57,6 @@ class Core(unittest.TestCase):
              'coefs_per_gear', 'starting_speed'],
             ['Start', 'Stop']
         ),
-        # calculate_full_load_speeds_and_powers()
-        (
-            ['ignition_type', 'engine_max_speed_at_max_power',
-             'engine_max_power', 'idle_engine_speed'],
-            ['full_load_torque', 'full_load_speeds']
-         ),
         # get_tan_coefs()
         (
             ['speed_per_gear', 'acc_per_gear', 'degree'],
