@@ -214,14 +214,17 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds,
     return speed_per_gear, acc_per_gear
 
 
-def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear, acc_per_gear):
+def get_cubic_splines_of_speed_acceleration_relationship(my_car, speed_per_gear,
+                                                         acc_per_gear):
     """
     Based on speed/acceleration points per gear, cubic splines are calculated
     (old MFC)
 
     :param my_car:
     :param speed_per_gear:
+    :type speed_per_gear: list
     :param acc_per_gear:
+    :type acc_per_gear: list
     :return:
     """
     cs_acc_per_gear = []

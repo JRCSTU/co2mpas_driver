@@ -1,7 +1,7 @@
 """The two functions of light co2mpass to be used"""
 
 import numpy as np
-from new_MFC import functions as func
+from new_MFC.common import functions as func
 from new_MFC.common import vehicle_specs_class as vcc
 from new_MFC.common import gear_functions as fg
 from new_MFC.common import vehicle_functions as vf
@@ -72,9 +72,12 @@ def light_co2mpas_series(my_car, sp, gs, sim_step, **kwargs):
     return fp
 
 
-def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive, gear_box_ratios, veh_params, engine_max_torque,
-                                   fuel_eng_capacity, speed, acceleration, max_power, fuel_engine_stroke, fuel_type,
-                                   fuel_turbo, hardcoded_params, road_loads,  slope, gear, gear_count, sim_step):
+def light_co2mpas_instant(veh_mass, r_dynamic, car_type, final_drive,
+                          gear_box_ratios, veh_params, engine_max_torque,
+                          fuel_eng_capacity, speed, acceleration, max_power,
+                          fuel_engine_stroke, fuel_type, fuel_turbo,
+                          hardcoded_params, road_loads,  slope, gear,
+                          gear_count, sim_step):
     n_wheel_drive = car_type
 
     # The power on wheels in kW

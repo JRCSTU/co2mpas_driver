@@ -5,13 +5,14 @@ import numpy as np
 import schedula as sh
 from scipy.interpolate import CubicSpline, interp1d
 from new_MFC.co2mpas import get_full_load, \
-    calculate_full_load_speeds_and_powers, estimate_f_coefficients, calculate_full_load_torques
+    calculate_full_load_speeds_and_powers, estimate_f_coefficients, \
+    calculate_full_load_torques
 
 from new_MFC.gear_functions import create_clutch_list, gear_for_speed_profiles
-from new_MFC.vehicle_specs_class import HardcodedParams
+from new_MFC.common.vehicle_specs_class import HardcodedParams
 
 from new_MFC.generic_co2mpas import light_co2mpas_instant
-from new_MFC.functions import calculate_wheel_power, calculate_wheel_speeds, \
+from new_MFC.common.functions import calculate_wheel_power, calculate_wheel_speeds, \
     calculate_wheel_torques, calculate_final_drive_speeds_in, \
     calculate_final_drive_torque_losses_v1, calculate_final_drive_torques_in, \
     calculate_gear_box_speeds_in_v1, create_gearbox_params, gear_box_torques_in, \
@@ -100,38 +101,20 @@ dsp.add_func(
 )
 
 
-@sh.add_function(dsp, outputs=['full_load_torque'])
-def calculate_full_load_torque(full_load_powers, full_load_speeds):
-    """
-    Full load curves of speed and torque.
-
-    :param full_load_powers:
-        Engine ignition type (positive or compression).
-    :type full_load_powers: str
-
-    :param full_load_speeds:
-        Engine nominal power [kW].
-    :type full_load_speeds: float
-    :return: full_load_torque
-    """
-    full_load_torque = full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
-
-    return full_load_torque
-
-
 # Speed and acceleration ranges and points for each gear
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
-def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire_radius,
-                                        driveline_slippage, final_drive,
-                                        driveline_efficiency, veh_mass,
-                                        full_load_speeds, full_load_torque):
+def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed,
+                                        tire_radius, driveline_slippage,
+                                        final_drive, driveline_efficiency,
+                                        veh_mass, full_load_speeds,
+                                        full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
     forbid acceleration over the maximum vehicle speed
 
-    :param gr:
-    :type gr: list
+    :param gear_box_ratios:
+    :type gear_box_ratios: list
     :param idle_engine_speed:
     :type idle_engine_speed: tuple
     :param tire_radius:
@@ -146,14 +129,14 @@ def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire
     :type veh_mass: float
     :param full_load_speeds:
     :type full_load_speeds: ndarray
-    :param full_load_torque:
-    :type full_load_torque: ndarray
+    :param full_load_torques:
+    :type full_load_torques: ndarray
     :return: speed_per_gear
     """
     speed_per_gear, acc_per_gear = [], []
 
     full_load_speeds = np.array(full_load_speeds)
-    full_load_torque = np.array(full_load_torque)
+    full_load_torques = np.array(full_load_torques)
 
     for j in range(len(gear_box_ratios)):
         mask = full_load_speeds > 1.25 * idle_engine_speed[0]
@@ -163,7 +146,7 @@ def get_speeds_n_accelerations_per_gear(gear_box_ratios, idle_engine_speed, tire
                              60 * final_drive * gear_box_ratios[j])
         speed_per_gear.append(temp_speed)
 
-        temp_acc = full_load_torque[mask] * (final_drive * gear_box_ratios[
+        temp_acc = full_load_torques[mask] * (final_drive * gear_box_ratios[
             j]) * driveline_efficiency / (
                            tire_radius * veh_mass)
 
@@ -314,6 +297,7 @@ def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 
     return gear_cut
 
+
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['gs'])
 def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     """
@@ -353,7 +337,7 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
     """
     Calculate Speed boundaries for each gear
 
-    :param gr:
+    :param gear_box_ratios:
     :param veh_max_speed:
     :param speed_per_gear:
     :param acc_per_gear:
@@ -379,7 +363,7 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
                 np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
             if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
                     poly_spline[j + 1](speed_per_gear[j][k]) > poly_spline[j](
-                speed_per_gear[j][k])):
+                    speed_per_gear[j][k])):
                 max_point = k
                 speed_per_gear[j] = speed_per_gear[j][:max_point]
                 acc_per_gear[j] = acc_per_gear[j][:max_point]
@@ -532,7 +516,6 @@ def get_cubic_splines_of_speed_acceleration_relationship(gear_box_ratios, speed_
     """
     if not use_cubic:
         return sh.NONE
-    from scipy.interpolate import CubicSpline
     cs_acc_per_gear = []
     for j in range(len(gear_box_ratios)):
         # cs_acc_per_gear.append([])

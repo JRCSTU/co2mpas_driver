@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from new_MFC import dsp
+from new_MFC.core import dsp
 import ddt
 import schedula as sh
 import numpy.testing as nt
@@ -23,9 +23,18 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
-        # gear_linear()
+        # get_speeds_n_accelerations_per_gear()
         (
-                ['speed_per_gear', 'gs_style'],
+                ['gear_box_ratios', 'idle_engine_speed', 'tire_radius',
+                 'driveline_slippage', 'final_drive',
+                 'driveline_efficiency', 'veh_mass', 'full_load_speeds',
+                 'full_load_torques'],
+                ['speed_per_gear', 'acc_per_gear']
+        ),
+        # gear_points_from_tan()
+        (
+                ['gs_style', 'use_linear_gs', 'Stop', 'Start',
+                 'coefs_per_gear'],
                 ['gs']
         ),
         # calculate_full_load_speeds_and_powers()
@@ -38,12 +47,6 @@ class Core(unittest.TestCase):
         (
                 ['full_load_speeds', 'full_load_powers'],
                 ['full_load_torques']
-        ),
-        # get_speeds_n_accelerations_per_gear()
-        (
-                ['gear_box_ratios', 'idle_engine_speed', 'tire_radius', 'driveline_slippage', 'final_drive',
-                 'driveline_efficiency', 'veh_mass', 'full_load_speeds', 'full_load_torques'],
-                ['speed_per_gear', 'acc_per_gear']
         ),
         # get_tan_coefs()
         (

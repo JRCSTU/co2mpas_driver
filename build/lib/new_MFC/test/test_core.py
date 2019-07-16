@@ -22,12 +22,11 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
-        # get_speeds_n_accelerations_per_gear()
+        # calculate_full_load_speeds_and_powers()
         (
-                ['veh_mass', 'tire_radius', 'full_load_speeds',
-                 'driveline_efficiency', 'driveline_slippage', 'final_drive',
-                 'full_load_torque', 'gear_box_ratios', 'idle_engine_speed'],
-                ['speed_per_gear', 'acc_per_gear']
+                ['ignition_type', 'engine_max_speed_at_max_power',
+                 'engine_max_power', 'idle_engine_speed'],
+                ['full_load_powers', 'full_load_speeds']
         ),
         # light_co2mpas_series()
         (
@@ -47,16 +46,10 @@ class Core(unittest.TestCase):
         ),
         # get_start_stop()
         (
-            ['gear_box_ratios', 'veh_max_speed', 'speed_per_gear', 'acc_per_gear',
-             'coefs_per_gear', 'starting_speed'],
+            ['gear_box_ratios', 'veh_max_speed', 'speed_per_gear',
+             'acc_per_gear', 'coefs_per_gear', 'starting_speed'],
             ['Start', 'Stop']
         ),
-        # calculate_full_load_speeds_and_powers()
-        (
-            ['ignition_type', 'engine_max_speed_at_max_power',
-             'engine_max_power', 'idle_engine_speed'],
-            ['full_load_torque', 'full_load_speeds']
-         ),
         # get_tan_coefs()
         (
             ['speed_per_gear', 'acc_per_gear', 'degree'],

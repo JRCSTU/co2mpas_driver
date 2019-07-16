@@ -3,11 +3,9 @@ setup.py
 new_MFC/__init__.py
 new_MFC/co2mpas.py
 new_MFC/core.py
-new_MFC/functions.py
 new_MFC/gear_functions.py
 new_MFC/generic_co2mpas.py
 new_MFC/vehicle_functions.py
-new_MFC/vehicle_specs_class.py
 new_MFC.egg-info/PKG-INFO
 new_MFC.egg-info/SOURCES.txt
 new_MFC.egg-info/dependency_links.txt

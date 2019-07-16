@@ -85,10 +85,15 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop):
     Get the gear cuts based on gear shifting style and tangent values.
 
     :param Tans: tangent values per gear.
+    :type Tans: list
     :param gs_style: Gear shifting style
+    :type gs_style: float
     :param Start: Start speed per gear curve.
+    :type Start: list
     :param Stop: Stop speed per gear curve.
-    :return:
+    :type Stop: list
+    :return: gs
+    :rtype: list
     """
     n_gears = len(Tans)
     gs_cut = [gs_style for i in range(n_gears)]
@@ -159,9 +164,9 @@ def gear_linear(speed_per_gear, gs_style):
     :param gs_style:
         Gear shifting style
     :type gs_style:
-    :return:
+    :return: gs
         Gear limits
-    :rtype:
+    :rtype: list
     """
     n_gears = len(speed_per_gear)
 

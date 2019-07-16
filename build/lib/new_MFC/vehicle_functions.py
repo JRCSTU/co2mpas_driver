@@ -101,11 +101,17 @@ def veh_resistances(f0, f1, f2, sp, total_mass):
     Return the resistances that a vehicle faces, per speed
 
     :param f0:
+    :type f0: float
     :param f1:
+    :type f1: float
     :param f2:
+    :type f2:float
     :param sp:
+    :type sp: list
     :param total_mass:
-    :return:
+    :type total_mass: float
+    :return: resistance_spline_curve, resistance_spline_curve_f
+    :rtype: CubicSpline, CubicSpline
     """
     Fresistance = []
     for i in range(len(sp)):
@@ -130,6 +136,7 @@ def estimate_f_coefficients(my_car, passengers=0):
 
     :param my_car:
     :param passengers:
+    :type passengers: int
     :return:
     """
 
@@ -159,6 +166,8 @@ def get_load_speed_n_torque(my_car):
     """
     :param my_car:
     :return:
+        full_load_speeds, full_load_torques
+    :rtype: numpy.array, numpy.array
     """
 
     full_load = get_full_load(my_car.ignition_type)
@@ -167,7 +176,8 @@ def get_load_speed_n_torque(my_car):
     return full_load_speeds, full_load_torques
 
 
-def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torques):
+def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds,
+                                        full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
@@ -175,8 +185,12 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds, full_load_torq
 
     :param my_car:
     :param full_load_speeds:
-    :param full_load_torque:
+    :type full_load_speeds: numpy.array
+    :param full_load_torques:
+    :type full_load_torques: numpy.array
     :return:
+        speed_per_gear, acc_per_gear
+    :rtype: list, list
     """
     speed_per_gear, acc_per_gear = [], []
 
@@ -231,9 +245,13 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline):
 
     :param my_car:
     :param speed_per_gear:
+    :type speed_per_gear: list
     :param acc_per_gear:
-    :param cs_acc_per_gear:
-    :return:
+    :type acc_per_gear: list
+    :param poly_spline:
+    :type poly_spline: list
+    :return: Start, Stop
+    :rtype: list, list
     """
     import copy
     speed_per_gear = copy.deepcopy(speed_per_gear)
@@ -276,7 +294,9 @@ def get_resistances(my_car, sp_bins):
 
     :param my_car:
     :param sp_bins:
-    :return:
+    :type sp_bins: np.array
+    :return: car_res_curve, car_res_curve_force, Alimit
+    :rtype: CubicSpline, CubicSpline, float
     """
     f0, f1, f2 = estimate_f_coefficients(my_car, 0)
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2, list(sp_bins), my_car.veh_mass)
@@ -284,18 +304,26 @@ def get_resistances(my_car, sp_bins):
     return car_res_curve, car_res_curve_force, Alimit
 
 
-def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
+def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
+                            sp_bins):
     """
 
     Get the final speed acceleration curves based on full load curves and resistances for all curves
 
     :param poly_spline:
+    :type poly_spline: list
+    :param Start:
+    :type Start: list
+    :param Stop:
+    :type Stop: limit
     :param Alimit:
+    :type Alimit: float
     :param car_res_curve:
-    :param start:
-    :param stop:
+    :type car_res_curve: CubicSpline
     :param sp_bins:
-    :return:
+    :type sp_bins: numpy.array
+    :return: Curves
+    :rtype: list
     """
     Res = []
 
@@ -320,9 +348,13 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     Full load curve is fitted to a polynomial of degree
 
     :param speed_per_gear:
+    :type speed_per_gear: list
     :param acc_per_gear:
+    :type acc_per_gear: list
     :param degree:
-    :return: coefs_per_gear: the coefficients of the polynomial for each gear
+    :return: coefs_per_gear:
+        the coefficients of the polynomial for each gear
+    :rtype: list
     """
 
     coefs_per_gear = []
@@ -339,7 +371,12 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
     AT TIME IT IS USED AS calculate_curve_to_use FUNCTION IS USING SPLINES
 
     :param coefs_per_gear:
+    :type coefs_per_gear: list
+    :param starting_speed:
+    :type starting_speed: float
     :return:
+        spline_from_poly
+    :rtype: list
     """
 
     degree = len(coefs_per_gear[0]) - 1

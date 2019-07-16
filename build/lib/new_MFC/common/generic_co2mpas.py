@@ -2,8 +2,8 @@
 
 import math
 import numpy as np
-from new_MFC import functions as func
-from new_MFC import vehicle_specs_class as vcc
+from new_MFC.common import functions as func
+from new_MFC.common import vehicle_specs_class as vcc
 from new_MFC import gear_functions as fg
 from new_MFC import vehicle_functions as vf
 
