@@ -105,7 +105,7 @@
         
 6. **Uninstall your package**
 
-        pip uninstall package name
+        pip uninstall new_MFC
         
    or if you don't know the list of all files, you can reinstall it with the
    --record option, and take a look at the list this produces.
