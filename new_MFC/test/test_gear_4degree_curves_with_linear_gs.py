@@ -23,6 +23,13 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
+        # define_discrete_acceleration_curves()
+        (
+                ['coefs_per_gear', 'speed_per_gear', 'Start', 'Stop', 'Alimit',
+                 'type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
+                 'car_width', 'car_height', 'sp_bins'],
+                ['discrete_acceleration_curves']
+        ),
         # calculate_full_load_torques()
         (
                 ['full_load_speeds', 'full_load_powers'],
@@ -30,8 +37,9 @@ class Core(unittest.TestCase):
         ),
         # get_speeds_n_accelerations_per_gear()
         (
-                ['gear_box_ratios', 'idle_engine_speed', 'tire_radius', 'driveline_slippage', 'final_drive',
-                 'driveline_efficiency', 'veh_mass', 'full_load_speeds', 'full_load_torques'],
+                ['gear_box_ratios', 'idle_engine_speed', 'tire_radius',
+                 'driveline_slippage', 'final_drive', 'driveline_efficiency',
+                 'veh_mass', 'full_load_speeds', 'full_load_torques'],
                 ['speed_per_gear', 'acc_per_gear']
         ),
         # gear_linear()
@@ -59,4 +67,4 @@ class Core(unittest.TestCase):
             if isinstance(v, str):
                 self.assertEqual(v, res[k])
             else:
-                nt.assert_almost_equal(res[k], v)
+                nt.assert_equal(res[k], v)

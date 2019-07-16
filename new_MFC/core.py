@@ -1,10 +1,12 @@
 import os
+
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
 import copy
 import numpy as np
 import schedula as sh
 from new_MFC.co2mpas import get_full_load, \
-    calculate_full_load_speeds_and_powers, estimate_f_coefficients, calculate_full_load_torques
+    calculate_full_load_speeds_and_powers, estimate_f_coefficients, \
+    calculate_full_load_torques
 
 dsp = sh.Dispatcher()
 dsp.add_func(get_full_load, outputs=['full_load_curve'])
@@ -113,14 +115,14 @@ def ev_curve(engine_max_power, tire_radius, driveline_slippage,
     from scipy.interpolate import CubicSpline
 
     motor_base_speed = engine_max_power * 1000 * (motor_max_torque
-                                                         / 60 * 2 * np.pi) ** -1  # rpm
+                                                  / 60 * 2 * np.pi) ** -1  # rpm
     # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
     veh_base_speed = 2 * np.pi * tire_radius * motor_base_speed * \
                      (1 - driveline_slippage) / (
-        60 * final_drive * gear_box_ratios)  # m/s
+                             60 * final_drive * gear_box_ratios)  # m/s
     veh_max_acc = motor_max_torque * (
             final_drive * gear_box_ratios) * driveline_efficiency / (
-                tire_radius * veh_mass)  # m/s2
+                          tire_radius * veh_mass)  # m/s2
 
     speeds = np.arange(0, veh_max_speed + 0.1, 0.1)  # m/s
 
@@ -327,6 +329,21 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
     return Res
 
 
+@sh.add_function(dsp, outputs=['starting_speed'])
+def get_starting_speed(speed_per_gear):
+    starting_speed = speed_per_gear[0][0]
+    return starting_speed
+
+
+@sh.add_function(dsp, outputs=['discrete_acceleration_curves'])
+def define_discrete_acceleration_curves(Curves, Start, Stop):
+    res = []
+    for gear, f in enumerate(Curves):
+        x = np.arange(Start[gear], Stop[gear], 0.2)
+        res.append(dict(x=x, y=f(x)))
+    return res
+
+
 # Extract speed acceleration Splines
 @sh.add_function(dsp, inputs_kwargs=True, inputs_defaults=True, outputs=['gs'])
 def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
@@ -336,6 +353,8 @@ def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
 
     :param speed_per_gear:
     :param gs_style:
+    :param use_linear_gs:
+    :type use_linear_gs: bool
     :return:
     """
     if not use_linear_gs:

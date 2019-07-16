@@ -343,6 +343,11 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
     return Res
 
 
+def get_starting_speed(speed_per_gear):
+    starting_speed = speed_per_gear[0][0]
+    return starting_speed
+
+
 def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     """
     Full load curve is fitted to a polynomial of degree

@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
+from new_MFC.core import define_discrete_acceleration_curves
 
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
