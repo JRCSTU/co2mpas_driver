@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from new_MFC import dsp
+from new_MFC.core import dsp
 import ddt
 import schedula as sh
 import numpy.testing as nt
