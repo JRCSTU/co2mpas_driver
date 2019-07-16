@@ -10,9 +10,8 @@ company_name = 'JRC'
 product_name = 'new_MFC'
 
 bdist_msi_options = {
-    'upgrade_code': '',
     'add_to_path': False,
-    'initial_target_dir': r'[ProgramFilesFolder]\%s\%s' % (company_name, product_name),
+    'initial_target_dir': 'C:/Apps',
 }
 
 path = sys.path
@@ -31,9 +30,9 @@ exe = Executable(script='new_MFC/examples/sample_4degree_with_linear.py',
 
 setup(name="new_MFC",
       version="1.0.0",
-      description="A lightweight microsimulation free-flow acceleration model"
-                    "(MFC) that is able to capture the vehicle acceleration"
-                    "dynamics accurately and consistently",
+      description="A lightweight microsimulation free-flow acceleration model" 
+                  "(MFC) that is able to capture the vehicle acceleration" 
+                  "dynamics accurately and consistently",
       executables=[exe],
       options={'bdist_msi': bdist_msi_options})
 

@@ -79,7 +79,8 @@ def gear_curves_n_gs_from_poly(my_car, gs_style, degree):
 
     """Extract speed acceleration Splines"""
     coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, degree)
-    poly_spline = vf.get_spline_out_of_coefs(coefs_per_gear, speed_per_gear[0][0])
+    starting_speed = vf.get_starting_speed(coefs_per_gear)
+    poly_spline = vf.get_spline_out_of_coefs(coefs_per_gear, starting_speed)
 
     """Start/stop speed for each gear"""
     Start, Stop = vf.get_start_stop(my_car, speed_per_gear, acc_per_gear,

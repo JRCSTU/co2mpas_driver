@@ -1,5 +1,5 @@
 Alimit: !!python/object/apply:numpy.core.multiarray.scalar
-- &id001 !!python/object/apply:numpy.dtype
+- &id004 !!python/object/apply:numpy.dtype
   args:
   - f8
   - 0
@@ -22,6 +22,189 @@ Stop:
 car_height: 1.466
 car_type: 2
 car_width: 1.823
+coefs_per_gear:
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - &id001 !!python/name:numpy.ndarray 
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - &id002 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - false
+  - !!binary |
+    WTk8b8tpR79Pky9obU2UPznqcvmaJ86/pxV1sYOi9j/DCM+8K8sBQA==
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - *id002
+  - false
+  - !!binary |
+    WJdsC/ln/r4UShj8AwZZP6fzj64So6G/C0VqbQwh2T/ZlhM7mL/yPw==
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - *id002
+  - false
+  - !!binary |
+    Y7gTjftZxr7zlze2tKYtP8xZGtr914C/gUiSa6NXwz83v7R4DUPnPw==
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - *id002
+  - false
+  - !!binary |
+    cfojwkPFob7L4jA+gEgQPwvFwp5sjmm/w68hD1lFtD+Re4o+v9bgPw==
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - *id002
+  - false
+  - !!binary |
+    Rd4IE9Rnhr5bGJ3W4dz5Pkm5FtI9kVm//xbfnwuMqT9zfH/P3bvaPw==
+discrete_acceleration_curves:
+- x: !!python/object/apply:numpy.core.multiarray._reconstruct
+    args:
+    - *id001
+    - !!python/tuple
+      - 0
+    - !!binary |
+      Yg==
+    state: !!python/tuple
+    - 1
+    - !!python/tuple
+      - 185
+    - &id003 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - false
+    - !!binary |
+      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
+  y: !!python/object/apply:numpy.core.multiarray._reconstruct
+    args:
+    - *id001
+    - !!python/tuple
+      - 0
+    - !!binary |
+      Yg==
+    state: !!python/tuple
+    - 1
+    - !!python/tuple
+      - 185
+    - *id003
+    - false
+    - !!binary |
+      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
 driveline_efficiency: 0.9
 driveline_slippage: 0
 engine_max_power: 107.0
@@ -32,7 +215,7 @@ ignition_type: electricity
 motor_max_torque: 250.0
 sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
-  - !!python/name:numpy.ndarray 
+  - *id001
   - !!python/tuple
     - 0
   - !!binary |
@@ -41,7 +224,20 @@ sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   - 1
   - !!python/tuple
     - 380
-  - *id001
+  - !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
   - false
   - !!binary |
     AAAAAAAAAACamZmZmZm5P5qZmZmZmck/NDMzMzMz0z+amZmZmZnZPwAAAAAAAOA/NDMzMzMz4z9n
@@ -98,6 +294,87 @@ sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
     ZmYmQkAzMzMzMzNCQAAAAAAAQEJAzczMzMxMQkCamZmZmVlCQGdmZmZmZkJAMzMzMzNzQkAAAAAA
     AIBCQM3MzMzMjEJAmpmZmZmZQkBnZmZmZqZCQDMzMzMzs0JAAAAAAADAQkDNzMzMzMxCQJqZmZmZ
     2UJAZ2ZmZmbmQkAzMzMzM/NCQA==
+speed_per_gear:
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 12
+  - *id004
+  - false
+  - !!binary |
+    YUiwIu0fBEBH7IatnO0LQBbILhym3RFAChqa4X3EFUD+awWnVasZQPK9cGwtkh1A8wfumIK8IEDs
+    sKN77q8iQOZZWV5aoyRA3wIPQcaWJkDYq8QjMoooQNRUegaefSpA
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 12
+  - *id004
+  - false
+  - !!binary |
+    lH0ISI8ZE0DCFs3rgoEaQPjXyEe79CBAkCSrGbWoJEAncY3rrlwoQMC9b72oECxAVwpSj6LEL0B2
+    K5owTrwxQMNRixlLljNADnh8AkhwNUBZnm3rREo3QKfEXtRBJDlA
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 12
+  - *id004
+  - false
+  - !!binary |
+    /ujIpa3JHkBMU89t61wlQBoyuggAVStAdIjSUYqmMEDb90eflKIzQENnveyenjZAqtYyOqmaOUAQ
+    RqiHs5Y8QHi1HdW9kj9Ab5JJEWRHQUAiSgQ4acVCQNcBv15uQ0RA
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 12
+  - *id004
+  - false
+  - !!binary |
+    tXZovAtEJUC3dfmcAIMtQFw6xb764DJA3bkNL3UAN0BfOVaf7x87QOG4ng9qPz9AMZzzP3KvQUDx
+    2xd4L79DQLIbPLDszkVAcltg6KneR0Aym4QgZ+5JQPXaqFgk/ktA
+- !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 12
+  - *id004
+  - false
+  - !!binary |
+    Tu8BbxXKKkCZm2Sbq5YyQIs/SH9MyDdAfuMrY+35PEC4w4cjxxVBQLKVeZWXrkNArGdrB2hHRkCj
+    OV15OOBIQJ4LT+sIeUtAlt1AXdkRTkDHV5nnVFVQQMVAkiC9oVFA
 tire_radius: 0.32339999999999997
 type_of_car: hatchback
 veh_mass: 1644.0

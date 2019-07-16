@@ -27,7 +27,7 @@ def simple_run():
         stop = min(StartStop[1][gear], 70)
         x = np.arange(start, stop, 1)
         y = curve(x)
-        plt.plot(x, y,'x')
+        plt.plot(x, y, 'x')
         plt.grid()
     plt.show()
 

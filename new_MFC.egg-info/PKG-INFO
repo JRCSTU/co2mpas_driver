@@ -70,7 +70,11 @@ Description: # The present work implements a lightweight microsimulation free-fl
                     
                  to build a 64bit version of your extension.
                  
-                    python setup.py build --plat-name=win-amd64 bdist_wininst   
+                    python setup.py build --plat-name=win-amd64 bdist_wininst
+                  
+                  create an MSI installer
+                  
+                     python setup.py bdist_msi
                     
                  This will create a folder structure like this:
         
@@ -112,7 +116,7 @@ Description: # The present work implements a lightweight microsimulation free-fl
                 
         6. **Uninstall your package**
         
-                pip uninstall package name
+                pip uninstall new_MFC
                 
            or if you don't know the list of all files, you can reinstall it with the
            --record option, and take a look at the list this produces.

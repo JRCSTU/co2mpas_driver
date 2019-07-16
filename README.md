@@ -63,7 +63,11 @@
             
          to build a 64bit version of your extension.
          
-            python setup.py build --plat-name=win-amd64 bdist_wininst   
+            python setup.py build --plat-name=win-amd64 bdist_wininst
+          
+          create an MSI installer
+          
+             python setup.py bdist_msi
             
          This will create a folder structure like this:
 
