@@ -67,4 +67,4 @@ class Core(unittest.TestCase):
             if isinstance(v, str):
                 self.assertEqual(v, res[k])
             else:
-                nt.assert_equal(res[k], v)
+                nt.assert_almost_equal(res[k], v)

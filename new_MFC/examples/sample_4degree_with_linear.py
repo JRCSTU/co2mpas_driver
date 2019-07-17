@@ -1,7 +1,7 @@
 import os
 from os import path as osp
-import numpy as np
 import matplotlib.pyplot as plt
+from new_MFC.common import functions as fun
 from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 
@@ -11,14 +11,10 @@ os.chdir(my_dir)
 
 def simple_run():
     # Database of vehicles with a unique id
-    db_name = '../db/EuroSegmentCar'
+    db_name = '../db/EuroSegmentCar'  # file path without extension of the file
     car_id = 35135  # Category item
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     # to 1(aggressive driver)
-
-    # file path without extension of the file
-    db_name = os.path.dirname(db_name) + '/' + \
-        os.path.splitext(os.path.basename(db_name))[0]
 
     # reading csv file into a dictionary
     db = rno.load_db_to_dictionary(db_name)
@@ -29,10 +25,7 @@ def simple_run():
         mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     for gear, curve in enumerate(curves):
-        start = start_stop[0][gear]
-        stop = start_stop[1][gear]
-        x = np.arange(start, stop, 0.2)
-        y = curve(x)
+        x, y = fun.calculate_curve_coordinates(curve, gear, *start_stop)
         plt.plot(x, y)
     plt.show()
 

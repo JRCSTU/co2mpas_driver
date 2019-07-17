@@ -39,8 +39,7 @@ def simple_run():
     times = np.arange(0, duration + sim_step, sim_step)
 
     # file path without extension of the file
-    db_name = os.path.dirname(db_name) + '/' + \
-              os.path.splitext(os.path.basename(db_name))[0]
+    db_name = os.path.dirname(db_name) + '/' + os.path.splitext(os.path.basename(db_name))[0]
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_name)
 
@@ -52,7 +51,7 @@ def simple_run():
     curves (cs_acc_per_gear), before the calculation of the resistances and the
     limitation due to max possible acceleration (friction) .
     """
-    Curves, cs_acc_per_gear, StartStop, gs = \
+    curves, cs_acc_per_gear, start_stop, gs = \
         mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     """
@@ -64,8 +63,8 @@ def simple_run():
     # selected_car, gs_style, 4)
 
     """Lists to gather simulation data"""
-    Speeds = [v_start]
-    Acceleration = [0]
+    speeds = [v_start]
+    acceleration = [0]
 
     """Initialize speed and gear"""
     speed = v_start
@@ -80,30 +79,30 @@ def simple_run():
         speed, gear, gear_count = sp.simulation_step_function(selected_car,
                                                               speed, gear,
                                                               gear_count, gs,
-                                                              Curves, v_des,
+                                                              curves, v_des,
                                                               driver_style,
                                                               sim_step)
 
         """Gather data"""
-        Speeds.append(speed)
-        Acceleration.append((Speeds[-1] - Speeds[-2])/sim_step)
+        speeds.append(speed)
+        acceleration.append((speeds[-1] - speeds[-2])/sim_step)
 
     """Plot"""
     plt.figure('Time-Speed')
-    plt.plot(times, Speeds[1:])
+    plt.plot(times, speeds[1:])
     plt.grid()
     plt.figure('Speed-Acceleration')
-    plt.plot(Speeds[1:], Acceleration[1:])
+    plt.plot(speeds[1:], acceleration[1:])
     plt.grid()
     plt.figure('Acceleration-Time')
-    plt.plot(times,Acceleration[1:])
+    plt.plot(times, acceleration[1:])
     plt.grid()
 
     plt.figure('Speed-Acceleration')
-    for i,gear_curve in enumerate(Curves):
-        sp_bins = np.arange(StartStop[0][i],StartStop[1][i]+0.1,0.1)
+    for i,gear_curve in enumerate(curves):
+        sp_bins = np.arange(start_stop[0][i], start_stop[1][i]+0.1, 0.1)
         accelerations = gear_curve(sp_bins)
-        plt.plot(sp_bins,accelerations,'k')
+        plt.plot(sp_bins, accelerations, 'k')
     plt.grid()
     plt.show()
     return 0

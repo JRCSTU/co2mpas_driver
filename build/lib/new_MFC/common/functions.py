@@ -1,5 +1,5 @@
 import math
-import numpy
+import numpy as np
 
 
 def calculate_wheel_power(velocities, acc, road_loads, veh_mass, slope):
@@ -117,8 +117,8 @@ def calculate_wheel_torques(wheel_powers, wheel_speeds):
     """
 
     pi = math.pi
-    if isinstance(wheel_speeds, numpy.ndarray):
-        return numpy.nan_to_num(wheel_powers / wheel_speeds * (30000.0 / pi))
+    if isinstance(wheel_speeds, np.ndarray):
+        return np.nan_to_num(wheel_powers / wheel_speeds * (30000.0 / pi))
     return wheel_powers / wheel_speeds * (30000.0 / pi) if wheel_speeds else 0.0
 
 
@@ -229,7 +229,7 @@ def calculate_gear_box_speeds_in_v1(
     #
     # d.update(gear_box_ratios)
 
-    # ratios = numpy.vectorize(d.get)(gears)
+    # ratios = np.vectorize(d.get)(gears)
     if clutch == 1:
         return 0
 
@@ -335,7 +335,7 @@ def calculate_brake_mean_effective_pressures(
     else:
         res = 0
     #
-    # p = numpy.zeros_like(engine_powers_out)
+    # p = np.zeros_like(engine_powers_out)
     # p[b] = engine_powers_out[b] / engine_speeds_out[b]
     # p[b] *= 1200000.0 / engine_capacity
 
@@ -391,6 +391,13 @@ def parameters(max_power, capacity, eng_fuel, fuel_turbo):
     return params
 
 
+def calculate_curve_coordinates(curve, gear, start, stop):
+    start = start[gear]
+    stop = min(stop[gear], 50)
+    x = np.arange(start, stop, 1)
+    y = curve(x)
+    return x, y
+
 # def calculate_p0(params, engine_capacity, engine_stroke,
 #                  idle_engine_speed_median, engine_fuel_lower_heating_value):
 #     """
@@ -434,11 +441,12 @@ def parameters(max_power, capacity, eng_fuel, fuel_turbo):
 #
 #     return -engine_wfb_idle / engine_wfa_idle
 
+
 def calculate_fuel_ABC(params, mean_piston_spd, n_powers, n_temperatures):
     p = params
     A = p['a2'] + p['b2'] * mean_piston_spd
     B = p['a'] + (p['b'] + p['c'] * mean_piston_spd) * mean_piston_spd
-    C = numpy.power(n_temperatures, 0) * (p['l'] + p['l2'] * mean_piston_spd ** 2)
+    C = np.power(n_temperatures, 0) * (p['l'] + p['l2'] * mean_piston_spd ** 2)
     C -= n_powers
 
     return A, B, C

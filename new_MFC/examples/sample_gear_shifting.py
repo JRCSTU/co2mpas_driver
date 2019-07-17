@@ -11,13 +11,9 @@ os.chdir(my_dir)
 
 
 def simple_run():
-    db_name = '../db/EuroSegmentCar'
+    db_name = '../db/EuroSegmentCar'  # file path without extension of the file
     car_id = 27748
     gs_style = 1
-
-    # file path without extension of the file
-    db_name = os.path.dirname(db_name) + '/' + \
-            os.path.splitext(os.path.basename(db_name))[0]
 
     db = rno.load_db_to_dictionary(db_name)
 
@@ -33,12 +29,12 @@ def simple_run():
 
     cs_acc_per_gear = vf.get_cubic_splines_of_speed_acceleration_relationship(
         selected_car, speed_per_gear, acc_per_gear)
-    Start, Stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
+    start, stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
                                     cs_acc_per_gear)
 
-    Tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
+    tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, start, stop)
 
-    gs = fg.gear_points_from_tan(Tans, gs_style, Start, Stop)
+    gs = fg.gear_points_from_tan(tans, gs_style, start, stop)
 
     for gear in gs:
         plt.plot([gear, gear], [0, 5], 'k')
