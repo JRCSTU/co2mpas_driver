@@ -9,8 +9,7 @@ import unittest
 from new_MFC.core import dsp
 import ddt
 import schedula as sh
-import numpy.testing as nt
-
+from .utils import _assert
 import yaml
 import os.path as osp
 
@@ -64,7 +63,4 @@ class Core(unittest.TestCase):
         res = dsp(sh.selector(inputs, self.data), outputs)
         self.assertTrue(set(outputs).issubset(res), "Missing outputs {}".format(set(outputs) - set(res)))
         for k, v in sh.selector(outputs, self.data).items():
-            if isinstance(v, str):
-                self.assertEqual(v, res[k])
-            else:
-                nt.assert_almost_equal(res[k], v)
+            _assert(v, res[k])

@@ -336,10 +336,10 @@ def get_starting_speed(speed_per_gear):
 
 
 @sh.add_function(dsp, outputs=['discrete_acceleration_curves'])
-def define_discrete_acceleration_curves(curves, start, stop):
+def define_discrete_acceleration_curves(Curves, Start, Stop):
     res = []
-    for gear, f in enumerate(curves):
-        x = np.arange(start[gear], stop[gear], 0.2)
+    for gear, f in enumerate(Curves):
+        x = np.arange(Start[gear], Stop[gear], 0.2)
         res.append(dict(x=x, y=f(x)))
     return res
 
