@@ -22,9 +22,11 @@ def simple_run():
     curves, cs_acc_per_gear, start_stop, gs = mf.gear_curves_n_gs_from_poly(
         selected_car, gs_style, degree)
 
-    for gear, curve in enumerate(curves):
-        x, y = fun.calculate_curve_coordinates(curve, gear, *start_stop)
-        plt.plot(x, y)
+    from new_MFC.core import define_discrete_acceleration_curves as func
+    discrete_acceleration_curves = func(curves, *start_stop)
+    for d in discrete_acceleration_curves:
+        plt.plot(d['x'], d['y'])
+
     plt.show()
 
     return 0

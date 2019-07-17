@@ -1,5 +1,5 @@
-
 import numpy.testing as nt
+
 
 def _assert(v, r):
     if isinstance(v, str):

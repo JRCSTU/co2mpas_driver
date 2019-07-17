@@ -390,14 +390,6 @@ def parameters(max_power, capacity, eng_fuel, fuel_turbo):
 
     return params
 
-
-def calculate_curve_coordinates(curve, gear, start, stop):
-    start = start[gear]
-    stop = min(stop[gear], 50)
-    x = np.arange(start, stop, 1)
-    y = curve(x)
-    return x, y
-
 # def calculate_p0(params, engine_capacity, engine_stroke,
 #                  idle_engine_speed_median, engine_fuel_lower_heating_value):
 #     """

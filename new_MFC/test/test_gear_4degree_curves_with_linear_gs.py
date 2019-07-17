@@ -9,7 +9,7 @@ import unittest
 from new_MFC.core import dsp
 import ddt
 import schedula as sh
-from .utils import _assert
+from new_MFC.test.utils import _assert
 import yaml
 import os.path as osp
 

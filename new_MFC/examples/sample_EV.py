@@ -1,7 +1,7 @@
 import os
+import numpy as np
 from os import path as osp
 import matplotlib.pyplot as plt
-from new_MFC.common import functions as fun
 from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 
@@ -19,12 +19,12 @@ def simple_run():
 
     curves, start_stop = mf.get_ev_curve_main(selected_car)
 
-    for gear, curve in enumerate(curves):
-        x, y = fun.calculate_curve_coordinates(curve, gear, *start_stop)
-        plt.plot(x, y, 'x')
+    from new_MFC.core import define_discrete_acceleration_curves as func
+    discrete_acceleration_curves = func(curves, *start_stop)
+    for d in discrete_acceleration_curves:
+        plt.plot(d['x'], d['y'], 'x')
         plt.grid()
     plt.show()
-
     return 0
 
 
