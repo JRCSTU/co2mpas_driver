@@ -199,7 +199,7 @@ def create_clutch_list(gear_list, clutch_duration):
     l1 = len(gear_list) + clutch_duration
     clutch_list = [0]*l1
 
-    for i,gear in enumerate(gear_list[1:]):
+    for i, gear in enumerate(gear_list[1:]):
         if gear != gear_list[i]:
             clutch_list[i+1:i+clutch_duration] = [1] * clutch_duration
 

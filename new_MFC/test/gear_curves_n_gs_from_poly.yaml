@@ -1039,4 +1039,3 @@ use_linear_gs: false
 veh_mass: 955.0
 veh_max_speed: 50
 wheelbase: 2.3
-yaml: !!python/module:yaml 

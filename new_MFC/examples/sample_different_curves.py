@@ -2,7 +2,6 @@ import os
 from os import path as osp
 import matplotlib.pyplot as plt
 from new_MFC.common import curve_functions as mf
-from new_MFC.common import functions as fun
 from new_MFC.common import reading_n_organizing as rno
 
 my_dir = osp.dirname(osp.abspath(__file__))

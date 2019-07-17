@@ -10,7 +10,6 @@ from new_MFC.core import dsp
 import ddt
 import schedula as sh
 from .utils import _assert
-import numpy.testing as nt
 
 import yaml
 import os.path as osp
@@ -26,9 +25,9 @@ class Core(unittest.TestCase):
     @ddt.idata((
         # define_discrete_acceleration_curves()
         (
-                ['coefs_per_gear', 'speed_per_gear', 'Start', 'Stop', 'Alimit',
-                 'type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
-                 'car_width', 'car_height', 'sp_bins'],
+                ['coefs_per_gear', 'speed_per_gear', 'Start', 'Stop',
+                 'Alimit', 'type_of_car', 'car_type', 'veh_mass',
+                 'engine_max_power', 'car_width', 'car_height', 'sp_bins'],
                 ['discrete_acceleration_curves']
         ),
         # get_speeds_n_accelerations_per_gear()

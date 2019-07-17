@@ -61,6 +61,7 @@ class Core(unittest.TestCase):
     def test_core(self, keys):
         inputs, outputs = keys
         res = dsp(sh.selector(inputs, self.data), outputs)
-        self.assertTrue(set(outputs).issubset(res), "Missing outputs {}".format(set(outputs) - set(res)))
+        self.assertTrue(set(outputs).issubset(res),
+                        "Missing outputs {}".format(set(outputs) - set(res)))
         for k, v in sh.selector(outputs, self.data).items():
             _assert(v, res[k])

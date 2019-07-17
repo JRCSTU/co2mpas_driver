@@ -99,7 +99,7 @@ def simple_run():
     plt.grid()
 
     plt.figure('Speed-Acceleration')
-    for i,gear_curve in enumerate(curves):
+    for i, gear_curve in enumerate(curves):
         sp_bins = np.arange(start_stop[0][i], start_stop[1][i]+0.1, 0.1)
         accelerations = gear_curve(sp_bins)
         plt.plot(sp_bins, accelerations, 'k')

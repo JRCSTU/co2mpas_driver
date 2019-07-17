@@ -3,6 +3,7 @@ import os
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin'
 import copy
 import numpy as np
+from scipy.interpolate import interp1d
 import schedula as sh
 from new_MFC.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, estimate_f_coefficients, \
@@ -310,7 +311,6 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
     :param sp_bins:
     :return:
     """
-    from scipy.interpolate import interp1d
     Res = []
 
     for gear, acc in enumerate(poly_spline):
