@@ -75,7 +75,7 @@ def get_db_path(raw_data):
     :type raw_data: dict
 
     :return:
-        Data base file path
+        Data base file path.
     :rtype: str
     """
     return raw_data.get('config', {}).get('db_path', sh.NONE)
@@ -84,13 +84,14 @@ def get_db_path(raw_data):
 @sh.add_function(dsp, outputs=['vehicle_db'])
 def load_vehicle_db(db_path):
     """
-    Load vehicle data base
+    Load vehicle data base.
 
     :param db_path:
-        Data base file path
+        Data base file path.
     :type db_path: str
+
     :return:
-        Vehicle database
+        Vehicle database.
     :rtype: dict
     """
     import pandas as pd
@@ -98,8 +99,64 @@ def load_vehicle_db(db_path):
     return df.to_dict('index')
 
 
+@sh.add_function(dsp, outputs=['vehicle_inputs'])
+def get_vehicle_inputs(vehicle_id, vehicle_db):
+    """
+    Get vehicle data.
+
+    :param vehicle_id:
+        Vehicle ID.
+    :type vehicle_id: int
+
+    :param vehicle_db:
+        Vehicle database.
+    :type vehicle_db: dict
+
+    :return:
+        Vehicle inputs.
+    :rtype: dict
+    """
+    return vehicle_db[vehicle_id]
+
+
+@sh.add_function(dsp, outputs=['data'])
+def merge_data(vehicle_inputs, raw_data, inputs):
+    """
+    Merge data.
+
+    :param vehicle_inputs:
+        Vehicle inputs.
+    :type vehicle_inputs: dict
+
+    :param raw_data:
+        Raw data.
+    :type raw_data: dict
+
+    :param inputs:
+        Inputs
+    :type inputs:
+
+    :return:
+        Inputs
+    :rtype: dict
+    """
+    d = {'vehicle_inputs': vehicle_inputs}
+    return sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
+
+
 if __name__ == '__main__':
-    db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
-    #input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
-    #raw_data = read_excel(input_path)
+    # db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
+    input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
+    inputs = {
+        'inputs': {'gear_shifting_style': 0.7},
+        'vehicle_inputs': {'vehicle_mass': 0.4},
+        'time_series': {'times': list(range(2, 23))}
+    }
+    raw_data = read_excel(input_path)
+    vehicle_id = get_vehicle_id(raw_data)
+    db_path = osp.dirname(__file__) + get_db_path(raw_data)
+    vehicle_db = load_vehicle_db(db_path)
+    vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
+    data = merge_data(vehicle_inputs, raw_data, inputs)
+    # sh.map_dict({})
     dsp.plot()
