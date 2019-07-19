@@ -1,6 +1,5 @@
 import logging
 import os.path as osp
-from new_MFC.common import reading_n_organizing as rno
 import schedula as sh
 
 log = logging.getLogger(__name__)
@@ -81,6 +80,28 @@ def get_db_path(raw_data):
     return raw_data.get('config', {}).get('db_path', sh.NONE)
 
 
+_db_map = {
+    'Weights-Empty mass': 'veh_mass',
+    'Performance-Top speed': 'top_speed',
+    'General Specifications-Carbody': 'type_of_car',
+    'Exterior sizes-Width': 'car_width',
+    'Exterior sizes-Height': 'car_height',
+    'Weights-Unladen mass': 'kerb_weight',
+    'Exterior sizes-Wheelbase': 'wheelbase',
+    'Drive-Wheel drive': 'car_type', 'Drive-Fuel': 'fuel_type',
+    'Chassis-Rolling Radius Dynamic': 'r_dynamic',
+    'Fuel Engine-Max torque': 'engine_max_torque',
+    'Fuel Engine-Stroke': 'fuel_engine_stroke',
+    'Drive-Total max power': 'max_power',
+    'Fuel Engine-Turbo': 'fuel_turbo',
+    'Fuel Engine-Capacity': 'fuel_eng_capacity',
+    'General Specifications-Transmission': 'gearbox_type',
+    'Electric Engine-Total max power': 'engine_max_power',
+    'Electric Engine-Max torque': 'motor_max_torque',
+    'Chassis-Rolling Radius Static': 'tire_radius'
+}
+
+
 @sh.add_function(dsp, outputs=['vehicle_db'])
 def load_vehicle_db(db_path):
     """
@@ -96,7 +117,12 @@ def load_vehicle_db(db_path):
     """
     import pandas as pd
     df = pd.read_csv(db_path, encoding="ISO-8859-1", index_col=0)
-    return df.to_dict('index')
+    vehicle_db = df.rename(columns=_db_map)[list(_db_map.values())]
+
+    vehicle_db = vehicle_db.to_dict('index')
+    with pd.ExcelWriter('new.xlsx') as writer:
+        pd.DataFrame.from_dict(vehicle_db, orient='index').to_excel(writer)
+    return vehicle_db
 
 
 @sh.add_function(dsp, outputs=['vehicle_inputs'])
@@ -133,11 +159,11 @@ def merge_data(vehicle_inputs, raw_data, inputs):
     :type raw_data: dict
 
     :param inputs:
-        Inputs
+        Inputs.
     :type inputs:
 
     :return:
-        Inputs
+        Inputs.
     :rtype: dict
     """
     d = {'vehicle_inputs': vehicle_inputs}
@@ -157,6 +183,6 @@ if __name__ == '__main__':
     db_path = osp.dirname(__file__) + get_db_path(raw_data)
     vehicle_db = load_vehicle_db(db_path)
     vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
+
     data = merge_data(vehicle_inputs, raw_data, inputs)
-    # sh.map_dict({})
     dsp.plot()
