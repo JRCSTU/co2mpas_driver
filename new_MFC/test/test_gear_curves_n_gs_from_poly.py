@@ -23,13 +23,13 @@ class Core(unittest.TestCase):
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
-        # define_discrete_acceleration_curves()
-        (
-                ['coefs_per_gear', 'speed_per_gear', 'Start', 'Stop',
-                 'Alimit', 'type_of_car', 'car_type', 'veh_mass',
-                 'engine_max_power', 'car_width', 'car_height', 'sp_bins'],
-                ['discrete_acceleration_curves']
-        ),
+        # # define_discrete_acceleration_curves()
+        # (
+        #         ['coefs_per_gear', 'speed_per_gear', 'Start', 'Stop',
+        #          'Alimit', 'type_of_car', 'car_type', 'veh_mass',
+        #          'engine_max_power', 'car_width', 'car_height', 'sp_bins'],
+        #         ['discrete_acceleration_curves']
+        # ),
         # get_speeds_n_accelerations_per_gear()
         (
                 ['gear_box_ratios', 'idle_engine_speed', 'tire_radius',
