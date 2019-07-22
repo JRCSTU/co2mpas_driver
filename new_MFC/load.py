@@ -1,7 +1,6 @@
 import logging
 import os.path as osp
 import schedula as sh
-
 log = logging.getLogger(__name__)
 dsp = sh.Dispatcher(name='load')
 
@@ -117,9 +116,8 @@ def load_vehicle_db(db_path):
     """
     import pandas as pd
     df = pd.read_csv(db_path, encoding="ISO-8859-1", index_col=0)
-    vehicle_db = df.rename(columns=_db_map)[list(_db_map.values())]
+    vehicle_db = df.rename(columns=_db_map)[list(_db_map.values())].to_dict('index')
 
-    vehicle_db = vehicle_db.to_dict('index')
     with pd.ExcelWriter('new.xlsx') as writer:
         pd.DataFrame.from_dict(vehicle_db, orient='index').to_excel(writer)
     return vehicle_db
