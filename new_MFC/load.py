@@ -1,8 +1,11 @@
+import copy
 import logging
+import numpy as np
 import os.path as osp
 import schedula as sh
+
 log = logging.getLogger(__name__)
-dsp = sh.Dispatcher(name='load')
+dsp = sh.BlueDispatcher(name='load')
 
 
 def check_ext(fpath, *args, ext=('xls', 'xlsx')):
@@ -80,7 +83,9 @@ def get_db_path(raw_data):
 
 
 _db_map = {
-    'Weights-Empty mass': 'veh_mass',
+    "Transmission  / Gear ratio-Final drive": 'final_drive',
+    "Transmission  / Gear ratio-Gear Box Ratios": "gear_box_ratios",
+    'Weights-Empty mass': 'vehicle_mass',
     'Performance-Top speed': 'top_speed',
     'General Specifications-Carbody': 'type_of_car',
     'Exterior sizes-Width': 'car_width',
@@ -95,9 +100,11 @@ _db_map = {
     'Fuel Engine-Turbo': 'fuel_turbo',
     'Fuel Engine-Capacity': 'fuel_eng_capacity',
     'General Specifications-Transmission': 'gearbox_type',
-    'Electric Engine-Total max power': 'engine_max_power',
+    'Fuel Engine-Max power': 'engine_max_power',
+    'Electric Engine-Total max power': 'motor_max_power',
     'Electric Engine-Max torque': 'motor_max_torque',
-    'Chassis-Rolling Radius Static': 'tire_radius'
+    'Chassis-Rolling Radius Static': 'tyre_radius',
+    "Fuel Engine-Max power RPM": "engine_max_speed_at_max_power"
 }
 
 
@@ -116,11 +123,36 @@ def load_vehicle_db(db_path):
     """
     import pandas as pd
     df = pd.read_csv(db_path, encoding="ISO-8859-1", index_col=0)
-    vehicle_db = df.rename(columns=_db_map)[list(_db_map.values())].to_dict('index')
+    df = df[list(_db_map)].rename(columns=_db_map)
 
-    with pd.ExcelWriter('new.xlsx') as writer:
-        pd.DataFrame.from_dict(vehicle_db, orient='index').to_excel(writer)
-    return vehicle_db
+    df['gear_box_ratios'] = df['gear_box_ratios'].fillna('[]').apply(
+        lambda x: [float(v) for v in x[1:-1].split('-') if v != '']
+    )
+    df.loc[df['fuel_type'] == 'petrol', 'ignition_type'] = 'positive'
+    df.loc[df['fuel_type'] == 'diesel', 'ignition_type'] = 'compression'
+    b = df['fuel_type'] == 'electricity'
+    df.loc[b, 'ignition_type'] = 'electricity'
+    df.loc[b, 'gear_box_ratios'] = [1]
+    df['tyre_radius'] /= 1000  # meters.
+    df['driveline_slippage'] = 0
+
+    b = df['gearbox_type'] == 'automatic'
+    b |= df['gearbox_type'] == 'single-speed fixed gear'
+    df['transmission'] = np.where(b, 'automatic', 'manual')
+    df['driveline_efficiency'] = np.where(b, .9, .93)
+
+    df['top_speed'] = (df['top_speed'] / 3.6).values.astype(int)
+    df['type_of_car'] = df["type_of_car"].str.strip()
+    r = np.where(df['car_type'] == 'front', 2, 6)
+    r[df['car_type'] == 'rear'] = 4
+    df['car_type'] = r
+
+    b = df['ignition_type'] == 'positive'
+    df['idle_engine_speed_median'] = np.where(b, 750, 850)
+    df['idle_engine_speed_std'] = 50
+    df['r_dynamic'] /= 1000
+
+    return df.to_dict('index')
 
 
 @sh.add_function(dsp, outputs=['vehicle_inputs'])
@@ -165,8 +197,30 @@ def merge_data(vehicle_inputs, raw_data, inputs):
     :rtype: dict
     """
     d = {'vehicle_inputs': vehicle_inputs}
-    return sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
+    d = sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
+    d['inputs'] = sh.combine_dicts(
+        d.pop('time_series', {}), d.pop('vehicle_inputs', {}), d['inputs']
+    )
+    return d
 
+
+def format_data(data):
+    data = copy.deepcopy(data)
+    d = data.get('inputs', {})
+    if 'gear_box_ratios' in d:
+        import json
+        d['gear_box_ratios'] = json.loads(d['gear_box_ratios'])
+    for k, v in list(d.items()):
+        if isinstance(v, str):
+            if v:
+                continue
+        elif not np.atleast_1d(np.isnan(v)).any():
+            continue
+        d.pop(k)
+    return data
+
+
+dsp.add_data('data', filters=[format_data])
 
 if __name__ == '__main__':
     # db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
@@ -176,11 +230,4 @@ if __name__ == '__main__':
         'vehicle_inputs': {'vehicle_mass': 0.4},
         'time_series': {'times': list(range(2, 23))}
     }
-    raw_data = read_excel(input_path)
-    vehicle_id = get_vehicle_id(raw_data)
-    db_path = osp.dirname(__file__) + get_db_path(raw_data)
-    vehicle_db = load_vehicle_db(db_path)
-    vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
-
-    data = merge_data(vehicle_inputs, raw_data, inputs)
-    dsp.plot()
+    dsp(dict(input_path=input_path, inputs=inputs)).plot()
