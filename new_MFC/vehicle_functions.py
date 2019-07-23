@@ -411,7 +411,6 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed):
 
 def ev_curve(my_car):
     """
-
     Full load curve of EVs (based on Yinglong)
 
     :param my_car:

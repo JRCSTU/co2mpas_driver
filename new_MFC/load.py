@@ -15,14 +15,14 @@ def check_ext(fpath, *args, ext=('xls', 'xlsx')):
 @sh.add_function(dsp, outputs=['raw_data'], input_domain=check_ext)
 def read_excel(input_path):
     """
-    Read excel file.
+    Read input file.
 
     :param input_path:
-        Excel input file path.
+        Input file path.
     :type input_path: str
 
     :return:
-        Raw data.
+        Raw data of input file.
     :rtype: dict
     """
     import xlrd
@@ -50,7 +50,7 @@ def get_vehicle_id(raw_data):
     Get vehicle ID from raw data.
 
     :param raw_data:
-        Raw data.
+        Raw data of input file.
     :type raw_data: dict
 
     :return:
@@ -69,10 +69,10 @@ dsp.add_data(
 @sh.add_function(dsp, outputs=['db_path'])
 def get_db_path(raw_data):
     """
-    Get data base file path.
+    Get data base file path from raw data.
 
     :param raw_data:
-        Raw data.
+        Raw data of input file.
     :type raw_data: dict
 
     :return:
@@ -185,15 +185,15 @@ def merge_data(vehicle_inputs, raw_data, inputs):
     :type vehicle_inputs: dict
 
     :param raw_data:
-        Raw data.
+        Raw data of input file.
     :type raw_data: dict
 
     :param inputs:
-        Inputs.
+        User inputs.
     :type inputs:
 
     :return:
-        Inputs.
+        Merged data.
     :rtype: dict
     """
     d = {'vehicle_inputs': vehicle_inputs}
@@ -205,6 +205,17 @@ def merge_data(vehicle_inputs, raw_data, inputs):
 
 
 def format_data(data):
+    """
+    Format data.
+
+    :param data:
+        Data to be formatted.
+    :type data: dict
+
+    :return:
+        Formatted data.
+    :rtype: dict
+    """
     data = copy.deepcopy(data)
     d = data.get('inputs', {})
     if 'gear_box_ratios' in d:
@@ -223,6 +234,14 @@ def format_data(data):
 dsp.add_data('data', filters=[format_data])
 
 if __name__ == '__main__':
+    # raw_data = read_excel(input_path)
+    # vehicle_id = get_vehicle_id(raw_data)
+    # db_path = osp.dirname(__file__) + get_db_path(raw_data)
+    # vehicle_db = load_vehicle_db(db_path)
+    # vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
+    #
+    # data = merge_data(vehicle_inputs, raw_data, inputs)
+
     # db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
     input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
     inputs = {

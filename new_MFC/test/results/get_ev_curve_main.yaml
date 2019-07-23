@@ -1,5 +1,5 @@
 Alimit: !!python/object/apply:numpy.core.multiarray.scalar
-- &id004 !!python/object/apply:numpy.dtype
+- &id003 !!python/object/apply:numpy.dtype
   args:
   - f8
   - 0
@@ -123,20 +123,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 185
-    - &id003 !!python/object/apply:numpy.dtype
-      args:
-      - f8
-      - 0
-      - 1
-      state: !!python/tuple
-      - 3
-      - <
-      - null
-      - null
-      - null
-      - -1
-      - -1
-      - 0
+    - *id003
     - false
     - !!binary |
       AAAAAAAAAACamZmZmZnJP5qZmZmZmdk/NDMzMzMz4z+amZmZmZnpPwAAAAAAAPA/NDMzMzMz8z9n
@@ -306,7 +293,20 @@ speed_per_gear:
   - 1
   - !!python/tuple
     - 12
-  - *id004
+  - &id004 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
   - false
   - !!binary |
     YUiwIu0fBEBH7IatnO0LQBbILhym3RFAChqa4X3EFUD+awWnVasZQPK9cGwtkh1A8wfumIK8IEDs

@@ -1,8 +1,8 @@
 import schedula as sh
-
+from new_MFC.load import dsp as _load
 dsp = sh.Dispatcher()
-dsp.add_function(
-    function_id='load',
+dsp.add_dispatcher(
+    dsp=_load,
     inputs=['inputs', 'vehicle_id', 'db_path', 'input_path'],
     outputs=['data']
 )

@@ -1,0 +1,55 @@
+config:
+  vehicle_id: 39393.0
+input_path: C:/Apps/new_MFC/new_MFC/template/sample.xlsx
+inputs:
+  desired_velocity: 40.0
+  driver_style: 1.0
+  gear_shifting_style: 0.9
+time_series:
+  times:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  velocities:
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
+  - 35
+  - 40
+  - 45
+  - 50
+  - 55
+  - 60
+  - 65
+  - 70
+  - 75
+  - 80
+  - 85
+  - 90
+  - 95
+  - 100
+  - 105
+vehicle_inputs:
+  gear_box_ratios: '[3.91, 2.16, 1.35, 0.97, 0.77]'
+  tyre_radius: 0.3

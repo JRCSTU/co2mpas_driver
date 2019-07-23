@@ -90,7 +90,7 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     return coefs_per_gear
 
 
-@sh.add_function(dsp, outputs=['cs_acc_per_gear', 'Start', 'Stop'])
+@sh.add_function(dsp, outputs=['poly_spline', 'Start', 'Stop'])
 def ev_curve(engine_max_power, tire_radius, driveline_slippage,
              motor_max_torque, final_drive, gear_box_ratios,
              driveline_efficiency, veh_mass, veh_max_speed):

@@ -754,43 +754,6 @@ engine_max_power: 70.0
 engine_max_speed_at_max_power: 4000.0
 final_drive: 3.44
 fuel_type: diesel
-full_load: !!python/object/apply:functools.partial
-  args:
-  - &id004 !!python/name:numpy.interp 
-  state: !!python/tuple
-  - *id004
-  - !!python/tuple []
-  - fp:
-    - 0.1
-    - 0.278071182
-    - 0.427366185
-    - 0.572340499
-    - 0.683251935
-    - 0.772776746
-    - 0.846217049
-    - 0.906754984
-    - 0.94977083
-    - 0.981937981
-    - 1
-    - 0.937598144
-    - 0.85
-    left: 0.1
-    right: 0.85
-    xp:
-    - 0.0
-    - 0.1
-    - 0.2
-    - 0.3
-    - 0.4
-    - 0.5
-    - 0.6
-    - 0.7
-    - 0.8
-    - 0.9
-    - 1.0
-    - 1.1
-    - 1.2
-  - null
 full_load_powers: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
   - *id002
@@ -802,11 +765,24 @@ full_load_powers: !!python/object/apply:numpy.core.multiarray._reconstruct
   - 1
   - !!python/tuple
     - 13
-  - *id003
+  - !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - 0
+    - 1
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
   - false
   - !!binary |
-    AAAAAAAAHEAkgd0bCXczQNdjx+tm6j1Ao1g0visIREBQYVv17+lHQIVGj2MUDEtAxAp90RqeTUBu
-    xuVPhrxPQJgIZSv5nlBAzioaCBUvUUAAAAAAAIBRQPA6NI9waFBAAAAAAADATUA=
+    mpmZmZmZF0AgiJa2ZGQnQN7J6eOI4jFA6laGczgyOECvO6iHkn8+QBm4ezoQVEJAqbfjpnZWRUDN
+    4umIiDZIQG9MxmYEmkpAA0CHjFZoTECk6wYty2BNQKq0dO6+H0xAMzMzMzMTSUA=
 full_load_speeds: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
   - *id002
@@ -1031,11 +1007,15 @@ speed_per_gear:
   - !!binary |
     MnXfJHOpLECr3XadsjQyQL0AfqirFDZAzyOFs6T0OUDiRoy+ndQ9QPq0yWRL2kBAg0ZN6kfKQkAM
     2NBvRLpEQJVpVPVAqkZAHvvXej2aSECojFsAOopKQDEe34U2ekxA
+starting_speed: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  iLFUw6DZwr8=
 tire_radius: 0.31115000000000004
 top_speed: 50
 transmission: manual
 type_of_car: hatchback
-use_linear_gs: false
+use_cubic: true
 veh_mass: 955.0
 veh_max_speed: 50
 wheelbase: 2.3
