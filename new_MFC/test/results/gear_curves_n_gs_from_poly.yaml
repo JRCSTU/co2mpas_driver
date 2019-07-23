@@ -1045,7 +1045,7 @@ top_speed: 50
 transmission: manual
 type_of_car: hatchback
 use_cubic: False
-use_linear_gs: false
+use_linear_gs: False
 veh_mass: 955.0
 veh_max_speed: 50
 wheelbase: 2.3
