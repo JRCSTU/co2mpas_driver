@@ -125,11 +125,24 @@ class TestCore(unittest.TestCase):
         test_check(dsp, sh.selector(inp, data), sh.selector(out, data))
 
     @ddt.idata((
+            # define_discrete_acceleration_curves()
+            (
+                    ['speed_per_gear', 'coefs_per_gear', 'use_cubic', 'Start',
+                     'Stop', 'type_of_car', 'car_type', 'veh_mass',
+                     'engine_max_power', 'car_width', 'car_height'],
+                    ['discrete_acceleration_curves']
+            ),
+            # get_resistances()
+            (
+                    ['type_of_car', 'car_type', 'veh_mass', 'engine_max_power',
+                     'car_width', 'car_height', 'sp_bins'],
+                    ['Alimit']
+            ),
             # ev_curve()
             (
                     ['engine_max_power', 'tire_radius', 'driveline_slippage',
-                     'motor_max_torque', 'final_drive', 'gear_box_ratios',
-                     'driveline_efficiency', 'veh_mass', 'veh_max_speed'],
+                     'motor_max_torque', 'final_drive', 'gear_box_ratios', 'driveline_efficiency',
+                     'veh_mass', 'veh_max_speed'],
                     ['Start', 'Stop']
             ),
     ))

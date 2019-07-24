@@ -375,6 +375,7 @@ speed_per_gear:
   - !!binary |
     Tu8BbxXKKkCZm2Sbq5YyQIs/SH9MyDdAfuMrY+35PEC4w4cjxxVBQLKVeZWXrkNArGdrB2hHRkCj
     OV15OOBIQJ4LT+sIeUtAlt1AXdkRTkDHV5nnVFVQQMVAkiC9oVFA
+use_cubic: false
 tire_radius: 0.32339999999999997
 type_of_car: hatchback
 veh_mass: 1644.0
