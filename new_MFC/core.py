@@ -3,8 +3,7 @@ import numpy as np
 from scipy.interpolate import interp1d
 import schedula as sh
 from new_MFC.co2mpas import get_full_load, \
-    calculate_full_load_speeds_and_powers, estimate_f_coefficients, \
-    calculate_full_load_torques
+    calculate_full_load_speeds_and_powers, calculate_full_load_torques
 
 dsp = sh.Dispatcher()
 dsp.add_func(get_full_load, outputs=['full_load_curve'])
@@ -261,6 +260,18 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
 @sh.add_function(dsp, outputs=['sp_bins'])
 def define_sp_bins(Stop):
     return np.arange(0, Stop[-1] + 1, 0.01)
+
+
+@sh.add_function(dsp, outputs=['discrete_car_res_curve_force'])
+def define_discrete_car_res_curve_force(car_res_curve_force, sp_bins):
+    discrete_car_res_curve_force = car_res_curve_force(sp_bins)
+    return discrete_car_res_curve_force
+
+
+@sh.add_function(dsp, outputs=['discrete_car_res_curve'])
+def define_discrete_car_res_curve(car_res_curve, sp_bins):
+    discrete_car_res_curve = car_res_curve(sp_bins)
+    return discrete_car_res_curve
 
 
 # Calculate Curves

@@ -13,7 +13,7 @@ from new_MFC.test.utils import test_check
 
 import yaml
 import os.path as osp
-from .utils import test_check
+from new_MFC.utils import test_check
 
 
 @ddt.ddt

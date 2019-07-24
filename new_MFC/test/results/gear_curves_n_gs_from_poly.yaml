@@ -461,7 +461,20 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 57
-    - *id001
+    - &id004 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
     - false
     - !!binary |
       AAAAAAAAAACamZmZmZnJP5qZmZmZmdk/NDMzMzMz4z+amZmZmZnpPwAAAAAAAPA/NDMzMzMz8z9n
@@ -483,7 +496,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 57
-    - *id001
+    - *id004
     - false
     - !!binary |
       XwtRyslsCECjwtOcYF8NQOupsiLaCxBArGxEhutbEUCnL5SkupsRQKcvlKS6mxFApy+UpLqbEUCn
@@ -505,7 +518,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 70
-    - *id001
+    - *id004
     - false
     - !!binary |
       9cK7dlRvFEDCj4hDITwVQI9cVRDuCBZAXCki3brVFkAp9u6ph6IXQPbCu3ZUbxhAw4+IQyE8GUCQ
@@ -529,7 +542,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 70
-    - *id001
+    - *id004
     - false
     - !!binary |
       muOYcrFBD0B0LxB96LQPQEYpuw3/ERBAcablJnlHEEA5jweK4noQQKLjIDc7rBBAqaMxLoPbEEBP
@@ -553,7 +566,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 100
-    - *id001
+    - *id004
     - false
     - !!binary |
       95v8XhBZIEBdAmPFdr8gQMNoySvdJSFAKc8vkkOMIUCPNZb4qfIhQPWb/F4QWSJAWwJjxXa/IkDB
@@ -582,7 +595,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 100
-    - *id001
+    - *id004
     - false
     - !!binary |
       NiIpHCfzAkBgb9xbzh0DQJSm0ktnRwNA1ccL7PFvA0Af04c8bpcDQHXIRj3cvQNA16dI7jvjA0BB
@@ -611,7 +624,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 139
-    - *id001
+    - *id004
     - false
     - !!binary |
       0JFf05LAJkA2+MU5+SYnQJxeLKBfjSdAAsWSBsbzJ0BoK/lsLFooQM6RX9OSwChANPjFOfkmKUCa
@@ -645,7 +658,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 139
-    - *id001
+    - *id004
     - false
     - !!binary |
       Q/FbcPIB+j99SxOugij6P0Y8xCY2Tvo/l8Nu2gxz+j914RLJBpf6P9+VsPIjuvo/1OBHV2Tc+j9U
@@ -679,7 +692,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 179
-    - *id001
+    - *id004
     - false
     - !!binary |
       MnXfJHOpLECY20WL2Q8tQP5BrPE/di1AZKgSWKbcLUDKDnm+DEMuQDB13yRzqS5AlttFi9kPL0D8
@@ -719,7 +732,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 179
-    - *id001
+    - *id004
     - false
     - !!binary |
       iM/TdLZt8z/RQ6JZs4DzP5Pq4L0xk/M/ysOPoTGl8z96z64Es7bzP58NPue1x/M/PH49STrY8z9Q
@@ -748,6 +761,178 @@ discrete_acceleration_curves:
       PyZ3BNSyK9c/HZm/9nwz1j/xhDsXTTnVP6s6eDUjPdQ/Mrp1Uf8+0z+gAzRr4T7SP+AWs4LJPNE/
       EfTyl7c40D8hNudVV2XOP8gXandLVcw/IY1ulEtByj9klvSsVynIPzoz/MBvDcY/yGOF0JPtwz/8
       J5Dbw8nBPw==
+discrete_car_res_curve: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id002
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 510
+  - *id001
+  - false
+  - !!binary |
+    oPm7APBVuz9fVyhBV2i7P0p8zh4/e7s/YWiumaeOuz+lG8ixkKK7PxOWG2f6trs/rdeoueTLuz9z
+    4G+pT+G7P2WwcDY797s/g0erYKcNvD/NpR8olCS8P0LLzYwBPLw/47e1ju9TvD+wa9ctXmy8P6jm
+    MmpNhbw/zSjIQ72evD8dMpe6rbi8P5oCoM4e07w/QZrifxDuvD8V+V7Oggm9PxQfFbp1Jb0/PwwF
+    Q+lBvT+XwC5p3V69Pxo8kixSfL0/yH4vjUeavT+jiAaLvbi9P6lZFya0170/2/FhXiv3vT85UeYz
+    Ixe+P8N3pKabN74/eGWctpRYvj9aGs5jDnq+P2aWOa4InL4/n9nelYO+vj8E5L0af+G+P5S11jz7
+    BL8/UU4p/Pcovz84rrVYdU2/P0zVe1Jzcr8/i8N76fGXvz/3eLUd8b2/P4/1KO9w5L8/qRzrrrgF
+    wD8got40eRnAPy0Lbwl6LcA/0FecLLtBwD8KiGaePFbAP9mbzV7+asA/PpPRbQCAwD84bnLLQpXA
+    P8kssHfFqsA/8M6KcojAwD+sVAK8i9bAP/69FlTP7MA/5wrIOlMDwT9lOxZwFxrBP3lPAfQbMcE/
+    I0eJxmBIwT9iIq7n5V/BPznhb1erd8E/pYPOFbGPwT+lCcoi96fBPz1zYn59wME/asCXKETZwT8t
+    8WkhS/LBP4YF2WiSC8I/dv3k/hklwj/72I3j4T7CPxWY0xbqWMI/xzq2mDJzwj8NwTVpu43CP+oq
+    UoiEqMI/XHgL9o3Dwj9lqWGy197CPwO+VL1h+sI/N7bkFiwWwz8BkhG/NjLDP2FR27WBTsM/V/RB
+    +wxrwz/jekWP2IfDPwXl5XHkpMM/uzIjozDCwz8KZP0ivd/DP+14dPGJ/cM/ZnGIDpcbxD91TTl6
+    5DnEPxoNhzRyWMQ/VbBxPUB3xD8lN/mUTpbEP4yhHTudtcQ/iO/eLyzVxD8bIT1z+/TEP0Q2OAUL
+    FcU/Ai/Q5Vo1xT9WCwUV61XFP0DL1pK7dsU/wG5FX8yXxT/X9VB6HbnFP4Jg+eOu2sU/xK4+nID8
+    xT+a4CCjkh7GPwn2n/jkQMY/DO+7nHdjxj+ly3SPSobGP9SLytBdqcY/mS+9YLHMxj/1tkw/RfDG
+    P+YheWwZFMc/bHBC6C04xz+JoqiyglzHPzu4q8sXgcc/hLFLM+2lxz9ijojpAsvHP9dOYu5Y8Mc/
+    4PLYQe8VyD+AeuzjxTvIP7flnNTcYcg/gzTqEzSIyD/kZtShy67IP9x8W36j1cg/anZ/qbv8yD+N
+    U0AjFCTJP0YUnuusS8k/lbiYAoZzyT96QDBon5vJP/WrZBz5w8k/CPs1H5PsyT+uLaRwbRXKP+lD
+    rxCIPso/vT1X/+Jnyj8mG5w8fpHKPyTcfchZu8o/uID8onXlyj/iCBjM0Q/LP6J00ENuOss/+MMl
+    Cktlyz/l9hcfaJDLP2cNp4LFu8s/fQfTNGPnyz8r5Zs1QRPMP26mAYVfP8w/SUsEI75rzD+306MP
+    XZjMP74/4Eo8xcw/WY+51FvyzD+Jwi+tux/NP1HZQtRbTc0/rNPySTx7zT+fsT8OXanNPydzKSG+
+    180/Rhiwgl8Gzj/7oNMyQTXOP0UNlDFjZM4/JV3xfsWTzj+dkOsaaMPOP6anggVL884/SaK2Pm4j
+    zz+BgIfG0VPPP05C9Zx1hM8/s+f/wVm1zz+scKc1fubPP57u9XvxC9A/sJZmBMQk0D+OsCW0tj3Q
+    PzY8M4vJVtA/qTmPifxv0D/oqDmvT4nQP/KJMvzCotA/xdx5cFa80D9moQ8MCtbQP9DX887d79A/
+    BYAmudEJ0T8FmqfK5SPRP88ldwMaPtE/ZiOVY25Y0T/GkgHr4nLRP/JzvJl3jdE/6cbFbyyo0T+r
+    ix1tAcPRPzjCw5H23dE/kGq43Qv50T+zhPtQQRTSP6AQjeuWL9I/Wg5trQxL0j/dfZuWombSPytf
+    GKdYgtI/RLLj3i6e0j8nd/09JbrSP9itZcQ71tI/U1YccnLy0j+WcCFHyQ7TP6j8dENAK9M/g/oW
+    Z9dH0z8oageyjmTTP5pLRiRmgdM/1p7TvV2e0z/dY69+dbvTP6+a2Wat2NM/S0NSdgX20z+zXRmt
+    fRPUP+XpLgsWMdQ/5OeSkM5O1D+sV0U9p2zUPz45RhGgitQ/n4yVDLmo1D/HUTMv8sbUP72IH3lL
+    5dQ/fDFa6sQD1T8FTOOCXiLVP1rYukIYQdU/e9bgKfJf1T9mRlU47H7VPxwoGG4GntU/nHspy0C9
+    1T/pQIlPm9zVPwB4N/sV/NU/4SA0zrAb1j+PO3/IazvWPwbIGOpGW9Y/SMYAM0J71j9WNjejXZvW
+    Py8YvDqZu9Y/1GuP+fTb1j9CMbHfcPzWP3toIe0MHdc/fxHgIck91z9PLO19pV7XP+q4SAGif9c/
+    Trfyq76g1z9/J+t9+8HXP3kJMndY49c/QV3Hl9UE2D/RIqvfcibYPy5a3U4wSNg/UwNe5Q1q2D9G
+    Hi2jC4zYPwKrSogprtg/i6m2lGfQ2D/dGXHIxfLYP/v7eSNEFdk/40/RpeI32T+WFXdPoVrZPxdN
+    ayCAfdk/X/atGH+g2T9zET84nsPZP1OeHn/d5tk//ZxM7TwK2j90DcmCvC3aP7Pvkz9cUdo/v0Ot
+    Ixx12j+TCRUv/JjaPzZBy2H8vNo/ourPuxzh2j/XBSM9XQXbP9uSxOW9Kds/ppG0tT5O2z8/AvOs
+    33LbP6Lkf8ugl9s/0DhbEYK82z/J/oR+g+HbP4w2/RKlBtw/GuDDzuYr3D90+9ixSFHcP5iIPLzK
+    dtw/iIfu7Wyc3D9C+O5GL8LcP8jaPccR6Nw/GC/bbhQO3T8z9cY9NzTdPxktATR6Wt0/ydaJUd2A
+    3T9G8mCWYKfdP49/hgIEzt0/nn76lcf03T9+77xQqxvePyTSzTKvQt4/mCYtPNNp3j/V7NpsF5He
+    P90k18R7uN4/sc4hRADg3j9P6rrqpAffP7l3orhpL98/73bYrU5X3z/v51zKU3/fP7jKLw55p98/
+    Th9Reb7P3z+u5cALJPjfP+yOv+JUEOA/5+NF06ck4D/IcXPXCjngP444SO99TeA/OTjEGgFi4D/M
+    cOdZlHbgP0Hisaw3i+A/nYwjE+uf4D/ebzyNrrTgPwWM/BqCyeA/EuFjvGXe4D8Db3JxWfPgP9w1
+    KDpdCOE/lzWFFnEd4T85bokGlTLhP8LfNArJR+E/LoqHIQ1d4T+CbYFMYXLhP7qJIovFh+E/2N5q
+    3Tmd4T/bbFpDvrLhP8Mz8bxSyOE/kjMvSvfd4T9FbBTrq/PhP97doJ9wCeI/XIjUZ0Uf4j/Ba69D
+    KjXiPwqIMTMfS+I/ON1aNiRh4j9NaytNOXfiP0cyo3dejeI/JjLCtZOj4j/raogH2bniP5Xc9Wwu
+    0OI/JYcK5pPm4j+basZyCf3iP/aGKROPE+M/NdwzxyQq4z9bauWOykDjP2YxPmqAV+M/VzE+WUZu
+    4z8uauVbHIXjP+fbM3ICnOM/iYYpnPiy4z8RasbZ/snjP3yGCisV4eM/z9v1jzv44z8DaogIcg/k
+    PyAxwpS4JuQ/IjGjNA8+5D8KaivodVXkP9jbWq/sbOQ/iIYxinOE5D8haq94CpzkP56G1Hqxs+Q/
+    AdygkGjL5D9JahS6L+PkP3YxL/cG++Q/ijHxR+4S5T+Calqs5SrlP2LcaiTtQuU/JYcisARb5T/M
+    aoFPLHPlP1uHhwJki+U/0Nw0yauj5T8qa4mjA7zlP2kyhZFr1OU/jDIok+Ps5T+Wa3KoawXmP4Xd
+    Y9EDHuY/XIj8Daw25j8VbDxeZE/mP7WII8IsaOY/Od6xOQWB5j+lbOfE7ZnmP/UzxGPmsuY/KzRI
+    Fu/L5j9FbXPcB+XmP0jfRbYw/uY/Loq/o2kX5z/4beCksjDnP6qKqLkLSuc/P+AX4nRj5z+8bi4e
+    7nznPx027G13luc/ZDZR0RCw5z+Tb11IusnnP6HhENNz4+c/mYxrcT395z94cG0jFxfoPzqNFukA
+    Meg/4uJmwvpK6D9tcV6vBGXoP+E4/a8ef+g/ODlDxEiZ6D94cjDsgrPoP53kxCfNzeg/pI8Adyfo
+    6D+Pc+PZkQLpP2SQbVAMHek/H+ae2pY36T+9dHd4MVLpP0E89yncbOk/qTwe75aH6T/6dezHYaLp
+    Py3oYbQ8vek/SZN+tCfY6T9Kd0LIIvPpPyyUre8tDuo/9um/Kkkp6j+leHl5dETqPzxA2tuvX+o/
+    tkDiUft66j8VepHbVpbqP1vs53jCseo/iJflKT7N6j+Xe4ruyejqP5CY1sZlBOs/au7JshEg6z8p
+    fWSyzTvrP9BEpsWZV+s/X0WP7HVz6z/Sfh8nYo/rPyTxVnVeq+s/Ypw112rH6z+FgLtMh+PrP4yd
+    6NWz/+s/efO8cvAb7D9JgjgjPTjsPwRKW+eZVOw/n0olvwZx7D8jhJaqg43sP432rqkQquw/2aFu
+    vK3G7D8LhtXiWuPsPyWj4xwYAO0/JPmYauUc7T8GiPXLwjntP89P+UCwVu0/f1Ckya1z7T8UivZl
+    u5DtP4z87xXZre0/7KeQ2QbL7T8vjNiwROjtP1ipx5uSBe4/aP9dmvAi7j9gjpusXkDuPzpWgNLc
+    Xe4/9lYMDGt77j+dkD9ZCZnuPygDGrq3tu4/mK6bLnbU7j/vksS2RPLuPymwlFIjEO8/SwYMAhIu
+    7z9QlSrFEEzvPzxd8Jsfau8/EF5dhj6I7z/El3GEbabvP18KLZasxO8/4bWPu/vi7z8lzUx6rQDw
+    P8pbpSDlD/A/44bR0CQf8D9vTtGKbC7wP26ypE68PfA/37JLHBRN8D/DT8bzc1zwPxmJFNXba/A/
+    4l42wEt78D8f0Su1w4rwP8/f9LNDmvA/8YqRvMup8D+D0gHPW7nwP4u2RevzyPA/BjddEZTY8D/x
+    U0hBPOjwP1ENB3vs9/A/I2OZvqQH8T9oVf8LZRfxPx7kOGMtJ/E/Sg9GxP028T/n1iYv1kbxP/Y6
+    26O2VvE/eDtjIp9m8T9t2L6qj3bxP9YR7jyIhvE/sefw2IiW8T/9Wcd+kabxP75ocS6itvE/8hPv
+    57rG8T+WW0Cr29bxP7A/ZXgE5/E/OsBdTzX38T833SkwbgfyP6iWyRqvF/I/jOw8D/gn8j/j3oMN
+    STjyP6ptnhWiSPI/5ZiMJwNZ8j+UYE5DbGnyP7XE42jdefI/ScVMmFaK8j9PYonR15ryP8mbmRRh
+    q/I/tHF9YfK78j8T5DS4i8zyP+byvxgt3fI/KJ4eg9bt8j/f5VD3h/7yPwnKVnVBD/M/p0ow/QIg
+    8z+1Z92OzDDzPzYhXiqeQfM/LHeyz3dS8z+Tadp+WWPzP2341TdDdPM/uiOl+jSF8z9560fHLpbz
+    P6pPvp0wp/M/UFAIfjq48z9p7SVoTMnzP/QmF1xm2vM/
+discrete_car_res_curve_force: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id002
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 510
+  - *id001
+  - false
+  - !!binary |
+    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
 driveline_efficiency: 0.93
 driveline_slippage: 0
 engine_max_power: 70.0
@@ -765,7 +950,7 @@ full_load_powers: !!python/object/apply:numpy.core.multiarray._reconstruct
   - 1
   - !!python/tuple
     - 13
-  - &id004 !!python/object/apply:numpy.dtype
+  - &id005 !!python/object/apply:numpy.dtype
     args:
     - f8
     - 0
@@ -794,27 +979,11 @@ full_load_speeds: !!python/object/apply:numpy.core.multiarray._reconstruct
   - 1
   - !!python/tuple
     - 13
-  - *id004
+  - *id005
   - false
   - !!binary |
     AAAAAACQikAAAAAAADSSQAAAAAAAIJdAAAAAAAAMnEAAAAAAAHygQAAAAAAA8qJAAAAAAABopUAA
     AAAAAN6nQAAAAAAAVKpAAAAAAADKrEAAAAAAAECvQAAAAAAA27BAAAAAAAAWskA=
-full_load_torque: !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id002
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 13
-  - *id003
-  - false
-  - !!binary |
-    VryKgAqpU0Aey4mjofFjQHcxUA24IGhAXXSmtWSkakA4La48kA5rQODu8w6BoGpAt5B/4S7OaUCE
-    IIwX5cxoQCF3GKp8jGdAekRwIuJDZkAaaJMom+NkQDkgAXfiJ2JADdRjfe+tXkA=
 full_load_torques: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
   - *id002
@@ -1044,8 +1213,8 @@ tire_radius: 0.31115000000000004
 top_speed: 50
 transmission: manual
 type_of_car: hatchback
-use_cubic: False
-use_linear_gs: False
+use_cubic: false
+use_linear_gs: false
 veh_mass: 955.0
 veh_max_speed: 50
 wheelbase: 2.3

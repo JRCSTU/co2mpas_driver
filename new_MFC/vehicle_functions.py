@@ -195,7 +195,7 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds,
     speed_per_gear, acc_per_gear = [], []
 
     full_load_speeds = np.array(full_load_speeds)
-    full_load_torque = np.array(full_load_torques)
+    full_load_torques = np.array(full_load_torques)
 
     for j in range(len(my_car.gr)):
         mask = full_load_speeds > 1.25 * my_car.idle_engine_speed[0]
@@ -204,7 +204,7 @@ def get_speeds_n_accelerations_per_gear(my_car, full_load_speeds,
             60 * my_car.final_drive * my_car.gr[j])
         speed_per_gear.append(temp_speed)
 
-        temp_acc = full_load_torque[mask] * (my_car.final_drive * my_car.gr[j]) * my_car.driveline_efficiency / (
+        temp_acc = full_load_torques[mask] * (my_car.final_drive * my_car.gr[j]) * my_car.driveline_efficiency / (
             my_car.tire_radius * my_car.veh_mass)
 
         acc_per_gear.append(temp_acc)

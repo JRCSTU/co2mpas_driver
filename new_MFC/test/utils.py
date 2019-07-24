@@ -1,3 +1,4 @@
+import schedula as sh
 import numpy.testing as nt
 
 
@@ -14,11 +15,12 @@ def _assert(v, r):
         nt.assert_almost_equal(v, r)
 
 
-def test_check(dsp, inputs, outputs):
+def test_check(dsp, data, outputs):
+    inputs = sh.selector(set(data) - set(outputs), data)
     res = dsp(inputs, outputs)
     nt.assert_equal(
         set(outputs).issubset(res), True,
         "Missing outputs {}".format(set(outputs) - set(res))
     )
-    for k, v in outputs.items():
-        _assert(v, res[k])
+    for k in outputs:
+        _assert(data[k], res[k])
