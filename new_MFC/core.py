@@ -90,8 +90,8 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
 
 
 @sh.add_function(dsp, outputs=['poly_spline', 'Start', 'Stop'])
-def ev_curve(engine_max_power, tire_radius, driveline_slippage,
-             motor_max_torque, final_drive, gear_box_ratios,
+def ev_curve(fuel_type, engine_max_power, tire_radius,
+             motor_max_torque, final_drive,
              driveline_efficiency, veh_mass, veh_max_speed):
     """
 
@@ -102,24 +102,16 @@ def ev_curve(engine_max_power, tire_radius, driveline_slippage,
     :param driveline_slippage:
     :param motor_max_torque:
     :param final_drive:
-    :param gear_box_ratios:
     :param driveline_efficiency:
     :param veh_mass:
     :param veh_max_speed:
     :return:
     """
-
+    if fuel_type != 'electricity':
+        return [sh.NONE] * 3
     from scipy.interpolate import CubicSpline
-
-    motor_base_speed = engine_max_power * 1000 * (motor_max_torque
-                                                  / 60 * 2 * np.pi) ** -1  # rpm
-    # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
-    veh_base_speed = 2 * np.pi * tire_radius * motor_base_speed * \
-                     (1 - driveline_slippage) / (
-                             60 * final_drive * gear_box_ratios)  # m/s
-    veh_max_acc = motor_max_torque * (
-            final_drive * gear_box_ratios) * driveline_efficiency / (
-                          tire_radius * veh_mass)  # m/s2
+    veh_max_acc = motor_max_torque * final_drive
+    veh_max_acc *= driveline_efficiency / (tire_radius * veh_mass)  # m/s2
 
     speeds = np.arange(0, veh_max_speed + 0.1, 0.1)  # m/s
 
@@ -205,6 +197,17 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
         poly_spline.append(interp1d(x_new, a_new, fill_value='extrapolate'))
 
     return poly_spline
+
+
+@sh.add_function(dsp, outputs=['discrete_poly_spline'])
+def define_discrete_poly(poly_spline, sp_bins):
+    return [acc(sp_bins) for acc in poly_spline]
+
+
+@sh.add_function(dsp, outputs=['discrete_car_res_curve'])
+def define_discrete_car_res_curve(car_res_curve, sp_bins):
+    discrete_car_res_curve = car_res_curve(sp_bins)
+    return discrete_car_res_curve
 
 
 # Start/stop speed for each gear

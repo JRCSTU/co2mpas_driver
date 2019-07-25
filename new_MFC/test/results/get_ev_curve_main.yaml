@@ -197,8 +197,6 @@ driveline_slippage: 0
 engine_max_power: 107.0
 final_drive: 7.82
 fuel_type: electricity
-gear_box_ratios: 1
-ignition_type: electricity
 motor_max_torque: 250.0
 sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:

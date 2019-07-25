@@ -416,10 +416,7 @@ def ev_curve(my_car):
     :param my_car:
     :return:
     """
-    motor_base_speed = my_car.engine_max_power * 1000 * (my_car.motor_max_torque / 60 * 2 * np.pi) ** -1  # rpm
-    # motor_max_speed = my_car.veh_max_speed * (60 * my_car.final_drive * my_car.gr) / (1 - my_car.driveline_slippage) / (2 * np.pi * my_car.tire_radius)  # rpm
-    veh_base_speed = 2 * np.pi * my_car.tire_radius * motor_base_speed * (1 - my_car.driveline_slippage) / (
-        60 * my_car.final_drive * my_car.gr)  # m/s
+
     veh_max_acc = my_car.motor_max_torque * (
             my_car.final_drive * my_car.gr) * my_car.driveline_efficiency / (
                 my_car.tire_radius * my_car.veh_mass)  # m/s2

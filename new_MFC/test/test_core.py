@@ -28,9 +28,11 @@ class TestCore(unittest.TestCase):
                 self.data[name] = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
-            # define_discrete_car_res_curve()
+            # `get_spline_out_of_coefs`.
+            ['discrete_poly_spline'],
+            # `define_discrete_car_res_curve`
             ['discrete_car_res_curve'],
-            # define_discrete_car_res_curve_force()
+            # `define_discrete_car_res_curve_force`
             ['discrete_car_res_curve_force'],
             # `get_load_speed_n_torque`.
             ['full_load_speeds', 'full_load_torques'],
@@ -38,13 +40,11 @@ class TestCore(unittest.TestCase):
             ['speed_per_gear', 'acc_per_gear'],
             # `get_tan_coefs`.
             ['coefs_per_gear'],
-            # `get_spline_out_of_coefs`.
-            ['poly_spline'],
             # `get_start_stop`.
             ['Start', 'Stop', 'sp_bins'],
             # `get_resistances`.
             ['Alimit'],
-            # `calculate_curves_to_use`.
+            # `define_discrete_acceleration_curves`.
             ['discrete_acceleration_curves'],
             # `gear_linear`.
             ['gs']
@@ -66,36 +66,38 @@ class TestCore(unittest.TestCase):
         test_check(dsp, self.data['gear_4degree_curves_with_linear_gs'], out)
 
     @ddt.idata((
-            # define_discrete_car_res_curve()
+            # `get_spline_out_of_coefs`.
+            ['discrete_poly_spline'],
+            # `define_discrete_car_res_curve`.
             ['discrete_car_res_curve'],
-            # define_discrete_car_res_curve_force()
+            # `define_discrete_car_res_curve_force`.
             ['discrete_car_res_curve_force'],
-            # define_discrete_acceleration_curves()
+            # `define_discrete_acceleration_curves`.
             ['discrete_acceleration_curves'],
-            # gear_points_from_tan()
+            # `gear_points_from_tan`.
             ['gs'],
-            # get_resistances()
+            # `get_resistances`.
             ['Alimit'],
-            # get_start_stop()
+            # `get_start_stop`.
             ['Start', 'Stop'],
-            # get_tan_coefs()
+            # `get_tan_coefs`.
             ['coefs_per_gear'],
-            # calculate_full_load_speeds_and_powers()
+            # `calculate_full_load_speeds_and_powers`.
             ['full_load_powers', 'full_load_speeds'],
-            # calculate_full_load_torques()
+            # `calculate_full_load_torques`.
             ['full_load_torques'],
-            # get_speeds_n_accelerations_per_gear()
+            # `get_speeds_n_accelerations_per_gear`.
             ['speed_per_gear', 'acc_per_gear'],
     ))
     def test_gear_curves_n_gs_from_poly(self, out):
         test_check(dsp, self.data['gear_curves_n_gs_from_poly'], out)
 
     @ddt.idata((
-            # define_discrete_acceleration_curves()
+            # `define_discrete_acceleration_curves`.
             ['discrete_acceleration_curves'],
-            # get_resistances()
+            # `get_resistances`.
             ['Alimit'],
-            # ev_curve()
+            # `ev_curve`.
             ['Start', 'Stop'],
     ))
     def test_get_ev_curve_main(self, out):

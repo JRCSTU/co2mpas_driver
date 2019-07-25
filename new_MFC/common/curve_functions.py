@@ -1,4 +1,7 @@
 from new_MFC import vehicle_functions as vf
+from new_MFC.core import define_discrete_poly as ddp
+from new_MFC.core import define_discrete_car_res_curve as ddcrc
+from new_MFC.core import define_discrete_car_res_curve_force as ddcrcf
 import numpy as np
 from new_MFC.common import gear_functions as fg
 import matplotlib.pyplot as plt
@@ -87,9 +90,19 @@ def gear_curves_n_gs_from_poly(my_car, gs_style, degree):
                                     poly_spline)
 
     sp_bins = np.arange(0, Stop[-1] + 1, 0.1)
+
+    """define discrete poly spline"""
+    discrete_poly_spline = ddp(poly_spline, sp_bins)
+
     """Get resistances"""
     car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car,
                                                                     sp_bins)
+
+    """define discrete_car_res_curve"""
+    discrete_car_res_curve = ddcrc(car_res_curve, sp_bins)
+
+    """define discrete_car_res_curve_force"""
+    discrete_car_res_curve_force = ddcrcf(car_res_curve_force, sp_bins)
 
     """Calculate Curves"""
     Curves = vf.calculate_curves_to_use(poly_spline, Start, Stop, Alimit,
@@ -119,9 +132,19 @@ def gear_4degree_curves_with_linear_gs(my_car, gs_style):
                                     poly_spline)
 
     sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+
+    """define discrete poly spline"""
+    discrete_poly_spline = ddp(poly_spline, sp_bins)
+
     """Get resistances"""
     car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car,
                                                                     sp_bins)
+
+    """define discrete_car_res_curve"""
+    discrete_car_res_curve = ddcrc(car_res_curve, sp_bins)
+
+    """define discrete_car_res_curve_force"""
+    discrete_car_res_curve_force = ddcrcf(car_res_curve_force, sp_bins)
 
     """Calculate Curves"""
     Curves = vf.calculate_curves_to_use(poly_spline, Start, Stop, Alimit,

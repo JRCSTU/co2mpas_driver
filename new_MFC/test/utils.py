@@ -19,6 +19,9 @@ def test_check(dsp, data, outputs):
     inputs = sh.selector(set(data) - set(outputs), data)
     res = dsp(inputs, outputs)
     nt.assert_equal(
+        bool(res._errors), False, "Found errors in {}".format(set(res._errors))
+    )
+    nt.assert_equal(
         set(outputs).issubset(res), True,
         "Missing outputs {}".format(set(outputs) - set(res))
     )
