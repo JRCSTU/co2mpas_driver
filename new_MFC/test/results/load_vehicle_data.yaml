@@ -17,7 +17,12 @@ data:
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
     fuel_type: diesel
-    gear_box_ratios: '[3.91, 2.16, 1.35, 0.97, 0.77]'
+    gear_box_ratios:
+    - 3.91
+    - 2.16
+    - 1.35
+    - 0.97
+    - 0.77
     gear_shifting_style: 0.7
     gearbox_type: manual
     idle_engine_speed_median: 850
@@ -25,8 +30,6 @@ data:
     ignition_type: compression
     kerb_weight: 931.375
     max_power: 70
-    motor_max_power: .nan
-    motor_max_torque: .nan
     r_dynamic: 0.2837378641
     times:
     - 2
