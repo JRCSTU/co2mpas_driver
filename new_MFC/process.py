@@ -5,7 +5,7 @@ import schedula as sh
 from new_MFC.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, calculate_full_load_torques
 
-dsp = sh.Dispatcher()
+dsp = sh.Dispatcher(name='process')
 dsp.add_func(get_full_load, outputs=['full_load_curve'])
 dsp.add_func(
     calculate_full_load_speeds_and_powers,
@@ -495,6 +495,31 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
         gs.append(cutoff_s)
 
     return gs
+
+
+def gather_simulation_data(v_start, sim_step, gs,times, Curves, v_des, driver_style):
+    speeds = [v_start]
+    acceleration = [0]
+
+    """Initialize speed and gear"""
+    speed = v_start
+    """
+    Returns the gear that must be used and the clutch condition
+    """
+    gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
+    gear_count = 0
+
+    """Core loop"""
+    for t in times:
+        speed, gear, gear_count = sp.simulation_step_function(
+            selected_car, speed, gear, gear_count, gs, Curves, v_des,
+            driver_style, sim_step
+        )
+
+        """Gather data"""
+        speeds.append(speed)
+        acceleration.append((speeds[-1] - speeds[-2]) / sim_step)
+    return speeds, acceleration
 
 
 if __name__ == '__main__':
