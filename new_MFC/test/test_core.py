@@ -8,7 +8,6 @@
 import unittest
 from new_MFC.core import dsp
 import ddt
-import schedula as sh
 from new_MFC.test.utils import test_check
 
 import yaml

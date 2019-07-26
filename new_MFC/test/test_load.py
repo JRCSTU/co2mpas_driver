@@ -16,20 +16,45 @@ import os.path as osp
 
 
 @ddt.ddt
-class Core(unittest.TestCase):
+class TestLoad(unittest.TestCase):
     def setUp(self):
         with open(
-                osp.join(osp.dirname(__file__), 'load_vehicle_data.yaml')) as f:
+                osp.join(osp.dirname(__file__), 'results', 'load_vehicle_data.yaml')) as f:
             self.data = yaml.load(f, yaml.CLoader)
 
     @ddt.idata((
+            # # merge_data()
+            # (
+            #         ['vehicle_inputs', 'raw_data', 'inputs'],
+            #         ['data']
+            # ),
+            # get_vehicle_inputs()
+            (
+                    ['vehicle_id', 'vehicle_db'],
+                    ['vehicle_inputs']
+            ),
+            # load_vehicle_db()
+            (
+                    ['db_path'],
+                    ['vehicle_db']
+            ),
+            # get_db_path()
+            (
+                    ['raw_data'],
+                    ['db_path']
+            ),
+            # get_vehicle_id()
+            (
+                    ['raw_data'],
+                    ['vehicle_id']
+            ),
             # read_excel()
             (
                     ['input_path'],
                     ['raw_data']
             ),
     ))
-    def test_core(self, keys):
+    def test_load(self, keys):
         inputs, outputs = keys
         test_check(
             dsp, sh.selector(inputs, self.data), sh.selector(outputs, self.data)

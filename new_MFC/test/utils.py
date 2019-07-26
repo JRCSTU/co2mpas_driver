@@ -26,4 +26,4 @@ def test_check(dsp, data, outputs):
         "Missing outputs {}".format(set(outputs) - set(res))
     )
     for k in outputs:
-        _assert(data[k], res[k])
+        _assert(outputs[k], res[k])

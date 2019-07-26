@@ -233,19 +233,20 @@ def format_data(data):
 dsp.add_data('data', filters=[format_data])
 
 if __name__ == '__main__':
-    # raw_data = read_excel(input_path)
-    # vehicle_id = get_vehicle_id(raw_data)
+    input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
+    raw_data = read_excel(input_path)
+    vehicle_id = get_vehicle_id(raw_data)
+    db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
     # db_path = osp.dirname(__file__) + get_db_path(raw_data)
-    # vehicle_db = load_vehicle_db(db_path)
-    # vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
-    #
-    # data = merge_data(vehicle_inputs, raw_data, inputs)
+    vehicle_db = load_vehicle_db(db_path)
+    vehicle_inputs = get_vehicle_inputs(vehicle_id, vehicle_db)
 
     # db_path = osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv')
-    input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
+    # input_path = 'C:/Apps/new_MFC/new_MFC/template/sample.xlsx'
     inputs = {
         'inputs': {'gear_shifting_style': 0.7},
         'vehicle_inputs': {'vehicle_mass': 0.4},
         'time_series': {'times': list(range(2, 23))}
     }
+    data = merge_data(vehicle_inputs, raw_data, inputs)
     dsp(dict(input_path=input_path, inputs=inputs)).plot()

@@ -29,23 +29,39 @@ def get_speeds_n_accelerations_per_gear(
     forbid acceleration over the maximum vehicle speed
 
     :param gear_box_ratios:
+        Gear box ratio.
     :type gear_box_ratios: list
+
     :param idle_engine_speed:
+        Idle engine speed.
     :type idle_engine_speed: tuple
+
     :param tire_radius:
+        Tyre radius.
     :type tire_radius: float
+
     :param driveline_slippage:
+        Drive line slippage.
     :type driveline_slippage: int
+
     :param final_drive:
+        Final drive.
     :type final_drive: float
+
     :param driveline_efficiency:
     :type driveline_efficiency: float
+
     :param veh_mass:
+        Vehicle mass.
     :type veh_mass: float
+
     :param full_load_speeds:
+        Full load speeds.
     :type full_load_speeds: ndarray
+
     :param full_load_torques:
     :type full_load_torques: ndarray
+
     :return: speed_per_gear
     """
     speed_per_gear, acc_per_gear = [], []
