@@ -6,7 +6,7 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 import unittest
-from new_MFC.core import dsp
+from new_MFC.process import dsp
 import ddt
 from new_MFC.test.utils import test_check
 
@@ -15,7 +15,7 @@ import os.path as osp
 
 
 @ddt.ddt
-class TestCore(unittest.TestCase):
+class TestProcess(unittest.TestCase):
     def setUp(self):
         self.data, res_dir = {}, osp.join(osp.dirname(__file__), 'results')
         test_names = (
@@ -47,19 +47,6 @@ class TestCore(unittest.TestCase):
             ['discrete_acceleration_curves'],
             # `gear_linear`.
             ['gs']
-
-            ## define_discrete_acceleration_curves()
-            #['discrete_acceleration_curves'],
-            ## calculate_full_load_torques()
-            #['full_load_torques'],
-            ## get_speeds_n_accelerations_per_gear()
-            #['speed_per_gear', 'acc_per_gear'],
-            ## gear_linear()
-            #['gs'],
-            ## calculate_full_load_speeds_and_powers()
-            #['full_load_speeds', 'full_load_powers'],
-            ## get_tan_coefs()
-            #['coefs_per_gear']
     ))
     def test_gear_4degree_curves_with_linear_gs(self, out):
         test_check(dsp, self.data['gear_4degree_curves_with_linear_gs'], out)

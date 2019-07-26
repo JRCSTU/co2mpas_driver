@@ -1,7 +1,7 @@
 from new_MFC import vehicle_functions as vf
-from new_MFC.core import define_discrete_poly as ddp
-from new_MFC.core import define_discrete_car_res_curve as ddcrc
-from new_MFC.core import define_discrete_car_res_curve_force as ddcrcf
+from new_MFC.process import define_discrete_poly as ddp
+from new_MFC.process import define_discrete_car_res_curve as ddcrc
+from new_MFC.process import define_discrete_car_res_curve_force as ddcrcf
 import numpy as np
 from new_MFC.common import gear_functions as fg
 import matplotlib.pyplot as plt

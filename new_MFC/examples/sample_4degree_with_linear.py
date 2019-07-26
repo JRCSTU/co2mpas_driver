@@ -1,7 +1,6 @@
 import os
 from os import path as osp
 import matplotlib.pyplot as plt
-from new_MFC.common import functions as fun
 from new_MFC.common import curve_functions as mf
 from new_MFC.common import reading_n_organizing as rno
 
@@ -23,7 +22,7 @@ def simple_run():
 
     curves, cs_acc_per_gear, start_stop, gs = \
         mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
-    from new_MFC.core import define_discrete_acceleration_curves as func
+    from new_MFC.process import define_discrete_acceleration_curves as func
     discrete_acceleration_curves = func(curves, *start_stop)
     for d in discrete_acceleration_curves:
         plt.plot(d['x'], d['y'])

@@ -45,7 +45,7 @@ def simple_run():
 
     # The vehicle specs as returned from the database
     selected_car = rno.get_vehicle_from_db(db, car_id)
-
+    # ***********************************************************************
     """
     The final acceleration curvers (Curves), the engine acceleration potential 
     curves (cs_acc_per_gear), before the calculation of the resistances and the
@@ -62,6 +62,7 @@ def simple_run():
     # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(
     # selected_car, gs_style, 4)
 
+    # ********* define function for gathering simulation data ****************
     """Lists to gather simulation data"""
     speeds = [v_start]
     acceleration = [0]
@@ -86,7 +87,7 @@ def simple_run():
         """Gather data"""
         speeds.append(speed)
         acceleration.append((speeds[-1] - speeds[-2])/sim_step)
-
+    # ******************* Plot*************************
     """Plot"""
     plt.figure('Time-Speed')
     plt.plot(times, speeds[1:])

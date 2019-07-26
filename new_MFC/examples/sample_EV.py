@@ -19,7 +19,7 @@ def simple_run():
 
     curves, start_stop = mf.get_ev_curve_main(selected_car)
 
-    from new_MFC.core import define_discrete_acceleration_curves as func
+    from new_MFC.process import define_discrete_acceleration_curves as func
     discrete_acceleration_curves = func(curves, *start_stop)
     for d in discrete_acceleration_curves:
         plt.plot(d['x'], d['y'], 'x')
