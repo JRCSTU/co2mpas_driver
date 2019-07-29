@@ -13,11 +13,11 @@ dsp.add_dispatcher(
 #     outputs=['outputs']
 # )
 dsp.add_function(
-    function=sh.SubDispatchFunction(_process, inputs=['engine_max_power',
-                                                      'ignition_type',
-                                                      'engine_max_speed_at_max_power',
-                                                      'idle_engine_speed'],
-                                    outputs=['full_load_powers', 'full_load_speeds']),
+    function=sh.SubDispatchFunction(_process, function_id='simulation', inputs=['type_of_car', 'car_type', 'veh_max_speed', 'veh_mass',
+                                                      'engine_max_power', 'car_width', 'gear_box_ratios', 'car_height',
+                                                      'use_linear_gs', 'speed_per_gear', 'gs_style', 'acc_per_gear',
+                                                      'degree', 'use_cubic', 'use_cubic'],
+                                    outputs=['Curves', 'poly_spline', 'Start', 'Stop', 'gs']),
     inputs=['data'],
     outputs=['outputs']
 )

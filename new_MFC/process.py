@@ -2,6 +2,8 @@ import copy
 import numpy as np
 from scipy.interpolate import interp1d
 import schedula as sh
+from new_MFC.common import simulation_part as sp
+from new_MFC.common import gear_functions as fg
 from new_MFC.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, calculate_full_load_torques
 
@@ -497,7 +499,7 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     return gs
 
 
-def gather_simulation_data(v_start, sim_step, gs,times, Curves, v_des, driver_style):
+def gather_simulation_data(transmission, v_start, sim_step, gs, times, Curves, v_des, driver_style):
     speeds = [v_start]
     acceleration = [0]
 
@@ -512,7 +514,7 @@ def gather_simulation_data(v_start, sim_step, gs,times, Curves, v_des, driver_st
     """Core loop"""
     for t in times:
         speed, gear, gear_count = sp.simulation_step_function(
-            selected_car, speed, gear, gear_count, gs, Curves, v_des,
+            transmission, speed, gear, gear_count, gs, Curves, v_des,
             driver_style, sim_step
         )
 
