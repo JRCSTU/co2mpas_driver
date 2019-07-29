@@ -22,13 +22,13 @@ dsp.add_func(
 # Speed and acceleration ranges and points for each gear
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
 def get_speeds_n_accelerations_per_gear(
-        gear_box_ratios, idle_engine_speed, tire_radius, driveline_slippage,
-        final_drive, driveline_efficiency, veh_mass, full_load_speeds,
+        gear_box_ratios, idle_engine_speed, tyre_radius, driveline_slippage,
+        final_drive, driveline_efficiency, vehicle_mass, full_load_speeds,
         full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
     full load curve, new version works with array and
-    forbid acceleration over the maximum vehicle speed
+    forbid acceleration over the maximum vehicle speed.
 
     :param gear_box_ratios:
         Gear box ratio.
@@ -38,9 +38,9 @@ def get_speeds_n_accelerations_per_gear(
         Idle engine speed.
     :type idle_engine_speed: tuple
 
-    :param tire_radius:
+    :param tyre_radius:
         Tyre radius.
-    :type tire_radius: float
+    :type tyre_radius: float
 
     :param driveline_slippage:
         Drive line slippage.
@@ -53,9 +53,9 @@ def get_speeds_n_accelerations_per_gear(
     :param driveline_efficiency:
     :type driveline_efficiency: float
 
-    :param veh_mass:
+    :param vehicle_mass:
         Vehicle mass.
-    :type veh_mass: float
+    :type vehicle_mass: float
 
     :param full_load_speeds:
         Full load speeds.
@@ -74,14 +74,14 @@ def get_speeds_n_accelerations_per_gear(
     for j in range(len(gear_box_ratios)):
         mask = full_load_speeds > 1.25 * idle_engine_speed[0]
 
-        temp_speed = 2 * np.pi * tire_radius * full_load_speeds[mask] * (
+        temp_speed = 2 * np.pi * tyre_radius * full_load_speeds[mask] * (
                 1 - driveline_slippage) / (
                              60 * final_drive * gear_box_ratios[j])
         speed_per_gear.append(temp_speed)
 
         temp_acc = full_load_torques[mask] * (final_drive * gear_box_ratios[
             j]) * driveline_efficiency / (
-                           tire_radius * veh_mass)
+                           tyre_radius * vehicle_mass)
 
         acc_per_gear.append(temp_acc)
 
@@ -89,7 +89,7 @@ def get_speeds_n_accelerations_per_gear(
 
 
 @sh.add_function(dsp, outputs=['coefs_per_gear'])
-def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
+def get_tan_coefs(speed_per_gear, acc_per_gear, degree=4):
     """
     Full load curve is fitted to a polynomial of degree
 
@@ -108,41 +108,41 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
 
 
 @sh.add_function(dsp, outputs=['poly_spline', 'Start', 'Stop'])
-def ev_curve(fuel_type, engine_max_power, tire_radius,
+def ev_curve(fuel_type, engine_max_power, tyre_radius,
              motor_max_torque, final_drive,
-             driveline_efficiency, veh_mass, veh_max_speed):
+             driveline_efficiency, vehicle_mass, vehicle_max_speed):
     """
 
     Full load curve of EVs (based on Yinglong)
 
     :param engine_max_power:
-    :param tire_radius:
+    :param tyre_radius:
     :param driveline_slippage:
     :param motor_max_torque:
     :param final_drive:
     :param driveline_efficiency:
-    :param veh_mass:
-    :param veh_max_speed:
+    :param vehicle_mass:
+    :param vehicle_max_speed:
     :return:
     """
     if fuel_type != 'electricity':
         return [sh.NONE] * 3
     from scipy.interpolate import CubicSpline
     veh_max_acc = motor_max_torque * final_drive
-    veh_max_acc *= driveline_efficiency / (tire_radius * veh_mass)  # m/s2
+    veh_max_acc *= driveline_efficiency / (tyre_radius * vehicle_mass)  # m/s2
 
-    speeds = np.arange(0, veh_max_speed + 0.1, 0.1)  # m/s
+    speeds = np.arange(0, vehicle_max_speed + 0.1, 0.1)  # m/s
 
     with np.errstate(divide='ignore'):
         accelerations = engine_max_power * 1000 * \
-                        driveline_efficiency / (speeds * veh_mass)
+                        driveline_efficiency / (speeds * vehicle_mass)
 
     accelerations[accelerations > veh_max_acc] = veh_max_acc
     accelerations[accelerations < 0] = 0
 
     cs_acc_ev = CubicSpline(speeds, accelerations)
     start = 0
-    stop = veh_max_speed
+    stop = vehicle_max_speed
 
     return [cs_acc_ev], [start], [stop]
 
@@ -222,21 +222,15 @@ def define_discrete_poly(poly_spline, sp_bins):
     return [acc(sp_bins) for acc in poly_spline]
 
 
-@sh.add_function(dsp, outputs=['discrete_car_res_curve'])
-def define_discrete_car_res_curve(car_res_curve, sp_bins):
-    discrete_car_res_curve = car_res_curve(sp_bins)
-    return discrete_car_res_curve
-
-
 # Start/stop speed for each gear
 @sh.add_function(dsp, outputs=['Start', 'Stop'])
-def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
+def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear, acc_per_gear,
                    poly_spline):
     """
     Calculate Speed boundaries for each gear
 
-    :param gr:
-    :param veh_max_speed:
+    :param gear_box_ratios:
+    :param vehicle_max_speed:
     :param speed_per_gear:
     :param acc_per_gear:
     :param poly_spline:
@@ -260,8 +254,8 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
         for k in range(
                 np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
             if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
-                    poly_spline[j + 1](speed_per_gear[j][k]) > poly_spline[j](
-                speed_per_gear[j][k])):
+                    poly_spline[j + 1](speed_per_gear[j][k]) >
+                    poly_spline[j](speed_per_gear[j][k])):
                 max_point = k
                 speed_per_gear[j] = speed_per_gear[j][:max_point]
                 acc_per_gear[j] = acc_per_gear[j][:max_point]
@@ -272,7 +266,7 @@ def get_start_stop(gear_box_ratios, veh_max_speed, speed_per_gear, acc_per_gear,
     Stop = []
     for i in speed_per_gear:
         Start.append(i[0])
-        Stop.append(min(i[-1], veh_max_speed))
+        Stop.append(min(i[-1], vehicle_max_speed))
     Start[0] = 0
     return Start, Stop
 
@@ -298,14 +292,14 @@ def define_discrete_car_res_curve(car_res_curve, sp_bins):
 # Calculate Curves
 @sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force',
                                'Alimit'])
-def get_resistances(type_of_car, car_type, veh_mass, engine_max_power,
+def get_resistances(type_of_car, car_type, vehicle_mass, engine_max_power,
                     car_width, car_height, sp_bins):
     """
     Calculate resistances and return spline
 
     :param type_of_car:
     :param car_type:
-    :param veh_mass:
+    :param vehicle_mass:
     :param engine_max_power:
     :param car_type:
     :param car_width:
@@ -315,12 +309,12 @@ def get_resistances(type_of_car, car_type, veh_mass, engine_max_power,
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
-    f0, f1, f2 = estimate_f_coefficients(veh_mass, type_of_car, car_width,
+    f0, f1, f2 = estimate_f_coefficients(vehicle_mass, type_of_car, car_width,
                                          car_height)
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2,
                                                          list(sp_bins),
-                                                         veh_mass)
-    Alimit = Armax(car_type, veh_mass, engine_max_power)
+                                                         vehicle_mass)
+    Alimit = Armax(car_type, vehicle_mass, engine_max_power)
     return car_res_curve, car_res_curve_force, Alimit
 
 
@@ -404,6 +398,14 @@ def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
         gs.append(cutoff_s)
 
     return gs
+
+
+dsp.add_function(
+    function_id='define_idle_engine_speed',
+    function=sh.bypass,
+    inputs=['idle_engine_speed_median', 'idle_engine_speed_std'],
+    outputs=['idle_engine_speed']
+)
 
 
 @sh.add_function(dsp, outputs=['Tans'])
@@ -499,29 +501,71 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     return gs
 
 
-def gather_simulation_data(transmission, v_start, sim_step, gs, times, Curves, v_des, driver_style):
-    speeds = [v_start]
-    acceleration = [0]
+@sh.add_function(dsp, outputs=['gears', 'velocities', 'accelerations'])
+def run_simulation(transmission, v_start, sim_step, gs, times, Curves, v_des,
+                   driver_style):
+    """
+    Gather data for simulation.
 
-    """Initialize speed and gear"""
+    :param transmission:
+        Transmission type of vehicle.
+    :type transmission: str
+
+    :param v_start:
+        Current speed.
+    :type v_start: int
+
+    :param sim_step:
+        Simulation step in seconds.
+    :type sim_step: float
+
+    :param gs: list
+        Gear shifting style.
+    :type gs: int
+
+    :param times:
+        Sample time series.
+    :type times: np.array
+
+    :param Curves: list
+        Final acceleration curves.
+    :type Curves: list
+
+    :param v_des:
+        Desired velocity.
+    :type v_des: int
+
+    :param driver_style:
+        Driving style.
+    :type driver_style: int
+
+    :return:
+        Speeds & Acceleration
+    :rtype: list, list
+    """
+
+    velocities = [v_start]
+    accelerations = [0]
+
     speed = v_start
-    """
-    Returns the gear that must be used and the clutch condition
-    """
+
+    # Returns the gear that must be used and the clutch condition
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
+    gears = [gear]
 
-    """Core loop"""
+    # Core loop
     for t in times:
         speed, gear, gear_count = sp.simulation_step_function(
             transmission, speed, gear, gear_count, gs, Curves, v_des,
             driver_style, sim_step
         )
 
-        """Gather data"""
-        speeds.append(speed)
-        acceleration.append((speeds[-1] - speeds[-2]) / sim_step)
-    return speeds, acceleration
+        # Gather data
+        gears.append(gear)
+        velocities.append(speed)
+        accelerations.append((velocities[-1] - velocities[-2]) / sim_step)
+    return gears, velocities, accelerations
 
 
 if __name__ == '__main__':

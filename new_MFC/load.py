@@ -43,6 +43,7 @@ def read_excel(input_path):
 
     return raw_data
 
+dsp.add_data('raw_data', {}, sh.inf(1, 0))
 
 @sh.add_function(dsp, outputs=['vehicle_id'])
 def get_vehicle_id(raw_data):
@@ -86,7 +87,7 @@ _db_map = {
     "Transmission  / Gear ratio-Final drive": 'final_drive',
     "Transmission  / Gear ratio-Gear Box Ratios": "gear_box_ratios",
     'Weights-Empty mass': 'vehicle_mass',
-    'Performance-Top speed': 'top_speed',
+    'Performance-Top speed': 'vehicle_max_speed',
     'General Specifications-Carbody': 'type_of_car',
     'Exterior sizes-Width': 'car_width',
     'Exterior sizes-Height': 'car_height',
@@ -140,7 +141,7 @@ def load_vehicle_db(db_path):
     df['transmission'] = np.where(b, 'automatic', 'manual')
     df['driveline_efficiency'] = np.where(b, .9, .93)
 
-    df['top_speed'] = (df['top_speed'] / 3.6).values.astype(int)
+    df['vehicle_max_speed'] = (df['vehicle_max_speed'] / 3.6).values.astype(int)
     df['type_of_car'] = df["type_of_car"].str.strip()
     r = np.where(df['car_type'] == 'front', 2, 6)
     r[df['car_type'] == 'rear'] = 4
@@ -197,10 +198,9 @@ def merge_data(vehicle_inputs, raw_data, inputs):
     """
     d = {'vehicle_inputs': vehicle_inputs}
     d = sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
-    d['inputs'] = sh.combine_dicts(
+    return sh.combine_dicts(
         d.pop('time_series', {}), d.pop('vehicle_inputs', {}), d['inputs']
     )
-    return d
 
 
 def format_data(data):
@@ -216,17 +216,16 @@ def format_data(data):
     :rtype: dict
     """
     data = copy.deepcopy(data)
-    d = data.get('inputs', {})
-    if 'gear_box_ratios' in d:
+    if isinstance(data.get('gear_box_ratios'), str):
         import json
-        d['gear_box_ratios'] = json.loads(d['gear_box_ratios'])
-    for k, v in list(d.items()):
+        data['gear_box_ratios'] = json.loads(data['gear_box_ratios'])
+    for k, v in list(data.items()):
         if isinstance(v, str):
             if v:
                 continue
         elif not np.atleast_1d(np.isnan(v)).any():
             continue
-        d.pop(k)
+        data.pop(k)
     return data
 
 

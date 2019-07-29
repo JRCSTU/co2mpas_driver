@@ -77,7 +77,7 @@ def simple_run():
     """
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
-
+    gears = [gear]
     """Core loop"""
     for t in times:
         speed, gear, gear_count = sp.simulation_step_function(selected_car,
@@ -88,6 +88,7 @@ def simple_run():
                                                               sim_step)
 
         """Gather data"""
+        gears.append(gear)
         speeds.append(speed)
         acceleration.append((speeds[-1] - speeds[-2])/sim_step)
     # ******************* Plot*************************

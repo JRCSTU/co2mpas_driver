@@ -1640,12 +1640,12 @@ starting_speed: !!python/object/apply:numpy.core.multiarray.scalar
 - *id001
 - !!binary |
   iLFUw6DZwr8=
-tire_radius: 0.31115000000000004
+tyre_radius: 0.31115000000000004
 top_speed: 50
 transmission: manual
 type_of_car: hatchback
 use_cubic: false
 use_linear_gs: false
-veh_mass: 955.0
-veh_max_speed: 50
+vehicle_mass: 955.0
+vehicle_max_speed: 50
 wheelbase: 2.3

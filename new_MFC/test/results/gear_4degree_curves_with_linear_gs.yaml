@@ -6381,11 +6381,11 @@ speed_per_gear:
   - !!binary |
     Tu8BbxXKKkCZm2Sbq5YyQIs/SH9MyDdAfuMrY+35PEC4w4cjxxVBQLKVeZWXrkNArGdrB2hHRkCj
     OV15OOBIQJ4LT+sIeUtAlt1AXdkRTkDHV5nnVFVQQMVAkiC9oVFA
-tire_radius: 0.31115000000000004
+tyre_radius: 0.31115000000000004
 top_speed: 48
 transmission: automatic
 type_of_car: hatchback
 use_cubic: false
-veh_mass: 915.0
-veh_max_speed: 48
+vehicle_mass: 915.0
+vehicle_max_speed: 48
 wheelbase: 2.3
