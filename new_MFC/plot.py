@@ -9,9 +9,14 @@ dsp = sh.BlueDispatcher(name='plot')
 
 
 @sh.add_function(dsp)
-def plot_simulation_result(times, speeds, acceleration, Start, Stop, Curves):
+def plot_and_save_simulation_result(output_plot_folder, times, speeds,
+                                    acceleration, Start, Stop, Curves):
     """
     Plot simulation result.
+
+    :param output_plot_folder:
+        Output folder to save simulation results.
+    :type output_plot_folder: str
 
     :param times:
         Sample time series.
@@ -38,15 +43,21 @@ def plot_simulation_result(times, speeds, acceleration, Start, Stop, Curves):
     :type Curves: list
     :return:
     """
+
+    output_plot_dir = osp.join(osp.dirname(__file__), output_plot_folder)
+
     plt.figure('Time-Speed')
     plt.plot(times, speeds[1:])
     plt.grid()
+    plt.savefig(output_plot_dir + '/' + 'time_speed_plot.png')
     plt.figure('Speed-Acceleration')
     plt.plot(speeds[1:], acceleration[1:])
     plt.grid()
+    plt.savefig(output_plot_dir + '/' + 'speed_acceleration_plot.png')
     plt.figure('Acceleration-Time')
     plt.plot(times, acceleration[1:])
     plt.grid()
+    plt.savefig(output_plot_dir + '/' + 'acceleration_time_plot.png')
 
     plt.figure('Speed-Acceleration')
     for i, gear_curve in enumerate(Curves):
@@ -60,4 +71,4 @@ def plot_simulation_result(times, speeds, acceleration, Start, Stop, Curves):
 
 
 if __name__ == '__main__':
-    output_plot_folder = osp.join(osp.dirname(__file__), 'output')
+    plot_and_save_simulation_result()

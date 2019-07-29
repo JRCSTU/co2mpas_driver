@@ -1,0 +1,10 @@
+inputs:
+  inputs:
+    gs_style: 0.9
+    v_des: 40
+    v_start: 0
+    sim_step: 0.1
+    driver_style: 1
+    duration: 100
+    gear_shifting_style: 0.7
+vehicle_id: 39393.0

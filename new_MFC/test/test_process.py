@@ -8,7 +8,7 @@
 import unittest
 from new_MFC.process import dsp
 import ddt
-from new_MFC.test.utils import test_check
+from new_MFC.test.utils import _check
 
 import yaml
 import os.path as osp
@@ -49,7 +49,7 @@ class TestProcess(unittest.TestCase):
             ['gs']
     ))
     def test_gear_4degree_curves_with_linear_gs(self, out):
-        test_check(dsp, self.data['gear_4degree_curves_with_linear_gs'], out)
+        _check(dsp, self.data['gear_4degree_curves_with_linear_gs'], out)
 
     @ddt.idata((
             # `get_spline_out_of_coefs`.
@@ -76,7 +76,7 @@ class TestProcess(unittest.TestCase):
             ['speed_per_gear', 'acc_per_gear'],
     ))
     def test_gear_curves_n_gs_from_poly(self, out):
-        test_check(dsp, self.data['gear_curves_n_gs_from_poly'], out)
+        _check(dsp, self.data['gear_curves_n_gs_from_poly'], out)
 
     @ddt.idata((
             # `define_discrete_acceleration_curves`.
@@ -87,4 +87,4 @@ class TestProcess(unittest.TestCase):
             ['Start', 'Stop'],
     ))
     def test_get_ev_curve_main(self, out):
-        test_check(dsp, self.data['get_ev_curve_main'], out)
+        _check(dsp, self.data['get_ev_curve_main'], out)

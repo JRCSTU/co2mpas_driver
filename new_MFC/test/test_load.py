@@ -8,7 +8,7 @@
 import unittest
 from new_MFC.load import dsp
 import ddt
-from new_MFC.test.utils import test_check
+from new_MFC.test.utils import _check
 
 import yaml
 import os.path as osp
@@ -36,16 +36,12 @@ class TestLoad(unittest.TestCase):
             ['raw_data'],
     ))
     def test_load(self, out):
-        test_check(dsp, self.data, out)
+        _check(dsp, self.data, out)
 
     def test_load_v1(self):
-        data = dict(inputs=dict(
-            gs_style=0.9,
-            v_des=40,
-            v_start=0,
-            sim_step=0.1,
-            driver_style=1,
-            duration=100,
-            times=[1, 2, 3]
-        ), vehicle_id=39393)
-        test_check(dsp, data, ['data'])
+        data = dict(
+            vehicle_id=39393,
+            inputs=dict(
+                duration=100, times=[1, 2, 3]
+            ), data={})
+        _check(dsp, data, ['data'])

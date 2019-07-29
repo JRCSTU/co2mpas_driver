@@ -11,11 +11,13 @@ def _assert(v, r):
     elif isinstance(v, list):
         for v, r in zip(v, r):
             _assert(v, r)
+    elif callable(v):
+        pass
     else:
         nt.assert_almost_equal(v, r)
 
 
-def test_check(dsp, data, outputs):
+def _check(dsp, data, outputs):
     inputs = sh.selector(set(data) - set(outputs), data)
     res = dsp(inputs, outputs)
     nt.assert_equal(

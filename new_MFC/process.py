@@ -224,7 +224,8 @@ def define_discrete_poly(poly_spline, sp_bins):
 
 # Start/stop speed for each gear
 @sh.add_function(dsp, outputs=['Start', 'Stop'])
-def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear, acc_per_gear,
+def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear,
+                   acc_per_gear,
                    poly_spline):
     """
     Calculate Speed boundaries for each gear
@@ -472,14 +473,31 @@ def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['gs'])
 def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     """
-
     Get the gear cuts based on gear shifting style and tangent values.
 
-    :param Tans: tangent values per gear.
-    :param gs_style: Gear shifting style
-    :param Start: Start speed per gear curve.
-    :param Stop: Stop speed per gear curve.
+    :param Tans:
+        Tangent values per gear.
+    :type Tans:
+
+    :param gs_style:
+        Gear shifting style.
+    :type gs_style:
+
+    :param Start:
+        Start speed per gear curve.
+    :type Start:
+
+    :param Stop:
+        Stop speed per gear curve.
+    :type Stop:
+
+    :param use_linear_gs:
+        Use gear linear to calculate gs.
+    :type use_linear_gs: bool
+
     :return:
+        Gear limits
+    :type:
     """
     if use_linear_gs:
         return sh.NONE
@@ -501,11 +519,16 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     return gs
 
 
-@sh.add_function(dsp, outputs=['gears', 'velocities', 'accelerations'])
-def run_simulation(transmission, v_start, sim_step, gs, times, Curves, v_des,
+@sh.add_function(dsp, outputs=['times'])
+def define_times(duration, sim_step):
+    return np.arange(0, duration + sim_step, sim_step)
+
+
+@sh.add_function(dsp, outputs=['gears', 'velocities'])
+def run_simulation(transmission, v_start, gs, times, Curves, v_des,
                    driver_style):
     """
-    Gather data for simulation.
+    Run simulation.
 
     :param transmission:
         Transmission type of vehicle.
@@ -545,7 +568,6 @@ def run_simulation(transmission, v_start, sim_step, gs, times, Curves, v_des,
     """
 
     velocities = [v_start]
-    accelerations = [0]
 
     speed = v_start
 
@@ -555,17 +577,23 @@ def run_simulation(transmission, v_start, sim_step, gs, times, Curves, v_des,
     gears = [gear]
 
     # Core loop
-    for t in times:
+    for dt in np.diff(times):
         speed, gear, gear_count = sp.simulation_step_function(
             transmission, speed, gear, gear_count, gs, Curves, v_des,
-            driver_style, sim_step
+            driver_style, dt
         )
 
         # Gather data
         gears.append(gear)
         velocities.append(speed)
-        accelerations.append((velocities[-1] - velocities[-2]) / sim_step)
-    return gears, velocities, accelerations
+    return gears, velocities
+
+
+@sh.add_function(dsp, outputs=['accelerations'])
+def calculate_accelerations(times, velocities):
+    dv = np.ediff1d(velocities, to_begin=[0])
+    dt = np.ediff1d(times, to_begin=[1])
+    return (dv / dt).tolist()
 
 
 if __name__ == '__main__':
