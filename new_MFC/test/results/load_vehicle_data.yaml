@@ -53,7 +53,7 @@ data:
     - 20
     - 21
     - 22
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.3
@@ -197,7 +197,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3333009709
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.32086000000000003
@@ -233,7 +233,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 66
+    vehicle_max_speed: 66
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.30365
@@ -269,7 +269,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 63
+    vehicle_max_speed: 63
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.30365
@@ -305,7 +305,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 61
+    vehicle_max_speed: 61
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.30365
@@ -341,7 +341,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.30365
@@ -377,7 +377,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31669902910000003
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.29913999999999996
@@ -413,7 +413,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3132038835
-    top_speed: 62
+    vehicle_max_speed: 62
     transmission: automatic
     type_of_car: stationwagon
     tyre_radius: 0.30192
@@ -450,7 +450,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 57
+    vehicle_max_speed: 57
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.294875
@@ -486,7 +486,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 55
+    vehicle_max_speed: 55
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.294875
@@ -522,7 +522,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31669902910000003
-    top_speed: 55
+    vehicle_max_speed: 55
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.29913999999999996
@@ -560,7 +560,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3404368932
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.321005
@@ -598,7 +598,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3408737864
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.32415
@@ -633,7 +633,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3016990291
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.284295
@@ -668,7 +668,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.291145
@@ -703,7 +703,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -738,7 +738,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -772,7 +772,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3456796117
-    top_speed: 80
+    vehicle_max_speed: 80
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.330805
@@ -808,7 +808,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 60
+    vehicle_max_speed: 60
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31671499999999997
@@ -845,7 +845,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 64
+    vehicle_max_speed: 64
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.31671499999999997
@@ -881,7 +881,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 65
+    vehicle_max_speed: 65
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.30365
@@ -917,7 +917,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: cabriolet
     tyre_radius: 0.30365
@@ -955,7 +955,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3289805825
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: cabriolet
     tyre_radius: 0.314595
@@ -993,7 +993,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3297572816
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.312425
@@ -1029,7 +1029,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.291145
@@ -1064,7 +1064,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3080097087
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.289365
@@ -1100,7 +1100,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3297572816
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.312425
@@ -1136,7 +1136,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3297572816
-    top_speed: 57
+    vehicle_max_speed: 57
     transmission: automatic
     type_of_car: stationwagon
     tyre_radius: 0.312425
@@ -1171,7 +1171,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.301407767
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.286855
@@ -1206,7 +1206,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.301407767
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.286855
@@ -1241,7 +1241,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2927184466
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.27708
@@ -1276,7 +1276,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2927184466
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.27708
@@ -1313,7 +1313,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3333009709
-    top_speed: 67
+    vehicle_max_speed: 67
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.32086000000000003
@@ -1350,7 +1350,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3289805825
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.314595
@@ -1387,7 +1387,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3333495146
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.318105
@@ -1424,7 +1424,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3333495146
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.318105
@@ -1462,7 +1462,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3406796117
-    top_speed: 64
+    vehicle_max_speed: 64
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.3212
@@ -1499,7 +1499,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.32941747569999996
-    top_speed: 87
+    vehicle_max_speed: 87
     transmission: automatic
     type_of_car: cabriolet
     tyre_radius: 0.31774
@@ -1535,7 +1535,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31398058250000005
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.29975
@@ -1571,7 +1571,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31398058250000005
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.29975
@@ -1607,7 +1607,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 59
+    vehicle_max_speed: 59
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.30382
@@ -1643,7 +1643,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 59
+    vehicle_max_speed: 59
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.30382
@@ -1679,7 +1679,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3597572816
-    top_speed: 55
+    vehicle_max_speed: 55
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.342115
@@ -1715,7 +1715,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 61
+    vehicle_max_speed: 61
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.30365
@@ -1751,7 +1751,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 59
+    vehicle_max_speed: 59
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.30365
@@ -1787,7 +1787,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3348543689
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31651999999999997
@@ -1818,7 +1818,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3348543689
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31651999999999997
@@ -1854,7 +1854,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30155339810000004
-    top_speed: 63
+    vehicle_max_speed: 63
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.29256
@@ -1889,7 +1889,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3016990291
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.284295
@@ -1924,7 +1924,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3143203883
-    top_speed: 45
+    vehicle_max_speed: 45
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.294435
@@ -1959,7 +1959,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3143203883
-    top_speed: 49
+    vehicle_max_speed: 49
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.294435
@@ -1996,7 +1996,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3264563107
-    top_speed: 77
+    vehicle_max_speed: 77
     transmission: automatic
     type_of_car: cabriolet
     tyre_radius: 0.31815499999999997
@@ -2031,7 +2031,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -2066,7 +2066,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -2101,7 +2101,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2927184466
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.27708
@@ -2136,7 +2136,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2912135922
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.278665
@@ -2171,7 +2171,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2847572816
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26788999999999996
@@ -2206,7 +2206,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.301407767
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.286855
@@ -2241,7 +2241,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3016990291
-    top_speed: 45
+    vehicle_max_speed: 45
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.284295
@@ -2277,7 +2277,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3080097087
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.289365
@@ -2313,7 +2313,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.35791262139999996
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.33504500000000004
@@ -2350,7 +2350,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.37737864080000005
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.34789
@@ -2387,7 +2387,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.37631067960000003
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.35262
@@ -2425,7 +2425,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3572815534
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.34292
@@ -2461,7 +2461,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 65
+    vehicle_max_speed: 65
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.294875
@@ -2497,7 +2497,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.301407767
-    top_speed: 49
+    vehicle_max_speed: 49
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.286855
@@ -2532,7 +2532,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.301407767
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.286855
@@ -2568,7 +2568,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3360194175
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.32025
@@ -2604,7 +2604,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31671499999999997
@@ -2640,7 +2640,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.291145
@@ -2678,7 +2678,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3827669903
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.36339499999999997
@@ -2716,7 +2716,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3827669903
-    top_speed: 62
+    vehicle_max_speed: 62
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.36339499999999997
@@ -2752,7 +2752,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3413106796
-    top_speed: 79
+    vehicle_max_speed: 79
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.327295
@@ -2788,7 +2788,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3413106796
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.327295
@@ -2823,7 +2823,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2991747573
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.287855
@@ -2858,7 +2858,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.291145
@@ -2893,7 +2893,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.291145
@@ -2929,7 +2929,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30912621360000003
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.29585
@@ -2964,7 +2964,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2953883495
-    top_speed: 41
+    vehicle_max_speed: 41
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.279225
@@ -2999,7 +2999,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3016990291
-    top_speed: 45
+    vehicle_max_speed: 45
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.284295
@@ -3035,7 +3035,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2764563107
-    top_speed: 37
+    vehicle_max_speed: 37
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.264015
@@ -3071,7 +3071,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2764563107
-    top_speed: 37
+    vehicle_max_speed: 37
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.264015
@@ -3107,7 +3107,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31412621360000004
-    top_speed: 90
+    vehicle_max_speed: 90
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.305455
@@ -3145,7 +3145,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3360194175
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.32025
@@ -3182,7 +3182,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30932038829999997
-    top_speed: 66
+    vehicle_max_speed: 66
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.2988
@@ -3219,7 +3219,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31412621360000004
-    top_speed: 77
+    vehicle_max_speed: 77
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.305455
@@ -3255,7 +3255,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 67
+    vehicle_max_speed: 67
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.294875
@@ -3291,7 +3291,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 67
+    vehicle_max_speed: 67
     transmission: manual
     type_of_car: cabriolet
     tyre_radius: 0.291145
@@ -3327,7 +3327,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -3363,7 +3363,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 57
+    vehicle_max_speed: 57
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -3398,7 +3398,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.291145
@@ -3434,7 +3434,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3341747573
-    top_speed: 66
+    vehicle_max_speed: 66
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.31318
@@ -3470,7 +3470,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.31671499999999997
@@ -3507,7 +3507,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: automatic
     type_of_car: mpv
     tyre_radius: 0.291145
@@ -3543,7 +3543,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.291145
@@ -3580,7 +3580,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3298543689
-    top_speed: 85
+    vehicle_max_speed: 85
     transmission: manual
     type_of_car: coup?
     tyre_radius: 0.320885
@@ -3616,7 +3616,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31671499999999997
@@ -3652,7 +3652,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.31671499999999997
@@ -3688,7 +3688,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30932038829999997
-    top_speed: 62
+    vehicle_max_speed: 62
     transmission: automatic
     type_of_car: cabriolet
     tyre_radius: 0.2988
@@ -3723,7 +3723,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -3759,7 +3759,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -3795,7 +3795,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.32941747569999996
-    top_speed: 66
+    vehicle_max_speed: 66
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.31774
@@ -3832,7 +3832,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.294875
@@ -3869,7 +3869,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3080097087
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.289365
@@ -3904,7 +3904,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2837378641
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.269865
@@ -3940,7 +3940,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30912621360000003
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.29585
@@ -3976,7 +3976,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3174271845
-    top_speed: 63
+    vehicle_max_speed: 63
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.299725
@@ -4013,7 +4013,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3170873786
-    top_speed: 65
+    vehicle_max_speed: 65
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.30504000000000003
@@ -4050,7 +4050,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3170873786
-    top_speed: 65
+    vehicle_max_speed: 65
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.30504000000000003
@@ -4087,7 +4087,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 68
+    vehicle_max_speed: 68
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.30365
@@ -4122,7 +4122,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 43
+    vehicle_max_speed: 43
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -4158,7 +4158,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3360194175
-    top_speed: 59
+    vehicle_max_speed: 59
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.32025
@@ -4194,7 +4194,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3289805825
-    top_speed: 61
+    vehicle_max_speed: 61
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.314595
@@ -4230,7 +4230,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31087378639999996
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.29446
@@ -4265,7 +4265,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31087378639999996
-    top_speed: 46
+    vehicle_max_speed: 46
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.29446
@@ -4301,7 +4301,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: automatic
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -4337,7 +4337,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31883495149999996
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30365
@@ -4373,7 +4373,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30932038829999997
-    top_speed: 61
+    vehicle_max_speed: 61
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.2988
@@ -4410,7 +4410,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3408737864
-    top_speed: 71
+    vehicle_max_speed: 71
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.32415
@@ -4448,7 +4448,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3408737864
-    top_speed: 71
+    vehicle_max_speed: 71
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.32415
@@ -4483,7 +4483,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3190776698999999
-    top_speed: 47
+    vehicle_max_speed: 47
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.30384500000000003
@@ -4519,7 +4519,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3190776698999999
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: automatic
     type_of_car: suv/crossover
     tyre_radius: 0.30384500000000003
@@ -4555,7 +4555,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.291145
@@ -4591,7 +4591,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31669902910000003
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.29913999999999996
@@ -4627,7 +4627,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31669902910000003
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.29913999999999996
@@ -4663,7 +4663,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3190776698999999
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: mpv
     tyre_radius: 0.30384500000000003
@@ -4699,7 +4699,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3190776698999999
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: automatic
     type_of_car: stationwagon
     tyre_radius: 0.30384500000000003
@@ -4735,7 +4735,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31412621360000004
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.305455
@@ -4771,7 +4771,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30932038829999997
-    top_speed: 59
+    vehicle_max_speed: 59
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.2988
@@ -4808,7 +4808,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.30932038829999997
-    top_speed: 63
+    vehicle_max_speed: 63
     transmission: automatic
     type_of_car: stationwagon
     tyre_radius: 0.2988
@@ -4844,7 +4844,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.291145
@@ -4880,7 +4880,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3067475728
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.291145
@@ -4915,7 +4915,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2837378641
-    top_speed: 48
+    vehicle_max_speed: 48
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.269865
@@ -4950,7 +4950,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28305825239999993
-    top_speed: 45
+    vehicle_max_speed: 45
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.26652499999999996
@@ -4985,7 +4985,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2927184466
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.27708
@@ -5021,7 +5021,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 57
+    vehicle_max_speed: 57
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.30382
@@ -5055,7 +5055,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28936893199999997
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.27159500000000003
@@ -5091,7 +5091,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.30382
@@ -5126,7 +5126,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31398058250000005
-    top_speed: 58
+    vehicle_max_speed: 58
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.29975
@@ -5161,7 +5161,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2837378641
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.269865
@@ -5199,7 +5199,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3297572816
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.312425
@@ -5235,7 +5235,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3079126214
-    top_speed: 56
+    vehicle_max_speed: 56
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.294875
@@ -5273,7 +5273,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3474271845
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.329415
@@ -5309,7 +5309,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31665048539999996
-    top_speed: 62
+    vehicle_max_speed: 62
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.30189499999999997
@@ -5345,7 +5345,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3325728155
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.320275
@@ -5380,7 +5380,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2927184466
-    top_speed: 49
+    vehicle_max_speed: 49
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.27708
@@ -5415,7 +5415,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2919417476
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.27925
@@ -5451,7 +5451,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3297572816
-    top_speed: 60
+    vehicle_max_speed: 60
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.312425
@@ -5489,7 +5489,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3456796117
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.330805
@@ -5524,7 +5524,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.28907766989999995
-    top_speed: 50
+    vehicle_max_speed: 50
     transmission: manual
     type_of_car: hatchback
     tyre_radius: 0.274155
@@ -5560,7 +5560,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 57
+    vehicle_max_speed: 57
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.30382
@@ -5597,7 +5597,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.31665048539999996
-    top_speed: 64
+    vehicle_max_speed: 64
     transmission: automatic
     type_of_car: stationwagon
     tyre_radius: 0.30189499999999997
@@ -5632,7 +5632,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2985436893
-    top_speed: 53
+    vehicle_max_speed: 53
     transmission: manual
     type_of_car: sedan
     tyre_radius: 0.28176
@@ -5668,7 +5668,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.34563106800000004
-    top_speed: 87
+    vehicle_max_speed: 87
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.33356
@@ -5705,7 +5705,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.2912135922
-    top_speed: 51
+    vehicle_max_speed: 51
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.278665
@@ -5741,7 +5741,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3325728155
-    top_speed: 52
+    vehicle_max_speed: 52
     transmission: manual
     type_of_car: suv/crossover
     tyre_radius: 0.320275
@@ -5778,7 +5778,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.33509708739999994
-    top_speed: 66
+    vehicle_max_speed: 66
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.31671499999999997
@@ -5816,7 +5816,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3580097087
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: coup?
     tyre_radius: 0.343505
@@ -5851,7 +5851,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3333495146
-    top_speed: 69
+    vehicle_max_speed: 69
     transmission: automatic
     type_of_car: sedan
     tyre_radius: 0.318105
@@ -5887,7 +5887,7 @@ vehicle_db:
     motor_max_power: .nan
     motor_max_torque: .nan
     r_dynamic: 0.3225242718
-    top_speed: 54
+    vehicle_max_speed: 54
     transmission: manual
     type_of_car: stationwagon
     tyre_radius: 0.30382
@@ -5917,7 +5917,7 @@ vehicle_db:
     motor_max_power: 107.0
     motor_max_torque: 250.0
     r_dynamic: .nan
-    top_speed: 37
+    vehicle_max_speed: 37
     transmission: automatic
     type_of_car: hatchback
     tyre_radius: 0.32339999999999997
@@ -5953,7 +5953,7 @@ vehicle_inputs:
   motor_max_power: .nan
   motor_max_torque: .nan
   r_dynamic: 0.2837378641
-  top_speed: 50
+  vehicle_max_speed: 50
   transmission: manual
   type_of_car: hatchback
   tyre_radius: 0.269865
