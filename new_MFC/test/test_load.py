@@ -41,7 +41,5 @@ class TestLoad(unittest.TestCase):
     def test_load_v1(self):
         data = dict(
             vehicle_id=39393,
-            inputs=dict(
-                duration=100, times=[1, 2, 3]
-            ), data={})
+            inputs=dict(inputs=dict(duration=100, times=[1, 2, 3])), data={})
         _check(dsp, data, ['data'])
