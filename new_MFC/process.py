@@ -88,6 +88,9 @@ def get_speeds_n_accelerations_per_gear(
     return speed_per_gear, acc_per_gear
 
 
+dsp.add_data('degree', 4)
+
+
 @sh.add_function(dsp, outputs=['coefs_per_gear'])
 def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     """
@@ -291,10 +294,8 @@ def define_discrete_car_res_curve(car_res_curve, sp_bins):
 
 
 # Calculate Curves
-@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force',
-                               'Alimit'])
-def get_resistances(type_of_car, car_type, vehicle_mass, engine_max_power,
-                    car_width, car_height, sp_bins):
+@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force'])
+def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
     """
     Calculate resistances and return spline
 
@@ -315,8 +316,45 @@ def get_resistances(type_of_car, car_type, vehicle_mass, engine_max_power,
     car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2,
                                                          list(sp_bins),
                                                          vehicle_mass)
-    Alimit = Armax(car_type, vehicle_mass, engine_max_power)
-    return car_res_curve, car_res_curve_force, Alimit
+    return car_res_curve, car_res_curve_force
+
+
+# The maximum force that the vehicle can have on the road
+@sh.add_function(dsp, outputs=['Alimit'])
+def Armax(car_type, vehicle_mass, engine_max_power, road_type=1):
+    """
+
+    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+
+    :param car_type:
+    :param veh_mass:
+    :param engine_max_power:
+    :param road_type: road condition (1: normal, 2: wet, 3: icy)
+    :return:
+    """
+    if car_type == 2:  # forward-wheel drive vehicles
+        fmass = 0.6 * vehicle_mass
+    elif car_type == 4:  # rear-wheel drive vehicles
+        fmass = 0.45 * vehicle_mass
+    else:  # all-wheel drive vehicles, 4x4
+        fmass = 1 * vehicle_mass
+
+    if road_type == 1:
+        mh_base = 0.75  # for normal road
+    elif road_type == 2:
+        mh_base = 0.25  # for wet road
+    else:
+        mh_base = 0.1  # for icy road
+    # Optimal values:
+    # 0.8 dry, 0.6 light rain, 0.4 heavy rain, 0.1 icy
+    alpha = 43.398
+    beta = 5.1549
+    mh = mh_base * (alpha * np.log(engine_max_power) + beta) / 190
+
+    # * cos(f) for the gradient of the road. Here we consider as 0
+    Frmax = fmass * 9.8066 * mh
+
+    return Frmax / vehicle_mass
 
 
 @sh.add_function(dsp, outputs=['Curves'])

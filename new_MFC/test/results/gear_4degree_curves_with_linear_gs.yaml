@@ -221,7 +221,6 @@ coefs_per_gear:
   - false
   - !!binary |
     Rd4IE9Rnhr5bGJ3W4dz5Pkm5FtI9kVm//xbfnwuMqT9zfH/P3bvaPw==
-degree: 4
 discrete_acceleration_curves:
 - x: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
