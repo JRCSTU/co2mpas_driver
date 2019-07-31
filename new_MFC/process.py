@@ -89,7 +89,7 @@ def get_speeds_n_accelerations_per_gear(
 
 
 @sh.add_function(dsp, outputs=['coefs_per_gear'])
-def get_tan_coefs(speed_per_gear, acc_per_gear, degree=4):
+def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
     """
     Full load curve is fitted to a polynomial of degree
 

@@ -1,6 +1,6 @@
 import logging
 import numpy as np
-import os.path as osp
+from os import path as osp, mkdir
 import matplotlib.pyplot as plt
 import schedula as sh
 
@@ -44,7 +44,9 @@ def plot_and_save_simulation_result(output_plot_folder, times, speeds,
     :return:
     """
 
-    output_plot_dir = osp.join(osp.dirname(__file__), output_plot_folder)
+    output_plot_dir = osp.dirname(__file__) + '/' + output_plot_folder
+    if not osp.exists(output_plot_dir):
+        mkdir(output_plot_dir)
 
     plt.figure('Time-Speed')
     plt.plot(times, speeds[1:])
