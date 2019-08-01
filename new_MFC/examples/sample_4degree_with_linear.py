@@ -12,7 +12,7 @@ def simple_run():
     # Database of vehicles with a unique id
     db_name = '../db/EuroSegmentCar'  # file path without extension of the file
     car_id = 35135  # Category item
-    gs_style = 0.8  # gear shifting can take value from 0(timid driver)
+    gs_style = 0.7  # gear shifting can take value from 0(timid driver)
     # to 1(aggressive driver)
 
     # reading csv file into a dictionary

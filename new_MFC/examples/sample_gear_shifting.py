@@ -1,10 +1,12 @@
 import os
 from os import path as osp
 import matplotlib.pyplot as plt
+import numpy as np
 from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import vehicle_functions as vf
 from new_MFC.common import gear_functions as fg
 from new_MFC.common import plot_templates as pt
+from new_MFC.process import define_discrete_poly as ddp
 
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
@@ -19,22 +21,27 @@ def simple_run():
 
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
-    full_load_speeds, full_load_torque = vf.get_load_speed_n_torque(selected_car)
+    full_load_speeds, full_load_torques = vf.get_load_speed_n_torque(selected_car)
     speed_per_gear, acc_per_gear = vf.get_speeds_n_accelerations_per_gear(
-        selected_car, full_load_speeds, full_load_torque)
+        selected_car, full_load_speeds, full_load_torques)
 
     coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, 2)
     pt.plot_speed_acceleration_from_coefs(coefs_per_gear, speed_per_gear,
                                           acc_per_gear)
 
-    cs_acc_per_gear = vf.get_cubic_splines_of_speed_acceleration_relationship(
+    poly_spline = vf.get_cubic_splines_of_speed_acceleration_relationship(
         selected_car, speed_per_gear, acc_per_gear)
-    start, stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
-                                    cs_acc_per_gear)
 
-    tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, start, stop)
+    Start, Stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
+                                    poly_spline)
 
-    gs = fg.gear_points_from_tan(tans, gs_style, start, stop)
+    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
+    """define discrete poly spline"""
+    discrete_poly_spline = ddp(poly_spline, sp_bins)
+
+    tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
+
+    gs = fg.gear_points_from_tan(tans, gs_style, Start, Stop)
 
     for gear in gs:
         plt.plot([gear, gear], [0, 5], 'k')

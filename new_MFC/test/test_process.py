@@ -20,7 +20,7 @@ class TestProcess(unittest.TestCase):
         self.data, res_dir = {}, osp.join(osp.dirname(__file__), 'results')
         test_names = (
             'gear_4degree_curves_with_linear_gs', 'gear_curves_n_gs_from_poly',
-            'get_ev_curve_main'
+            'get_ev_curve_main', 'sample_gear_shifting',
         )
         for name in test_names:
             with open(osp.join(res_dir, '%s.yaml' % name)) as f:
@@ -88,3 +88,20 @@ class TestProcess(unittest.TestCase):
     ))
     def test_get_ev_curve_main(self, out):
         _check(dsp, self.data['get_ev_curve_main'], out)
+
+    @ddt.idata((
+            # `get_load_speed_n_torque`.
+            ['full_load_speeds', 'full_load_torques'],
+            # `get_speeds_n_accelerations_per_gear`.
+            ['speed_per_gear', 'acc_per_gear'],
+            # `get_tan_coefs`.
+            ['coefs_per_gear'],
+            # `get_start_stop`.
+            ['Start', 'Stop', 'sp_bins'],
+            # `get_cubic_splines_of_speed_acceleration_relationship`.
+            ['discrete_poly_spline'],
+            # `gear_points_from_tan`.
+            ['gs'],
+    ))
+    def test_sample_gear_shifting(self, out):
+        _check(dsp, self.data['sample_gear_shifting'], out)

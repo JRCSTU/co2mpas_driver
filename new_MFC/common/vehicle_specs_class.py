@@ -39,7 +39,8 @@ class VehSpecs(object):
                 print("neither petrol nor diesel, I exit!")
                 exit()
 
-            self.tire_radius = (24.5 / 2 * 2.54) / 100  # meters
+            self.tire_radius = float(
+                my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
             self.driveline_slippage = 0
             if my_car["General Specifications-Transmission"] == 'automatic':
                 self.driveline_efficiency = 0.90

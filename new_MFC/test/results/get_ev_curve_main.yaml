@@ -1,5 +1,5 @@
 Alimit: !!python/object/apply:numpy.core.multiarray.scalar
-- &id003 !!python/object/apply:numpy.dtype
+- &id001 !!python/object/apply:numpy.dtype
   args:
   - f8
   - 0
@@ -22,99 +22,10 @@ Stop:
 car_height: 1.466
 car_type: 2
 car_width: 1.823
-coefs_per_gear:
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - &id001 !!python/name:numpy.ndarray 
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 5
-  - &id002 !!python/object/apply:numpy.dtype
-    args:
-    - f8
-    - 0
-    - 1
-    state: !!python/tuple
-    - 3
-    - <
-    - null
-    - null
-    - null
-    - -1
-    - -1
-    - 0
-  - false
-  - !!binary |
-    WTk8b8tpR79Pky9obU2UPznqcvmaJ86/pxV1sYOi9j/DCM+8K8sBQA==
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 5
-  - *id002
-  - false
-  - !!binary |
-    WJdsC/ln/r4UShj8AwZZP6fzj64So6G/C0VqbQwh2T/ZlhM7mL/yPw==
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 5
-  - *id002
-  - false
-  - !!binary |
-    Y7gTjftZxr7zlze2tKYtP8xZGtr914C/gUiSa6NXwz83v7R4DUPnPw==
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 5
-  - *id002
-  - false
-  - !!binary |
-    cfojwkPFob7L4jA+gEgQPwvFwp5sjmm/w68hD1lFtD+Re4o+v9bgPw==
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 5
-  - *id002
-  - false
-  - !!binary |
-    Rd4IE9Rnhr5bGJ3W4dz5Pkm5FtI9kVm//xbfnwuMqT9zfH/P3bvaPw==
 discrete_acceleration_curves:
 - x: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
-    - *id001
+    - &id002 !!python/name:numpy.ndarray 
     - !!python/tuple
       - 0
     - !!binary |
@@ -123,7 +34,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 185
-    - *id003
+    - *id001
     - false
     - !!binary |
       AAAAAAAAAACamZmZmZnJP5qZmZmZmdk/NDMzMzMz4z+amZmZmZnpPwAAAAAAAPA/NDMzMzMz8z9n
@@ -154,7 +65,7 @@ discrete_acceleration_curves:
       zMzMzMxBQGdmZmZm5kFAAAAAAAAAQkCamZmZmRlCQDMzMzMzM0JAzczMzMxMQkBnZmZmZmZCQA==
   y: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
-    - *id001
+    - *id002
     - !!python/tuple
       - 0
     - !!binary |
@@ -163,7 +74,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 185
-    - *id003
+    - *id001
     - false
     - !!binary |
       u+dHvM6uCUC32aQ0Ua4JQJ5r0V3JrQlAcZ3NNzetCUAvb5nCmqwJQNngNP7zqwlAbvKf6kKrCUDv
@@ -197,10 +108,11 @@ driveline_slippage: 0
 engine_max_power: 107.0
 final_drive: 7.82
 fuel_type: electricity
+gear_box_ratios: 1
 motor_max_torque: 250.0
 sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
-  - *id001
+  - *id002
   - !!python/tuple
     - 0
   - !!binary |
@@ -279,101 +191,6 @@ sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
     ZmYmQkAzMzMzMzNCQAAAAAAAQEJAzczMzMxMQkCamZmZmVlCQGdmZmZmZkJAMzMzMzNzQkAAAAAA
     AIBCQM3MzMzMjEJAmpmZmZmZQkBnZmZmZqZCQDMzMzMzs0JAAAAAAADAQkDNzMzMzMxCQJqZmZmZ
     2UJAZ2ZmZmbmQkAzMzMzM/NCQA==
-speed_per_gear:
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 12
-  - &id004 !!python/object/apply:numpy.dtype
-    args:
-    - f8
-    - 0
-    - 1
-    state: !!python/tuple
-    - 3
-    - <
-    - null
-    - null
-    - null
-    - -1
-    - -1
-    - 0
-  - false
-  - !!binary |
-    YUiwIu0fBEBH7IatnO0LQBbILhym3RFAChqa4X3EFUD+awWnVasZQPK9cGwtkh1A8wfumIK8IEDs
-    sKN77q8iQOZZWV5aoyRA3wIPQcaWJkDYq8QjMoooQNRUegaefSpA
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 12
-  - *id004
-  - false
-  - !!binary |
-    lH0ISI8ZE0DCFs3rgoEaQPjXyEe79CBAkCSrGbWoJEAncY3rrlwoQMC9b72oECxAVwpSj6LEL0B2
-    K5owTrwxQMNRixlLljNADnh8AkhwNUBZnm3rREo3QKfEXtRBJDlA
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 12
-  - *id004
-  - false
-  - !!binary |
-    /ujIpa3JHkBMU89t61wlQBoyuggAVStAdIjSUYqmMEDb90eflKIzQENnveyenjZAqtYyOqmaOUAQ
-    RqiHs5Y8QHi1HdW9kj9Ab5JJEWRHQUAiSgQ4acVCQNcBv15uQ0RA
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 12
-  - *id004
-  - false
-  - !!binary |
-    tXZovAtEJUC3dfmcAIMtQFw6xb764DJA3bkNL3UAN0BfOVaf7x87QOG4ng9qPz9AMZzzP3KvQUDx
-    2xd4L79DQLIbPLDszkVAcltg6KneR0Aym4QgZ+5JQPXaqFgk/ktA
-- !!python/object/apply:numpy.core.multiarray._reconstruct
-  args:
-  - *id001
-  - !!python/tuple
-    - 0
-  - !!binary |
-    Yg==
-  state: !!python/tuple
-  - 1
-  - !!python/tuple
-    - 12
-  - *id004
-  - false
-  - !!binary |
-    Tu8BbxXKKkCZm2Sbq5YyQIs/SH9MyDdAfuMrY+35PEC4w4cjxxVBQLKVeZWXrkNArGdrB2hHRkCj
-    OV15OOBIQJ4LT+sIeUtAlt1AXdkRTkDHV5nnVFVQQMVAkiC9oVFA
-use_cubic: false
 tyre_radius: 0.32339999999999997
 type_of_car: hatchback
 vehicle_mass: 1644.0
