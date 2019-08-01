@@ -52,7 +52,7 @@ class TestProcess(unittest.TestCase):
         _check(dsp, self.data['gear_4degree_curves_with_linear_gs'], out)
 
     @ddt.idata((
-            # `get_spline_out_of_coefs`.
+            # `define_discrete_poly`.
             ['discrete_poly_spline'],
             # `define_discrete_car_res_curve`.
             ['discrete_car_res_curve'],
@@ -111,6 +111,20 @@ class TestProcess(unittest.TestCase):
             ['full_load_speeds', 'full_load_torques'],
             # `get_speeds_n_accelerations_per_gear`.
             ['speed_per_gear', 'acc_per_gear'],
+            # `get_tan_coefs`.
+            ['coefs_per_gear'],
+            # `get_start_stop`.
+            ['Start', 'Stop', 'sp_bins'],
+            # `define_discrete_poly`.
+            ['discrete_poly_spline'],
+            # `define_discrete_car_res_curve`.
+            ['discrete_car_res_curve'],
+            # `define_discrete_car_res_curve_force`.
+            ['discrete_car_res_curve_force'],
+            # `gear_linear`.
+            ['gs'],
+            # `define_discrete_acceleration_curves`.
+            ['discrete_acceleration_curves'],
     ))
     def test_sample_mfc_curves(self, out):
         _check(dsp, self.data['sample_mfc_curves'], out)

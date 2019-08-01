@@ -2,7 +2,9 @@ import os
 import os.path as osp
 import numpy as np
 import matplotlib.pyplot as plt
-from new_MFC.common import curve_functions as mf
+from new_MFC.process import define_discrete_poly as ddp
+from new_MFC.process import define_discrete_car_res_curve as ddcrc
+from new_MFC.process import define_discrete_car_res_curve_force as ddcrcf
 from new_MFC.common import reading_n_organizing as rno
 from new_MFC.common import vehicle_functions as vf
 from new_MFC.common import gear_functions as fg
@@ -41,9 +43,19 @@ def simple_run():
                                     poly_spline)
 
     sp_bins = np.arange(0, stop[-1] + 1, 0.01)
+
+    """define discrete poly spline"""
+    discrete_poly_spline = ddp(poly_spline, sp_bins)
+
     """Get resistances"""
     car_res_curve, car_res_curve_force, Alimit = vf.get_resistances(my_car,
                                                                     sp_bins)
+
+    """define discrete_car_res_curve"""
+    discrete_car_res_curve = ddcrc(car_res_curve, sp_bins)
+
+    """define discrete_car_res_curve_force"""
+    discrete_car_res_curve_force = ddcrcf(car_res_curve_force, sp_bins)
 
     """Calculate Curves"""
     curves = vf.calculate_curves_to_use(poly_spline, start, stop, Alimit,
@@ -51,6 +63,13 @@ def simple_run():
 
     """Get gs"""
     gs = fg.gear_linear(speed_per_gear, gs_style)
+
+    from new_MFC.process import define_discrete_acceleration_curves as func
+    discrete_acceleration_curves = func(curves, start, stop)
+    for d in discrete_acceleration_curves:
+        plt.plot(d['x'], d['y'])
+
+    plt.show()
 
     return 0
 
