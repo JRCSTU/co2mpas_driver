@@ -25,11 +25,11 @@ def simple_run():
     my_car = rno.get_vehicle_from_db(db, car_id)
 
     """Full load curves of speed and torque"""
-    full_load_speeds, full_load_torque = vf.get_load_speed_n_torque(my_car)
+    full_load_speeds, full_load_torques = vf.get_load_speed_n_torque(my_car)
 
     """Speed and acceleration ranges and points for each gear"""
     speed_per_gear, acc_per_gear = vf.get_speeds_n_accelerations_per_gear(
-        my_car, full_load_speeds, full_load_torque)
+        my_car, full_load_speeds, full_load_torques)
 
     """Extract speed acceleration Splines"""
     coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, 4)

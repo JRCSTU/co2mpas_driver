@@ -109,6 +109,8 @@ class TestProcess(unittest.TestCase):
     @ddt.idata((
             # `get_load_speed_n_torque`.
             ['full_load_speeds', 'full_load_torques'],
+            # `get_speeds_n_accelerations_per_gear`.
+            ['speed_per_gear', 'acc_per_gear'],
     ))
     def test_sample_mfc_curves(self, out):
         _check(dsp, self.data['sample_mfc_curves'], out)
