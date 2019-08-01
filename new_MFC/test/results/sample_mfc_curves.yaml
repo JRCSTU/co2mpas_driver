@@ -198,7 +198,7 @@ full_load_speeds: !!python/object/apply:numpy.core.multiarray._reconstruct
   - !!binary |
     AAAAAABwh0AAAAAAACSTQAAAAAAAkJpAAAAAAAD+oEAAAAAAALSkQAAAAAAAaqhAAQAAAAAgrEAB
     AAAAANavQAAAAAAAxrFAAAAAAAChs0AAAAAAAHy1QAAAAAAAV7dAAQAAAAAyuUA=
-full_load_torque: !!python/object/apply:numpy.core.multiarray._reconstruct
+full_load_torques: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
   - *id002
   - !!python/tuple
@@ -1067,7 +1067,7 @@ speed_per_gear:
   - !!binary |
     XUosGMaEJkDp1IshGEAvQLuvdRW1/TNAAXUlGl5bOEBHOtUeB7k8QMd/whFYi0BAamIalCy6QkAN
     RXIWAelEQLAnypjVF0dAUwoiG6pGSUD27HmdfnVLQJrP0R9TpE1A
-start:
+Start:
 - 0
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
@@ -1085,7 +1085,7 @@ start:
   - *id001
   - !!binary |
     XUosGMaEJkA=
-stop:
+Stop:
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
   - !!binary |
