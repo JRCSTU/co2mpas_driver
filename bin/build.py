@@ -7,7 +7,7 @@ my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
 
 company_name = 'JRC'
-product_name = 'new_MFC'
+product_name = 'co2mpas_driver'
 
 bdist_msi_options = {
     'upgrade_code': '',
@@ -24,12 +24,12 @@ base = None
 if sys.platform == "win32":
     base = "Win32GUI"
 
-exe = Executable(script='new_MFC/examples/sample_4degree_with_linear.py',
+exe = Executable(script='co2mpas_driver/examples/sample_4degree_with_linear.py',
                  base=base,
                  icon=None,
                  )
 
-setup(name="new_MFC",
+setup(name="co2mpas_driver",
       version="1.0.0",
       description="A lightweight microsimulation free-flow acceleration model"
                     "(MFC) that is able to capture the vehicle acceleration"
