@@ -86,7 +86,7 @@ def get_db_path(raw_data):
 
 
 _db_map = {
-    "Transmission  / Gear ratio-Final drive": 'final_drive',
+    "Transmission  / Gear ratio-Final drive": 'final_drive_ratio',
     "Transmission  / Gear ratio-Gear Box Ratios": "gear_box_ratios",
     'Weights-Empty mass': 'vehicle_mass',
     'Performance-Top speed': 'vehicle_max_speed',

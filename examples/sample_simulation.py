@@ -51,7 +51,7 @@ def simple_run():
     """
     The final acceleration curvers (Curves), the engine acceleration potential 
     curves (cs_acc_per_gear), before the calculation of the resistances and the
-    limitation due to max possible acceleration (friction) .
+    limitation due to max possible acceleration (friction).
     """
     curves, cs_acc_per_gear, start_stop, gs = \
         mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)

@@ -106,7 +106,7 @@ discrete_acceleration_curves:
 driveline_efficiency: 0.9
 driveline_slippage: 0
 engine_max_power: 107.0
-final_drive: 7.82
+final_drive_ratio: 7.82
 fuel_type: electricity
 gear_box_ratios: 1
 motor_max_torque: 250.0

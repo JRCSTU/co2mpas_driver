@@ -63,8 +63,8 @@ def calculate_full_load_speeds_and_powers(full_load_curve, my_car):
 # The maximum force that the vehicle can have on the road
 def Armax(my_car, road_type=1):
     """
-
-    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+    Calculating the maximum acceleration possible for the vehicle object my_car,
+    under road_type conditions.
 
     :param my_car: vehicle specs object
     :param road_type: road condition (1: normal, 2: wet, 3: icy)
@@ -289,8 +289,7 @@ def get_start_stop(my_car, speed_per_gear, acc_per_gear, poly_spline):
 
 def get_resistances(my_car, sp_bins):
     """
-
-    Calculate resistances and return spline
+    Calculate resistances and return spline.
 
     :param my_car:
     :param sp_bins:

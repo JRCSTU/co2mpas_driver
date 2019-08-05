@@ -1326,7 +1326,7 @@ driveline_efficiency: 0.93
 driveline_slippage: 0
 engine_max_power: 70.0
 engine_max_speed_at_max_power: 4000.0
-final_drive: 3.44
+final_drive_ratio: 3.44
 fuel_type: diesel
 full_load_powers: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:

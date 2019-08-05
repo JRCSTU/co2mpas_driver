@@ -9,7 +9,7 @@ data:
   engine_max_power: 70.0
   engine_max_speed_at_max_power: 4000.0
   engine_max_torque: 200.0
-  final_drive: 3.44
+  final_drive_ratio: 3.44
   fuel_eng_capacity: 1248.0
   fuel_engine_stroke: 82.0
   fuel_turbo: 'yes'
@@ -173,7 +173,7 @@ vehicle_db:
     engine_max_power: 224.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 420.0
-    final_drive: 2.87
+    final_drive_ratio: 2.87
     fuel_eng_capacity: 4196.0
     fuel_engine_stroke: 90.3
     fuel_turbo: 'no'
@@ -209,7 +209,7 @@ vehicle_db:
     engine_max_power: 183.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 310.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 2995.0
     fuel_engine_stroke: 83.0
     fuel_turbo: 'no'
@@ -245,7 +245,7 @@ vehicle_db:
     engine_max_power: 158.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 420.0
-    final_drive: 3.77
+    final_drive_ratio: 3.77
     fuel_eng_capacity: 2400.0
     fuel_engine_stroke: 93.15
     fuel_turbo: 'yes'
@@ -281,7 +281,7 @@ vehicle_db:
     engine_max_power: 132.0
     engine_max_speed_at_max_power: 5700.0
     engine_max_torque: 240.0
-    final_drive: 2.68
+    final_drive_ratio: 2.68
     fuel_eng_capacity: 1595.0
     fuel_engine_stroke: 81.4
     fuel_turbo: 'yes'
@@ -317,7 +317,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 280.0
-    final_drive: 3.61
+    final_drive_ratio: 3.61
     fuel_eng_capacity: 1969.0
     fuel_engine_stroke: 93.2
     fuel_turbo: 'yes'
@@ -353,7 +353,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 320.0
-    final_drive: 2.96
+    final_drive_ratio: 2.96
     fuel_eng_capacity: 1969.0
     fuel_engine_stroke: 93.2
     fuel_turbo: 'yes'
@@ -389,7 +389,7 @@ vehicle_db:
     engine_max_power: 140.0
     engine_max_speed_at_max_power: 4700.0
     engine_max_torque: 300.0
-    final_drive: 2.68
+    final_drive_ratio: 2.68
     fuel_eng_capacity: 1969.0
     fuel_engine_stroke: 93.2
     fuel_turbo: 'yes'
@@ -425,7 +425,7 @@ vehicle_db:
     engine_max_power: 92.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 200.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1395.0
     fuel_engine_stroke: 80.0
     fuel_turbo: 'yes'
@@ -462,7 +462,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 3200.0
     engine_max_torque: 250.0
-    final_drive: 3.39
+    final_drive_ratio: 3.39
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -498,7 +498,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 270.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1995.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -534,7 +534,7 @@ vehicle_db:
     engine_max_power: 190.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 560.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 2993.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -572,7 +572,7 @@ vehicle_db:
     engine_max_power: 330.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 650.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 4395.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -610,7 +610,7 @@ vehicle_db:
     engine_max_power: 66.0
     engine_max_speed_at_max_power: 5250.0
     engine_max_torque: 135.0
-    final_drive: 4.5
+    final_drive_ratio: 4.5
     fuel_eng_capacity: 898.0
     fuel_engine_stroke: 73.1
     fuel_turbo: 'yes'
@@ -645,7 +645,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 280.0
-    final_drive: 3.68
+    final_drive_ratio: 3.68
     fuel_eng_capacity: 1995.0
     fuel_engine_stroke: 94.0
     fuel_turbo: 'yes'
@@ -680,7 +680,7 @@ vehicle_db:
     engine_max_power: 63.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 124.0
-    final_drive: 4.29
+    final_drive_ratio: 4.29
     fuel_eng_capacity: 1299.0
     fuel_engine_stroke: 73.5
     fuel_turbo: 'no'
@@ -715,7 +715,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 170.0
-    final_drive: 3.53
+    final_drive_ratio: 3.53
     fuel_eng_capacity: 1364.0
     fuel_engine_stroke: 81.5
     fuel_turbo: 'yes'
@@ -750,7 +750,7 @@ vehicle_db:
     engine_max_power: 373.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 999.0
-    final_drive: 2.69
+    final_drive_ratio: 2.69
     fuel_eng_capacity: 6761.0
     fuel_engine_stroke: 99.1
     fuel_turbo: 'yes'
@@ -784,7 +784,7 @@ vehicle_db:
     engine_max_power: 135.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 380.0
-    final_drive: 3.37
+    final_drive_ratio: 3.37
     fuel_eng_capacity: 1968.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -820,7 +820,7 @@ vehicle_db:
     engine_max_power: 162.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 350.0
-    final_drive: 3.94
+    final_drive_ratio: 3.94
     fuel_eng_capacity: 1984.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'yes'
@@ -857,7 +857,7 @@ vehicle_db:
     engine_max_power: 135.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 380.0
-    final_drive: 2.76
+    final_drive_ratio: 2.76
     fuel_eng_capacity: 1984.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'yes'
@@ -893,7 +893,7 @@ vehicle_db:
     engine_max_power: 169.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 370.0
-    final_drive: 3.44
+    final_drive_ratio: 3.44
     fuel_eng_capacity: 1984.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'yes'
@@ -929,7 +929,7 @@ vehicle_db:
     engine_max_power: 235.0
     engine_max_speed_at_max_power: 5800.0
     engine_max_torque: 450.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 2979.0
     fuel_engine_stroke: 89.6
     fuel_turbo: 'yes'
@@ -967,7 +967,7 @@ vehicle_db:
     engine_max_power: 230.0
     engine_max_speed_at_max_power: 4400.0
     engine_max_torque: 630.0
-    final_drive: 2.81
+    final_drive_ratio: 2.81
     fuel_eng_capacity: 2993.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -1005,7 +1005,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 300.0
-    final_drive: 3.74
+    final_drive_ratio: 3.74
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -1041,7 +1041,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 205.0
-    final_drive: 4.93
+    final_drive_ratio: 4.93
     fuel_eng_capacity: 1199.0
     fuel_engine_stroke: 90.5
     fuel_turbo: 'yes'
@@ -1076,7 +1076,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 380.0
-    final_drive: 2.81
+    final_drive_ratio: 2.81
     fuel_eng_capacity: 2191.0
     fuel_engine_stroke: 94.3
     fuel_turbo: 'yes'
@@ -1112,7 +1112,7 @@ vehicle_db:
     engine_max_power: 121.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 210.0
-    final_drive: 4.33
+    final_drive_ratio: 4.33
     fuel_eng_capacity: 1998.0
     fuel_engine_stroke: 91.2
     fuel_turbo: 'no'
@@ -1148,7 +1148,7 @@ vehicle_db:
     engine_max_power: 70.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 190.0
-    final_drive: 3.55
+    final_drive_ratio: 3.55
     fuel_eng_capacity: 1248.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -1183,7 +1183,7 @@ vehicle_db:
     engine_max_power: 66.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 130.0
-    final_drive: 3.74
+    final_drive_ratio: 3.74
     fuel_eng_capacity: 1398.0
     fuel_engine_stroke: 82.6
     fuel_turbo: 'no'
@@ -1218,7 +1218,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 95.0
-    final_drive: 4.81
+    final_drive_ratio: 4.81
     fuel_eng_capacity: 999.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'no'
@@ -1253,7 +1253,7 @@ vehicle_db:
     engine_max_power: 77.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 250.0
-    final_drive: 3.39
+    final_drive_ratio: 3.39
     fuel_eng_capacity: 1422.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -1288,7 +1288,7 @@ vehicle_db:
     engine_max_power: 160.0
     engine_max_speed_at_max_power: 3250.0
     engine_max_torque: 500.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 2967.0
     fuel_engine_stroke: 91.4
     fuel_turbo: 'yes'
@@ -1325,7 +1325,7 @@ vehicle_db:
     engine_max_power: 245.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 440.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 2995.0
     fuel_engine_stroke: 89.0
     fuel_turbo: 'yes'
@@ -1362,7 +1362,7 @@ vehicle_db:
     engine_max_power: 200.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 580.0
-    final_drive: 3.88
+    final_drive_ratio: 3.88
     fuel_eng_capacity: 2967.0
     fuel_engine_stroke: 91.4
     fuel_turbo: 'yes'
@@ -1399,7 +1399,7 @@ vehicle_db:
     engine_max_power: 245.0
     engine_max_speed_at_max_power: 5300.0
     engine_max_torque: 440.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 2995.0
     fuel_engine_stroke: 89.0
     fuel_turbo: 'yes'
@@ -1436,7 +1436,7 @@ vehicle_db:
     engine_max_power: 190.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 560.0
-    final_drive: 2.81
+    final_drive_ratio: 2.81
     fuel_eng_capacity: 2993.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -1474,7 +1474,7 @@ vehicle_db:
     engine_max_power: 412.0
     engine_max_speed_at_max_power: 7500.0
     engine_max_torque: 755.0
-    final_drive: 4.44
+    final_drive_ratio: 4.44
     fuel_eng_capacity: 3855.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -1511,7 +1511,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 240.0
-    final_drive: 4.07
+    final_drive_ratio: 4.07
     fuel_eng_capacity: 1498.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'yes'
@@ -1547,7 +1547,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 370.0
-    final_drive: 3.93
+    final_drive_ratio: 3.93
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -1583,7 +1583,7 @@ vehicle_db:
     engine_max_power: 118.0
     engine_max_speed_at_max_power: 5700.0
     engine_max_torque: 240.0
-    final_drive: 3.07
+    final_drive_ratio: 3.07
     fuel_eng_capacity: 1498.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'yes'
@@ -1619,7 +1619,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 350.0
-    final_drive: 2.68
+    final_drive_ratio: 2.68
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -1655,7 +1655,7 @@ vehicle_db:
     engine_max_power: 177.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 340.0
-    final_drive: 3.75
+    final_drive_ratio: 3.75
     fuel_eng_capacity: 1999.0
     fuel_engine_stroke: 83.1
     fuel_turbo: 'yes'
@@ -1691,7 +1691,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 260.0
-    final_drive: 3.83
+    final_drive_ratio: 3.83
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 81.5
     fuel_turbo: 'yes'
@@ -1727,7 +1727,7 @@ vehicle_db:
     engine_max_power: 121.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 350.0
-    final_drive: 3.35
+    final_drive_ratio: 3.35
     fuel_eng_capacity: 1956.0
     fuel_engine_stroke: 90.4
     fuel_turbo: 'yes'
@@ -1763,7 +1763,7 @@ vehicle_db:
     engine_max_power: 103.0
     engine_max_speed_at_max_power: 4900.0
     engine_max_torque: 200.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 1364.0
     fuel_engine_stroke: 82.6
     fuel_turbo: 'yes'
@@ -1799,7 +1799,7 @@ vehicle_db:
     engine_max_power: 100.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 320.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.1
     fuel_turbo: 'yes'
@@ -1830,7 +1830,7 @@ vehicle_db:
     engine_max_power: 153.0
     engine_max_speed_at_max_power: 6800.0
     engine_max_torque: 300.0
-    final_drive: 3.56
+    final_drive_ratio: 3.56
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 85.8
     fuel_turbo: 'yes'
@@ -1866,7 +1866,7 @@ vehicle_db:
     engine_max_power: 68.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 230.0
-    final_drive: 3.47
+    final_drive_ratio: 3.47
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -1901,7 +1901,7 @@ vehicle_db:
     engine_max_power: 68.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 215.0
-    final_drive: 4.18
+    final_drive_ratio: 4.18
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'no'
@@ -1936,7 +1936,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 160.0
-    final_drive: 5.07
+    final_drive_ratio: 5.07
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 85.5
     fuel_turbo: 'no'
@@ -1971,7 +1971,7 @@ vehicle_db:
     engine_max_power: 243.0
     engine_max_speed_at_max_power: 6700.0
     engine_max_torque: 370.0
-    final_drive: 3.25
+    final_drive_ratio: 3.25
     fuel_eng_capacity: 3436.0
     fuel_engine_stroke: 77.5
     fuel_turbo: 'no'
@@ -2008,7 +2008,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 107.0
-    final_drive: 3.56
+    final_drive_ratio: 3.56
     fuel_eng_capacity: 1149.0
     fuel_engine_stroke: 76.8
     fuel_turbo: 'no'
@@ -2043,7 +2043,7 @@ vehicle_db:
     engine_max_power: 63.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 200.0
-    final_drive: 3.44
+    final_drive_ratio: 3.44
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -2078,7 +2078,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 180.0
-    final_drive: 3.16
+    final_drive_ratio: 3.16
     fuel_eng_capacity: 1199.0
     fuel_engine_stroke: 80.9
     fuel_turbo: 'yes'
@@ -2113,7 +2113,7 @@ vehicle_db:
     engine_max_power: 63.0
     engine_max_speed_at_max_power: 4800.0
     engine_max_torque: 160.0
-    final_drive: 3.63
+    final_drive_ratio: 3.63
     fuel_eng_capacity: 1197.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -2148,7 +2148,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 95.0
-    final_drive: 4.17
+    final_drive_ratio: 4.17
     fuel_eng_capacity: 999.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'no'
@@ -2183,7 +2183,7 @@ vehicle_db:
     engine_max_power: 59.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 200.0
-    final_drive: 3.56
+    final_drive_ratio: 3.56
     fuel_eng_capacity: 1248.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -2218,7 +2218,7 @@ vehicle_db:
     engine_max_power: 57.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 115.0
-    final_drive: 4.07
+    final_drive_ratio: 4.07
     fuel_eng_capacity: 1368.0
     fuel_engine_stroke: 84.0
     fuel_turbo: 'no'
@@ -2253,7 +2253,7 @@ vehicle_db:
     engine_max_power: 99.0
     engine_max_speed_at_max_power: 6300.0
     engine_max_torque: 164.0
-    final_drive: 4.06
+    final_drive_ratio: 4.06
     fuel_eng_capacity: 1591.0
     fuel_engine_stroke: 85.4
     fuel_turbo: 'no'
@@ -2289,7 +2289,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 420.0
-    final_drive: 4.53
+    final_drive_ratio: 4.53
     fuel_eng_capacity: 2179.0
     fuel_engine_stroke: 96.0
     fuel_turbo: 'yes'
@@ -2325,7 +2325,7 @@ vehicle_db:
     engine_max_power: 155.0
     engine_max_speed_at_max_power: 3400.0
     engine_max_torque: 540.0
-    final_drive: 4.38
+    final_drive_ratio: 4.38
     fuel_eng_capacity: 2987.0
     fuel_engine_stroke: 92.0
     fuel_turbo: 'yes'
@@ -2362,7 +2362,7 @@ vehicle_db:
     engine_max_power: 285.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 530.0
-    final_drive: 4.38
+    final_drive_ratio: 4.38
     fuel_eng_capacity: 5461.0
     fuel_engine_stroke: 90.5
     fuel_turbo: 'no'
@@ -2399,7 +2399,7 @@ vehicle_db:
     engine_max_power: 423.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 750.0
-    final_drive: 3.15
+    final_drive_ratio: 3.15
     fuel_eng_capacity: 4395.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -2437,7 +2437,7 @@ vehicle_db:
     engine_max_power: 135.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 270.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 90.1
     fuel_turbo: 'yes'
@@ -2473,7 +2473,7 @@ vehicle_db:
     engine_max_power: 73.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 254.0
-    final_drive: 3.74
+    final_drive_ratio: 3.74
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -2509,7 +2509,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 205.0
-    final_drive: 4.76
+    final_drive_ratio: 4.76
     fuel_eng_capacity: 1199.0
     fuel_engine_stroke: 90.5
     fuel_turbo: 'no'
@@ -2544,7 +2544,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 240.0
-    final_drive: 2.96
+    final_drive_ratio: 2.96
     fuel_eng_capacity: 1498.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'yes'
@@ -2580,7 +2580,7 @@ vehicle_db:
     engine_max_power: 132.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 400.0
-    final_drive: 3.24
+    final_drive_ratio: 3.24
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -2616,7 +2616,7 @@ vehicle_db:
     engine_max_power: 94.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 260.0
-    final_drive: 3.47
+    final_drive_ratio: 3.47
     fuel_eng_capacity: 1582.0
     fuel_engine_stroke: 85.0
     fuel_turbo: 'yes'
@@ -2652,7 +2652,7 @@ vehicle_db:
     engine_max_power: 190.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 600.0
-    final_drive: 3.21
+    final_drive_ratio: 3.21
     fuel_eng_capacity: 2993.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -2690,7 +2690,7 @@ vehicle_db:
     engine_max_power: 375.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 625.0
-    final_drive: 3.31
+    final_drive_ratio: 3.31
     fuel_eng_capacity: 5000.0
     fuel_engine_stroke: 93.0
     fuel_turbo: 'yes'
@@ -2728,7 +2728,7 @@ vehicle_db:
     engine_max_power: 301.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 550.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 2979.0
     fuel_engine_stroke: 84.5
     fuel_turbo: 'yes'
@@ -2764,7 +2764,7 @@ vehicle_db:
     engine_max_power: 202.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 600.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 2987.0
     fuel_engine_stroke: 92.0
     fuel_turbo: 'yes'
@@ -2800,7 +2800,7 @@ vehicle_db:
     engine_max_power: 93.0
     engine_max_speed_at_max_power: 6500.0
     engine_max_torque: 167.0
-    final_drive: 4.1
+    final_drive_ratio: 4.1
     fuel_eng_capacity: 1798.0
     fuel_engine_stroke: 83.1
     fuel_turbo: 'no'
@@ -2835,7 +2835,7 @@ vehicle_db:
     engine_max_power: 93.0
     engine_max_speed_at_max_power: 3600.0
     engine_max_torque: 300.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 1998.0
     fuel_engine_stroke: 86.0
     fuel_turbo: 'yes'
@@ -2870,7 +2870,7 @@ vehicle_db:
     engine_max_power: 107.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 185.0
-    final_drive: 4.07
+    final_drive_ratio: 4.07
     fuel_eng_capacity: 1999.0
     fuel_engine_stroke: 83.1
     fuel_turbo: 'no'
@@ -2905,7 +2905,7 @@ vehicle_db:
     engine_max_power: 100.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 340.0
-    final_drive: 2.85
+    final_drive_ratio: 2.85
     fuel_eng_capacity: 1998.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -2941,7 +2941,7 @@ vehicle_db:
     engine_max_power: 51.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 145.0
-    final_drive: 4.06
+    final_drive_ratio: 4.06
     fuel_eng_capacity: 1248.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -2976,7 +2976,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 180.0
-    final_drive: 3.87
+    final_drive_ratio: 3.87
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -3011,7 +3011,7 @@ vehicle_db:
     engine_max_power: 45.0
     engine_max_speed_at_max_power: 5250.0
     engine_max_torque: 95.0
-    final_drive: 4.21
+    final_drive_ratio: 4.21
     fuel_eng_capacity: 698.0
     fuel_engine_stroke: 67.0
     fuel_turbo: 'yes'
@@ -3047,7 +3047,7 @@ vehicle_db:
     engine_max_power: 30.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 100.0
-    final_drive: 3.15
+    final_drive_ratio: 3.15
     fuel_eng_capacity: 799.0
     fuel_engine_stroke: 79.0
     fuel_turbo: 'yes'
@@ -3083,7 +3083,7 @@ vehicle_db:
     engine_max_power: 419.0
     engine_max_speed_at_max_power: 8000.0
     engine_max_torque: 540.0
-    final_drive: 3.08
+    final_drive_ratio: 3.08
     fuel_eng_capacity: 5204.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'no'
@@ -3119,7 +3119,7 @@ vehicle_db:
     engine_max_power: 280.0
     engine_max_speed_at_max_power: 6400.0
     engine_max_torque: 493.0
-    final_drive: 2.94
+    final_drive_ratio: 2.94
     fuel_eng_capacity: 4608.0
     fuel_engine_stroke: 83.0
     fuel_turbo: 'no'
@@ -3157,7 +3157,7 @@ vehicle_db:
     engine_max_power: 150.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 500.0
-    final_drive: 2.47
+    final_drive_ratio: 2.47
     fuel_eng_capacity: 2143.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -3194,7 +3194,7 @@ vehicle_db:
     engine_max_power: 373.0
     engine_max_speed_at_max_power: 6800.0
     engine_max_torque: 610.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 6208.0
     fuel_engine_stroke: 94.6
     fuel_turbo: 'no'
@@ -3231,7 +3231,7 @@ vehicle_db:
     engine_max_power: 150.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 310.0
-    final_drive: 3.27
+    final_drive_ratio: 3.27
     fuel_eng_capacity: 1796.0
     fuel_engine_stroke: 85.0
     fuel_turbo: 'yes'
@@ -3267,7 +3267,7 @@ vehicle_db:
     engine_max_power: 150.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 500.0
-    final_drive: 2.47
+    final_drive_ratio: 2.47
     fuel_eng_capacity: 2143.0
     fuel_engine_stroke: 99.0
     fuel_turbo: 'yes'
@@ -3303,7 +3303,7 @@ vehicle_db:
     engine_max_power: 103.0
     engine_max_speed_at_max_power: 4900.0
     engine_max_torque: 200.0
-    final_drive: 3.83
+    final_drive_ratio: 3.83
     fuel_eng_capacity: 1364.0
     fuel_engine_stroke: 82.6
     fuel_turbo: 'yes'
@@ -3339,7 +3339,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 400.0
-    final_drive: 3.35
+    final_drive_ratio: 3.35
     fuel_eng_capacity: 1956.0
     fuel_engine_stroke: 90.4
     fuel_turbo: 'yes'
@@ -3375,7 +3375,7 @@ vehicle_db:
     engine_max_power: 74.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 132.0
-    final_drive: .nan
+    final_drive_ratio: .nan
     fuel_eng_capacity: 1329.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'no'
@@ -3410,7 +3410,7 @@ vehicle_db:
     engine_max_power: 180.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 500.0
-    final_drive: 3.33
+    final_drive_ratio: 3.33
     fuel_eng_capacity: 2967.0
     fuel_engine_stroke: 91.4
     fuel_turbo: 'yes'
@@ -3446,7 +3446,7 @@ vehicle_db:
     engine_max_power: 246.0
     engine_max_speed_at_max_power: 6500.0
     engine_max_torque: 430.0
-    final_drive: 3.31
+    final_drive_ratio: 3.31
     fuel_eng_capacity: 4172.0
     fuel_engine_stroke: 93.0
     fuel_turbo: 'no'
@@ -3482,7 +3482,7 @@ vehicle_db:
     engine_max_power: 103.0
     engine_max_speed_at_max_power: 5600.0
     engine_max_torque: 220.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1390.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -3519,7 +3519,7 @@ vehicle_db:
     engine_max_power: 77.0
     engine_max_speed_at_max_power: 4400.0
     engine_max_torque: 250.0
-    final_drive: 3.65
+    final_drive_ratio: 3.65
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -3555,7 +3555,7 @@ vehicle_db:
     engine_max_power: 316.0
     engine_max_speed_at_max_power: 7500.0
     engine_max_torque: 440.0
-    final_drive: 3.44
+    final_drive_ratio: 3.44
     fuel_eng_capacity: 3800.0
     fuel_engine_stroke: 77.5
     fuel_turbo: 'no'
@@ -3592,7 +3592,7 @@ vehicle_db:
     engine_max_power: 90.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 200.0
-    final_drive: 3.27
+    final_drive_ratio: 3.27
     fuel_eng_capacity: 1390.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -3628,7 +3628,7 @@ vehicle_db:
     engine_max_power: 130.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 350.0
-    final_drive: 3.05
+    final_drive_ratio: 3.05
     fuel_eng_capacity: 1968.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -3664,7 +3664,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 6700.0
     engine_max_torque: 210.0
-    final_drive: 4.1
+    final_drive_ratio: 4.1
     fuel_eng_capacity: 1995.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'no'
@@ -3700,7 +3700,7 @@ vehicle_db:
     engine_max_power: 118.0
     engine_max_speed_at_max_power: 5700.0
     engine_max_torque: 240.0
-    final_drive: 4.07
+    final_drive_ratio: 4.07
     fuel_eng_capacity: 1596.0
     fuel_engine_stroke: 81.4
     fuel_turbo: 'yes'
@@ -3735,7 +3735,7 @@ vehicle_db:
     engine_max_power: 103.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 320.0
-    final_drive: 2.96
+    final_drive_ratio: 2.96
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -3771,7 +3771,7 @@ vehicle_db:
     engine_max_power: 223.0
     engine_max_speed_at_max_power: 6300.0
     engine_max_torque: 361.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 3778.0
     fuel_engine_stroke: 87.0
     fuel_turbo: 'no'
@@ -3807,7 +3807,7 @@ vehicle_db:
     engine_max_power: 77.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 175.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1197.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -3844,7 +3844,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 3000.0
     engine_max_torque: 250.0
-    final_drive: 3.43
+    final_drive_ratio: 3.43
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -3881,7 +3881,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 95.0
-    final_drive: 4.17
+    final_drive_ratio: 4.17
     fuel_eng_capacity: 999.0
     fuel_engine_stroke: 76.4
     fuel_turbo: 'no'
@@ -3916,7 +3916,7 @@ vehicle_db:
     engine_max_power: 112.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 250.0
-    final_drive: 2.68
+    final_drive_ratio: 2.68
     fuel_eng_capacity: 1498.0
     fuel_engine_stroke: 70.9
     fuel_turbo: 'yes'
@@ -3952,7 +3952,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 3800.0
     engine_max_torque: 320.0
-    final_drive: 3.69
+    final_drive_ratio: 3.69
     fuel_eng_capacity: 1798.0
     fuel_engine_stroke: 84.1
     fuel_turbo: 'yes'
@@ -3988,7 +3988,7 @@ vehicle_db:
     engine_max_power: 140.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 400.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 1968.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -4025,7 +4025,7 @@ vehicle_db:
     engine_max_power: 140.0
     engine_max_speed_at_max_power: 3800.0
     engine_max_torque: 400.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 1968.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -4062,7 +4062,7 @@ vehicle_db:
     engine_max_power: 165.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 350.0
-    final_drive: 4.09
+    final_drive_ratio: 4.09
     fuel_eng_capacity: 1984.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'yes'
@@ -4099,7 +4099,7 @@ vehicle_db:
     engine_max_power: 44.0
     engine_max_speed_at_max_power: 6250.0
     engine_max_torque: 88.0
-    final_drive: 4.5
+    final_drive_ratio: 4.5
     fuel_eng_capacity: 964.0
     fuel_engine_stroke: 86.0
     fuel_turbo: 'no'
@@ -4134,7 +4134,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 4250.0
     engine_max_torque: 260.0
-    final_drive: 3.94
+    final_drive_ratio: 3.94
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 81.5
     fuel_turbo: 'yes'
@@ -4170,7 +4170,7 @@ vehicle_db:
     engine_max_power: 125.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 400.0
-    final_drive: 3.55
+    final_drive_ratio: 3.55
     fuel_eng_capacity: 1956.0
     fuel_engine_stroke: 90.4
     fuel_turbo: 'yes'
@@ -4206,7 +4206,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 300.0
-    final_drive: 3.74
+    final_drive_ratio: 3.74
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -4242,7 +4242,7 @@ vehicle_db:
     engine_max_power: 60.0
     engine_max_speed_at_max_power: 5750.0
     engine_max_torque: 118.0
-    final_drive: 4.54
+    final_drive_ratio: 4.54
     fuel_eng_capacity: 1199.0
     fuel_engine_stroke: 90.5
     fuel_turbo: 'no'
@@ -4277,7 +4277,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 3600.0
     engine_max_torque: 270.0
-    final_drive: 4.18
+    final_drive_ratio: 4.18
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -4313,7 +4313,7 @@ vehicle_db:
     engine_max_power: 115.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 240.0
-    final_drive: 4.18
+    final_drive_ratio: 4.18
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 85.8
     fuel_turbo: 'yes'
@@ -4349,7 +4349,7 @@ vehicle_db:
     engine_max_power: 133.0
     engine_max_speed_at_max_power: 3750.0
     engine_max_torque: 400.0
-    final_drive: 2.95
+    final_drive_ratio: 2.95
     fuel_eng_capacity: 1997.0
     fuel_engine_stroke: 88.0
     fuel_turbo: 'yes'
@@ -4385,7 +4385,7 @@ vehicle_db:
     engine_max_power: 228.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 400.0
-    final_drive: 3.9
+    final_drive_ratio: 3.9
     fuel_eng_capacity: 3605.0
     fuel_engine_stroke: 83.0
     fuel_turbo: 'no'
@@ -4422,7 +4422,7 @@ vehicle_db:
     engine_max_power: 221.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 650.0
-    final_drive: 2.69
+    final_drive_ratio: 2.69
     fuel_eng_capacity: 2967.0
     fuel_engine_stroke: 91.4
     fuel_turbo: 'yes'
@@ -4460,7 +4460,7 @@ vehicle_db:
     engine_max_power: 66.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 220.0
-    final_drive: 3.56
+    final_drive_ratio: 3.56
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4495,7 +4495,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 4900.0
     engine_max_torque: 190.0
-    final_drive: 3.95
+    final_drive_ratio: 3.95
     fuel_eng_capacity: 1196.0
     fuel_engine_stroke: 73.1
     fuel_turbo: 'yes'
@@ -4531,7 +4531,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 240.0
-    final_drive: 3.62
+    final_drive_ratio: 3.62
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4567,7 +4567,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 190.0
-    final_drive: 3.73
+    final_drive_ratio: 3.73
     fuel_eng_capacity: 1198.0
     fuel_engine_stroke: 73.2
     fuel_turbo: 'yes'
@@ -4603,7 +4603,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 260.0
-    final_drive: 4.13
+    final_drive_ratio: 4.13
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4639,7 +4639,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 190.0
-    final_drive: 4.73
+    final_drive_ratio: 4.73
     fuel_eng_capacity: 1198.0
     fuel_engine_stroke: 73.1
     fuel_turbo: 'yes'
@@ -4675,7 +4675,7 @@ vehicle_db:
     engine_max_power: 81.0
     engine_max_speed_at_max_power: 3000.0
     engine_max_torque: 250.0
-    final_drive: 3.27
+    final_drive_ratio: 3.27
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4711,7 +4711,7 @@ vehicle_db:
     engine_max_power: 206.0
     engine_max_speed_at_max_power: 5350.0
     engine_max_torque: 350.0
-    final_drive: 3.09
+    final_drive_ratio: 3.09
     fuel_eng_capacity: 1984.0
     fuel_engine_stroke: 92.8
     fuel_turbo: 'yes'
@@ -4747,7 +4747,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 320.0
-    final_drive: 3.04
+    final_drive_ratio: 3.04
     fuel_eng_capacity: 1968.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -4783,7 +4783,7 @@ vehicle_db:
     engine_max_power: 132.0
     engine_max_speed_at_max_power: 5100.0
     engine_max_torque: 250.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1798.0
     fuel_engine_stroke: 84.2
     fuel_turbo: 'yes'
@@ -4820,7 +4820,7 @@ vehicle_db:
     engine_max_power: 92.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 200.0
-    final_drive: 4.06
+    final_drive_ratio: 4.06
     fuel_eng_capacity: 1390.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -4856,7 +4856,7 @@ vehicle_db:
     engine_max_power: 77.0
     engine_max_speed_at_max_power: 4400.0
     engine_max_torque: 250.0
-    final_drive: 3.39
+    final_drive_ratio: 3.39
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4892,7 +4892,7 @@ vehicle_db:
     engine_max_power: 59.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 145.0
-    final_drive: 3.87
+    final_drive_ratio: 3.87
     fuel_eng_capacity: 875.0
     fuel_engine_stroke: 86.0
     fuel_turbo: 'yes'
@@ -4927,7 +4927,7 @@ vehicle_db:
     engine_max_power: 50.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 160.0
-    final_drive: 3.37
+    final_drive_ratio: 3.37
     fuel_eng_capacity: 1398.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -4962,7 +4962,7 @@ vehicle_db:
     engine_max_power: 65.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 200.0
-    final_drive: 3.29
+    final_drive_ratio: 3.29
     fuel_eng_capacity: 1461.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -4997,7 +4997,7 @@ vehicle_db:
     engine_max_power: 92.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 200.0
-    final_drive: 4.35
+    final_drive_ratio: 4.35
     fuel_eng_capacity: 1395.0
     fuel_engine_stroke: 80.0
     fuel_turbo: 'yes'
@@ -5033,7 +5033,7 @@ vehicle_db:
     engine_max_power: 114.0
     engine_max_speed_at_max_power: 6500.0
     engine_max_torque: 181.0
-    final_drive: 3.35
+    final_drive_ratio: 3.35
     fuel_eng_capacity: 1995.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'no'
@@ -5067,7 +5067,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 156.0
-    final_drive: 4.87
+    final_drive_ratio: 4.87
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 85.8
     fuel_turbo: 'no'
@@ -5103,7 +5103,7 @@ vehicle_db:
     engine_max_power: 108.0
     engine_max_speed_at_max_power: 5700.0
     engine_max_torque: 196.0
-    final_drive: 3.68
+    final_drive_ratio: 3.68
     fuel_eng_capacity: 1998.0
     fuel_engine_stroke: 86.0
     fuel_turbo: 'no'
@@ -5138,7 +5138,7 @@ vehicle_db:
     engine_max_power: 70.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 200.0
-    final_drive: 3.44
+    final_drive_ratio: 3.44
     fuel_eng_capacity: 1248.0
     fuel_engine_stroke: 82.0
     fuel_turbo: 'yes'
@@ -5173,7 +5173,7 @@ vehicle_db:
     engine_max_power: 225.0
     engine_max_speed_at_max_power: 5800.0
     engine_max_torque: 400.0
-    final_drive: 3.08
+    final_drive_ratio: 3.08
     fuel_eng_capacity: 2979.0
     fuel_engine_stroke: 89.6
     fuel_turbo: 'yes'
@@ -5211,7 +5211,7 @@ vehicle_db:
     engine_max_power: 96.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 230.0
-    final_drive: 4.18
+    final_drive_ratio: 4.18
     fuel_eng_capacity: 1199.0
     fuel_engine_stroke: 90.5
     fuel_turbo: 'yes'
@@ -5247,7 +5247,7 @@ vehicle_db:
     engine_max_power: 190.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 580.0
-    final_drive: 2.38
+    final_drive_ratio: 2.38
     fuel_eng_capacity: 2967.0
     fuel_engine_stroke: 91.4
     fuel_turbo: 'yes'
@@ -5285,7 +5285,7 @@ vehicle_db:
     engine_max_power: 135.0
     engine_max_speed_at_max_power: 5250.0
     engine_max_torque: 270.0
-    final_drive: 3.07
+    final_drive_ratio: 3.07
     fuel_eng_capacity: 1796.0
     fuel_engine_stroke: 85.0
     fuel_turbo: 'yes'
@@ -5321,7 +5321,7 @@ vehicle_db:
     engine_max_power: 85.0
     engine_max_speed_at_max_power: 4500.0
     engine_max_torque: 190.0
-    final_drive: 4.21
+    final_drive_ratio: 4.21
     fuel_eng_capacity: 1197.0
     fuel_engine_stroke: 73.1
     fuel_turbo: 'yes'
@@ -5357,7 +5357,7 @@ vehicle_db:
     engine_max_power: 55.0
     engine_max_speed_at_max_power: 3000.0
     engine_max_torque: 210.0
-    final_drive: 3.39
+    final_drive_ratio: 3.39
     fuel_eng_capacity: 1422.0
     fuel_engine_stroke: 95.5
     fuel_turbo: 'yes'
@@ -5392,7 +5392,7 @@ vehicle_db:
     engine_max_power: 74.0
     engine_max_speed_at_max_power: 5500.0
     engine_max_torque: 145.0
-    final_drive: 3.88
+    final_drive_ratio: 3.88
     fuel_eng_capacity: 1149.0
     fuel_engine_stroke: 76.8
     fuel_turbo: 'yes'
@@ -5427,7 +5427,7 @@ vehicle_db:
     engine_max_power: 110.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 360.0
-    final_drive: 3.23
+    final_drive_ratio: 3.23
     fuel_eng_capacity: 1995.0
     fuel_engine_stroke: 90.0
     fuel_turbo: 'yes'
@@ -5463,7 +5463,7 @@ vehicle_db:
     engine_max_power: 368.0
     engine_max_speed_at_max_power: 6200.0
     engine_max_torque: 625.0
-    final_drive: 3.08
+    final_drive_ratio: 3.08
     fuel_eng_capacity: 6299.0
     fuel_engine_stroke: 90.4
     fuel_turbo: 'no'
@@ -5501,7 +5501,7 @@ vehicle_db:
     engine_max_power: 74.0
     engine_max_speed_at_max_power: 6000.0
     engine_max_torque: 146.0
-    final_drive: 4.25
+    final_drive_ratio: 4.25
     fuel_eng_capacity: 1596.0
     fuel_engine_stroke: 81.4
     fuel_turbo: 'no'
@@ -5536,7 +5536,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 3600.0
     engine_max_torque: 250.0
-    final_drive: 3.65
+    final_drive_ratio: 3.65
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 80.5
     fuel_turbo: 'yes'
@@ -5572,7 +5572,7 @@ vehicle_db:
     engine_max_power: 150.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 500.0
-    final_drive: 2.65
+    final_drive_ratio: 2.65
     fuel_eng_capacity: 2143.0
     fuel_engine_stroke: 99.0
     fuel_turbo: 'yes'
@@ -5609,7 +5609,7 @@ vehicle_db:
     engine_max_power: 87.0
     engine_max_speed_at_max_power: 4100.0
     engine_max_torque: 245.0
-    final_drive: 3.56
+    final_drive_ratio: 3.56
     fuel_eng_capacity: 2500.0
     fuel_engine_stroke: 92.0
     fuel_turbo: 'yes'
@@ -5644,7 +5644,7 @@ vehicle_db:
     engine_max_power: 404.0
     engine_max_speed_at_max_power: 6400.0
     engine_max_torque: 632.0
-    final_drive: 3.7
+    final_drive_ratio: 3.7
     fuel_eng_capacity: 3799.0
     fuel_engine_stroke: 88.4
     fuel_turbo: 'yes'
@@ -5680,7 +5680,7 @@ vehicle_db:
     engine_max_power: 66.0
     engine_max_speed_at_max_power: 4800.0
     engine_max_torque: 160.0
-    final_drive: 3.12
+    final_drive_ratio: 3.12
     fuel_eng_capacity: 1197.0
     fuel_engine_stroke: 75.6
     fuel_turbo: 'yes'
@@ -5717,7 +5717,7 @@ vehicle_db:
     engine_max_power: 96.0
     engine_max_speed_at_max_power: 4000.0
     engine_max_torque: 320.0
-    final_drive: 4.13
+    final_drive_ratio: 4.13
     fuel_eng_capacity: 1598.0
     fuel_engine_stroke: 79.5
     fuel_turbo: 'yes'
@@ -5753,7 +5753,7 @@ vehicle_db:
     engine_max_power: 150.0
     engine_max_speed_at_max_power: 4200.0
     engine_max_torque: 500.0
-    final_drive: 2.82
+    final_drive_ratio: 2.82
     fuel_eng_capacity: 2143.0
     fuel_engine_stroke: 99.0
     fuel_turbo: 'yes'
@@ -5790,7 +5790,7 @@ vehicle_db:
     engine_max_power: 465.0
     engine_max_speed_at_max_power: 5600.0
     engine_max_torque: 800.0
-    final_drive: 2.81
+    final_drive_ratio: 2.81
     fuel_eng_capacity: 6592.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -5828,7 +5828,7 @@ vehicle_db:
     engine_max_power: 380.0
     engine_max_speed_at_max_power: 5000.0
     engine_max_torque: 830.0
-    final_drive: 2.65
+    final_drive_ratio: 2.65
     fuel_eng_capacity: 5513.0
     fuel_engine_stroke: 87.0
     fuel_turbo: 'yes'
@@ -5863,7 +5863,7 @@ vehicle_db:
     engine_max_power: 88.0
     engine_max_speed_at_max_power: 3500.0
     engine_max_torque: 300.0
-    final_drive: 4.05
+    final_drive_ratio: 4.05
     fuel_eng_capacity: 1560.0
     fuel_engine_stroke: 88.3
     fuel_turbo: 'yes'
@@ -5899,7 +5899,7 @@ vehicle_db:
     engine_max_power: .nan
     engine_max_speed_at_max_power: .nan
     engine_max_torque: .nan
-    final_drive: 7.82
+    final_drive_ratio: 7.82
     fuel_eng_capacity: .nan
     fuel_engine_stroke: .nan
     fuel_turbo: .nan
@@ -5930,7 +5930,7 @@ vehicle_inputs:
   engine_max_power: 70.0
   engine_max_speed_at_max_power: 4000.0
   engine_max_torque: 200.0
-  final_drive: 3.44
+  final_drive_ratio: 3.44
   fuel_eng_capacity: 1248.0
   fuel_engine_stroke: 82.0
   fuel_turbo: 'yes'

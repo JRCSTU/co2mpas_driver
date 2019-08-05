@@ -36,7 +36,7 @@ dsp.add_func(
 @sh.add_function(dsp, outputs=['speed_per_gear', 'acc_per_gear'])
 def get_speeds_n_accelerations_per_gear(
         gear_box_ratios, idle_engine_speed, tyre_radius, driveline_slippage,
-        final_drive, driveline_efficiency, vehicle_mass, full_load_speeds,
+        final_drive_ratio, driveline_efficiency, vehicle_mass, full_load_speeds,
         full_load_torques):
     """
     Speed and acceleration points per gear are calculated based on
@@ -59,9 +59,9 @@ def get_speeds_n_accelerations_per_gear(
         Drive line slippage.
     :type driveline_slippage: int
 
-    :param final_drive:
+    :param final_drive_ratio:
         Final drive.
-    :type final_drive: float
+    :type final_drive_ratio: float
 
     :param driveline_efficiency:
         Driveline efficiency.
@@ -84,8 +84,8 @@ def get_speeds_n_accelerations_per_gear(
     fls, flt = np.asarray(full_load_speeds), np.asarray(full_load_torques)
     gbr, b = np.asarray(gear_box_ratios), fls > 1.25 * idle_engine_speed[0]
 
-    cv = 2 * np.pi * tyre_radius * (1 - driveline_slippage) / (60 * final_drive)
-    ca = final_drive * driveline_efficiency / (tyre_radius * vehicle_mass)
+    cv = 2 * np.pi * tyre_radius * (1 - driveline_slippage) / (60 * final_drive_ratio)
+    ca = final_drive_ratio * driveline_efficiency / (tyre_radius * vehicle_mass)
     return cv * fls[None, b] / gbr[:, None], ca * gbr[:, None] * flt[None, b]
 
 
@@ -111,39 +111,61 @@ def get_tan_coefs(speed_per_gear, acc_per_gear, degree):
 
     :return: coefs_per_gear:
         The coefficients of the polynomial for each gear.
-    :rtype: list
+    :rtype: list[tuple[float]]]
     """
-
-    coefs_per_gear = []
-    for speeds, acceleration in zip(speed_per_gear, acc_per_gear):
-        fit_coef = np.polyfit(speeds, acceleration, degree)
-        coefs_per_gear.append(fit_coef)
-
-    return coefs_per_gear
+    it = zip(speed_per_gear, acc_per_gear)
+    return [np.polyfit(s, a, degree) for s, a in it]
 
 
 @sh.add_function(dsp, outputs=['poly_spline', 'Start', 'Stop'])
 def ev_curve(fuel_type, engine_max_power, tyre_radius,
-             motor_max_torque, final_drive,
+             motor_max_torque, final_drive_ratio,
              driveline_efficiency, vehicle_mass, vehicle_max_speed):
     """
     Full load curve of EVs (based on Yinglong).
 
     :param fuel_type:
+        Fuel type.
+    :type fuel_type: str
+
     :param engine_max_power:
+        Engine maximum power.
+    :type engine_max_power: float
+
     :param tyre_radius:
+        Tyre radius.[m]
+    :type tyre_radius: float
+
     :param motor_max_torque:
-    :param final_drive:
+        Motor maximum torque.
+    :type motor_max_torque: float
+
+    :param final_drive_ratio:
+        Final drive
+    :type final_drive_ratio: float
+
     :param driveline_efficiency:
+        Drive line efficiency.
+    :type driveline_efficiency: float
+
     :param vehicle_mass:
+        Vehicle mass.
+    :type vehicle_mass: float
+
     :param vehicle_max_speed:
+        Vehicle maximum speed. [m/s]
+    :type vehicle_max_speed: int
+
     :return:
+        Aceeleration potential curves of Electric Vehicle
+    :rtype: list
     """
     if fuel_type != 'electricity':
         return [sh.NONE] * 3
     from scipy.interpolate import CubicSpline
-    veh_max_acc = motor_max_torque * final_drive
-    veh_max_acc *= driveline_efficiency / (tyre_radius * vehicle_mass)  # m/s2
+
+    veh_max_acc = (motor_max_torque * final_drive_ratio) * driveline_efficiency \
+                  / (tyre_radius * vehicle_mass)  # m/s2
 
     speeds = np.arange(0, vehicle_max_speed + 0.1, 0.1)  # m/s
 
@@ -166,12 +188,23 @@ def get_cubic_splines_of_speed_acceleration_relationship(
         speed_per_gear, acc_per_gear, use_cubic=True):
     """
     Based on speed/acceleration points per gear, cubic splines are calculated
-    (old MFC)
+    (old MFC).
 
-    :param gr:
     :param speed_per_gear:
+        Speed per gear.
+    :type speed_per_gear: list
+
     :param acc_per_gear:
+        Acceleration per gear.
+    :type acc_per_gear: list
+
+    :param use_cubic:
+        Use cubic.
+    :type use_cubic: bool
+
     :return:
+        Engine acceleration potential curves.
+    :rtype: list
     """
     if not use_cubic:
         return sh.NONE
@@ -196,12 +229,24 @@ def get_cubic_splines_of_speed_acceleration_relationship(
                  outputs=['poly_spline'])
 def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
     """
-    Use the coefs to get a "spline" that could be used.
-    AT TIME IT IS USED AS calculate_curve_to_use FUNCTION IS USING SPLINES
+    Use the coefficients to get a "spline" that could be used.
+    AT TIME IT IS USED AS calculate_curve_to_use FUNCTION IS USING SPLINES.
 
     :param coefs_per_gear:
+        Coefficients per gear.
+    :type coefs_per_gear: list
+
     :param starting_speed:
+        Starting speed.
+    :type starting_speed: float
+
+    :param use_cubic:
+        Use cubic.
+    :type use_cubic: bool
+
     :return:
+        Poly spline functions.
+    :rtype: list
     """
     if use_cubic:
         return sh.NONE
@@ -325,17 +370,31 @@ def define_discrete_car_res_curve(car_res_curve, sp_bins):
 @sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force'])
 def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
     """
-    Calculate resistances and return spline
+    Calculate resistances and return spline.
 
     :param type_of_car:
-    :param car_type:
+        Type of car.
+    :type type_of_car: str
+
     :param vehicle_mass:
-    :param engine_max_power:
-    :param car_type:
+        Vehicle mass.
+    :type vehicle_mass: float
+
     :param car_width:
+        Car width.
+    :type car_width: float
+
     :param car_height:
+        Car height.
+    :type car_height: float
+
     :param sp_bins:
+        Speed bins.
+    :type sp_bins: numpy.array
+
     :return:
+        Car resistance curve.
+    :rtype: CubicSpline
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
@@ -351,14 +410,28 @@ def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
 @sh.add_function(dsp, outputs=['Alimit'])
 def Armax(car_type, vehicle_mass, engine_max_power, road_type=1):
     """
-
-    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+    Calculating the maximum acceleration possible for the vehicle object my_car,
+    under road_type conditions.
 
     :param car_type:
-    :param veh_mass:
+        Car type.
+    :type car_type: int
+
+    :param vehicle_mass:
+        Vehicle mass.
+    :type vehicle_mass: float
+
     :param engine_max_power:
+        Maximum engine power.
+    :type engine_max_power: float
+
     :param road_type: road condition (1: normal, 2: wet, 3: icy)
+        Road type.
+    :type road_type: int
+
     :return:
+        Vehicle maximum acceleration.
+    :rtype: float
     """
     if car_type == 2:  # forward-wheel drive vehicles
         fmass = 0.6 * vehicle_mass
@@ -390,16 +463,35 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
                             sp_bins):
     """
     Get the final speed acceleration curves based on full load curves and
-    resistances for all curves
+    resistances for all curves.
 
     :param poly_spline:
-    :param acc:
-    :param Alimit:
-    :param car_res_curve:
+        Poly spline.
+    :type poly_spline:
+
     :param Start:
+        Start speed per gear.
+    :type Start: list
+
     :param Stop:
+        Stop speed per gear.
+    :type Stop: list
+
+    :param Alimit:
+        Maximum acceleration possible.
+    :type Alimit: float
+
+    :param car_res_curve:
+        Car resistance curve.
+    :type car_res_curve:
+
     :param sp_bins:
+        Speed boundaries per gear.
+    :type sp_bins: numpy.array
+
     :return:
+        Final speed and acceleration curves.
+    :rtype: list
     """
     from scipy.interpolate import interp1d
     Res = []
@@ -440,13 +532,23 @@ def define_discrete_acceleration_curves(Curves, Start, Stop):
 def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
     """
     Return the gear limits based on gs_style, using linear gear swifting
-    strategy
+    strategy.
 
     :param speed_per_gear:
+        Speed per gear.
+    :type speed_per_gear: numpy.array
+
     :param gs_style:
+        Gear shifting style.
+    :type gs_style: float
+
     :param use_linear_gs:
+        Use linear gear shifting.
     :type use_linear_gs: bool
+
     :return:
+        Gear limits.
+    :rtype: list
     """
     if not use_linear_gs:
         return sh.NONE
@@ -480,12 +582,23 @@ dsp.add_function(
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     """
     Gets coefficients and speed boundaries and returns Tans value for per speed
-    per gear
+    per gear.
 
     :param coefs_per_gear:
+        Coefficients per gear.
+    :type coefs_per_gear: list
+
     :param Start:
+        Start speed per gear.
+    :type Start: list
+
     :param Stop:
+        Stop speed per gear.
+    :type Stop: list
+
     :return:
+        Tan.
+    :rtype: list
     """
     degree = len(coefs_per_gear[0]) - 1
     vars = np.arange(degree, -1, -1)

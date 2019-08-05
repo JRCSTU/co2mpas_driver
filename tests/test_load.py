@@ -8,7 +8,7 @@
 import unittest
 from co2mpas_driver.load import dsp
 import ddt
-from co2mpas_driver.test.utils import _check
+from tests.utils import _check
 
 import yaml
 import os.path as osp
