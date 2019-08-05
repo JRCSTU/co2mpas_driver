@@ -84,7 +84,8 @@ def get_speeds_n_accelerations_per_gear(
     fls, flt = np.asarray(full_load_speeds), np.asarray(full_load_torques)
     gbr, b = np.asarray(gear_box_ratios), fls > 1.25 * idle_engine_speed[0]
 
-    cv = 2 * np.pi * tyre_radius * (1 - driveline_slippage) / (60 * final_drive_ratio)
+    cv = 2 * np.pi * tyre_radius * (1 - driveline_slippage) / (
+            60 * final_drive_ratio)
     ca = final_drive_ratio * driveline_efficiency / (tyre_radius * vehicle_mass)
     return cv * fls[None, b] / gbr[:, None], ca * gbr[:, None] * flt[None, b]
 
@@ -158,29 +159,19 @@ def ev_curve(fuel_type, engine_max_power, tyre_radius,
 
     :return:
         Aceeleration potential curves of Electric Vehicle
-    :rtype: list
+    :rtype: list[tuple[float]]]
     """
     if fuel_type != 'electricity':
         return [sh.NONE] * 3
     from scipy.interpolate import CubicSpline
+    eff, fdr = driveline_efficiency, final_drive_ratio
 
-    veh_max_acc = (motor_max_torque * final_drive_ratio) * driveline_efficiency \
-                  / (tyre_radius * vehicle_mass)  # m/s2
-
-    speeds = np.arange(0, vehicle_max_speed + 0.1, 0.1)  # m/s
-
+    max_a = motor_max_torque * fdr * eff / (tyre_radius * vehicle_mass)  # m/s2
+    s = np.arange(0, vehicle_max_speed + 0.1, 0.1)  # m/s
     with np.errstate(divide='ignore'):
-        accelerations = engine_max_power * 1000 * \
-                        driveline_efficiency / (speeds * vehicle_mass)
+        a = (engine_max_power * 1e3 * eff / (s * vehicle_mass)).clip(0, max_a)
 
-    accelerations[accelerations > veh_max_acc] = veh_max_acc
-    accelerations[accelerations < 0] = 0
-
-    cs_acc_ev = CubicSpline(speeds, accelerations)
-    start = 0
-    stop = vehicle_max_speed
-
-    return [cs_acc_ev], [start], [stop]
+    return [CubicSpline(s, a)], [0], [vehicle_max_speed]
 
 
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['poly_spline'])
@@ -204,7 +195,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(
 
     :return:
         Engine acceleration potential curves.
-    :rtype: list
+    :rtype: list[tuple[float]]]
     """
     if not use_cubic:
         return sh.NONE
@@ -256,10 +247,8 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
 
     poly_spline = []
 
-    """
-    For the first gear, some points are added at the beginning to avoid
-    unrealistic drops 
-    """
+    # For the first gear, some points are added at the beginning to avoid
+    # unrealistic drops
     x_new = np.insert(np.arange(starting_speed, 70, 0.1), [0, 0],
                       [0, starting_speed / 2])
     a_new = np.array(
