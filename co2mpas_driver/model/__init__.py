@@ -158,7 +158,7 @@ def ev_curve(fuel_type, engine_max_power, tyre_radius,
     :type vehicle_max_speed: int
 
     :return:
-        Aceeleration potential curves of Electric Vehicle
+        Acceleration potential curves of Electric Vehicle
     :rtype: list[tuple[float]]]
     """
     if fuel_type != 'electricity':
@@ -199,21 +199,14 @@ def get_cubic_splines_of_speed_acceleration_relationship(
     """
     if not use_cubic:
         return sh.NONE
-    from scipy.interpolate import CubicSpline
-    cs_acc_per_gear = []
-    for j in range(len(speed_per_gear)):
-        # cs_acc_per_gear.append([])
-        a = np.round((speed_per_gear[j][0]), 2) - 0.01
-        b = np.round((speed_per_gear[j][-1]), 2) + 0.01
-        prefix_list = [a - k * 0.1 for k in range(10, -1, -1)]
-        suffix_list = [b + k * 0.1 for k in range(0, 11, 1)]
-        cs_acc_per_gear.append(CubicSpline(
-            prefix_list + list(speed_per_gear[j]) + suffix_list,
-            [acc_per_gear[j][0]] * len(prefix_list) + list(acc_per_gear[j]) + [
-                acc_per_gear[j][-1]] * len(suffix_list))
-        )
-
-    return cs_acc_per_gear
+    from scipy.interpolate import CubicSpline as Spl
+    v, a = np.asarray(speed_per_gear), np.asarray(acc_per_gear)
+    v = (
+        np.round(v[:, 0, None], 2) - 0.01 - np.linspace(0, 1, 11)[::-1], v,
+        np.round(v[:, -1, None], 2) + 0.01 + np.linspace(0, 1, 11)
+    )
+    a = np.tile(a[:, 0, None], 11), a, np.tile(a[:, -1, None], 11)
+    return [Spl(*d) for d in zip(np.concatenate(v, 1), np.concatenate(a, 1))]
 
 
 @sh.add_function(dsp, inputs_kwargs=True, inputs_defaults=True,
@@ -237,32 +230,20 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
 
     :return:
         Poly spline functions.
-    :rtype: list
+    :rtype: list[tuple[float]]
     """
     if use_cubic:
         return sh.NONE
     from scipy.interpolate import interp1d
-    degree = len(coefs_per_gear[0]) - 1
-    vars = np.arange(degree, -1, -1)
-
-    poly_spline = []
-
     # For the first gear, some points are added at the beginning to avoid
     # unrealistic drops
-    x_new = np.insert(np.arange(starting_speed, 70, 0.1), [0, 0],
-                      [0, starting_speed / 2])
-    a_new = np.array(
-        [np.dot(coefs_per_gear[0], np.power(i, vars)) for i in x_new])
-    a_new[0] = a_new[2]
-    a_new[1] = a_new[2]
-    poly_spline.append(interp1d(x_new, a_new, fill_value='extrapolate'))
+    x = np.arange(starting_speed, 70, 0.1)
+    y = np.polyval(coefs_per_gear[0], [x[0]] + x.tolist())
+    s = [interp1d([0] + x.tolist(), y, fill_value='extrapolate')]
 
-    for fit_coef in coefs_per_gear[1:]:
-        x_new = np.arange(0, 70, 0.1)
-        a_new = np.array([np.dot(fit_coef, np.power(i, vars)) for i in x_new])
-        poly_spline.append(interp1d(x_new, a_new, fill_value='extrapolate'))
-
-    return poly_spline
+    x = np.arange(0, 70, 0.1)
+    y = [np.polyval(p, x) for p in coefs_per_gear[1:]]
+    return s + [interp1d(x, a, fill_value='extrapolate') for a in y]
 
 
 @sh.add_function(dsp, outputs=['discrete_poly_spline'])
@@ -340,11 +321,28 @@ def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear,
 # Start/stop speed for each gear
 @sh.add_function(dsp, outputs=['sp_bins'])
 def define_sp_bins(Stop):
+    """
+    Define speed bins.
+
+    :param Stop:
+        Stop speed per gear curve.
+    :type Stop: list
+
+    :return:
+        Speed bins.
+    :rtype: list[float]
+    """
     return np.arange(0, Stop[-1] + 1, 0.01)
 
 
 @sh.add_function(dsp, outputs=['discrete_car_res_curve_force'])
 def define_discrete_car_res_curve_force(car_res_curve_force, sp_bins):
+    """
+
+    :param car_res_curve_force:
+    :param sp_bins:
+    :return:
+    """
     discrete_car_res_curve_force = car_res_curve_force(sp_bins)
     return discrete_car_res_curve_force
 
