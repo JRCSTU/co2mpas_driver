@@ -248,14 +248,25 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
 
 @sh.add_function(dsp, outputs=['discrete_poly_spline'])
 def define_discrete_poly(poly_spline, sp_bins):
+    """
+    Define discrete poly.
+
+    :param poly_spline:
+        Poly spline.
+    :type poly_spline:
+
+    :param sp_bins:
+        Speed bins.
+    :type sp_bins:
+
+    :return:
+    """
     return [acc(sp_bins) for acc in poly_spline]
 
 
 # Start/stop speed for each gear
 @sh.add_function(dsp, outputs=['Start', 'Stop'])
-def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear,
-                   acc_per_gear,
-                   poly_spline):
+def get_start_stop(vehicle_max_speed, speed_per_gear, poly_spline):
     """
     Calculate Speed boundaries for each gear.
 
@@ -283,39 +294,22 @@ def get_start_stop(gear_box_ratios, vehicle_max_speed, speed_per_gear,
         Start and Stop for each gear.
     :rtype: list, list
     """
-    speed_per_gear = np.array(speed_per_gear).tolist()
-    acc_per_gear = np.array(acc_per_gear).tolist()
+    vg = np.asarray(speed_per_gear)
     # To ensure that a higher gear starts from higher speed
-    for j in range(len(gear_box_ratios) - 1, 0, -1):
-        for k in range(len(speed_per_gear[j])):
-            if speed_per_gear[j - 1][0] < speed_per_gear[j][0]:
-                break
-            else:
-                # If the gear ratios are not declining,
-                # there is an error in the database. Return error.
-                return
-                # speed_per_gear[j] = speed_per_gear[j][3:]
-
-    # Find where the curve of each gear cuts the next one.
-    for j in range(len(speed_per_gear) - 1):
-        for k in range(
-                np.minimum(len(speed_per_gear[j]), len(speed_per_gear[j + 1]))):
-            if (speed_per_gear[j][k] > speed_per_gear[j + 1][0]) & (
-                    poly_spline[j + 1](speed_per_gear[j][k]) >
-                    poly_spline[j](speed_per_gear[j][k])):
-                max_point = k
-                speed_per_gear[j] = speed_per_gear[j][:max_point]
-                acc_per_gear[j] = acc_per_gear[j][:max_point]
-                break
+    vi, vi1 = vg[:-1, 0], vg[1:, 0]
+    if (vi > vi1).any():
+        raise ValueError
 
     # The limits of the gears that should be provided to the gear shifting model
-    Start = []
-    Stop = []
-    for i in speed_per_gear:
-        Start.append(i[0])
-        Stop.append(min(i[-1], vehicle_max_speed))
-    Start[0] = 0
-    return Start, Stop
+
+    start, stop = vg[:, 0].copy(), np.minimum(vg[:, -1], vehicle_max_speed)
+    start[0], index = 0, np.maximum(0, np.arange(vg.shape[1]) - 1)
+    # Find where the curve of each gear cuts the next one.
+    b, _min = vg[:-1] > vg[1:, 0, None], lambda *a: np.min(a)
+    for i, (v, (ps0, ps1)) in enumerate(zip(vg[:-1], sh.pairwise(poly_spline))):
+        stop[i] = _min(stop[i], *v[index[b[i] & (ps1(v) > ps0(v))]])
+
+    return start, stop
 
 
 # Start/stop speed for each gear
