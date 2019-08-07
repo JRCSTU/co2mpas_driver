@@ -292,7 +292,7 @@ def get_start_stop(vehicle_max_speed, speed_per_gear, poly_spline):
 
     :return:
         Start and Stop for each gear.
-    :rtype: list, list
+    :rtype: numpy.array, numpy.array
     """
     vg = np.asarray(speed_per_gear)
     # To ensure that a higher gear starts from higher speed
