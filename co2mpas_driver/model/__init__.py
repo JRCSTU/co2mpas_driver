@@ -477,12 +477,6 @@ def calculate_curves_to_use(
         a[a < 0] = 0
         final_acc.append(a)
 
-    ################### YOUR CODE ####################
-    _final_acc = None
-    ##################################################
-
-    assert (np.array(final_acc) == _final_acc).all()
-
     return [interp1d(sp_bins, a) for a in final_acc]
 
 
