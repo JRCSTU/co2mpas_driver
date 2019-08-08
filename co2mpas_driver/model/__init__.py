@@ -294,20 +294,17 @@ def get_start_stop(vehicle_max_speed, speed_per_gear, poly_spline):
         Start and Stop for each gear.
     :rtype: numpy.array, numpy.array
     """
-    vg = np.asarray(speed_per_gear)
-    # To ensure that a higher gear starts from higher speed
-    vi, vi1 = vg[:-1, 0], vg[1:, 0]
-    if (vi > vi1).any():
-        raise ValueError
+    v = np.asarray(speed_per_gear)
+    # Ensure that a higher gear starts from higher speed.
+    assert (v[:-1, 0] < v[1:, 0]).all(), "Incoherent shifting point (vi < vi1)!"
 
-    # The limits of the gears that should be provided to the gear shifting model
+    start, stop = v[:, 0].copy(), np.minimum(v[:, -1], vehicle_max_speed)
+    start[0], index = 0, np.maximum(0, np.arange(v.shape[1]) - 1)
 
-    start, stop = vg[:, 0].copy(), np.minimum(vg[:, -1], vehicle_max_speed)
-    start[0], index = 0, np.maximum(0, np.arange(vg.shape[1]) - 1)
     # Find where the curve of each gear cuts the next one.
-    b, _min = vg[:-1] > vg[1:, 0, None], lambda *a: np.min(a)
-    for i, (v, (ps0, ps1)) in enumerate(zip(vg[:-1], sh.pairwise(poly_spline))):
-        stop[i] = _min(stop[i], *v[index[b[i] & (ps1(v) > ps0(v))]])
+    b, _min = v[:-1] > v[1:, 0, None], lambda *a: np.min(a)
+    for i, (_v, (ps0, ps1)) in enumerate(zip(v[:-1], sh.pairwise(poly_spline))):
+        stop[i] = _min(stop[i], *_v[index[b[i] & (ps1(_v) > ps0(_v))]])
 
     return start, stop
 
@@ -332,19 +329,26 @@ def define_sp_bins(Stop):
 @sh.add_function(dsp, outputs=['discrete_car_res_curve_force'])
 def define_discrete_car_res_curve_force(car_res_curve_force, sp_bins):
     """
+    Define discrete resistance force.
 
     :param car_res_curve_force:
+        Resistance force.
+    :type car_res_curve_force
+
     :param sp_bins:
+        Speed boundaries.
+    :type sp_bins: numpy.array
+
     :return:
+        Discrete resistance force.
+    :rtype:
     """
-    discrete_car_res_curve_force = car_res_curve_force(sp_bins)
-    return discrete_car_res_curve_force
+    return car_res_curve_force(sp_bins)
 
 
 @sh.add_function(dsp, outputs=['discrete_car_res_curve'])
 def define_discrete_car_res_curve(car_res_curve, sp_bins):
-    discrete_car_res_curve = car_res_curve(sp_bins)
-    return discrete_car_res_curve
+    return car_res_curve(sp_bins)
 
 
 # Calculate Curves
@@ -370,7 +374,7 @@ def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
     :type car_height: float
 
     :param sp_bins:
-        Speed bins.
+        Speed boundaries.
     :type sp_bins: numpy.array
 
     :return:
@@ -379,12 +383,10 @@ def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
-    f0, f1, f2 = estimate_f_coefficients(vehicle_mass, type_of_car, car_width,
-                                         car_height)
-    car_res_curve, car_res_curve_force = veh_resistances(f0, f1, f2,
-                                                         list(sp_bins),
-                                                         vehicle_mass)
-    return car_res_curve, car_res_curve_force
+    f0, f1, f2 = estimate_f_coefficients(
+        vehicle_mass, type_of_car, car_width, car_height
+    )
+    return veh_resistances(f0, f1, f2, sp_bins, vehicle_mass)
 
 
 # The maximum force that the vehicle can have on the road
@@ -414,34 +416,20 @@ def Armax(car_type, vehicle_mass, engine_max_power, road_type=1):
         Vehicle maximum acceleration.
     :rtype: float
     """
-    if car_type == 2:  # forward-wheel drive vehicles
-        fmass = 0.6 * vehicle_mass
-    elif car_type == 4:  # rear-wheel drive vehicles
-        fmass = 0.45 * vehicle_mass
-    else:  # all-wheel drive vehicles, 4x4
-        fmass = 1 * vehicle_mass
 
-    if road_type == 1:
-        mh_base = 0.75  # for normal road
-    elif road_type == 2:
-        mh_base = 0.25  # for wet road
-    else:
-        mh_base = 0.1  # for icy road
-    # Optimal values:
-    # 0.8 dry, 0.6 light rain, 0.4 heavy rain, 0.1 icy
-    alpha = 43.398
-    beta = 5.1549
+    mass = {2: .6, 4: .45}.get(car_type, 1) * vehicle_mass  # Load distribution.
+    mh_base = {1: .75, 2: .25}.get(road_type, .1)  # Friction coeff.
+
+    alpha, beta = 43.398, 5.1549
     mh = mh_base * (alpha * np.log(engine_max_power) + beta) / 190
-
     # * cos(f) for the gradient of the road. Here we consider as 0
-    Frmax = fmass * 9.8066 * mh
 
-    return Frmax / vehicle_mass
+    return mass * 9.8066 * mh / vehicle_mass
 
 
 @sh.add_function(dsp, outputs=['Curves'])
-def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
-                            sp_bins):
+def calculate_curves_to_use(
+        discrete_poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
     """
     Get the final speed acceleration curves based on full load curves and
     resistances for all curves.
@@ -475,22 +463,27 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
     :rtype: list
     """
     from scipy.interpolate import interp1d
-    Res = []
-
-    for gear, acc in enumerate(poly_spline):
+    acc = np.asarray(discrete_poly_spline)
+    final_acc = []
+    for gear, acc in enumerate(discrete_poly_spline):
         start = Start[gear] * 0.9
         stop = Stop[gear] + 0.1
 
-        final_acc = acc(sp_bins) - car_res_curve(sp_bins)
-        final_acc[final_acc > Alimit] = Alimit
+        a = acc - car_res_curve(sp_bins)
+        a[a > Alimit] = Alimit
 
-        final_acc[(sp_bins < start)] = 0
-        final_acc[(sp_bins > stop)] = 0
-        final_acc[final_acc < 0] = 0
+        a[(sp_bins < start)] = 0
+        a[(sp_bins > stop)] = 0
+        a[a < 0] = 0
+        final_acc.append(a)
 
-        Res.append(interp1d(sp_bins, final_acc))
+    ################### YOUR CODE ####################
+    _final_acc = None
+    ##################################################
 
-    return Res
+    assert (np.array(final_acc) == _final_acc).all()
+
+    return [interp1d(sp_bins, a) for a in final_acc]
 
 
 @sh.add_function(dsp, outputs=['starting_speed'])

@@ -140,6 +140,7 @@ def veh_resistances(f0, f1, f2, sp, total_mass):
     :param total_mass:
     :return:
     """
+    sp = list(sp)
     Fresistance = []
     for i in range(len(sp)):
         Fresistance.append(f0 + f1 * sp[i] * 3.6 + f2 * pow(sp[i] * 3.6, 2))
