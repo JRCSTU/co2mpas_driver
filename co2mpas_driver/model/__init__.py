@@ -465,6 +465,7 @@ def calculate_curves_to_use(
     from scipy.interpolate import interp1d
     acc = np.asarray(discrete_poly_spline)
     final_acc = []
+    acc[:1]
     for gear, acc in enumerate(discrete_poly_spline):
         start = Start[gear] * 0.9
         stop = Stop[gear] + 0.1
@@ -478,6 +479,10 @@ def calculate_curves_to_use(
         final_acc.append(a)
 
     return [interp1d(sp_bins, a) for a in final_acc]
+
+    # ################### MY CODE ######################
+
+    # ##################################################
 
 
 @sh.add_function(dsp, outputs=['starting_speed'])
