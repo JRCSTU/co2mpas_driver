@@ -480,10 +480,6 @@ def calculate_curves_to_use(
 
     return [interp1d(sp_bins, a) for a in final_acc]
 
-    # ################### MY CODE ######################
-
-    # ##################################################
-
 
 @sh.add_function(dsp, outputs=['starting_speed'])
 def get_starting_speed(speed_per_gear):
@@ -502,18 +498,18 @@ def define_discrete_acceleration_curves(Curves, Start, Stop):
 
 # Extract speed acceleration Splines
 @sh.add_function(dsp, inputs_kwargs=True, inputs_defaults=True, outputs=['gs'])
-def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
+def gear_linear(speed_per_gear, gear_shifting_style, use_linear_gs=True):
     """
-    Return the gear limits based on gs_style, using linear gear swifting
+    Return the gear limits based on gear_shifting_style, using linear gear swifting
     strategy.
 
     :param speed_per_gear:
         Speed per gear.
     :type speed_per_gear: numpy.array
 
-    :param gs_style:
+    :param gear_shifting_style:
         Gear shifting style.
-    :type gs_style: float
+    :type gear_shifting_style: float
 
     :param use_linear_gs:
         Use linear gear shifting.
@@ -527,14 +523,14 @@ def gear_linear(speed_per_gear, gs_style, use_linear_gs=True):
         return sh.NONE
     n_gears = len(speed_per_gear)
 
-    gs_style = min(gs_style, 1)
-    gs_style = max(gs_style, 0)
+    gear_shifting_style = min(gear_shifting_style, 1)
+    gear_shifting_style = max(gear_shifting_style, 0)
 
     gs = []
 
     for gear in range(n_gears - 1):
-        speed_by_gs = speed_per_gear[gear][-1] * gs_style + \
-                      speed_per_gear[gear][0] * (1 - gs_style)
+        speed_by_gs = speed_per_gear[gear][-1] * gear_shifting_style + \
+                      speed_per_gear[gear][0] * (1 - gear_shifting_style)
         speed_for_continuity = speed_per_gear[gear + 1][0]
         cutoff_s = max(speed_by_gs, speed_for_continuity)
 
@@ -587,10 +583,10 @@ def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     return Tans
 
 
-def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
+def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gear_shifting_style):
     """
 
-    Find where gear is changed, vased on tans and gs_style
+    Find where gear is changed, vased on tans and gear_shifting_style
 
     :param tmp_min:
     :param tmp_max:
@@ -605,11 +601,11 @@ def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 
     # tan starts from positive and goes negative, so I use (1 - cutoff)
     # for the percentage
-    if gs_style > 0.99:
-        gs_style = 1
-    elif gs_style < 0.01:
-        gs_style = 0.01
-    tan_cutoff = (1 - gs_style) * acc_range + min_tan
+    if gear_shifting_style > 0.99:
+        gear_shifting_style = 1
+    elif gear_shifting_style < 0.01:
+        gear_shifting_style = 0.01
+    tan_cutoff = (1 - gear_shifting_style) * acc_range + min_tan
 
     # Search_from = int(tmp_min_next * 10)
     search_from = int((tmp_min_next - tmp_min) * 10) + 1
@@ -624,7 +620,7 @@ def _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
 
 
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['gs'])
-def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
+def gear_points_from_tan(Tans, gear_shifting_style, Start, Stop, use_linear_gs=False):
     """
     Get the gear cuts based on gear shifting style and tangent values.
 
@@ -632,9 +628,9 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
         Tangent values per gear.
     :type Tans:
 
-    :param gs_style:
+    :param gear_shifting_style:
         Gear shifting style.
-    :type gs_style:
+    :type gear_shifting_style:
 
     :param Start:
         Start speed per gear curve.
@@ -655,7 +651,7 @@ def gear_points_from_tan(Tans, gs_style, Start, Stop, use_linear_gs=False):
     if use_linear_gs:
         return sh.NONE
     n_gears = len(Tans)
-    gs_cut = [gs_style for i in range(n_gears)]
+    gs_cut = [gear_shifting_style for i in range(n_gears)]
 
     gs = []
 
