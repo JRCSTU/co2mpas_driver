@@ -1,7 +1,7 @@
 import os
 from os import path as osp
 import matplotlib.pyplot as plt
-from co2mpas_driver import dsp as core
+from co2mpas_driver import dsp
 import schedula as sh
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
@@ -20,17 +20,17 @@ def simple_run():
         'time_series': {'times': list(range(2, 23))}
     }
 
+    core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
+               outputs=['outputs'], shrink=True)
+
+    outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
+
     output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
-                          'discrete_acceleration_curves'],
-                sh.selector(['outputs'], sh.selector(['outputs'],
-                      core(dict(db_path=db_path, input_path=input_path,
-                                inputs=inputs), outputs=['outputs'], shrink=True)))['outputs'])
+                          'discrete_acceleration_curves'], outputs['outputs'])
 
     Curves, poly_spline, Start, Stop, gs, discrete_acceleration_curves = \
         output['Curves'], output['poly_spline'], output['Start'], \
         output['Stop'], output['gs'], output['discrete_acceleration_curves']
-
-    # dsp.register(memo={}).plot()
 
     for d in discrete_acceleration_curves:
         plt.plot(d['x'], d['y'])
