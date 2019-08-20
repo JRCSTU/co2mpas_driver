@@ -1,17 +1,20 @@
-import os
-from os import path as osp
+from os import chdir, path as osp
 import matplotlib.pyplot as plt
 from co2mpas_driver import dsp
 import schedula as sh
 my_dir = osp.dirname(osp.abspath(__file__))
-os.chdir(my_dir)
+chdir(my_dir)
 
 
 def simple_run():
     # Vehicles database path
-    db_path = 'C:/Apps/new_MFC/co2mpas_driver/db/EuroSegmentCar.csv'
-    # db_path = osp.join(my_dir, '../db', 'EuroSegmentCar.csv')
-    input_path = 'C:/Apps/new_MFC/co2mpas_driver/template/sample.xlsx'
+    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar.csv'))
+    # input file path
+    input_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                      'co2mpas_driver', 'template',
+                                      'sample.xlsx'))
     # user inputs
     inputs = {
         'vehicle_id': 35135,  # A sample car id from the database
