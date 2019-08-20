@@ -26,8 +26,13 @@ def simple_run():
     core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
                outputs=['outputs'], shrink=True)
 
+    # plots simulation model
+    core.plot()
+
+    # outputs of the dispatcher
     outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
 
+    # select the desired output
     output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
                           'discrete_acceleration_curves'], outputs['outputs'])
 
