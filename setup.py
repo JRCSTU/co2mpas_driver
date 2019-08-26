@@ -39,7 +39,9 @@ if __name__ == '__main__':
     setup(
         name=name,
         version='1.0.0',
-        packages=find_packages(),
+        packages=find_packages(exclude=[
+            'test', 'test.*',
+        ]),
         license="European Union Public Licence 1.1 or later (EUPL 1.1+)",
         description='A lightweight microsimulation free-flow acceleration model'
                     '(MFC) that is able to capture the vehicle acceleration '
@@ -66,25 +68,33 @@ if __name__ == '__main__':
         ],
         install_requires=[
             'PyYAML',
-            'schedula',
+            'schedula>=0.3.2',
+            'tqdm',
+            'scikit-learn',
+            'regex',
+            'lmfit>=0.9.7',
             'numpy',
+            'schema',
+            'scipy',
+            'wltp',
+            'xgboost'
         ],
         tests_require=test_deps,
         package_data={
-            'new_MFC': [
-                'test/*.yaml',
-                'db/*.csv'
+            'co2mpas_driver': [
+                'template/*.xlsx',
+                '*'
             ]
         },
         entry_points={
             "console_scripts": [
-                                "sample_4degree_with_linear=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_different_curves=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_EV=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_gear_shifting=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_light_co2mpas=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_mfc_curves=new_MFC.examples.sample_4degree_with_linear:simple_run",
-                                "sample_simulation=new_MFC.examples.sample_4degree_with_linear:simple_run"]
+                                "sample_4degree_with_linear=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_different_curves=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_EV=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_gear_shifting=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_light_co2mpas=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_mfc_curves=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
+                                "sample_simulation=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run"]
         },
         include_package_data=True,
         zip_safe=True,
