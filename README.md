@@ -53,11 +53,12 @@ https://journals.sagepub.com/
         new_MFC
         ├───LICENSE.txt
         ├───bin
-        ├───new_MFC
+        ├───co2mpas_driver
         │   ├───common
         │   ├───db
-        │   ├───examples
-        │   ├───test
+        │   ├───model
+        │   ├───template
+        ├───tests
         ├───MANIFEST.it
         ├───README.md
         ├───requirements.txt
@@ -99,30 +100,32 @@ https://journals.sagepub.com/
             
          This will create a folder structure like this:
 
-            new_MFC
-            ├───LICENSE.txt
-            ├───bin
-            ├───build
-            │   ├───bdist.win-amd64
-            │   └───lib
-            │       └───new_MFC
-            │           ├───common
-            │           ├───db
-            │           ├───examples
-            │           └───test
-            ├───dist
-            │   ├───new_MFC-1.0.0-py2.py3-none-any.whl
-            ├───new_MFC
-            │   ├───common
-            │   ├───db
-            │   ├───examples
-            │   ├───test
-            ├───new_MFC.egg-info
-            ├───MANIFEST.it
-            ├───README.md
-            ├───requirements.txt
-            ├───setup.py
-            └───.gitignore
+                new_MFC
+                ├───bin
+                ├───build
+                │   ├───bdist.win-amd64
+                │   └───lib
+                │       ├───co2mpas_driver
+                │       │   ├───common
+                │       │   ├───model
+                │       │   └───template
+                │       ├───examples
+                │       └───tests
+                ├───co2mpas_driver
+                │   ├───common
+                │   │   └───__pycache__
+                │   ├───db
+                │   ├───model
+                │   │   └───__pycache__
+                │   ├───template
+                │   └───__pycache__
+                ├───dist
+                ├───examples
+                │   └───
+                ├───new_MFC.egg-info
+                ├───tests
+                │   └───results
+                └───__pycache__
             
          * **Build** build package information.
          * **dist** This contains the wheel file format which is the standard 

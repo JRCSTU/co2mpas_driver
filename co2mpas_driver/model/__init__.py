@@ -429,7 +429,7 @@ def Armax(car_type, vehicle_mass, engine_max_power, road_type=1):
 
 @sh.add_function(dsp, outputs=['Curves'])
 def calculate_curves_to_use(
-        discrete_poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
+        poly_spline, Start, Stop, Alimit, car_res_curve, sp_bins):
     """
     Get the final speed acceleration curves based on full load curves and
     resistances for all curves.
@@ -463,22 +463,22 @@ def calculate_curves_to_use(
     :rtype: list
     """
     from scipy.interpolate import interp1d
-    acc = np.asarray(discrete_poly_spline)
-    final_acc = []
-    acc[:1]
-    for gear, acc in enumerate(discrete_poly_spline):
+    Res = []
+
+    for gear, acc in enumerate(poly_spline):
         start = Start[gear] * 0.9
         stop = Stop[gear] + 0.1
 
-        a = acc - car_res_curve(sp_bins)
-        a[a > Alimit] = Alimit
+        final_acc = acc(sp_bins) - car_res_curve(sp_bins)
+        final_acc[final_acc > Alimit] = Alimit
 
-        a[(sp_bins < start)] = 0
-        a[(sp_bins > stop)] = 0
-        a[a < 0] = 0
-        final_acc.append(a)
+        final_acc[(sp_bins < start)] = 0
+        final_acc[(sp_bins > stop)] = 0
+        final_acc[final_acc < 0] = 0
 
-    return [interp1d(sp_bins, a) for a in final_acc]
+        Res.append(interp1d(sp_bins, final_acc))
+
+    return Res
 
 
 @sh.add_function(dsp, outputs=['starting_speed'])
@@ -491,7 +491,7 @@ def get_starting_speed(speed_per_gear):
 def define_discrete_acceleration_curves(Curves, Start, Stop):
     res = []
     for gear, f in enumerate(Curves):
-        x = np.arange(Start[gear], Stop[gear], 0.2)
+        x = np.arange(Start[gear], Stop[gear], 0.1)
         res.append(dict(x=x, y=f(x)))
     return res
 
@@ -674,7 +674,7 @@ def define_times(duration, sim_step):
 
 
 @sh.add_function(dsp, outputs=['gears', 'velocities'])
-def run_simulation(transmission, v_start, gs, times, Curves, desired_velocity,
+def run_simulation(transmission, starting_speed, gs, times, Curves, desired_velocity,
                    driver_style):
     """
     Run simulation.
@@ -683,13 +683,9 @@ def run_simulation(transmission, v_start, gs, times, Curves, desired_velocity,
         Transmission type of vehicle.
     :type transmission: str
 
-    :param v_start:
+    :param starting_speed:
         Current speed.
-    :type v_start: int
-
-    :param sim_step:
-        Simulation step in seconds.
-    :type sim_step: float
+    :type starting_speed: int
 
     :param gs: list
         Gear shifting style.
@@ -716,9 +712,9 @@ def run_simulation(transmission, v_start, gs, times, Curves, desired_velocity,
     :rtype: list, list
     """
     from .simulation import gear_for_speed_profiles, simulation_step_function
-    velocities = [v_start]
+    velocities = [starting_speed]
 
-    speed = v_start
+    speed = starting_speed
 
     # Returns the gear that must be used and the clutch condition
     gear, gear_count = gear_for_speed_profiles(gs, speed, 0, 0)
@@ -728,8 +724,8 @@ def run_simulation(transmission, v_start, gs, times, Curves, desired_velocity,
     # Core loop
     for dt in np.diff(times):
         speed, gear, gear_count = simulation_step_function(
-            transmission, speed, gear, gear_count, gs, Curves, desired_velocity,
-            driver_style, dt
+            transmission, speed, gear, gear_count, gs, Curves,
+            desired_velocity, driver_style, dt
         )
 
         # Gather data
