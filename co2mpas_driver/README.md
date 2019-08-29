@@ -55,11 +55,13 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             import matplotlib.pyplot as plt
        
       * Import dispatcher(dsp) from co2mpas_driver that contains functions 
-        and a model `dsp` to processes to process vehicle data.
+        and simulation model to process vehicle data.
          
             from co2mpas_driver import dsp
             import schedula as sh
        
+    b. **Load data**
+    
       * Load vehicle data for a specific vehicle from vehicles database
        
             db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
@@ -72,6 +74,12 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                                       'co2mpas_driver', 'template',
                                       'sample.xlsx'))     
       
+      * Sample time series
+       
+            sim_step = 0.1 #The simulation step in seconds
+            duration = 100 #Duration of the simulation in seconds
+            times = np.arange(0, duration + sim_step, sim_step)
+            
       * Load user input parameters directly writing in your sample script
        
             inputs = {
@@ -81,7 +89,9 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                        'driver_style': 1},  # gear shifting can take value
             # from 0(timid driver) to 1(aggressive driver)
             'time_series': {'times': times}
-            }      
+            }
+            
+    c. **Dispatcher**      
             
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
