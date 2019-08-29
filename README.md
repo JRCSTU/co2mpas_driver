@@ -25,7 +25,6 @@ For more information you may find the publication :
 https://journals.sagepub.com/ 
 
 
- 
 ## How to package new_MFC project for distribution
 <!--move them to CONTRIBUTING.md -->
 
