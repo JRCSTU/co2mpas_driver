@@ -10,13 +10,15 @@ It contains the explanations and definitions required to understand how to use
 the model, understand its needs, and analyse its outputs. These guidelines are
 written for users without specific IT knowledge.
 
-Design diagram
+##Design diagram
 
-   ![alt text](images/design.png "Description goes here")
+   ![alt text](images/design.png)
 
-1. Load module.
+##1. Load module.
  
 
-   ![alt text](images/load.png "Description goes here")
+   ![alt text](images/load.png)
 
-This function loads 
+This function loads
+
+##2. Simulation Model. 
