@@ -6,7 +6,7 @@ library. It contains the explanations and definitions required to understand how
 the the library. These guidelines are written for users without specific IT knowledge.
 for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
-## Design diagram
+## Design diagram (core model)
 
    ![alt text](images/design.png)
 
@@ -92,6 +92,71 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             }
             
     c. **Dispatcher**      
+      
+      * Dispatch the function calls based on the input values that satisfy the 
+        function's domain
+               
+            core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
+               outputs=['outputs'], shrink=True)
+               
+      * Plot workflow of the dispatcher(core model)
+               
+            core.plot()
             
+        ![alt text](images/design.png)
+        
+        **The Load module**
+        
+        ![alt text](images/load.png)
+        
+        **merged vehicle data for the vehicle_id used above**
+        
+        ![alt text](images/data.png)
+            
+      * Load outputs of dispatcher
+               
+            outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
+            
+      * select the desired output
+            
+            output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
+                          'discrete_acceleration_curves', 'velocities',
+                          'accelerations', 'transmission'], outputs['outputs'])
+             
+        The final acceleration curvers (Curves), the engine acceleration potential 
+        curves (poly_spline), before the calculation of the resistances and the
+        limitation due to max possible acceleration (friction).
+                        
+            curves, poly_spline, start, stop, gs, discrete_acceleration_curves, \
+            velocities, accelerations, transmission, discrete_acceleration_curves = \
+            output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'], \
+            output['discrete_acceleration_curves'], output['velocities'], \
+            output['accelerations'], output['transmission'], \
+            output['discrete_acceleration_curves']
+               
+    c. **Plot**          
+            
+            plt.figure('Time-Speed')
+            plt.plot(times, velocities)
+            plt.grid()
+            plt.figure('Speed-Acceleration')
+            plt.plot(velocities, accelerations)
+            plt.grid()
+            plt.figure('Acceleration-Time')
+            plt.plot(times, accelerations)
+            plt.grid()
+            
+            
+            plt.figure('Speed-Acceleration')
+            for curve in discrete_acceleration_curves:
+                sp_bins = list(curve['x'])
+                acceleration = list(curve['y'])
+                plt.plot(sp_bins, acceleration, 'k')
+            plt.show()
+            return 0
+            
+            if __name__ == '__main__':
+                simple_run()  
+               
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
