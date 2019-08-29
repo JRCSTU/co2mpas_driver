@@ -34,10 +34,27 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
     * **Run simulation:** This part runs simulation of 
 
-3. **How to download and Install co2mpas_driver library**
-    This package can be installed easily on any machine that has pip
+3. **Installing new_MFC package**
+    This package can be installed from python package index using 
+    a requirement specifier. easily on any machine that has pip
     
         pip install new_MFC 
+
+4. **How to use co2mpas_driver library**:
+    In this example we will use new_MFC model in order to extract the drivers 
+    acceleration behavior as approaching the desired speed.
+    
+    a. **Setup** 
+       
+      * First, set up python, numpy, matplotlib.
+      
+        set up python environment: numpy for numerical routines, and matplotlib 
+        for plotting
+        
+            import numpy as np
+            import matplotlib.pyplot as plt
+       
+       
 
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
