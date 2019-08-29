@@ -12,11 +12,11 @@ written for users without specific IT knowledge.
 
 Design diagram
 
-        ![alt text](images/design.png "Description goes here")
+   ![alt text](images/design.png "Description goes here")
 
 1. Load module.
  
 
-        ![alt text](images/load.png "Description goes here")
+   ![alt text](images/load.png "Description goes here")
 
 This function loads 
