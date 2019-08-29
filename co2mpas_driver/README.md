@@ -28,8 +28,6 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
         1. data: this returns a data-value tree which is used as an input for 
            running simulation model. 
 
-   ![alt text](images/load.png)
-
 2. **Simulation Model.** 
 
     * **Run simulation:** This part runs simulation of 
