@@ -2,11 +2,7 @@
 
 # Please cite: Makridis, M., Fontaras, G., Ciuffo, B.F., Mattas, K., 2019. MFC free-flow model: Introducing vehicle dynamics in microsimulation. TRR.
 
-## User guidelines for co2mpas_driver library
-This page contains user guidelines intended for first users of co2mpas_driver model.
-It contains the explanations and definitions required to understand how to use
-the model, understand its needs, and analyse its outputs. These guidelines are
-written for users without specific IT knowledge.
+## MFC Free-Flow Model: Introducing Vehicle Dynamics in Microsimulation
 
 This work proposes the microsimulation a free-flow acceleration model (MFC) 
 that is based on two parameters that can be calibrated, gear-shifting style and 
