@@ -737,7 +737,7 @@ def run_simulation(transmission, starting_speed, gs, times, Curves, desired_velo
 @sh.add_function(dsp, outputs=['accelerations'])
 def calculate_accelerations(times, velocities):
     dv = np.ediff1d(velocities, to_begin=[0])
-    dt = np.ediff1d(times, to_begin=[1])
+    dt = np.ediff1d(times, to_begin=[0])
     return (dv / dt).tolist()
 
 

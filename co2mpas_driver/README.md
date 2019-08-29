@@ -2,6 +2,20 @@
 
 # Please cite: Makridis, M., Fontaras, G., Ciuffo, B.F., Mattas, K., 2019. MFC free-flow model: Introducing vehicle dynamics in microsimulation. TRR.
 
-How to package new_MFC project for distribution
+## User guidelines for co2mpas_driver library
+<!--move them to CONTRIBUTING.md -->
 
-1.Source distribution
+This page contains user guidelines intended for first users of co2mpas_driver model.
+It contains the explanations and definitions required to understand how to use
+the model, understand its needs, and analyse its outputs. These guidelines are
+written for users without specific IT knowledge.
+
+Design diagram
+
+![alt text](images/design.png "Description goes here")
+
+1. Load module. 
+
+![alt text](images/load.png "Description goes here")
+
+This function loads 

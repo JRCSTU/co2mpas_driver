@@ -1,17 +1,17 @@
-from os import chdir, path as osp
+import os
+import os.path as osp
 import numpy as np
 import matplotlib.pyplot as plt
 from co2mpas_driver import dsp
 import schedula as sh
 
 my_dir = osp.dirname(osp.abspath(__file__))
-chdir(my_dir)
+os.chdir(my_dir)
 
 
 def simple_run():
     """:parameters of the simulation"""
     # Vehicle databased based on the Euro Car Segment classification
-    # file path without extension of the file
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
                                    'EuroSegmentCar.csv'))
