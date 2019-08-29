@@ -14,18 +14,20 @@ written for users without specific IT knowledge.
 
    ![alt text](images/design.png)
 
-1. **Load module.**
+1. **Load module.** This loads 
 
     * **Inputs** :
     
-        1. db_path:
-        2. input_path:
-        3. inputs:
-        4. vehicle_id: 
+        1. db_path: file path for vehicle database based on the Euro car segment
+           classification
+        2. input_path: file path to an excel file that contains user input parameters
+        3. inputs: user input parameters
+        4. vehicle_id: Id for a specific vehicle
     
     * **output** :
         
-        1. data:
+        1. data: this returns a data-value tree which is used as an input for 
+           running simulation model. 
 
    ![alt text](images/load.png)
 
