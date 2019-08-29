@@ -35,8 +35,8 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
     * **Run simulation:** This part runs simulation of 
 
 3. **Installing new_MFC package**
-    This package can be installed from python package index using 
-    a requirement specifier. easily on any machine that has pip
+    This package can be installed easily on any machine that has pip 
+    from python package index using a requirement specifier 
     
         pip install new_MFC 
 
@@ -54,7 +54,34 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             import numpy as np
             import matplotlib.pyplot as plt
        
+      * Import dispatcher(dsp) from co2mpas_driver that contains functions 
+        and a model `dsp` to processes to process vehicle data.
+         
+            from co2mpas_driver import dsp
+            import schedula as sh
        
-
+      * Load vehicle data for a specific vehicle from vehicles database
+       
+            db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar.csv'))
+            
+      * Load user input parameters from an excel file
+       
+            input_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                      'co2mpas_driver', 'template',
+                                      'sample.xlsx'))     
+      
+      * Load user input parameters from an excel file
+       
+            inputs = {
+            'vehicle_id': 35135,  # A sample car id from the database
+            'inputs': {'gear_shifting_style': 0.7, 'starting_speed': 0,
+                       'desired_velocity': 40,
+                       'driver_style': 1},  # gear shifting can take value
+            # from 0(timid driver) to 1(aggressive driver)
+            'time_series': {'times': times}
+        }      
+            
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
