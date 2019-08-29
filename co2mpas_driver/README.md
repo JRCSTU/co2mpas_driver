@@ -109,7 +109,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
         
         **merged vehicle data for the vehicle_id used above**
         
-        ![alt text](images/data.jpg)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/data.PNG)
             
       * Load outputs of dispatcher
                
