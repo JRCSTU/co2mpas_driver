@@ -1,10 +1,10 @@
 ## User guidelines for co2mpas_driver
 <!--move them to CONTRIBUTING.md -->
 
-This page contains user guidelines intended for first users of co2mpas_driver model.
-It contains the explanations and definitions required to understand how to use
-the model, understand its needs, and analyse its outputs. These guidelines are
-written for users without specific IT knowledge.
+This page contains user guidelines intended for first time users of co2mpas_driver 
+library. It contains the explanations and definitions required to understand how to use
+the the library. These guidelines are written for users without specific IT knowledge.
+for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
 ## Design diagram
 
@@ -29,8 +29,6 @@ written for users without specific IT knowledge.
            running simulation model. 
 
    ![alt text](images/load.png)
-
-This function loads
 
 2. **Simulation Model.** 
 
