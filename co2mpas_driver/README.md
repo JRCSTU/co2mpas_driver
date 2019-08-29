@@ -10,14 +10,17 @@ written for users without specific IT knowledge.
 
    ![alt text](images/design.png)
 
-1. **Load module.** This loads 
+1. **Load module.** This model loads vehicle specifications based on the vehicle id
+ and user input(gear shifting style, driver style, desired velocity) parameters 
+ for the execution of simulation model in order to extract the drivers acceleration
+ behavior as approaching the desired speed
 
     * **Inputs** :
     
         1. db_path: file path for vehicle database based on the Euro car segment
            classification
         2. input_path: file path to an excel file that contains user input parameters
-        3. inputs: user input parameters
+        3. inputs: user input parameters directly from console
         4. vehicle_id: Id for a specific vehicle
     
     * **output** :
@@ -31,4 +34,4 @@ This function loads
 
 2. **Simulation Model.** 
 
-    1. **Run simulation:** This part runs simulation of 
+    * **Run simulation:** This part runs simulation of 
