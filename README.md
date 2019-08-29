@@ -162,8 +162,7 @@ https://journals.sagepub.com/
         1. **for Windows** :  C:/Users/UserName/.pypirc
         2. **for** ***nix** :   ~/.pypirc  
 
-## How to download and Install co2mpas_driver library.
-8. **Conclusion**
+8. **download and Install co2mpas_driver library**
     This package can be installed easily on any machine that has pip
     
         pip install new_MFC 
