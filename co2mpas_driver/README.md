@@ -151,6 +151,11 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                 acceleration = list(curve['y'])
                 plt.plot(sp_bins, acceleration, 'k')
             plt.show()
+            
+    d. **Results**
+    
+     ![alt text](images/speed-time.png)
+            
             return 0
             
             if __name__ == '__main__':
