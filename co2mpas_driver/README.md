@@ -154,7 +154,17 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             
     d. **Results**
     
-     ![alt text](images/speed-time.png)
+    speed versus time graph
+      
+     ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/speed-time.PNG)
+     
+    acceleration versus speed graph
+      
+     ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acce-speed.PNG)
+     
+     acceleration versus speed graph
+      
+     ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
             
             return 0
             
