@@ -72,7 +72,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                                       'co2mpas_driver', 'template',
                                       'sample.xlsx'))     
       
-      * Load user input parameters from an excel file
+      * Load user input parameters directly writing in your sample script
        
             inputs = {
             'vehicle_id': 35135,  # A sample car id from the database
@@ -81,7 +81,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                        'driver_style': 1},  # gear shifting can take value
             # from 0(timid driver) to 1(aggressive driver)
             'time_series': {'times': times}
-        }      
+            }      
             
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
