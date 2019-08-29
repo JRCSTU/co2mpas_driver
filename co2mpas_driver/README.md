@@ -20,7 +20,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
         1. db_path: file path for vehicle database based on the Euro car segment
            classification
         2. input_path: file path to an excel file that contains user input parameters
-        3. inputs: user input parameters directly from console
+        3. inputs: users provide some parameters directly from console
         4. vehicle_id: Id for a specific vehicle
     
     * **output** :
@@ -33,3 +33,11 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 2. **Simulation Model.** 
 
     * **Run simulation:** This part runs simulation of 
+
+3. **How to download and Install co2mpas_driver library**
+    This package can be installed easily on any machine that has pip
+    
+        pip install new_MFC 
+
+[1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
+[2]: https://black.readthedocs.io/  
