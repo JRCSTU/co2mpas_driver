@@ -20,8 +20,8 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
         1. db_path: file path for vehicle database based on the Euro car segment
            classification
         2. input_path: file path to an excel file that contains user input parameters
-           where the user can change parameters like time driver style, gear shifting style 
-           series, desired velocity, velocity range, file path to the vehicle database etc.
+           where the user can change parameters like driver style, gear shifting style 
+           time series, desired velocity, velocity range, file path to the vehicle database etc.
         3. inputs: users provide some parameters directly from their sample script
         4. vehicle_id: Id for a specific vehicle
     
@@ -31,7 +31,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
            running simulation model. 
 
 2. **Simulation Model.** 
-
+    
     * **Run simulation:** This part simulates vehicles resulting acceleration per gear, gear shifting points, 
      final acceleration potential based on input parameters: gear shifting style, driver style and vehicle_id
      over the desired speed range.
@@ -170,7 +170,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acce-speed.PNG)
      
      **Figure 2.** Acceleration per gear, the gear-shifting points and final acceleration potential of our selected 
-       vehicle over the desired speed
+       vehicle over the desired speed range
      
      Acceleration(m/s*2) versus speed graph(m/s)
       
