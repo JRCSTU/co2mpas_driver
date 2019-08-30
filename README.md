@@ -53,6 +53,7 @@ https://journals.sagepub.com/
         │   ├───db
         │   ├───model
         │   ├───template
+        ├───examples
         ├───tests
         ├───MANIFEST.it
         ├───README.md
