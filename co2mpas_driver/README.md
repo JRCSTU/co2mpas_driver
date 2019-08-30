@@ -30,7 +30,9 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
 2. **Simulation Model.** 
 
-    * **Run simulation:** This part runs simulation of 
+    * **Run simulation:** This part simulates vehicles resulting acceleration per gear, gear shifting points, 
+     final acceleration potential based on input parameters gear shifting style, driver style and vehicle_id
+     over the desired speed range.
 
 3. **Installing new_MFC package**
     This package can be installed easily on any machine that has pip 
@@ -39,7 +41,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
         pip install new_MFC 
 
 4. **How to use co2mpas_driver library**:
-    In this example we will use new_MFC model in order to extract the drivers 
+    In this example we will use new_MFC driver model in order to extract the drivers 
     acceleration behavior as approaching the desired speed.
     
     a. **Setup** 

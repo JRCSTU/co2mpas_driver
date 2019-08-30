@@ -25,7 +25,7 @@ For more information you may find the publication :
 https://journals.sagepub.com/ 
 
 
-## How to package new_MFC project for distribution
+## Packaging co2mpas_driver library for distribution
 <!--move them to CONTRIBUTING.md -->
 
 1. **Register on PyPi**: https://pypi.org/account/register/ or GitHub and upload 
