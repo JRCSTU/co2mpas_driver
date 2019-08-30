@@ -103,11 +103,11 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                
             core.plot()
             
-        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core_example.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core_example.PNG)
         
         **The Load module**
         
-        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load_example.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load_example.PNG)
         
         **merged vehicle data for the vehicle_id used above**
         
