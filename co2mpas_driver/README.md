@@ -186,6 +186,12 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
             
             if __name__ == '__main__':
                 simple_run()  
+   
+   **Contributing**
+   
+   Pull requests and stars are highly welcome.
+   
+   For bugs and feature requests, please [create an issue](https://github.com/ashenafimenza/new_MFC/issues/new).
                
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
