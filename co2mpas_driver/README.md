@@ -99,7 +99,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
             core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
                outputs=['outputs'], shrink=True)
                
-      * Plot workflow of the dispatcher(core model)
+      * Plot workflow of the core model from the dispatcher
                
             core.plot()
             
