@@ -189,7 +189,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
    
    **Contributing**
    
-   Pull requests and stars are highly welcome.
+   Pull requests and stars are very welcome.
    
    For bugs and feature requests, please [create an issue](https://github.com/ashenafimenza/new_MFC/issues/new).
                
