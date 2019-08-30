@@ -8,13 +8,13 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
 ## Design diagram (core model)
 
-   ![alt text](images/core.png)
+   ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)
 
 1. **Load module.** This model loads vehicle specifications based on the vehicle id
  and user input(gear shifting style, driver style, desired velocity) parameters 
  for the execution of simulation model in order to extract the drivers acceleration
  behavior as approaching the desired speed
-
+   ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load.png)
     * **Inputs** :
     
         1. db_path: file path for vehicle database based on the Euro car segment
@@ -103,11 +103,11 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                
             core.plot()
             
-        ![alt text](images/core_example.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core_example.png)
         
         **The Load module**
         
-        ![alt text](images/load.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load_example.png)
         
         **merged vehicle data for the vehicle_id used above**
         
