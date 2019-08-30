@@ -21,7 +21,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
            classification
         2. input_path: file path to an excel file that contains user input 
            parameters where the user can change parameters like driver style, 
-           gear shifting style, time series, desired velocity, velocity range, 
+           gear shifting style, time series, starting speed, desired velocity, 
            file path to the vehicle database etc.
         3. inputs: users provide some parameters directly from their sample script
         4. vehicle_id: Id for a specific vehicle
