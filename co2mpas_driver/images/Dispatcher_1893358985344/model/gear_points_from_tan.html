@@ -1,0 +1,62 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, inputs_kwargs<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'gs'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">gear_points_from_tan</span>(Tans, gear_shifting_style, Start, Stop, use_linear_gs<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">False</span>):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Get the gear cuts based on gear shifting style and tangent values.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Tans:</span>
+<span style="color: #BA2121; font-style: italic">        Tangent values per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type Tans:</span>
+
+<span style="color: #BA2121; font-style: italic">    :param gear_shifting_style:</span>
+<span style="color: #BA2121; font-style: italic">        Gear shifting style.</span>
+<span style="color: #BA2121; font-style: italic">    :type gear_shifting_style:</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Start:</span>
+<span style="color: #BA2121; font-style: italic">        Start speed per gear curve.</span>
+<span style="color: #BA2121; font-style: italic">    :type Start:</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Stop:</span>
+<span style="color: #BA2121; font-style: italic">        Stop speed per gear curve.</span>
+<span style="color: #BA2121; font-style: italic">    :type Stop:</span>
+
+<span style="color: #BA2121; font-style: italic">    :param use_linear_gs:</span>
+<span style="color: #BA2121; font-style: italic">        Use gear linear to calculate gs.</span>
+<span style="color: #BA2121; font-style: italic">    :type use_linear_gs: bool</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Gear limits</span>
+<span style="color: #BA2121; font-style: italic">    :type:</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    <span style="color: #008000; font-weight: bold">if</span> use_linear_gs:
+        <span style="color: #008000; font-weight: bold">return</span> sh<span style="color: #666666">.</span>NONE
+    n_gears <span style="color: #666666">=</span> <span style="color: #008000">len</span>(Tans)
+    gs_cut <span style="color: #666666">=</span> [gear_shifting_style <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(n_gears)]
+
+    gs <span style="color: #666666">=</span> []
+
+    <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(n_gears <span style="color: #666666">-</span> <span style="color: #666666">1</span>):
+        tmp_min <span style="color: #666666">=</span> Start[i]
+        tmp_max <span style="color: #666666">=</span> Stop[i]
+        tan <span style="color: #666666">=</span> Tans[i]
+        tmp_min_next <span style="color: #666666">=</span> Start[i <span style="color: #666666">+</span> <span style="color: #666666">1</span>]
+        cutoff_s <span style="color: #666666">=</span> _find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next,
+                                     gs_cut[i])
+
+        gs<span style="color: #666666">.</span>append(cutoff_s)
+
+    <span style="color: #008000; font-weight: bold">return</span> gs
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

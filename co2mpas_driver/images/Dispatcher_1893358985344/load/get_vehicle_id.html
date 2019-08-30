@@ -1,0 +1,29 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'vehicle_id'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_vehicle_id</span>(raw_data):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Get vehicle ID from raw data.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param raw_data:</span>
+<span style="color: #BA2121; font-style: italic">        Raw data of input file.</span>
+<span style="color: #BA2121; font-style: italic">    :type raw_data: dict</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle ID.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: int</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    <span style="color: #008000; font-weight: bold">return</span> raw_data[<span style="color: #BA2121">'config'</span>][<span style="color: #BA2121">'vehicle_id'</span>]
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

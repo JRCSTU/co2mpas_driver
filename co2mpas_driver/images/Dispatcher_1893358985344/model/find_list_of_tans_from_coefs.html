@@ -1,0 +1,49 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'Tans'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">find_list_of_tans_from_coefs</span>(coefs_per_gear, Start, Stop):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Gets coefficients and speed boundaries and returns Tans value for per speed</span>
+<span style="color: #BA2121; font-style: italic">    per gear.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param coefs_per_gear:</span>
+<span style="color: #BA2121; font-style: italic">        Coefficients per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type coefs_per_gear: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Start:</span>
+<span style="color: #BA2121; font-style: italic">        Start speed per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type Start: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param Stop:</span>
+<span style="color: #BA2121; font-style: italic">        Stop speed per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type Stop: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Tan.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: list</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    degree <span style="color: #666666">=</span> <span style="color: #008000">len</span>(coefs_per_gear[<span style="color: #666666">0</span>]) <span style="color: #666666">-</span> <span style="color: #666666">1</span>
+    <span style="color: #008000">vars</span> <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(degree, <span style="color: #666666">-1</span>, <span style="color: #666666">-1</span>)
+
+    Tans <span style="color: #666666">=</span> []
+
+    <span style="color: #008000; font-weight: bold">for</span> gear, coefs <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>(coefs_per_gear):
+        x_new <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(Start[gear], Stop[gear], <span style="color: #666666">0.1</span>)
+        a_new <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array([np<span style="color: #666666">.</span>dot(coefs, np<span style="color: #666666">.</span>power(i, <span style="color: #008000">vars</span>)) <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> x_new])
+
+        Tans<span style="color: #666666">.</span>append(np<span style="color: #666666">.</span>diff(a_new) <span style="color: #666666">*</span> <span style="color: #666666">10</span>)
+
+    <span style="color: #008000; font-weight: bold">return</span> Tans
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

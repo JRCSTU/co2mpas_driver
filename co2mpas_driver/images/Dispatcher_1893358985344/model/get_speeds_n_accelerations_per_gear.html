@@ -1,0 +1,70 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'speed_per_gear'</span>, <span style="color: #BA2121">'acc_per_gear'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_speeds_n_accelerations_per_gear</span>(
+        gear_box_ratios, idle_engine_speed, tyre_radius, driveline_slippage,
+        final_drive_ratio, driveline_efficiency, vehicle_mass, full_load_speeds,
+        full_load_torques):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Speed and acceleration points per gear are calculated based on</span>
+<span style="color: #BA2121; font-style: italic">    full load curve, new version works with array and</span>
+<span style="color: #BA2121; font-style: italic">    forbid acceleration over the maximum vehicle speed.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param gear_box_ratios:</span>
+<span style="color: #BA2121; font-style: italic">        Gear box ratio.</span>
+<span style="color: #BA2121; font-style: italic">    :type gear_box_ratios: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param idle_engine_speed:</span>
+<span style="color: #BA2121; font-style: italic">        Idle engine speed.</span>
+<span style="color: #BA2121; font-style: italic">    :type idle_engine_speed: tuple</span>
+
+<span style="color: #BA2121; font-style: italic">    :param tyre_radius:</span>
+<span style="color: #BA2121; font-style: italic">        Tyre radius.</span>
+<span style="color: #BA2121; font-style: italic">    :type tyre_radius: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param driveline_slippage:</span>
+<span style="color: #BA2121; font-style: italic">        Drive line slippage.</span>
+<span style="color: #BA2121; font-style: italic">    :type driveline_slippage: int</span>
+
+<span style="color: #BA2121; font-style: italic">    :param final_drive_ratio:</span>
+<span style="color: #BA2121; font-style: italic">        Final drive.</span>
+<span style="color: #BA2121; font-style: italic">    :type final_drive_ratio: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param driveline_efficiency:</span>
+<span style="color: #BA2121; font-style: italic">        Driveline efficiency.</span>
+<span style="color: #BA2121; font-style: italic">    :type driveline_efficiency: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param vehicle_mass:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle mass.</span>
+<span style="color: #BA2121; font-style: italic">    :type vehicle_mass: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param full_load_speeds:</span>
+<span style="color: #BA2121; font-style: italic">        Full load speeds.</span>
+<span style="color: #BA2121; font-style: italic">    :type full_load_speeds: ndarray</span>
+
+<span style="color: #BA2121; font-style: italic">    :param full_load_torques:</span>
+<span style="color: #BA2121; font-style: italic">    :type full_load_torques: ndarray</span>
+
+<span style="color: #BA2121; font-style: italic">    :return: speed_per_gear</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+
+    fls, flt <span style="color: #666666">=</span> np<span style="color: #666666">.</span>asarray(full_load_speeds), np<span style="color: #666666">.</span>asarray(full_load_torques)
+    gbr, b <span style="color: #666666">=</span> np<span style="color: #666666">.</span>asarray(gear_box_ratios), fls <span style="color: #666666">&gt;</span> <span style="color: #666666">1.25</span> <span style="color: #666666">*</span> idle_engine_speed[<span style="color: #666666">0</span>]
+
+    cv <span style="color: #666666">=</span> <span style="color: #666666">2</span> <span style="color: #666666">*</span> np<span style="color: #666666">.</span>pi <span style="color: #666666">*</span> tyre_radius <span style="color: #666666">*</span> (<span style="color: #666666">1</span> <span style="color: #666666">-</span> driveline_slippage) <span style="color: #666666">/</span> (
+            <span style="color: #666666">60</span> <span style="color: #666666">*</span> final_drive_ratio)
+    ca <span style="color: #666666">=</span> final_drive_ratio <span style="color: #666666">*</span> driveline_efficiency <span style="color: #666666">/</span> (tyre_radius <span style="color: #666666">*</span> vehicle_mass)
+    <span style="color: #008000; font-weight: bold">return</span> cv <span style="color: #666666">*</span> fls[<span style="color: #008000; font-weight: bold">None</span>, b] <span style="color: #666666">/</span> gbr[:, <span style="color: #008000; font-weight: bold">None</span>], ca <span style="color: #666666">*</span> gbr[:, <span style="color: #008000; font-weight: bold">None</span>] <span style="color: #666666">*</span> flt[<span style="color: #008000; font-weight: bold">None</span>, b]
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

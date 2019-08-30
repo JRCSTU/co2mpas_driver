@@ -1,0 +1,50 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, inputs_kwargs<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>, inputs_defaults<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>,
+                 outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'poly_spline'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_spline_out_of_coefs</span>(coefs_per_gear, starting_speed, use_cubic<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">False</span>):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Use the coefficients to get a "spline" that could be used.</span>
+<span style="color: #BA2121; font-style: italic">    AT TIME IT IS USED AS calculate_curve_to_use FUNCTION IS USING SPLINES.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param coefs_per_gear:</span>
+<span style="color: #BA2121; font-style: italic">        Coefficients per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type coefs_per_gear: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param starting_speed:</span>
+<span style="color: #BA2121; font-style: italic">        Starting speed.</span>
+<span style="color: #BA2121; font-style: italic">    :type starting_speed: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param use_cubic:</span>
+<span style="color: #BA2121; font-style: italic">        Use cubic.</span>
+<span style="color: #BA2121; font-style: italic">    :type use_cubic: bool</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Poly spline functions.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: list[tuple[float]]</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    <span style="color: #008000; font-weight: bold">if</span> use_cubic:
+        <span style="color: #008000; font-weight: bold">return</span> sh<span style="color: #666666">.</span>NONE
+    <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> interp1d
+    <span style="color: #408080; font-style: italic"># For the first gear, some points are added at the beginning to avoid</span>
+    <span style="color: #408080; font-style: italic"># unrealistic drops</span>
+    x <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(starting_speed, <span style="color: #666666">70</span>, <span style="color: #666666">0.1</span>)
+    y <span style="color: #666666">=</span> np<span style="color: #666666">.</span>polyval(coefs_per_gear[<span style="color: #666666">0</span>], [x[<span style="color: #666666">0</span>]] <span style="color: #666666">+</span> x<span style="color: #666666">.</span>tolist())
+    s <span style="color: #666666">=</span> [interp1d([<span style="color: #666666">0</span>] <span style="color: #666666">+</span> x<span style="color: #666666">.</span>tolist(), y, fill_value<span style="color: #666666">=</span><span style="color: #BA2121">'extrapolate'</span>)]
+
+    x <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(<span style="color: #666666">0</span>, <span style="color: #666666">70</span>, <span style="color: #666666">0.1</span>)
+    y <span style="color: #666666">=</span> [np<span style="color: #666666">.</span>polyval(p, x) <span style="color: #008000; font-weight: bold">for</span> p <span style="color: #AA22FF; font-weight: bold">in</span> coefs_per_gear[<span style="color: #666666">1</span>:]]
+    <span style="color: #008000; font-weight: bold">return</span> s <span style="color: #666666">+</span> [interp1d(x, a, fill_value<span style="color: #666666">=</span><span style="color: #BA2121">'extrapolate'</span>) <span style="color: #008000; font-weight: bold">for</span> a <span style="color: #AA22FF; font-weight: bold">in</span> y]
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

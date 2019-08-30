@@ -1,0 +1,43 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">bypass</span>(<span style="color: #666666">*</span>inputs, copy<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">False</span>):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Returns the same arguments.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param inputs:</span>
+<span style="color: #BA2121; font-style: italic">        Inputs values.</span>
+<span style="color: #BA2121; font-style: italic">    :type inputs: T</span>
+
+<span style="color: #BA2121; font-style: italic">    :param copy:</span>
+<span style="color: #BA2121; font-style: italic">        If True, it returns a deepcopy of input values.</span>
+<span style="color: #BA2121; font-style: italic">    :type copy: bool, optional</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Same input values.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: (T, ...), T</span>
+
+<span style="color: #BA2121; font-style: italic">    Example::</span>
+
+<span style="color: #BA2121; font-style: italic">        &gt;&gt;&gt; bypass('a', 'b', 'c')</span>
+<span style="color: #BA2121; font-style: italic">        ('a', 'b', 'c')</span>
+<span style="color: #BA2121; font-style: italic">        &gt;&gt;&gt; bypass('a')</span>
+<span style="color: #BA2121; font-style: italic">        'a'</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+
+    <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">len</span>(inputs) <span style="color: #666666">==</span> <span style="color: #666666">1</span>:
+        inputs <span style="color: #666666">=</span> inputs[<span style="color: #666666">0</span>]  <span style="color: #408080; font-style: italic"># Same inputs.</span>
+
+    <span style="color: #008000; font-weight: bold">return</span> _copy<span style="color: #666666">.</span>deepcopy(inputs) <span style="color: #008000; font-weight: bold">if</span> copy <span style="color: #008000; font-weight: bold">else</span> inputs  <span style="color: #408080; font-style: italic"># Return inputs.</span>
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

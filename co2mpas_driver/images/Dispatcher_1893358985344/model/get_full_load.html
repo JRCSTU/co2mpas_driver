@@ -1,0 +1,34 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_full_load</span>(ignition_type):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Returns vehicle full load curve.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param ignition_type:</span>
+<span style="color: #BA2121; font-style: italic">        Engine ignition type (positive or compression).</span>
+<span style="color: #BA2121; font-style: italic">    :type ignition_type: str</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle normalized full load curve.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: scipy.interpolate.InterpolatedUnivariateSpline</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+
+    xp, fp <span style="color: #666666">=</span> defaults<span style="color: #666666">.</span>dfl<span style="color: #666666">.</span>functions<span style="color: #666666">.</span>get_full_load<span style="color: #666666">.</span>FULL_LOAD[ignition_type]
+    func <span style="color: #666666">=</span> functools<span style="color: #666666">.</span>partial(
+        np<span style="color: #666666">.</span>interp, xp<span style="color: #666666">=</span>xp, fp<span style="color: #666666">=</span>fp, left<span style="color: #666666">=</span>fp[<span style="color: #666666">0</span>], right<span style="color: #666666">=</span>fp[<span style="color: #666666">-1</span>]
+    )
+
+    <span style="color: #008000; font-weight: bold">return</span> func
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

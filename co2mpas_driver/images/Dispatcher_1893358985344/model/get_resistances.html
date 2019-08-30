@@ -1,0 +1,50 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'car_res_curve'</span>, <span style="color: #BA2121">'car_res_curve_force'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_resistances</span>(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Calculate resistances and return spline.</span>
+
+<span style="color: #BA2121; font-style: italic">    :param type_of_car:</span>
+<span style="color: #BA2121; font-style: italic">        Type of car.</span>
+<span style="color: #BA2121; font-style: italic">    :type type_of_car: str</span>
+
+<span style="color: #BA2121; font-style: italic">    :param vehicle_mass:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle mass.</span>
+<span style="color: #BA2121; font-style: italic">    :type vehicle_mass: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param car_width:</span>
+<span style="color: #BA2121; font-style: italic">        Car width.</span>
+<span style="color: #BA2121; font-style: italic">    :type car_width: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param car_height:</span>
+<span style="color: #BA2121; font-style: italic">        Car height.</span>
+<span style="color: #BA2121; font-style: italic">    :type car_height: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param sp_bins:</span>
+<span style="color: #BA2121; font-style: italic">        Speed boundaries.</span>
+<span style="color: #BA2121; font-style: italic">    :type sp_bins: numpy.array</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Car resistance curve.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: CubicSpline</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+
+    <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">.co2mpas</span> <span style="color: #008000; font-weight: bold">import</span> estimate_f_coefficients, veh_resistances, Armax
+    f0, f1, f2 <span style="color: #666666">=</span> estimate_f_coefficients(
+        vehicle_mass, type_of_car, car_width, car_height
+    )
+    <span style="color: #008000; font-weight: bold">return</span> veh_resistances(f0, f1, f2, sp_bins, vehicle_mass)
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

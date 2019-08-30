@@ -1,0 +1,69 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'poly_spline'</span>, <span style="color: #BA2121">'Start'</span>, <span style="color: #BA2121">'Stop'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">ev_curve</span>(fuel_type, engine_max_power, tyre_radius,
+             motor_max_torque, final_drive_ratio,
+             driveline_efficiency, vehicle_mass, vehicle_max_speed):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Full load curve of EVs (based on Yinglong).</span>
+
+<span style="color: #BA2121; font-style: italic">    :param fuel_type:</span>
+<span style="color: #BA2121; font-style: italic">        Fuel type.</span>
+<span style="color: #BA2121; font-style: italic">    :type fuel_type: str</span>
+
+<span style="color: #BA2121; font-style: italic">    :param engine_max_power:</span>
+<span style="color: #BA2121; font-style: italic">        Engine maximum power.</span>
+<span style="color: #BA2121; font-style: italic">    :type engine_max_power: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param tyre_radius:</span>
+<span style="color: #BA2121; font-style: italic">        Tyre radius.[m]</span>
+<span style="color: #BA2121; font-style: italic">    :type tyre_radius: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param motor_max_torque:</span>
+<span style="color: #BA2121; font-style: italic">        Motor maximum torque.</span>
+<span style="color: #BA2121; font-style: italic">    :type motor_max_torque: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param final_drive_ratio:</span>
+<span style="color: #BA2121; font-style: italic">        Final drive</span>
+<span style="color: #BA2121; font-style: italic">    :type final_drive_ratio: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param driveline_efficiency:</span>
+<span style="color: #BA2121; font-style: italic">        Drive line efficiency.</span>
+<span style="color: #BA2121; font-style: italic">    :type driveline_efficiency: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param vehicle_mass:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle mass.</span>
+<span style="color: #BA2121; font-style: italic">    :type vehicle_mass: float</span>
+
+<span style="color: #BA2121; font-style: italic">    :param vehicle_max_speed:</span>
+<span style="color: #BA2121; font-style: italic">        Vehicle maximum speed. [m/s]</span>
+<span style="color: #BA2121; font-style: italic">    :type vehicle_max_speed: int</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Acceleration potential curves of Electric Vehicle</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: list[tuple[float]]]</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    <span style="color: #008000; font-weight: bold">if</span> fuel_type <span style="color: #666666">!=</span> <span style="color: #BA2121">'electricity'</span>:
+        <span style="color: #008000; font-weight: bold">return</span> [sh<span style="color: #666666">.</span>NONE] <span style="color: #666666">*</span> <span style="color: #666666">3</span>
+    <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> CubicSpline
+    eff, fdr <span style="color: #666666">=</span> driveline_efficiency, final_drive_ratio
+
+    max_a <span style="color: #666666">=</span> motor_max_torque <span style="color: #666666">*</span> fdr <span style="color: #666666">*</span> eff <span style="color: #666666">/</span> (tyre_radius <span style="color: #666666">*</span> vehicle_mass)  <span style="color: #408080; font-style: italic"># m/s2</span>
+    s <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(<span style="color: #666666">0</span>, vehicle_max_speed <span style="color: #666666">+</span> <span style="color: #666666">0.1</span>, <span style="color: #666666">0.1</span>)  <span style="color: #408080; font-style: italic"># m/s</span>
+    <span style="color: #008000; font-weight: bold">with</span> np<span style="color: #666666">.</span>errstate(divide<span style="color: #666666">=</span><span style="color: #BA2121">'ignore'</span>):
+        a <span style="color: #666666">=</span> (engine_max_power <span style="color: #666666">*</span> <span style="color: #666666">1e3</span> <span style="color: #666666">*</span> eff <span style="color: #666666">/</span> (s <span style="color: #666666">*</span> vehicle_mass))<span style="color: #666666">.</span>clip(<span style="color: #666666">0</span>, max_a)
+
+    <span style="color: #008000; font-weight: bold">return</span> [CubicSpline(s, a)], [<span style="color: #666666">0</span>], [vehicle_max_speed]
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

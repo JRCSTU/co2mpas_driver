@@ -1,0 +1,48 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, inputs_kwargs<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'poly_spline'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_cubic_splines_of_speed_acceleration_relationship</span>(
+        speed_per_gear, acc_per_gear, use_cubic<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>):
+    <span style="color: #BA2121; font-style: italic">"""</span>
+<span style="color: #BA2121; font-style: italic">    Based on speed/acceleration points per gear, cubic splines are calculated</span>
+<span style="color: #BA2121; font-style: italic">    (old MFC).</span>
+
+<span style="color: #BA2121; font-style: italic">    :param speed_per_gear:</span>
+<span style="color: #BA2121; font-style: italic">        Speed per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type speed_per_gear: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param acc_per_gear:</span>
+<span style="color: #BA2121; font-style: italic">        Acceleration per gear.</span>
+<span style="color: #BA2121; font-style: italic">    :type acc_per_gear: list</span>
+
+<span style="color: #BA2121; font-style: italic">    :param use_cubic:</span>
+<span style="color: #BA2121; font-style: italic">        Use cubic.</span>
+<span style="color: #BA2121; font-style: italic">    :type use_cubic: bool</span>
+
+<span style="color: #BA2121; font-style: italic">    :return:</span>
+<span style="color: #BA2121; font-style: italic">        Engine acceleration potential curves.</span>
+<span style="color: #BA2121; font-style: italic">    :rtype: list[tuple[float]]]</span>
+<span style="color: #BA2121; font-style: italic">    """</span>
+    <span style="color: #008000; font-weight: bold">if</span> <span style="color: #AA22FF; font-weight: bold">not</span> use_cubic:
+        <span style="color: #008000; font-weight: bold">return</span> sh<span style="color: #666666">.</span>NONE
+    <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy.interpolate</span> <span style="color: #008000; font-weight: bold">import</span> CubicSpline <span style="color: #008000; font-weight: bold">as</span> Spl
+    v, a <span style="color: #666666">=</span> np<span style="color: #666666">.</span>asarray(speed_per_gear), np<span style="color: #666666">.</span>asarray(acc_per_gear)
+    v <span style="color: #666666">=</span> (
+        np<span style="color: #666666">.</span>round(v[:, <span style="color: #666666">0</span>, <span style="color: #008000; font-weight: bold">None</span>], <span style="color: #666666">2</span>) <span style="color: #666666">-</span> <span style="color: #666666">0.01</span> <span style="color: #666666">-</span> np<span style="color: #666666">.</span>linspace(<span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">11</span>)[::<span style="color: #666666">-1</span>], v,
+        np<span style="color: #666666">.</span>round(v[:, <span style="color: #666666">-1</span>, <span style="color: #008000; font-weight: bold">None</span>], <span style="color: #666666">2</span>) <span style="color: #666666">+</span> <span style="color: #666666">0.01</span> <span style="color: #666666">+</span> np<span style="color: #666666">.</span>linspace(<span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">11</span>)
+    )
+    a <span style="color: #666666">=</span> np<span style="color: #666666">.</span>tile(a[:, <span style="color: #666666">0</span>, <span style="color: #008000; font-weight: bold">None</span>], <span style="color: #666666">11</span>), a, np<span style="color: #666666">.</span>tile(a[:, <span style="color: #666666">-1</span>, <span style="color: #008000; font-weight: bold">None</span>], <span style="color: #666666">11</span>)
+    <span style="color: #008000; font-weight: bold">return</span> [Spl(<span style="color: #666666">*</span>d) <span style="color: #008000; font-weight: bold">for</span> d <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">zip</span>(np<span style="color: #666666">.</span>concatenate(v, <span style="color: #666666">1</span>), np<span style="color: #666666">.</span>concatenate(a, <span style="color: #666666">1</span>))]
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+ <body>
+  <div>
+   <input onclick="window.history.back()" type="button" value="Back"/>
+   <input onclick="window.history.forward()" type="button" value="Forward"/>
+  </div>
+  <html>
+   <body>
+    <div class="highlight" style="background: #f8f8f8">
+     <pre style="line-height: 125%"><span></span><span style="color: #AA22FF">@sh</span><span style="color: #666666">.</span>add_function(dsp, outputs<span style="color: #666666">=</span>[<span style="color: #BA2121">'accelerations'</span>])
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">calculate_accelerations</span>(times, velocities):
+    dv <span style="color: #666666">=</span> np<span style="color: #666666">.</span>ediff1d(velocities, to_begin<span style="color: #666666">=</span>[<span style="color: #666666">0</span>])
+    dt <span style="color: #666666">=</span> np<span style="color: #666666">.</span>ediff1d(times, to_begin<span style="color: #666666">=</span>[<span style="color: #666666">0</span>])
+    <span style="color: #008000; font-weight: bold">return</span> (dv <span style="color: #666666">/</span> dt)<span style="color: #666666">.</span>tolist()
+</pre>
+    </div>
+   </body>
+  </html>
+ </body>
+</html>
