@@ -31,7 +31,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
 2. **Simulation Model.** 
 
     * **Run simulation:** This part simulates vehicles resulting acceleration per gear, gear shifting points, 
-     final acceleration potential based on input parameters gear shifting style, driver style and vehicle_id
+     final acceleration potential based on input parameters: gear shifting style, driver style and vehicle_id
      over the desired speed range.
 
 3. **Installing new_MFC package**
@@ -55,7 +55,9 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
             import matplotlib.pyplot as plt
        
       * Import dispatcher(dsp) from co2mpas_driver that contains functions 
-        and simulation model to process vehicle data.
+        and simulation model to process vehicle data and Import also schedula
+        for selecting and executing functions. for more information on how to use 
+        schedula https://pypi.org/project/schedula/
          
             from co2mpas_driver import dsp
             import schedula as sh
@@ -93,8 +95,8 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
             
     c. **Dispatcher**      
       
-      * Dispatch the function calls based on the input values that satisfy the 
-        function's domain
+      * Dispatcher will select and execute the proper functions for the given inputs 
+        and the requested outputs
                
             core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
                outputs=['outputs'], shrink=True)
@@ -114,6 +116,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
         ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/data.PNG)
             
       * Load outputs of dispatcher
+        Select the chosen dictionary key (outputs) from the given dictionary.
                
             outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
             
