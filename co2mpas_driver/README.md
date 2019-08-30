@@ -10,7 +10,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
 
    ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)
 
-1. **Load module.** This model loads vehicle specifications based on the vehicle id
+1. **Load module.** This model loads vehicle data based on the vehicle id
  and user input(gear shifting style, driver style, desired velocity) parameters 
  for the execution of simulation model in order to extract the drivers acceleration
  behavior as approaching the desired speed
@@ -137,7 +137,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
             output['accelerations'], output['transmission'], \
             output['discrete_acceleration_curves']
                
-    c. **Plot**          
+    d. **Plot**          
             
             plt.figure('Time-Speed')
             plt.plot(times, velocities)
@@ -157,7 +157,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
                 plt.plot(sp_bins, acceleration, 'k')
             plt.show()
             
-    d. **Results**
+    e. **Results**
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/speed-time.PNG)
      
