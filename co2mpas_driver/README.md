@@ -172,6 +172,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
       
      **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range
+     
             return 0
             
             if __name__ == '__main__':
