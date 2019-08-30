@@ -1,10 +1,10 @@
 ## User guidelines for co2mpas_driver
 <!--move them to CONTRIBUTING.md -->
 
-This page contains user guidelines intended for first time users of co2mpas_driver 
+This page contains user guidelines for first time users of co2mpas_driver 
 library. It contains the explanations and definitions required to understand how to use
-the the library. These guidelines are written for users without specific IT knowledge.
-for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
+how to use the library. These guidelines are written for users with less IT knowledge.
+for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0361198119838515
 
 ## Design diagram (core model)
 
