@@ -6,10 +6,10 @@ library. It contains the explanations and definitions required to understand how
 the library. These guidelines are written for users with less IT knowledge.
 for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0361198119838515
 
-## Design diagram (core model)
-
+## Design diagram (core model)  
+   
    ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)
-
+   
 1. **Load module.** This model loads vehicle data based on the vehicle id
  and user input(gear shifting style, driver style, desired velocity) parameters 
  for the execution of simulation model in order to extract the drivers acceleration
@@ -90,7 +90,9 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
        
             inputs = {
             'vehicle_id': 35135,  # A sample car id from the database
-            'inputs': {'gear_shifting_style': 0.7, 'starting_speed': 0,
+            'inputs': {'gear_shifting_style': 0.7, #The gear shifting style as 
+                                                    described in the TRR paper
+                        'starting_speed': 0,
                        'desired_velocity': 40,
                        'driver_style': 1},  # gear shifting can take value
             # from 0(timid driver) to 1(aggressive driver)
@@ -134,17 +136,24 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
                           'discrete_acceleration_curves', 'velocities',
                           'accelerations', 'transmission'], outputs['outputs'])
              
-        The final acceleration curvers (Curves), the engine acceleration potential 
+        The final acceleration curves, the engine acceleration potential 
         curves (poly_spline), before the calculation of the resistances and the
         limitation due to max possible acceleration (friction).
                         
             curves, poly_spline, start, stop, gs, discrete_acceleration_curves, \
-            velocities, accelerations, transmission, discrete_acceleration_curves = \
+            velocities, accelerations, transmission = \
             output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'], \
             output['discrete_acceleration_curves'], output['velocities'], \
             output['accelerations'], output['transmission'], \
-            output['discrete_acceleration_curves']
-               
+            
+        curves: Final acceleration curves
+        poly_spline: 
+        start and stop: Start and stop speed for each gear
+        gs:
+        discrete_acceleration_curves
+        velocities:
+        accelerations:
+                 
     d. **Plot**          
             
             plt.figure('Time-Speed')
