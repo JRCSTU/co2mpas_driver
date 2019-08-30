@@ -41,7 +41,7 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
     else:
         iter = 1
         gear_search = 1
-        while iter == 1:
+        while iter == 1 and gear_search < len(gear_limits):
             if gear_limits[gear_search - 1] <= curr_speed < gear_limits[
                 gear_search]:
                 gear_cnt = clutch_duration  # in simulation steps for 0.5 second
