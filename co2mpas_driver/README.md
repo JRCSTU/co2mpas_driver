@@ -18,24 +18,25 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
     * **Inputs** :
     
         1. db_path: file path for vehicle database based on the Euro car segment
-           classification
+           classification.
         2. input_path: file path to an excel file that contains user input 
            parameters where the user can change parameters like driver style, 
            gear shifting style, time series, starting speed, desired velocity, 
            file path to the vehicle database etc.
-        3. inputs: users provide some parameters directly from their sample script
-        4. vehicle_id: Id for a specific vehicle
+        3. inputs: users also can provide input parameters directly from their 
+           sample script in addition or instead of the sample excel file.
+        4. vehicle_id: Id for a specific vehicle.
     
     * **output** :
         
         1. data: this returns a data-value tree which is used as an input for 
-           running simulation model. 
+           executing different functions in the dispatcher for simulation model. 
 
 2. **Simulation Model.** 
     
-    * **Run simulation:** This part simulates vehicles resulting acceleration per gear, gear shifting points, 
-     final acceleration potential based on input parameters: gear shifting style, driver style and vehicle_id
-     over the desired speed range.
+    * **Run simulation:** This part simulates vehicles resulting acceleration per gear, 
+       gear shifting points, final acceleration potential based on input parameters: 
+       gear shifting style, driver style and vehicle_id over the desired speed range.
 
 3. **Installing new_MFC package**
     This package can be installed easily on any machine that has pip 
