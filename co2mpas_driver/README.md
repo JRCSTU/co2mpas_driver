@@ -158,7 +158,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/speed-time.PNG)
      
-     **Figure 1.** Speed(m/s) versus time(s) graph over the desired range.
+     **Figure 1.** Speed(m/s) versus time(s) graph over the desired speed range.
      
      Acceleration(m/s*2) versus speed(m/s) graph
       
