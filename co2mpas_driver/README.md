@@ -156,18 +156,19 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             
     d. **Results**
     
-    speed versus time graph
+    Speed(m/s) versus time(s) graph
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/speed-time.PNG)
      
-    acceleration versus speed graph
+    Acceleration(m/s*2) versus speed(m/s) graph
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acce-speed.PNG)
      
-     acceleration versus speed graph
+     Acceleration(m/s*2) versus speed graph(m/s)
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
-            
+      
+     **Figure 1.** Acceleration per gear, the gear-shifting points, the final acceleration potential of our selected vehicle
             return 0
             
             if __name__ == '__main__':
