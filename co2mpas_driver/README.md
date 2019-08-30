@@ -8,7 +8,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
 
 ## Design diagram (core model)
 
-   ![alt text](images/design.png)
+   ![alt text](images/core.png)
 
 1. **Load module.** This model loads vehicle specifications based on the vehicle id
  and user input(gear shifting style, driver style, desired velocity) parameters 
@@ -103,7 +103,7 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                
             core.plot()
             
-        ![alt text](images/design.png)
+        ![alt text](images/core_example.png)
         
         **The Load module**
         
