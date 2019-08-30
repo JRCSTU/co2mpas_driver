@@ -8,7 +8,7 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
 
 ## Design diagram (core model)
 
-   ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/Dispatcher_1893358985344.html)
+   [core model](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/Dispatcher_1893358985344.html)
 
    ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)
 
