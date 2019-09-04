@@ -4,22 +4,11 @@
 
 ## MFC Free-Flow Model: Introducing Vehicle Dynamics in Microsimulation
 
-This work proposes the microsimulation a free-flow acceleration model (MFC) 
-that is based on two parameters that can be calibrated, gear-shifting style and 
-driver style, as well as the vehicle specifications, which are used to compute 
-the maximum acceleration that the vehicle can have at a given speed. The basis 
-of the MFC is the vehicle acceleration curve, which represents the maximum 
-acceleration that the car can achieve for a given speed which, in this work, 
-is often noted as acceleration potential. On the top of the vehicle-specific curve, 
-MFC is parametrized by the gear-shifting style and the driving style. Both elements 
-are important mainly for the assessment and accurate estimation of the energy 
-demand and efficiency of a transport system, comprised by a fleet of vehicles 
-that can be diverse both in relation to size (small, medium, and large light-duty
- vehicles) and characteristics (hatchbacks, station wagons, pick-ups), but also 
- propulsion and driving technology (hybrids, electric, automated vehicles etc.). 
- MFC is simple to implement, it has low computational cost and, by comparison 
- with both the Gipps (6) and the Intelligent Driver Model (IDM) (28), it proves 
- its robustness for various vehicles, drivers, and driving styles.
+The present work implements a lightweight microsimulation free-flow acceleration 
+model (MFC) that is able to capture the vehicle acceleration dynamics accurately 
+and consistently, it provides a link between the model and the driver and can be 
+easily implemented and tested without raising the computational complexity. 
+The proposed model has been developed by the Joint Research Centre of the European Commission.
  
 For more information you may find the publication :
 https://journals.sagepub.com/ 

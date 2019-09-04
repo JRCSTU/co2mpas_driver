@@ -5595,7 +5595,7 @@ gs:
   - *id001
   - !!binary |
     s7Ccm9ZgQkA=
-gs_style: 0.7
+gear_shifting_style: 0.7
 idle_engine_speed: !!python/tuple
 - 750
 - 50
