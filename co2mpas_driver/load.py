@@ -177,6 +177,9 @@ def get_vehicle_inputs(vehicle_id, vehicle_db):
     return vehicle_db[vehicle_id]
 
 
+dsp.add_data('inputs', {}, sh.inf(2, 0))
+
+
 @sh.add_function(dsp, outputs=['data'])
 def merge_data(vehicle_inputs, raw_data, inputs):
     """
@@ -201,7 +204,8 @@ def merge_data(vehicle_inputs, raw_data, inputs):
     d = {'vehicle_inputs': vehicle_inputs}
     d = sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
     return sh.combine_dicts(
-        d.pop('time_series', {}), d.pop('vehicle_inputs', {}), d['inputs']
+        d.pop('time_series', {}), d.pop('vehicle_inputs', {}),
+        d.get('inputs', {})
     )
 
 

@@ -1,23 +1,26 @@
-import os
-from os import path as osp
-import matplotlib.pyplot as plt
-import numpy as np
-from co2mpas_driver.common import reading_n_organizing as rno
 from co2mpas_driver.common import vehicle_functions as vf
 from co2mpas_driver.common import gear_functions as fg
 from co2mpas_driver.common import plot_templates as pt
 from co2mpas_driver.model import define_discrete_poly as ddp
+
+import os
+from os import path as osp
+import numpy as np
+import matplotlib.pyplot as plt
+from co2mpas_driver.common import reading_n_organizing as rno
 
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
 
 
 def simple_run():
-    db_name = '../db/EuroSegmentCar'  # file path without extension of the file
+    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar'))
     car_id = 27748
     gs_style = 1
 
-    db = rno.load_db_to_dictionary(db_name)
+    db = rno.load_db_to_dictionary(db_path)
 
     selected_car = rno.get_vehicle_from_db(db, car_id)
 

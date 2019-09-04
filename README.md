@@ -1,3 +1,5 @@
+# Please cite: Makridis, M., Fontaras, G., Ciuffo, B.F., Mattas, K., 2019. MFC free-flow model: Introducing vehicle dynamics in microsimulation. TRR.
+
 ## MFC Free-Flow Model: Introducing Vehicle Dynamics in Microsimulation
 
 The present work implements a lightweight microsimulation free-flow acceleration 
@@ -102,7 +104,6 @@ https://journals.sagepub.com/
                 │   └───__pycache__
                 ├───dist
                 ├───examples
-                │   └───
                 ├───new_MFC.egg-info
                 ├───tests
                 │   └───results

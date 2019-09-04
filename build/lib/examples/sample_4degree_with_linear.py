@@ -1,52 +1,51 @@
-from os import chdir, path as osp
+import os
+from os import path as osp
+import numpy as np
 import matplotlib.pyplot as plt
-from co2mpas_driver import dsp
-import schedula as sh
+from co2mpas_driver.common import curve_functions as mf
+from co2mpas_driver.common import reading_n_organizing as rno
+
 my_dir = osp.dirname(osp.abspath(__file__))
-chdir(my_dir)
+os.chdir(my_dir)
+
+'''
+Example of how to extract the acceleration curves of a vehicle and the corresponding plot.
+'''
 
 
 def simple_run():
-    # Vehicles database path
+    # db_name = '../db/car_db_sample'
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
-                                   'EuroSegmentCar.csv'))
-    # input file path
-    input_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
-                                      'co2mpas_driver', 'template',
-                                      'sample.xlsx'))
-    # user inputs
-    inputs = {
-        'vehicle_id': 35135,  # A sample car id from the database
-        'inputs': {'gear_shifting_style': 0.7},  # gear shifting can take value
-        # from 0(timid driver) to 1(aggressive driver)
-        'time_series': {'times': list(range(2, 23))}
-    }
+                                   'EuroSegmentCar'))
 
-    core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
-               outputs=['outputs'], shrink=True)
+    # A sample car id from the database
+    car_id = 39393
 
-    # plots simulation model
-    core.plot()
+    # The gear shifting style as described in the TRR paper.
+    gs_style = 0.8
 
-    # outputs of the dispatcher
-    outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
+    '''import vehicle object, curves and gear shifting strategy'''
+    db = rno.load_db_to_dictionary(db_path)
 
-    # select the desired output
-    output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
-                          'discrete_acceleration_curves'], outputs['outputs'])
+    # The vehicle specs as returned from the database
+    selected_car = rno.get_vehicle_from_db(db, car_id)
 
-    Curves, poly_spline, Start, Stop, gs, discrete_acceleration_curves = \
-        output['Curves'], output['poly_spline'], output['Start'], \
-        output['Stop'], output['gs'], output['discrete_acceleration_curves']
+    '''
+        The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
+        before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
+        '''
+    Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
-    for d in discrete_acceleration_curves:
-        plt.plot(d['x'], d['y'])
-
+    for gear, curve in enumerate(Curves):
+        start = StartStop[0][gear]
+        stop = StartStop[1][gear]
+        x = np.arange(start, stop, 0.2)
+        y = curve(x)
+        plt.plot(x, y)
     plt.show()
 
     return 0
 
 
-if __name__ == '__main__':
-    simple_run()
+simple_run()
