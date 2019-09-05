@@ -1,10 +1,8 @@
 from co2mpas_driver.common import vehicle_functions as vf
 from co2mpas_driver.common import gear_functions as fg
 from co2mpas_driver.common import plot_templates as pt
-from co2mpas_driver.model import define_discrete_poly as ddp
 
 from os import path as osp, chdir
-import numpy as np
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import reading_n_organizing as rno
 
@@ -28,18 +26,19 @@ def simple_run():
         selected_car, full_load_speeds, full_load_torques)
 
     coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, 2)
-    pt.plot_speed_acceleration_from_coefs(coefs_per_gear, speed_per_gear,
-                                          acc_per_gear)
+
+    degree, speeds_new, acceleration_new = \
+        pt.calculate_speed_acceleration_from_coefs(coefs_per_gear,
+                                                   speed_per_gear, acc_per_gear)
+
+    for x_new, a_new in zip(speeds_new, acceleration_new):
+        plt.plot(x_new, a_new, 'rx')
 
     poly_spline = vf.get_cubic_splines_of_speed_acceleration_relationship(
         selected_car, speed_per_gear, acc_per_gear)
 
     Start, Stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
                                     poly_spline)
-
-    sp_bins = np.arange(0, Stop[-1] + 1, 0.01)
-    """define discrete poly spline"""
-    discrete_poly_spline = ddp(poly_spline, sp_bins)
 
     tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
 

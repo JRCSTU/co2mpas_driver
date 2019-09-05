@@ -1,4 +1,4 @@
-from os import path as osp, chdir
+from os import chdir, path as osp
 from co2mpas_driver.common import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,13 +13,14 @@ chdir(my_dir)
 def simple_run():
     """:parameters of the simulation"""
     # Vehicle databased based on the Euro Car Segment classification
+    # file path without extension of the file
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
                                    'EuroSegmentCar'))
     # A sample car id from the database
-    car_id = 39393
+    car_id = 35135
     # The gear shifting style as described in the TRR paper.
-    gs_style = 0.9
+    gs_style = 0.7
 
     # The desired speed
     v_des = 40
@@ -45,12 +46,13 @@ def simple_run():
     # The vehicle specs as returned from the database
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
+    # ***********************************************************************
     """
     The final acceleration curvers (Curves), the engine acceleration potential 
     curves (cs_acc_per_gear), before the calculation of the resistances and the
     limitation due to max possible acceleration (friction) .
     """
-    Curves, cs_acc_per_gear, StartStop, gs = \
+    curves, cs_acc_per_gear, start_stop, gs = \
         mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     """
@@ -61,9 +63,10 @@ def simple_run():
     # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(
     # selected_car, gs_style, 4)
 
+    # ********* define function for gathering simulation data ****************
     """Lists to gather simulation data"""
-    Speeds = [v_start]
-    Acceleration = [0]
+    speeds = [v_start]
+    acceleration = [0]
 
     """Initialize speed and gear"""
     speed = v_start
@@ -72,28 +75,34 @@ def simple_run():
     """
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, 0, 0)
     gear_count = 0
-
+    gears = [gear]
     """Core loop"""
-    for t in times:
-        speed, gear, gear_count = sp.simulation_step_function(selected_car,
-                                                              speed, gear,
-                                                              gear_count, gs,
-                                                              Curves, v_des,
-                                                              driver_style,
-                                                              sim_step)
+    for t in np.diff(times):
+        speed, gear, gear_count = sp.simulation_step_function(
+            selected_car.transmission, speed, gear, gear_count, gs, curves,
+            v_des, driver_style, sim_step)
 
         """Gather data"""
-        Speeds.append(speed)
-        Acceleration.append((Speeds[-1] - Speeds[-2])/sim_step)
-
+        gears.append(gear)
+        speeds.append(speed)
+        acceleration.append((speeds[-1] - speeds[-2]) / sim_step)
+    # ******************* Plot*************************
     """Plot"""
-
+    plt.figure('Time-Speed')
+    plt.plot(times, speeds[1:])
+    plt.grid()
+    plt.figure('Speed-Acceleration')
+    plt.plot(speeds[1:], acceleration[1:])
+    plt.grid()
+    plt.figure('Acceleration-Time')
+    plt.plot(times, acceleration[1:])
+    plt.grid()
 
     plt.figure('Speed-Acceleration')
-    for i,gear_curve in enumerate(Curves):
-        sp_bins = np.arange(StartStop[0][i],StartStop[1][i]+0.1,0.1)
+    for i, gear_curve in enumerate(curves):
+        sp_bins = np.arange(start_stop[0][i], start_stop[1][i] + 0.1, 0.1)
         accelerations = gear_curve(sp_bins)
-        plt.plot(sp_bins,accelerations,'k')
+        plt.plot(sp_bins, accelerations, 'k')
     plt.grid()
     plt.show()
     return 0
