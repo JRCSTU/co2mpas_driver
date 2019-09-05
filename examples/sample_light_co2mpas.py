@@ -1,22 +1,19 @@
-import os
-from os import path as osp
+from os import path as osp, chdir
 from co2mpas_driver.common import generic_co2mpas as lco
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import reading_n_organizing as rno
 
 my_dir = osp.dirname(osp.abspath(__file__))
-os.chdir(my_dir)
+chdir(my_dir)
 
 
 def simple_run():
-    db_name = '../db/EuroSegmentCar'
+    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar'))
     car_id = 35135
 
-    # file path without extension of the file
-    db_name = os.path.dirname(db_name) + '/' + \
-              os.path.splitext(os.path.basename(db_name))[0]
-
-    db = rno.load_db_to_dictionary(db_name)
+    db = rno.load_db_to_dictionary(db_path)
 
     my_car = rno.get_vehicle_from_db(db, car_id, lco=True)
 

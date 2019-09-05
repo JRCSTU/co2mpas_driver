@@ -1,11 +1,10 @@
-import os
-from os import path as osp
+from os import path as osp, chdir
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import curve_functions as mf
 from co2mpas_driver.common import reading_n_organizing as rno
 
 my_dir = osp.dirname(osp.abspath(__file__))
-os.chdir(my_dir)
+chdir(my_dir)
 
 
 def simple_run():
