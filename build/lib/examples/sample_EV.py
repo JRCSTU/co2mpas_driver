@@ -1,5 +1,4 @@
 import os
-import numpy as np
 from os import path as osp
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import curve_functions as mf
@@ -11,10 +10,13 @@ os.chdir(my_dir)
 
 def simple_run():
     # file path without extension of the file
-    db_name = '../db/EuroSegmentCar'
+    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar'))
+
     car_id = 47844
 
-    db = rno.load_db_to_dictionary(db_name)
+    db = rno.load_db_to_dictionary(db_path)
     selected_car = rno.get_vehicle_from_db(db, car_id, electric=True)
 
     curves, start_stop = mf.get_ev_curve_main(selected_car)

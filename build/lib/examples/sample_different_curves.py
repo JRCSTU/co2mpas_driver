@@ -1,21 +1,22 @@
-import os
-from os import path as osp
+from os import path as osp, chdir
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import curve_functions as mf
 from co2mpas_driver.common import reading_n_organizing as rno
 
 my_dir = osp.dirname(osp.abspath(__file__))
-os.chdir(my_dir)
+chdir(my_dir)
 
 
 def simple_run():
-    # Database of vehicles with a unique id
-    db_name = '../db/EuroSegmentCar'  # file path without extension of the file
+    # Vehicles database path
+    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
+                                   'co2mpas_driver', 'db',
+                                   'EuroSegmentCar'))
     car_id = 39393
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     degree = 2
 
-    db = rno.load_db_to_dictionary(db_name)
+    db = rno.load_db_to_dictionary(db_path)
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
     curves, cs_acc_per_gear, start_stop, gs = mf.gear_curves_n_gs_from_poly(

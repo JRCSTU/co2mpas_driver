@@ -22,9 +22,24 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
         pip install dist/co2mpas_driver-1.0.0-py2.py3-none-any.whl 
         
 3. **In order to use co2mpas_driver library**
+   you can start importing and using co2mpas driver on python console.
+   
+        import co2mpas_driver
      
-
-     
+   or for users with less IT knowledge better to use Jupyter notebook.  It is 
+   easier to learn and use for first time users of co2mpas_driver library
+   
+   It is important to install jupyter notebook.
+       
+       pip install jupyter
+       
+   And then from your terminal change to your project directory and launch jupyter.
+   
+       jupyter notebook
+       
+   This will open the project in an internet explorer and you can find all the 
+   examples in the Jupyter home page. The detailed explanation can be found in each page.
+   
 ## Design diagram (core model)  
    
    ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)

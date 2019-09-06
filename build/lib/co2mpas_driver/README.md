@@ -1,38 +1,42 @@
 ## User guidelines for co2mpas_driver
 <!--move them to CONTRIBUTING.md -->
 
-This page contains user guidelines intended for first time users of co2mpas_driver 
+This page contains user guidelines for first time users of co2mpas_driver 
 library. It contains the explanations and definitions required to understand how to use
-the the library. These guidelines are written for users without specific IT knowledge.
-for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
+the library. These guidelines are written for users with less IT knowledge.
+for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0361198119838515
 
-## Design diagram (core model)
-
-   ![alt text](images/core.png)
-
-1. **Load module.** This model loads vehicle specifications based on the vehicle id
+## Design diagram (core model)  
+   
+   ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core.png)
+   
+1. **Load module.** This model loads vehicle data based on the vehicle id
  and user input(gear shifting style, driver style, desired velocity) parameters 
  for the execution of simulation model in order to extract the drivers acceleration
  behavior as approaching the desired speed
-
+   ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load.png)
     * **Inputs** :
     
         1. db_path: file path for vehicle database based on the Euro car segment
-           classification
-        2. input_path: file path to an excel file that contains user input parameters
-        3. inputs: users provide some parameters directly from console
-        4. vehicle_id: Id for a specific vehicle
+           classification.
+        2. input_path: file path to an excel file that contains user input 
+           parameters where the user can change parameters like driver style, 
+           gear shifting style, time series, starting speed, desired velocity, 
+           file path to the vehicle database etc.
+        3. inputs: users also can provide input parameters directly from their 
+           sample script in addition or instead of the sample excel file.
+        4. vehicle_id: Id for a specific vehicle.
     
     * **output** :
         
         1. data: this returns a data-value tree which is used as an input for 
-           running simulation model. 
+           executing different functions in the dispatcher for simulation model. 
 
 2. **Simulation Model.** 
-
-    * **Run simulation:** This part simulates vehicles resulting acceleration per gear, gear shifting points, 
-     final acceleration potential based on input parameters gear shifting style, driver style and vehicle_id
-     over the desired speed range.
+    
+    * **Run simulation:** This part simulates vehicles resulting acceleration per gear, 
+       gear shifting points, final acceleration potential based on input parameters: 
+       gear shifting style, driver style and vehicle_id over the desired speed range.
 
 3. **Installing new_MFC package**
     This package can be installed easily on any machine that has pip 
@@ -55,7 +59,9 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             import matplotlib.pyplot as plt
        
       * Import dispatcher(dsp) from co2mpas_driver that contains functions 
-        and simulation model to process vehicle data.
+        and simulation model to process vehicle data and Import also schedula
+        for selecting and executing functions. for more information on how to use 
+        schedula https://pypi.org/project/schedula/
          
             from co2mpas_driver import dsp
             import schedula as sh
@@ -84,7 +90,9 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
        
             inputs = {
             'vehicle_id': 35135,  # A sample car id from the database
-            'inputs': {'gear_shifting_style': 0.7, 'starting_speed': 0,
+            'inputs': {'gear_shifting_style': 0.7, #The gear shifting style as 
+                                                    described in the TRR paper
+                        'starting_speed': 0,
                        'desired_velocity': 40,
                        'driver_style': 1},  # gear shifting can take value
             # from 0(timid driver) to 1(aggressive driver)
@@ -93,27 +101,32 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
             
     c. **Dispatcher**      
       
-      * Dispatch the function calls based on the input values that satisfy the 
-        function's domain
+      * Dispatcher will select and execute the proper functions for the given inputs 
+        and the requested outputs
                
             core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
                outputs=['outputs'], shrink=True)
                
-      * Plot workflow of the dispatcher(core model)
+      * Plot workflow of the core model from the dispatcher
                
             core.plot()
+        
+        This will automatically open an internet browser and show the work flow 
+        of the core model as below. you can click all the rectangular boxes to see
+        in detail sub models like load, model, write and plot. 
             
-        ![alt text](images/core_example.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/core_example.PNG)
         
         **The Load module**
         
-        ![alt text](images/load.png)
+        ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/load_example.PNG)
         
         **merged vehicle data for the vehicle_id used above**
         
         ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/data.PNG)
             
       * Load outputs of dispatcher
+        Select the chosen dictionary key (outputs) from the given dictionary.
                
             outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
             
@@ -123,18 +136,25 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                           'discrete_acceleration_curves', 'velocities',
                           'accelerations', 'transmission'], outputs['outputs'])
              
-        The final acceleration curvers (Curves), the engine acceleration potential 
+        The final acceleration curves, the engine acceleration potential 
         curves (poly_spline), before the calculation of the resistances and the
         limitation due to max possible acceleration (friction).
                         
             curves, poly_spline, start, stop, gs, discrete_acceleration_curves, \
-            velocities, accelerations, transmission, discrete_acceleration_curves = \
+            velocities, accelerations, transmission = \
             output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'], \
             output['discrete_acceleration_curves'], output['velocities'], \
             output['accelerations'], output['transmission'], \
-            output['discrete_acceleration_curves']
-               
-    c. **Plot**          
+            
+        curves: Final acceleration curves
+        poly_spline: 
+        start and stop: Start and stop speed for each gear
+        gs:
+        discrete_acceleration_curves
+        velocities:
+        accelerations:
+                 
+    d. **Plot**          
             
             plt.figure('Time-Speed')
             plt.plot(times, velocities)
@@ -154,28 +174,35 @@ for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
                 plt.plot(sp_bins, acceleration, 'k')
             plt.show()
             
-    d. **Results**
+    e. **Results**
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/speed-time.PNG)
      
-     **Figure 1.** Speed(m/s) versus time(s) graph over the desired range.
+     **Figure 1.** Speed(m/s) versus time(s) graph over the desired speed range.
      
      Acceleration(m/s*2) versus speed(m/s) graph
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acce-speed.PNG)
      
      **Figure 2.** Acceleration per gear, the gear-shifting points and final acceleration potential of our selected 
-       vehicle over the desired speed
+       vehicle over the desired speed range
      
      Acceleration(m/s*2) versus speed graph(m/s)
       
      ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
       
      **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range
+     
             return 0
             
             if __name__ == '__main__':
                 simple_run()  
+   
+   **Contributing**
+   
+   Pull requests and stars are very welcome.
+   
+   For bugs and feature requests, please [create an issue](https://github.com/ashenafimenza/new_MFC/issues/new).
                
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  
