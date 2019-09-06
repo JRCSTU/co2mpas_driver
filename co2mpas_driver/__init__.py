@@ -47,4 +47,8 @@ dsp.add_function(
 )
 
 if __name__ == '__main__':
+    sol = dsp(dict(vehicle_id=39393, inputs=dict(
+        inputs={'gear_shifting_style': 0.9, 'desired_velocity': 40,
+                'starting_speed': 0,
+                'driver_style': 1, 'duration': 100, 'sim_step': 0.1})))
     dsp.plot()

@@ -75,7 +75,7 @@ def accMFC(s, driver_style, sdes, acc_p_curve):
     return acc
 
 
-def clutch_on(gear_count, acc, transmission):
+def correct_acc_clutch_on(gear_count, acc, transmission):
     """
     If clutch is on, maximum acceleration is decreased depending on the transmission
 
@@ -93,13 +93,3 @@ def clutch_on(gear_count, acc, transmission):
             return acc * 2 / 3
     else:
         return acc
-
-
-def simulation_step_function(
-        transmission, speed, gear, gear_count, gs, Curves,
-        vdes, driver_style, sim_step):
-    gear, gear_count = gear_for_speed_profiles(gs, speed, gear, gear_count)
-    acceleration = accMFC(speed, driver_style, vdes, Curves[gear - 1])
-    acceleration = clutch_on(gear_count, acceleration, transmission)
-
-    return speed + acceleration * sim_step, gear, gear_count

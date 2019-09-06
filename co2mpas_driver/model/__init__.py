@@ -218,7 +218,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(
 
 @sh.add_function(dsp, inputs_kwargs=True, inputs_defaults=True,
                  outputs=['poly_spline'])
-def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
+def get_spline_out_of_coefs(coefs_per_gear, speed_per_gear, use_cubic=False):
     """
     Use the coefficients to get a "spline" that could be used.
     AT TIME IT IS USED AS calculate_curve_to_use FUNCTION IS USING SPLINES.
@@ -227,9 +227,9 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
         Coefficients per gear.
     :type coefs_per_gear: list
 
-    :param starting_speed:
+    :param speed_per_gear:
         Starting speed.
-    :type starting_speed: float
+    :type speed_per_gear: float
 
     :param use_cubic:
         Use cubic.
@@ -244,7 +244,7 @@ def get_spline_out_of_coefs(coefs_per_gear, starting_speed, use_cubic=False):
     from scipy.interpolate import interp1d
     # For the first gear, some points are added at the beginning to avoid
     # unrealistic drops
-    x = np.arange(starting_speed, 70, 0.1)
+    x = np.arange(speed_per_gear[0][0], 70, 0.1)
     y = np.polyval(coefs_per_gear[0], [x[0]] + x.tolist())
     s = [interp1d([0] + x.tolist(), y, fill_value='extrapolate')]
 
@@ -488,12 +488,6 @@ def calculate_curves_to_use(
     return Res
 
 
-@sh.add_function(dsp, outputs=['starting_speed'])
-def get_starting_speed(speed_per_gear):
-    starting_speed = speed_per_gear[0][0]
-    return starting_speed
-
-
 @sh.add_function(dsp, outputs=['discrete_acceleration_curves'])
 def define_discrete_acceleration_curves(Curves, Start, Stop):
     res = []
@@ -718,7 +712,9 @@ def run_simulation(transmission, starting_speed, gs, times, Curves, desired_velo
         Speeds & Acceleration
     :rtype: list, list
     """
-    from .simulation import gear_for_speed_profiles, simulation_step_function
+    from .simulation import (
+        gear_for_speed_profiles, accMFC, correct_acc_clutch_on
+    )
     velocities = [starting_speed]
 
     speed = starting_speed
@@ -730,10 +726,11 @@ def run_simulation(transmission, starting_speed, gs, times, Curves, desired_velo
 
     # Core loop
     for dt in np.diff(times):
-        speed, gear, gear_count = simulation_step_function(
-            transmission, speed, gear, gear_count, gs, Curves,
-            desired_velocity, driver_style, dt
+        gear, gear_count = gear_for_speed_profiles(gs, speed, gear, gear_count)
+        acc = accMFC(
+            speed, driver_style, desired_velocity, Curves[gear - 1]
         )
+        speed += correct_acc_clutch_on(gear_count, acc, transmission) * dt
 
         # Gather data
         gears.append(gear)
@@ -745,7 +742,7 @@ def run_simulation(transmission, starting_speed, gs, times, Curves, desired_velo
 def calculate_accelerations(times, velocities):
     dv = np.ediff1d(velocities, to_begin=[0])
     dt = np.ediff1d(times, to_begin=[0])
-    return (dv / dt).tolist()
+    return np.nan_to_num(dv / dt).tolist()
 
 
 if __name__ == '__main__':
