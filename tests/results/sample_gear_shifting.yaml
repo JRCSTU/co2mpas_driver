@@ -1,4 +1,4 @@
-Start:
+start:
 - 0
 - !!python/object/apply:numpy.core.multiarray.scalar
   - &id001 !!python/object/apply:numpy.dtype
@@ -29,7 +29,7 @@ Start:
   - *id001
   - !!binary |
     qHmyc2HxJEA=
-Stop:
+stop:
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
   - !!binary |
@@ -3437,7 +3437,7 @@ gs:
   - *id001
   - !!binary |
     kwgCDMl0RUA=
-gs_style: 1
+gear_shifting_style: 1
 idle_engine_speed: !!python/tuple
 - 750
 - 50

@@ -2,10 +2,10 @@ inputs:
   inputs:
     driver_style: 1
     duration: 100
-    gs_style: 0.7
+    gear_shifting_style: 0.7
     sim_step: 0.1
-    v_des: 40
-    v_start: 0
+    desired_velocity: 40
+    starting_velocity: 0
 outputs:
   accelerations:
   - 0.0
@@ -2015,6 +2015,6 @@ outputs:
   - 5
   sim_step: 0.1
   transmission: automatic
-  v_des: 40
-  v_start: 0
+  desired_velocity: 40
+  starting_velocity: 0
 vehicle_id: 35135

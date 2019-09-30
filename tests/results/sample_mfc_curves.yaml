@@ -15,7 +15,7 @@ Alimit: !!python/object/apply:numpy.core.multiarray.scalar
   - 0
 - !!binary |
   hfylBxbVEUA=
-Start:
+start:
 - 0
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
@@ -33,7 +33,7 @@ Start:
   - *id001
   - !!binary |
     XUosGMaEJkA=
-Stop:
+stop:
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
   - !!binary |
@@ -5839,7 +5839,7 @@ gs:
   - *id001
   - !!binary |
     xCIIjGzGQ0A=
-gs_style: 0.8
+gear_shifting_style: 0.8
 idle_engine_speed: !!python/tuple
 - 750
 - 50

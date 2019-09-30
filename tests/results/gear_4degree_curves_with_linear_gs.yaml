@@ -15,7 +15,7 @@ Alimit: !!python/object/apply:numpy.core.multiarray.scalar
   - 0
 - !!binary |
   Crih9EXrEEA=
-Start:
+start:
 - 0
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
@@ -33,7 +33,7 @@ Start:
   - *id001
   - !!binary |
     fUBlFR48J0A=
-Stop:
+stop:
 - !!python/object/apply:numpy.core.multiarray.scalar
   - *id001
   - !!binary |

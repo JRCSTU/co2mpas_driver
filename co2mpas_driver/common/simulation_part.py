@@ -3,8 +3,7 @@ from co2mpas_driver.common import gear_functions as fg
 
 def accMFC(s, driver_style, sdes, acc_p_curve):
     """
-
-    Return the MFC free flow acceleration
+    Calculate the MFC free flow acceleration.
 
     :param s:                   speed (m/s)
     :param driver_style:        ds 0-1

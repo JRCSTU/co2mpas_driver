@@ -46,16 +46,19 @@ def simple_run():
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
     '''
-    The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
-    before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
+    The final acceleration curvers (Curves), the engine acceleration potential 
+    curves (cs_acc_per_gear), before the calculation of the resistances and the 
+    limitation due to max possible acceleration (friction) .
     '''
     Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     '''
-        The difference betweeen "gear_4degree_curves_with_linear_gs" and "gear_curves_n_gs_from_poly" is the
+        The difference betweeen "gear_4degree_curves_with_linear_gs" and 
+        "gear_curves_n_gs_from_poly" is the
         computation of the engine acceleration potential curves
     '''
-    # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_poly(selected_car, gs_style,4)
+    # Curves, cs_acc_per_gear, StartStop, gs = mf.gear_curves_n_gs_from_
+    # poly(selected_car, gs_style,4)
 
     '''Lists to gather simulation data'''
     Speeds = [v_start]

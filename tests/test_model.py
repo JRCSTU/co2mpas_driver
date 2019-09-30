@@ -40,7 +40,7 @@ class TestProcess(unittest.TestCase):
             # `get_tan_coefs`.
             ['coefs_per_gear'],
             # `get_start_stop`.
-            ['Start', 'Stop', 'sp_bins'],
+            ['start', 'stop', 'sp_bins'],
             # `get_resistances`.
             ['Alimit'],
             # `define_discrete_acceleration_curves`.
@@ -65,7 +65,7 @@ class TestProcess(unittest.TestCase):
             # `get_resistances`.
             ['Alimit'],
             # `get_start_stop`.
-            ['Start', 'Stop'],
+            ['start', 'stop'],
             # `get_tan_coefs`.
             ['coefs_per_gear'],
             # `calculate_full_load_speeds_and_powers`.
@@ -84,7 +84,7 @@ class TestProcess(unittest.TestCase):
             # `get_resistances`.
             ['Alimit'],
             # `ev_curve`.
-            ['Start', 'Stop'],
+            ['start', 'stop'],
     ))
     def test_get_ev_curve_main(self, out):
         _check(dsp, self.data['get_ev_curve_main'], out)
@@ -97,7 +97,7 @@ class TestProcess(unittest.TestCase):
             # `get_tan_coefs`.
             ['coefs_per_gear'],
             # `get_start_stop`.
-            ['Start', 'Stop', 'sp_bins'],
+            ['start', 'stop', 'sp_bins'],
             # `get_cubic_splines_of_speed_acceleration_relationship`.
             ['discrete_poly_spline'],
             # `gear_points_from_tan`.
@@ -114,7 +114,7 @@ class TestProcess(unittest.TestCase):
             # `get_tan_coefs`.
             ['coefs_per_gear'],
             # `get_start_stop`.
-            ['Start', 'Stop', 'sp_bins'],
+            ['start', 'stop', 'sp_bins'],
             # `define_discrete_poly`.
             ['discrete_poly_spline'],
             # `define_discrete_car_res_curve`.
