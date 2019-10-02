@@ -2,11 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def calculate_speed_acceleration_from_coefs(poly_coefs_per_gear, speeds_per_gear, accelerations_per_gear):
+def calculate_speed_acceleration_from_coefs(poly_coefs_per_gear,
+                                            speeds_per_gear,
+                                            accelerations_per_gear):
     """
     Plot the speed acceleration diagram created
 
-    :param poly_coefs_per_gear: Polynomial coefficients for the acceleration over speed curves
+    :param poly_coefs_per_gear: Polynomial coefficients for the acceleration
+    over speed curves
     :param speeds_per_gear: Speed points
     :param accelerations_per_gear: Acceleration points
     :return:

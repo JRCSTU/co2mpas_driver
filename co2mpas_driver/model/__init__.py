@@ -19,6 +19,8 @@ import numpy as np
 import schedula as sh
 from co2mpas_driver.model.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, calculate_full_load_torques
+from co2mpas_driver.generic_co2mpas import light_co2mpas_series, \
+    light_co2mpas_instant
 
 dsp = sh.Dispatcher(name='model')
 dsp.add_func(get_full_load, outputs=['full_load_curve'])
@@ -29,6 +31,14 @@ dsp.add_func(
 dsp.add_func(
     calculate_full_load_torques,
     outputs=['full_load_torques']
+)
+dsp.add_func(
+    light_co2mpas_instant,
+    outputs=['fc']
+)
+dsp.add_func(
+    light_co2mpas_series,
+    outputs=['fp']
 )
 
 

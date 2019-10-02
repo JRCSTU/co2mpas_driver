@@ -40,7 +40,7 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
     """
 
     # Model buffer for up shifting and down shifting.
-    upshift_offs = 0.0
+    up_shift_offs = 0.0
     downshift_off = 0.1
 
     gear_limits = [0]
@@ -49,21 +49,21 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
 
     if gear_limits[current_gear - 1] - gear_limits[
         current_gear - 1] * downshift_off <= curr_speed < gear_limits[
-        current_gear] + gear_limits[current_gear] * upshift_offs:
+        current_gear] + gear_limits[current_gear] * up_shift_offs:
         if gear_cnt == 0:
             return current_gear, gear_cnt
         else:
             gear_cnt -= 1
             return current_gear, gear_cnt
     else:
-        iter = 1
+        itr = 1
         gear_search = 1
-        while iter == 1 and gear_search < len(gear_limits):
+        while itr == 1 and gear_search < len(gear_limits):
             if gear_limits[gear_search - 1] <= curr_speed < gear_limits[
                 gear_search]:
                 gear_cnt = clutch_duration  # in simulation steps for 0.5 second
                 current_gear = gear_search
-                iter = 0
+                itr = 0
             else:
                 gear_search += 1
         return current_gear, gear_cnt

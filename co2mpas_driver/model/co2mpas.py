@@ -94,7 +94,7 @@ def calculate_full_load_torques(full_load_speeds, full_load_powers):
     return full_load_torques
 
 
-# The maximum force that the vehicle can have on the road
+# The maximum acceleration that the vehicle can have on the road
 def Armax(car_type, veh_mass, engine_max_power, road_type=1):
     """
     Calculating the maximum acceleration possible for the vehicle object my_car,

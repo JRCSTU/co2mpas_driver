@@ -129,12 +129,19 @@ def veh_resistances(f0, f1, f2, sp, total_mass):
     return resistance_spline_curve, resistance_spline_curve_f
 
 
-def estimate_f_coefficients(my_car, passengers=0):
+def estimate_f_coefficients(type_of_car, vehicle_mass, car_width, car_height,
+                            passengers=0):
     """
     f0, f1, f2 coefficients of resistance are estimated
 
-    :param my_car:
-    :type my_car: dictionary
+    :param type_of_car:
+    :type type_of_car:
+    :param vehicle_mass:
+    :type vehicle_mass:
+    :param car_width:
+    :type car_width:
+    :param car_height:
+    :type car_height:
     :param passengers:
     :type passengers: int
     :return:
@@ -153,11 +160,11 @@ def estimate_f_coefficients(my_car, passengers=0):
     d["pick-up"] = 0.4
 
     rolling_res_coef = 0.009  # Constant for the moment
-    theor_aero_coeff = d[my_car.type_of_car]
+    theor_aero_coeff = d[type_of_car]
 
-    operating_mass = my_car.veh_mass + 100 + 75 * passengers
+    operating_mass = vehicle_mass + 100 + 75 * passengers
     f0 = (operating_mass + 100) * rolling_res_coef * 9.81
-    f2 = 0.5 * 1.2 * (0.84 * my_car.car_width * my_car.car_height * theor_aero_coeff) / pow(3.6, 2)
+    f2 = 0.5 * 1.2 * (0.84 * car_width * car_height * theor_aero_coeff) / pow(3.6, 2)
     f1 = -71.735 * f2 + 2.7609
 
     return f0, f1, f2
