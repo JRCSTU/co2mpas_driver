@@ -5,20 +5,20 @@
 # You may not use this work except in compliance with the Licence.
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 """
-Functions to processes a CO2MPAS input file.
+Functions to process a CO2MPAS input file.
 """
 
 # Computation of the MFC vehicle acceleration - speed curve.
 # coding=utf-8
-import functools as functools
+import functools
 import numpy as np
-from scipy.interpolate import CubicSpline, interp1d
+from scipy.interpolate import CubicSpline
 from co2mpas_driver.common import defaults as defaults
 
 
 def get_full_load(ignition_type):
     """
-    Returns vehicle full load curve.
+    Get vehicle full load curve.
 
     :param ignition_type:
         Engine ignition type (positive or compression).
@@ -74,16 +74,19 @@ def calculate_full_load_speeds_and_powers(
 
 def calculate_full_load_torques(full_load_speeds, full_load_powers):
     """
-    Full load curves of speed and torque.
-
-    :param full_load_powers:
-        Engine ignition type (positive or compression).
-    :type full_load_powers: str
+    Calculate Full load curves of speed and torque.
 
     :param full_load_speeds:
+        Full load speeds.
+    :type full_load_powers: str
+
+    :param full_load_powers:
         Engine nominal power [kW].
     :type full_load_speeds: float
+
     :return: full_load_torques
+        Full load torques.
+    :rtype:
     """
     full_load_torques = full_load_powers * 1000 * (
             full_load_speeds / 60 * 2 * np.pi) ** -1
@@ -91,24 +94,38 @@ def calculate_full_load_torques(full_load_speeds, full_load_powers):
     return full_load_torques
 
 
-# The maximum force that the vehicle can have on the road
+# The maximum acceleration that the vehicle can have on the road
 def Armax(car_type, veh_mass, engine_max_power, road_type=1):
     """
-
-    Calculating the maximum acceleration possible for the vehicle object my_car, under road_type conditions
+    Calculating the maximum acceleration possible for the vehicle object my_car,
+    under road_type conditions.
 
     :param car_type:
+        Car type.
+    :type car_type: int
+
     :param veh_mass:
+        Vehicle mass.
+    :type veh_mass: float
+
     :param engine_max_power:
-    :param road_type: road condition (1: normal, 2: wet, 3: icy)
+        Maximum engine power.
+    :type engine_max_power:
+
+    :param road_type:
+        Road type(1: normal, 2: wet, 3: icy)
+    :type road_type: int
+
     :return:
+        Maximum possible acceleration of the vehicle.
+    :rtype:
     """
     if car_type == 2:  # forward-wheel drive vehicles
-        fmass = 0.6 * veh_mass
+        f_mass = 0.6 * veh_mass
     elif car_type == 4:  # rear-wheel drive vehicles
-        fmass = 0.45 * veh_mass
+        f_mass = 0.45 * veh_mass
     else:  # all-wheel drive vehicles, 4x4
-        fmass = 1 * veh_mass
+        f_mass = 1 * veh_mass
 
     if road_type == 1:
         mh_base = 0.75  # for normal road
@@ -123,39 +140,58 @@ def Armax(car_type, veh_mass, engine_max_power, road_type=1):
     mh = mh_base * (alpha * np.log(engine_max_power) + beta) / 190
 
     # * cos(f) for the gradient of the road. Here we consider as 0
-    Frmax = fmass * 9.8066 * mh
+    # maximum achieved force by the vehicles in certain conditions.
+    f_max = f_mass * 9.8066 * mh
 
-    return Frmax / veh_mass
+    return f_max / veh_mass
 
 
 # Calculates a spline with the resistances
-def veh_resistances(f0, f1, f2, sp, total_mass):
+def veh_resistances(f0, f1, f2, sp_bins, total_mass):
     """
-    Return the resistances that a vehicle faces, per speed
+    Calculate the resistances that a vehicle faces, per speed.
 
     :param f0:
+        Tire rolling resistance.
+    :type f0: float
+
     :param f1:
+        Partly tire rolling resistance & partly drivetrain losses.
+    :type f1: float
+
     :param f2:
-    :param sp:
+        Aerodynamic component (proportional to the square of the vehicles
+        velocity)
+    :type f2: float
+
+    :param sp_bins:
+        Speed bins.
+    :type sp_bins: list[float]
+
     :param total_mass:
+        Total mass.
+    :type total_mass: float
+
     :return:
+        Resistance forces being applied per speed.
+    :rtype:
     """
-    sp = list(sp)
-    Fresistance = []
-    for i in range(len(sp)):
-        Fresistance.append(f0 + f1 * sp[i] * 3.6 + f2 * pow(sp[i] * 3.6, 2))
+    sp_bins = list(sp_bins)
+    resistance_force = []
+    for i in range(len(sp_bins)):
+        resistance_force.append(f0 + f1 * sp_bins[i] * 3.6 + f2 * pow(sp_bins[i] * 3.6, 2))
         # Facc = Fmax @ wheel - f0 * cos(a) - f1 * v - f2 * v2 - m * g * sin(a)
 
-    aprx_mass = int(total_mass)
-    Aresistance = [x / aprx_mass for x in Fresistance]
-    a = int(np.floor(sp[0]))
-    b = int(np.floor(sp[-1]))
+    approximate_mass = int(total_mass)
+    acc_resistance = [x / approximate_mass for x in resistance_force]
+    a = int(np.floor(sp_bins[0]))
+    b = int(np.floor(sp_bins[-1]))
     resistance_spline_curve = CubicSpline(
-        [k for k in range(a - 10, a)] + sp + [k for k in range(b + 1, b + 11)], \
-        [Aresistance[0]] * 10 + Aresistance + [Aresistance[-1]] * 10)
+        [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)], \
+        [acc_resistance[0]] * 10 + acc_resistance + [acc_resistance[-1]] * 10)
     resistance_spline_curve_f = CubicSpline(
-        [k for k in range(a - 10, a)] + sp + [k for k in range(b + 1, b + 11)],
-        [Fresistance[0]] * 10 + Fresistance + [Fresistance[-1]] * 10)
+        [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)],
+        [resistance_force[0]] * 10 + resistance_force + [resistance_force[-1]] * 10)
 
     return resistance_spline_curve, resistance_spline_curve_f
 
@@ -163,14 +199,31 @@ def veh_resistances(f0, f1, f2, sp, total_mass):
 def estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height,
                             passengers=0):
     """
-    f0, f1, f2 coefficients of resistance are estimated
+    Estimate f0, f1, f2 coefficients of resistance.
 
     :param veh_mass:
+        Vehicle mass.
+    :type veh_mass: float
+
     :param type_of_car:
+        Type of car.
+    :type type_of_car: str
+
     :param car_width:
+        Car width.
+    :type car_width: float
+
     :param car_height:
+        Car height.
+    :type car_height: float
+
     :param passengers:
+        number of passengers.
+    :type passengers: int
+
     :return:
+        Coefficients of resistance force.
+    :rtype: float, float, float
     """
 
     d = {}

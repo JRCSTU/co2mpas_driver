@@ -16,7 +16,7 @@ from os import path as osp
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
 
-name = 'new_MFC'
+name = 'co2mpas_driver'
 
 if __name__ == '__main__':
     from setuptools import setup, find_packages

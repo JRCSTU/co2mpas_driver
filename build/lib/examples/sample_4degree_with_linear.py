@@ -8,7 +8,8 @@ my_dir = osp.dirname(osp.abspath(__file__))
 chdir(my_dir)
 
 '''
-Example of how to extract the acceleration curves of a vehicle and the corresponding plot.
+Example of how to extract the acceleration curves of a vehicle and the 
+corresponding plot.
 '''
 
 
@@ -31,9 +32,11 @@ def simple_run():
     selected_car = rno.get_vehicle_from_db(db, car_id)
 
     '''
-        The final acceleration curvers (Curves), the engine acceleration potential curves (cs_acc_per_gear),
-        before the calculation of the resistances and the limitation due to max possible acceleration (friction) .
-        '''
+        The final acceleration curvers (Curves), the engine acceleration 
+        potential curves (cs_acc_per_gear), before the calculation of the 
+        resistances and the limitation due to max possible acceleration 
+        (friction).
+    '''
     Curves, cs_acc_per_gear, StartStop, gs = mf.gear_4degree_curves_with_linear_gs(selected_car, gs_style)
 
     for gear, curve in enumerate(Curves):

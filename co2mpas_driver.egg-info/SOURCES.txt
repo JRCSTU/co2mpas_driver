@@ -6,6 +6,13 @@ co2mpas_driver/generic_co2mpas.py
 co2mpas_driver/load.py
 co2mpas_driver/plot.py
 co2mpas_driver/vehicle_functions.py
+co2mpas_driver.egg-info/PKG-INFO
+co2mpas_driver.egg-info/SOURCES.txt
+co2mpas_driver.egg-info/dependency_links.txt
+co2mpas_driver.egg-info/entry_points.txt
+co2mpas_driver.egg-info/requires.txt
+co2mpas_driver.egg-info/top_level.txt
+co2mpas_driver.egg-info/zip-safe
 co2mpas_driver/common/__init__.py
 co2mpas_driver/common/curve_functions.py
 co2mpas_driver/common/defaults.py
@@ -29,13 +36,6 @@ examples/sample_gear_shifting.py
 examples/sample_light_co2mpas.py
 examples/sample_mfc_curves.py
 examples/sample_simulation.py
-new_MFC.egg-info/PKG-INFO
-new_MFC.egg-info/SOURCES.txt
-new_MFC.egg-info/dependency_links.txt
-new_MFC.egg-info/entry_points.txt
-new_MFC.egg-info/requires.txt
-new_MFC.egg-info/top_level.txt
-new_MFC.egg-info/zip-safe
 tests/__init__.py
 tests/test_core.py
 tests/test_load.py

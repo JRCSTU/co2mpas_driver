@@ -22,7 +22,8 @@ def find_car_gear(my_car, speed, rpm):
 def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
     """
 
-    Gets coefficients and speed boundaries and returns Tans value for per speed per gear
+    Gets coefficients and speed boundaries and returns Tans value for per speed
+    per gear
 
     :param coefs_per_gear:
     :param Start:
@@ -46,7 +47,7 @@ def find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop):
 def find_gs_cut_tans(tmp_min, tmp_max, tan, tmp_min_next, gs_style):
     """
 
-    Find where gear is changed, vased on tans and gs_style
+    Find where gear is changed, based on tans and gs_style
 
     :param tmp_min:
     :param tmp_max:
