@@ -44,7 +44,8 @@ def clutch_on(gear_count, acc, transmission):
         return acc
 
 
-def simulation_step_function(transmission, speed, gear, gear_count, gs, Curves, vdes, driver_style, sim_step):
+def simulation_step_function(transmission, speed, gear, gear_count, gs, Curves,
+                             vdes, driver_style, sim_step):
     gear, gear_count = fg.gear_for_speed_profiles(gs, speed, gear, gear_count)
     acceleration = accMFC(speed, driver_style, vdes, Curves[gear - 1])
     acceleration = clutch_on(gear_count, acceleration, transmission)
