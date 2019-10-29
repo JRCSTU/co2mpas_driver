@@ -743,106 +743,93 @@ def run_simulation(
     """
     Run simulation.
 
-    :param transmission:
-        Transmission type of vehicle.
-    :type transmission: str
+    :param driver_simulation_model:
+        Driver simulation model.
+    :type driver_simulation_model:
 
     :param starting_velocity:
         Current speed.
     :type starting_velocity: int
 
-    :param gs: list
-        Gear shifting style.
-    :type gs: int
-
     :param times:
         Sample time series.
     :type times: np.array
-
-    :param curves: list
-        Final acceleration curves.
-    :type curves: list
 
     :param desired_velocity:
         Desired velocity.
     :type desired_velocity: int
 
-    :param driver_style:
-        Driving style.
-    :type driver_style: int
-
     :return:
         Gears & velocities.
     :rtype: int, list
     """
-    driver_simulation_model.reset(starting_velocity)
-    r = [driver_simulation_model(dt, desired_velocity) for dt in np.diff(times)]
+    model = driver_simulation_model.reset(starting_velocity)
+    r = [(model._gear, starting_velocity, 0)]
+    r.extend(model(dt, desired_velocity) for dt in np.diff(times))
     return list(zip(*r))[:2]
-
-
-@sh.add_function(dsp, outputs=['gears', 'velocities'])
-def run_simulation(transmission, starting_velocity, gs, times, curves,
-                   desired_velocity, driver_style):
-    """
-    Run simulation.
-
-    :param transmission:
-        Transmission type of vehicle.
-    :type transmission: str
-
-    :param starting_velocity:
-        Current speed.
-    :type starting_velocity: int
-
-    :param gs: list
-        Gear shifting style.
-    :type gs: int
-
-    :param times:
-        Sample time series.
-    :type times: np.array
-
-    :param curves: list
-        Final acceleration curves.
-    :type curves: list
-
-    :param desired_velocity:
-        Desired velocity.
-    :type desired_velocity: int
-
-    :param driver_style:
-        Driving style.
-    :type driver_style: int
-
-    :return:
-        Gears & velocities.
-    :rtype: int, list
-    """
-    from .simulation import (
-        gear_for_speed_profiles, accMFC, correct_acc_clutch_on
-    )
-    velocities = [starting_velocity]
-
-    velocity = starting_velocity
-
-    # Returns the gear that must be used and the clutch condition
-    gear = gear_for_speed_profiles(gs, velocity, 0, 0)[0]
-    gear_count = 0
-    gears = [gear]
-
-    # Core loop
-    for dt in np.diff(times):
-        gear, gear_count = gear_for_speed_profiles(gs, velocity, gear,
-                                                   gear_count)
-        acc = accMFC(
-            velocity, driver_style, desired_velocity, curves[gear - 1]
-        )
-        velocity += correct_acc_clutch_on(gear_count, acc, transmission) * dt
-
-        # Gather data
-        gears.append(gear)
-        velocities.append(velocity)
-    return gears, velocities
+# @sh.add_function(dsp, outputs=['gears', 'velocities'])
+# def run_simulation(transmission, starting_velocity, gs, times, curves,
+#                    desired_velocity, driver_style):
+#     """
+#     Run simulation.
+#
+#     :param transmission:
+#         Transmission type of vehicle.
+#     :type transmission: str
+#
+#     :param starting_velocity:
+#         Current speed.
+#     :type starting_velocity: int
+#
+#     :param gs: list
+#         Gear shifting style.
+#     :type gs: int
+#
+#     :param times:
+#         Sample time series.
+#     :type times: np.array
+#
+#     :param curves: list
+#         Final acceleration curves.
+#     :type curves: list
+#
+#     :param desired_velocity:
+#         Desired velocity.
+#     :type desired_velocity: int
+#
+#     :param driver_style:
+#         Driving style.
+#     :type driver_style: int
+#
+#     :return:
+#         Gears & velocities.
+#     :rtype: int, list
+#     """
+#     from .simulation import (
+#         gear_for_speed_profiles, accMFC, correct_acc_clutch_on
+#     )
+#     velocities = [starting_velocity]
+#
+#     velocity = starting_velocity
+#
+#     # Returns the gear that must be used and the clutch condition
+#     gear = gear_for_speed_profiles(gs, velocity, 0, 0)[0]
+#     gear_count = 0
+#     gears = [gear]
+#
+#     # Core loop
+#     for dt in np.diff(times):
+#         gear, gear_count = gear_for_speed_profiles(gs, velocity, gear,
+#                                                    gear_count)
+#         acc = accMFC(
+#             velocity, driver_style, desired_velocity, curves[gear - 1]
+#         )
+#         velocity += correct_acc_clutch_on(gear_count, acc, transmission) * dt
+#
+#         # Gather data
+#         gears.append(gear)
+#         velocities.append(velocity)
+#     return gears, velocities
 
 
 @sh.add_function(dsp, outputs=['accelerations'])

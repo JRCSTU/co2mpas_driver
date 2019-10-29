@@ -22,6 +22,7 @@ class Driver:
         from .simulation import gear_for_speed_profiles as func
         self._gear = func(self.gs, starting_velocity, 0, 0)[0]
         self._gear_count, self._velocity = 0, starting_velocity
+        return self
 
     def __call__(self, dt, desired_velocity, update=True):
         from .simulation import (
