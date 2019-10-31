@@ -27,6 +27,7 @@ co2mpas_driver/common/vehicle_functions.py
 co2mpas_driver/common/vehicle_specs_class.py
 co2mpas_driver/model/__init__.py
 co2mpas_driver/model/co2mpas.py
+co2mpas_driver/model/driver.py
 co2mpas_driver/model/simulation.py
 examples/__init__.py
 examples/sample_4degree_with_linear.py
