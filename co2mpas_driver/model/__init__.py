@@ -764,7 +764,7 @@ def run_simulation(
     :rtype: int, list
     """
     model = driver_simulation_model.reset(starting_velocity)
-    r = [(model._gear, starting_velocity, 0)]
+    r = [(model._gear, starting_velocity, 0)]  # Gather data
     r.extend(model(dt, desired_velocity) for dt in np.diff(times))
     return list(zip(*r))[:2]
 # @sh.add_function(dsp, outputs=['gears', 'velocities'])
