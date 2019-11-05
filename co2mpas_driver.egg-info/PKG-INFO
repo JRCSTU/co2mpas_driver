@@ -4,7 +4,7 @@ Version: 1.0.0
 Summary: A lightweight microsimulation free-flow acceleration model(MFC) that is able to capture the vehicle acceleration dynamics accurately and consistently
 Home-page: UNKNOWN
 License: European Union Public Licence 1.1 or later (EUPL 1.1+)
-Project-URL: Sources, https://github.com/ashenafimenza/new_MFC
+Project-URL: Sources, https://github.com/ashenafimenza/co2mpas_driver
 Description: ## User guidelines for co2mpas_driver
         <!--move them to CONTRIBUTING.md -->
         
