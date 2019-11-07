@@ -711,10 +711,17 @@ def gear_points_from_tan(tans, gear_shifting_style, start,
     return gs
 
 
+dsp.add_data('sim_start', 0)
+
+
 @sh.add_function(dsp, outputs=['times'])
-def define_times(duration, sim_step):
+def define_times(sim_start, duration, sim_step):
     """
     Define times for simulation.
+
+    :param sim_start:
+        Simulation starting time. [s]
+    :type sim_start: int
 
     :param duration:
         Duration of the simulation. [s]
@@ -728,7 +735,7 @@ def define_times(duration, sim_step):
         Time series.
     :rtype: numpy.array
     """
-    return np.arange(0, duration + sim_step, sim_step)
+    return np.arange(sim_start, duration + sim_step, sim_step)
 
 
 @sh.add_function(dsp, outputs=['driver_simulation_model'])
@@ -737,7 +744,7 @@ def define_driver_simulation_model(transmission, gs, curves, driver_style):
     return Driver(transmission, gs, curves, driver_style)
 
 
-@sh.add_function(dsp, outputs=['gears', 'velocities'])
+@sh.add_function(dsp, outputs=['gears', 'velocities', 'positions'])
 def run_simulation(
         driver_simulation_model, starting_velocity, times, desired_velocity):
     """
@@ -766,7 +773,7 @@ def run_simulation(
     model = driver_simulation_model.reset(starting_velocity)
     r = [(model._gear, starting_velocity, 0)]  # Gather data
     r.extend(model(dt, desired_velocity) for dt in np.diff(times))
-    return list(zip(*r))[:2]
+    return list(zip(*r))[:3]
 # @sh.add_function(dsp, outputs=['gears', 'velocities'])
 # def run_simulation(transmission, starting_velocity, gs, times, curves,
 #                    desired_velocity, driver_style):
