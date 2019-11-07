@@ -16,12 +16,12 @@ class Driver:
         self.gs = gs
         self.curves = [None] + list(curves)
         self.driver_style = driver_style
-        self._velocity = self._gear_count = self._gear = None
+        self._velocity = self.position = self._gear_count = self._gear = None
 
     def reset(self, starting_velocity):
         from .simulation import gear_for_speed_profiles as func
         self._gear = func(self.gs, starting_velocity, 0, 0)[0]
-        self._gear_count, self._velocity = 0, starting_velocity
+        self._gear_count, self.position, self._velocity = 0, 0, starting_velocity
         return self
 
     def __call__(self, dt, desired_velocity, update=True):
@@ -36,6 +36,7 @@ class Driver:
             self._velocity, self.driver_style, desired_velocity, self.curves[g]
         ), self.transmission)
         v = self._velocity + a * dt
+        s = self.position + self._velocity * dt + 0.5 * a * dt ** 2
         if update:
-            self._gear, self._gear_count, self._velocity = g, gc, v
-        return g, v, a
+            self._gear, self._gear_count, self._velocity, self.position = g, gc, v, s
+        return g, v, s, a
