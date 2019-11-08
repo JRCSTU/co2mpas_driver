@@ -48,7 +48,7 @@ if __name__ == '__main__':
                     'dynamics accurately and consistently',
         long_description=readme(),
         long_description_content_type='text/markdown',
-        project_urls={"Sources": "https://github.com/JRCSTU/co2mpas_driver.git"},
+        project_urls={"Sources": "https://github.com/ashenafimenza/binder_co2mpas_driver.gitt"},
         classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
