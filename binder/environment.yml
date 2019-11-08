@@ -1,0 +1,25 @@
+name: schedula
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - beautifulsoup4
+  - docutils
+  - flask
+  - jupyterlab >=0.35.5,<0.36
+  - lxml
+  - multiprocess
+  - networkx
+  - pandas
+  - numpy >=1.15
+  - openpyxl
+  - scipy
+  - xlrd
+  - pip
+  - python >=3.7,<3.8.0a0
+  - python-graphviz
+  - regex
+  - plotly
+  - tornado<6
+  - pip:
+      - jupyter-server-proxy
