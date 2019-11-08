@@ -1,4 +1,4 @@
-name: schedula
+name: co2mpas_driver
 channels:
   - conda-forge
   - defaults
@@ -6,6 +6,7 @@ dependencies:
   - beautifulsoup4
   - docutils
   - flask
+  - schedula>=0.3.2'
   - jupyterlab >=0.35.5,<0.36
   - lxml
   - multiprocess

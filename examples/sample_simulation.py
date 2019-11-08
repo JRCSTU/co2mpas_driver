@@ -17,12 +17,12 @@ def simple_run():
                                    'co2mpas_driver', 'db',
                                    'EuroSegmentCar'))
     # A sample car id from the database
-    car_id = 39393
+    car_id = 47844
     # The gear shifting style as described in the TRR paper.
     gs_style = 0.9
 
     # The desired speed
-    vdes = 40
+    vdes = 124/3.6
 
     # Current speed
     v_start = 0
@@ -31,19 +31,19 @@ def simple_run():
     sim_step = 0.1
 
     # The driving style as described in the TRR paper.
-    driver_style = 1
+    driver_style = 0.2
 
     # Duration of the simulation in seconds.
     duration = 100
 
     # sample time series
-    times = np.arange(0, duration + sim_step, sim_step)
+    times = np.arange(10, duration + sim_step, sim_step)
 
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_path)
 
     # The vehicle specs as returned from the database
-    selected_car = rno.get_vehicle_from_db(db, car_id)
+    selected_car = rno.get_vehicle_from_db(db, car_id, key='electric')
 
     '''
     The final acceleration curvers (Curves), the engine acceleration potential 

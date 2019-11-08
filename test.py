@@ -8,9 +8,7 @@ def simple_run():
         parameters of the simulation
     :return:
     """
-    veh_ids = [35135, 27748, 15109, 8183, 26629, 8358, 17145, 17146, 35361,
-               5768, 3408, 15552, 8620, 8592, 5779, 8267, 4396, 4416, 34474,
-               9885, 7976, 34196, 34024, 8996]
+    veh_ids = [47844]
     v_des = 124/3.6
     v_start = 0
     dt = 0.1
@@ -35,12 +33,10 @@ def simple_run():
             res[my_veh]['gear'].append(gear)
             res[my_veh]['position'].append(position)
 
-            # print(next_velocity)
-    fig1 = plt.figure()
-    ax1 = fig1.add_subplot(111)
     for my_veh in vehicles:
-        ax1.plot(res[my_veh]['speed'], res[my_veh]['accel'])
-    plt.show()
+        plt.figure('Acceleration-Speed')
+        plt.plot(res[my_veh]['speed'], res[my_veh]['accel'])
+        plt.show()
     return 0
 
 
