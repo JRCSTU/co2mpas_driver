@@ -1,6 +1,6 @@
 ## Com2pas_driver: Try it live
 <!--move them to CONTRIBUTING.md -->
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ashenafimenza/binder_co2mpas_driver/master)
+[[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ashenafimenza/binder_co2mpas_driver/master)
 
 Access this Binder at the following URL:
 
