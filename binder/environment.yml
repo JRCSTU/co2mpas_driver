@@ -22,5 +22,6 @@ dependencies:
   - plotly
   - tornado<6
   - pip:
+      - git+https://github.com/ashenafimenza/binder_co2mpas_driver.git@master
       - schedula>=0.3.2
       - jupyter-server-proxy
