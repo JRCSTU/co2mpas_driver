@@ -1,5 +1,17 @@
-## User guidelines for co2mpas_driver
+## Com2pas_driver: Try it live
 <!--move them to CONTRIBUTING.md -->
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JRCSTU/co2mpas_driver/master?urlpath=lab/tree/examples)
+
+Access this Binder at the following URL:
+
+https://mybinder.org/v2/gh/ashenafimenza/binder_co2mpas_driver/master
+
+Click the binder badge to try it live without installing anything. 
+This will take you directly to the ipython notebook to present examples on 
+how to use co2mpas_driver model (i.e., MFC) to simulate the driver behaviour of 
+a vehicle.
+
+## User guidelines for co2mpas_driver
 
 This page contains user guidelines for first time users of co2mpas_driver 
 library. It contains the explanations and definitions required to understand how to use
