@@ -4,7 +4,7 @@
 
 Access this Binder at the following URL:
 
-https://mybinder.org/v2/gh/ashenafimenza/binder_co2mpas_driver/master
+https://mybinder.org/v2/gh/JRCSTU/co2mpas_driver/master
 
 Click the binder badge to try it live without installing anything. 
 This will take you directly to the ipython notebook to present examples on 
