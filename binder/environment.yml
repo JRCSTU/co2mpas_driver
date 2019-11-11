@@ -24,3 +24,5 @@ dependencies:
   - plotly
   - tornado==5.1.1
   - schedula>=0.3.2
+  - pip:
+      - jupyter-server-proxy
