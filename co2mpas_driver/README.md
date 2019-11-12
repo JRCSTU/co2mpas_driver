@@ -1,10 +1,8 @@
-## User guidelines for co2mpas_driver
+## co2mpas_driver model
 <!--move them to CONTRIBUTING.md -->
 
-This page contains user guidelines for first time users of co2mpas_driver 
-library. It contains the explanations and definitions required to understand how to use
-the library. These guidelines are written for users with less IT knowledge.
-for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0361198119838515
+This page contains the explanations, definitions examples required to understand
+and use co2mpas_driver (i.e MFC) model.
 
 ## Design diagram (core model)  
    
@@ -38,11 +36,11 @@ for more details on the new_MFC model https://journals.sagepub.com/doi/10.1177/0
        gear shifting points, final acceleration potential based on input parameters: 
        gear shifting style, driver style and vehicle_id over the desired speed range.
 
-3. **Installing new_MFC package**
+3. **Installing co2mpas_driver package**
     This package can be installed easily on any machine that has pip 
     from python package index using a requirement specifier 
     
-        pip install new_MFC 
+        pip install co2mpas_driver 
 
 4. **How to use co2mpas_driver library**:
     In this example we will use new_MFC driver model in order to extract the drivers 
