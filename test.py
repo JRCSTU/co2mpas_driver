@@ -1,4 +1,4 @@
-from co2mpas_driver import dsp
+from co2mpas_driver import dsp as driver
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -8,13 +8,15 @@ def simple_run():
         parameters of the simulation
     :return:
     """
-    veh_ids = [47844]
+    veh_ids = [35135, 27748, 15109, 8183, 26629, 8358, 17145, 17146, 35361,
+               5768, 3408, 15552, 8620, 8592, 5779, 8267, 4396, 4416, 34474,
+               9885, 7976, 34196, 34024, 8996]
     v_des = 124/3.6
     v_start = 0
     dt = 0.1
     times = np.arange(10, 100, dt)
 
-    vehicles = [dsp(dict(vehicle_id=i,
+    vehicles = [driver(dict(vehicle_id=i,
                          inputs=dict(inputs={'gear_shifting_style': 0.9,
                                              'driver_style': 0.2})))
                 ['outputs']['driver_simulation_model'] for i in veh_ids]
