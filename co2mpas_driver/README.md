@@ -1,7 +1,7 @@
 ## co2mpas_driver model
 <!--move them to CONTRIBUTING.md -->
 
-This page contains the explanations, definitions examples required to understand
+This page contains the explanations, definitions and examples required to understand
 and use co2mpas_driver (i.e MFC) model.
 
 ## Design diagram (core model)  

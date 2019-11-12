@@ -13,7 +13,7 @@ the driver behaviour of a vehicle.
 
 ## What is co2mpas_driver?
 
-Co2mpas_driver is a library used to implements a lightweight microsimulation 
+Co2mpas_driver is a library used to implement a lightweight microsimulation 
 free-flow acceleration model (MFC) that is able to capture the vehicle acceleration 
 dynamics accurately and consistently, it provides a link between the model and 
 the driver and can be easily implemented and tested without raising the 
