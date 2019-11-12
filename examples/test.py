@@ -22,7 +22,6 @@ def simple_run():
                 ['outputs']['driver_simulation_model'] for i in veh_ids]
     res = {}
     for myt in times:
-        # print("******************")
         for my_veh in vehicles:
             if myt == times[0]:
                 my_veh.reset(v_start)

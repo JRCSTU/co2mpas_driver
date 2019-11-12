@@ -29,14 +29,6 @@ co2mpas_driver/model/__init__.py
 co2mpas_driver/model/co2mpas.py
 co2mpas_driver/model/driver.py
 co2mpas_driver/model/simulation.py
-examples/__init__.py
-examples/sample_4degree_with_linear.py
-examples/sample_EV.py
-examples/sample_different_curves.py
-examples/sample_gear_shifting.py
-examples/sample_light_co2mpas.py
-examples/sample_mfc_curves.py
-examples/sample_simulation.py
 tests/__init__.py
 tests/test_core.py
 tests/test_load.py
