@@ -52,8 +52,8 @@ def simple_run():
     #         # One by one the vehicle ids it works. When you put a list there is a problem.
     #         test_ids = veh_ids[cnt:cnt]
     #         vehicles = [driver(dict(vehicle_id=i,
-    #                      inputs=dict(inputs={'gear_shifting_style': gs,
-    #                                          'driver_style': ds})))
+    #                      inputs=dict(inputs={'gear_shifting_style': gs[cnt],
+    #                                          'driver_style': ds[cnt]})))
     #          ['outputs']['driver_simulation_model'] for i in test_ids]
     #         ok_ids.append(veh_ids[cnt])
     #     except:
@@ -63,8 +63,8 @@ def simple_run():
     #         complete = 1
     #
     # # end test
-    # print (ok_ids)
-    # print (problem_ids)
+    # print(ok_ids)
+    # print(problem_ids)
     # exit()
 
     vehicles = [driver(dict(vehicle_id=i,

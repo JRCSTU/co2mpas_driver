@@ -12,7 +12,7 @@ def simple_run():
     # file path without extension of the file
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
-                                   'EuroSegmentCar'))
+                                   'EuroSegmentCar_cleaned'))
 
     car_id = 47844
 

@@ -26,7 +26,8 @@ def accMFC(s, driver_style, sdes, acc_p_curve):
 def clutch_on(gear_count, acc, transmission):
     """
 
-    If clutch is on, maximum acceleration is decreased depending on the transmission
+    If clutch is on, maximum acceleration is decreased depending on the
+    transmission
 
     :param gear_count:
     :param acc:

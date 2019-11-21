@@ -15,11 +15,11 @@ def simple_run():
     # Vehicle databased based on the Euro Car Segment classification
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
-                                   'EuroSegmentCar'))
+                                   'EuroSegmentCar_cleaned'))
     # A sample car id from the database
-    car_id = 47844
+    car_id = 19058
     # The gear shifting style as described in the TRR paper.
-    gs_style = 0.9
+    gs_style = 1
 
     # The desired speed
     vdes = 124/3.6
@@ -31,7 +31,7 @@ def simple_run():
     sim_step = 0.1
 
     # The driving style as described in the TRR paper.
-    driver_style = 0.2
+    driver_style = 1
 
     # Duration of the simulation in seconds.
     duration = 100

@@ -23,7 +23,8 @@ European Commission for more details https://journals.sagepub.com/doi/10.1177/03
 ## Installation
 
 **Install co2mpas_driver**
-    This package can be installed from source easily on any machine that has pip.
+    This package can be installed from source easily on any machine that has git 
+    and pip.
     You can install co2mpas_driver's most recent commit.
    
         pip install git+https://github.com/JRCSTU/co2mpas_driver.git@75e619a
@@ -181,7 +182,9 @@ e. **Results**
  ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
   
  **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range
- 
+
+
+
        
    **Contributing**
    
