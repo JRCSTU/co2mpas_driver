@@ -64,7 +64,7 @@ def get_vehicle_id(raw_data):
 
 
 dsp.add_data(
-    'db_path', osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv'),
+    'db_path', osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar_cleaned.csv'),
     sh.inf(1, 0)
 )
 

@@ -665,6 +665,13 @@ def _find_gs_cut_tans(tmp_min, tan, tmp_min_next, gear_shifting_style):
     return gear_cut
 
 
+@sh.add_function(dsp, outputs=['gs'])
+def default_gs(fuel_type):
+    if fuel_type == 'electricity':
+        return []
+    return sh.NONE
+
+
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['gs'])
 def gear_points_from_tan(tans, gear_shifting_style, start,
                          use_linear_gs=False):
@@ -858,7 +865,7 @@ def calculate_accelerations(times, velocities):
     """
     dv = np.ediff1d(velocities, to_begin=[0])
     dt = np.ediff1d(times, to_begin=[0])
-    return np.nan_to_num(dv / dt).tolist()
+    return np.round(np.nan_to_num(dv / dt), 13).tolist()
 
 
 if __name__ == '__main__':
