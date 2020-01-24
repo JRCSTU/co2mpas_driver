@@ -64,7 +64,7 @@ def get_vehicle_id(raw_data):
 
 
 dsp.add_data(
-    'db_path', osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar_cleaned.csv'),
+    'db_path', osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar.csv'),
     sh.inf(1, 0)
 )
 
@@ -135,7 +135,7 @@ def load_vehicle_db(db_path):
     df.loc[df['fuel_type'] == 'diesel', 'ignition_type'] = 'compression'
     b = df['fuel_type'] == 'electricity'
     df.loc[b, ['ignition_type', 'gear_box_ratios']] = np.nan
-    df['tyre_radius'] /= 1000  # meters.
+    df['tyre_radius'] = (24.5 / 2 * 2.54) / 100  # meters.
     df['driveline_slippage'] = 0
 
     b = df['gearbox_type'] == 'automatic'
