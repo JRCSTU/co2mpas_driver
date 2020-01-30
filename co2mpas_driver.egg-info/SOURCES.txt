@@ -30,6 +30,7 @@ co2mpas_driver/model/co2mpas.py
 co2mpas_driver/model/driver.py
 co2mpas_driver/model/simulation.py
 tests/__init__.py
+tests/new_test.py
 tests/test_core.py
 tests/test_load.py
 tests/test_model.py

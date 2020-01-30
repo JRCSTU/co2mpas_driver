@@ -29,17 +29,21 @@ Description: ## Com2pas_driver: Try it live
         
         ## Installation
         
-        1. **Download or clone co2mpas_driver**
-            If you have access to the project under JRCSTU github repository then clone
-            the co2mpas_driver project to your local machine.
+        **Install co2mpas_driver**
+            This package can be installed from source easily on any machine that has git 
+            and pip.
+            You can install co2mpas_driver's most recent commit.
            
-                git clone https://github.com/JRCSTU/co2mpas_driver.git
-               
-        2. **Install on your local machine**
-            You can install on your machine using:
+                pip install git+https://github.com/JRCSTU/co2mpas_driver.git@75e619a
             
-                pip install dist/co2mpas_driver-1.0.0-py2.py3-none-any.whl 
-                
+           or from @master branch.
+            
+                pip install git+https://github.com/JRCSTU/co2mpas_driver.git@master 
+        
+        **Uninstall your package**
+        
+                pip uninstall co2mpas_driver
+                 
         ## How to use co2mpas_driver library
         
         In this example we will use co2mpas_driver model in order to extract the drivers 
@@ -185,7 +189,9 @@ Description: ## Com2pas_driver: Try it live
          ![alt text](https://github.com/ashenafimenza/new_MFC/blob/master/co2mpas_driver/images/acc-time.PNG)
           
          **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range
-         
+        
+        
+        
                
            **Contributing**
            

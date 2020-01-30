@@ -78,7 +78,7 @@ data:
   - 100
   - 105
   wheelbase: 2.3
-db_path: C:\Apps\new_MFC\co2mpas_driver\db\EuroSegmentCar.csv
+db_path: C:\Apps\new_MFC\co2mpas_driver\db\EuroSegmentCar_cleaned.csv
 input_path: C:/Apps/new_MFC/co2mpas_driver/template/sample.xlsx
 inputs:
   inputs:
@@ -115,6 +115,7 @@ raw_data:
     desired_velocity: 40.0
     driver_style: 1.0
     gear_shifting_style: 0.9
+    starting_speed: 0.0
   time_series:
     times:
     - 0

@@ -1,4 +1,5 @@
 from os import path as osp, chdir
+from co2mpas_driver import dsp as driver
 from co2mpas_driver.common import simulation_part as sp
 import numpy as np
 import matplotlib.pyplot as plt
@@ -17,9 +18,9 @@ def simple_run():
                                    'co2mpas_driver', 'db',
                                    'EuroSegmentCar_cleaned'))
     # A sample car id from the database
-    car_id = 19058
+    car_id = 8188
     # The gear shifting style as described in the TRR paper.
-    gs_style = 1
+    gs_style = 0.99
 
     # The desired speed
     vdes = 124/3.6
@@ -31,19 +32,27 @@ def simple_run():
     sim_step = 0.1
 
     # The driving style as described in the TRR paper.
-    driver_style = 1
+    driver_style = 0.2
 
     # Duration of the simulation in seconds.
     duration = 100
 
     # sample time series
-    times = np.arange(10, duration + sim_step, sim_step)
-
+    times = np.arange(0, duration + sim_step, sim_step)
+    # **********************************************************
+    vehicles = driver(dict(vehicle_id=car_id,
+                           inputs=dict(inputs={'gear_shifting_style': gs_style,
+                                               'starting_velocity': v_start,
+                                               'driver_style': driver_style,
+                                               'desired_velocity': vdes,
+                                               'sim_start': 0, 'sim_step': sim_step,
+                                               'duration': duration})))['outputs']
+    # **********************************************************
     '''import vehicle object, curves and gear shifting strategy'''
     db = rno.load_db_to_dictionary(db_path)
 
     # The vehicle specs as returned from the database
-    selected_car = rno.get_vehicle_from_db(db, car_id, key='electric')
+    selected_car = rno.get_vehicle_from_db(db, car_id)
 
     '''
     The final acceleration curvers (Curves), the engine acceleration potential 
@@ -83,22 +92,26 @@ def simple_run():
         Acceleration.append((Speeds[-1] - Speeds[-2])/sim_step)
 
     '''Plot'''
-    plt.figure('Time-Speed')
-    plt.plot(times, Speeds[1:])
-    plt.grid()
-    plt.figure('Speed-Acceleration')
-    plt.plot(Speeds[1:], Acceleration[1:])
-    plt.grid()
-    plt.figure('Acceleration-Time')
-    plt.plot(times, Acceleration[1:])
-    plt.grid()
+    # plt.figure('Time-Speed')
+    # plt.plot(times, Speeds[1:])
+    # plt.grid()
+    # plt.figure('Speed-Acceleration')
+    # plt.plot(Speeds[1:], Acceleration[1:])
+    # plt.grid()
+    # plt.figure('Acceleration-Time')
+    # plt.plot(times, Acceleration[1:])
+    # plt.grid()
 
     plt.figure('Speed-Acceleration')
-    for i, gear_curve in enumerate(Curves):
-        sp_bins = np.arange(StartStop[0][i], StartStop[1][i]+0.1, 0.1)
-        accelerations = gear_curve(sp_bins)
-        plt.plot(sp_bins, accelerations, 'k')
+    plt.plot(vehicles['velocities'][1:], vehicles['accelerations'][1:])
     plt.grid()
+
+    # plt.figure('Speed-Acceleration')
+    # for i, gear_curve in enumerate(Curves):
+    #     sp_bins = np.arange(StartStop[0][i], StartStop[1][i]+0.1, 0.1)
+    #     accelerations = gear_curve(sp_bins)
+    #     # plt.plot(sp_bins, accelerations, 'k')
+    # plt.grid()
     plt.show()
     return 0
 

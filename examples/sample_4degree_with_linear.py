@@ -20,7 +20,7 @@ def simple_run():
                                    'EuroSegmentCar'))
 
     # A sample car id from the database
-    car_id = 39393
+    car_id = 35135
 
     # The gear shifting style as described in the TRR paper.
     gs_style = 0.8
