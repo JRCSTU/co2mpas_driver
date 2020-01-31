@@ -1,21 +1,18 @@
-"""
-Define veh_specs class
-"""
+'''Define veh_specs class'''
 
 
-class VehSpecs(object):
+class veh_specs(object):
 
     # The class "constructor"
     def __init__(self, my_car, **kwargs):
-        """
+        '''
         kwargs can be:
         lco = True          # Light co2mpas is to be used, so the relevant parameters must be imported
         electric = True     # The vehicle is an EV
 
         :param my_car:
         :param kwargs:
-
-        """
+        '''
 
         if 'electric' not in kwargs or not kwargs['electric']:
             self.engine_max_power = float(my_car["Fuel Engine-Max power"])  # kW
@@ -47,8 +44,7 @@ class VehSpecs(object):
             else:
                 self.driveline_efficiency = 0.93
                 self.transmission = 'manual'
-            self.final_drive = float(
-                my_car["Transmission  / Gear ratio-Final drive"])
+            self.final_drive = float(my_car["Transmission  / Gear ratio-Final drive"])
             self.veh_mass = float(my_car["Weights-Empty mass"])
             self.top_speed = int(float(my_car["Performance-Top speed"]) / 3.6)
             self.type_of_car = my_car["General Specifications-Carbody"].strip()
@@ -70,24 +66,18 @@ class VehSpecs(object):
             else:
                 self.idle_engine_speed = (850, 50)
 
-            self.veh_max_speed = int(
-                float(my_car["Performance-Top speed"]) / 3.6)  # m/s
+            self.veh_max_speed = int(float(my_car["Performance-Top speed"]) / 3.6)  # m/s
 
             if 'lco' in kwargs:
                 if kwargs['lco']:
                     '''Used for Light Co2mpass'''
-                    self.r_dynamic = float(
-                        my_car["Chassis-Rolling Radius Dynamic"]) / 1000
-                    self.engine_max_torque = float(
-                        my_car["Fuel Engine-Max torque"])
-                    self.fuel_engine_stroke = float(
-                        my_car["Fuel Engine-Stroke"])
+                    self.r_dynamic = float(my_car["Chassis-Rolling Radius Dynamic"]) / 1000
+                    self.engine_max_torque = float(my_car["Fuel Engine-Max torque"])
+                    self.fuel_engine_stroke = float(my_car["Fuel Engine-Stroke"])
                     self.max_power = float(my_car["Drive-Total max power"])
                     self.fuel_turbo = my_car["Fuel Engine-Turbo"]
-                    self.fuel_eng_capacity = float(
-                        my_car["Fuel Engine-Capacity"])
-                    self.gearbox_type = str(
-                        my_car["General Specifications-Transmission"])
+                    self.fuel_eng_capacity = float(my_car["Fuel Engine-Capacity"])
+                    self.gearbox_type = str(my_car["General Specifications-Transmission"])
 
         else:
             if kwargs['electric']:
@@ -96,25 +86,19 @@ class VehSpecs(object):
                     raise ("NOT ELECTRIC")
                 self.ignition_type = 'electricity'
 
-                self.engine_max_power = float(
-                    my_car["Electric Engine-Total max power"])  # kW
-                self.motor_max_torque = float(
-                    my_car["Electric Engine-Max torque"])  # Nm
+                self.engine_max_power = float(my_car["Electric Engine-Total max power"])  # kW
+                self.motor_max_torque = float(my_car["Electric Engine-Max torque"])  # Nm
                 self.gr = 1
-                self.tire_radius = float(
-                    my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
+                self.tire_radius = float(my_car["Chassis-Rolling Radius Static"]) / 1000  # meters
                 self.driveline_slippage = 0
                 if my_car["General Specifications-Transmission"] == 'single-speed fixed gear':
                     self.driveline_efficiency = 0.90
                 else:
                     self.driveline_efficiency = 0.93
-                self.final_drive = float(
-                    my_car["Transmission  / Gear ratio-Final drive"])
+                self.final_drive = float(my_car["Transmission  / Gear ratio-Final drive"])
                 self.veh_mass = float(my_car["Weights-Empty mass"])
-                self.veh_max_speed = int(
-                    float(my_car["Performance-Top speed"]) / 3.6)  # m/s
-                self.type_of_car = my_car[
-                    "General Specifications-Carbody"].strip()
+                self.veh_max_speed = int(float(my_car["Performance-Top speed"]) / 3.6)  # m/s
+                self.type_of_car = my_car["General Specifications-Carbody"].strip()
                 self.car_width = float(my_car["Exterior sizes-Width"])
                 self.car_height = float(my_car["Exterior sizes-Height"])
                 # self.kerb_weight = float(my_car["Weights-Unladen mass"])
@@ -127,10 +111,10 @@ class VehSpecs(object):
                     self.car_type = 6
 
 
-class HardcodedParams(object):
-    """
+class hardcoded_params(object):
+    '''
     The class is used for some params that are hard coded
-    """
+    '''
 
     # The class "constructor"
     def __init__(self):
