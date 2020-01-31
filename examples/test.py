@@ -28,7 +28,8 @@ def simple_run():
         for my_veh in vehicles:
             if myt == times[0]:
                 my_veh.reset(v_start)
-                res[my_veh] = {'accel': [0], 'speed': [v_start], 'position': [0], 'gear': [0]}
+                res[my_veh] = {'accel': [0], 'speed': [v_start],
+                               'position': [0], 'gear': [0]}
                 continue
 
             gear, next_velocity, acc, position = my_veh(dt, v_des)

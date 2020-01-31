@@ -33,7 +33,8 @@ class Driver:
         )
 
         a = correct_acc_clutch_on(gc, accMFC(
-            self._velocity, self.driver_style, desired_velocity, self.curves[g - 1]
+            self._velocity, self.driver_style, desired_velocity,
+            self.curves[g - 1]
         ), self.transmission)
         v = self._velocity + a * dt
         s = self.position + self._velocity * dt + 0.5 * a * dt ** 2

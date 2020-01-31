@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     test_deps = ['pytest']
 
-    # url = 'https://github.com/ashenafimenza/%s' % name
+    # url = 'https://github.com/JRCSTU/%s' % name
 
     setup(
         name=name,
@@ -48,7 +48,7 @@ if __name__ == '__main__':
                     'dynamics accurately and consistently',
         long_description=readme(),
         long_description_content_type='text/markdown',
-        project_urls={"Sources": "https://github.com/ashenafimenza/binder_co2mpas_driver.gitt"},
+        project_urls={"Sources": "https://github.com/JRCSTU/co2mpas_driver.git"},
         classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',

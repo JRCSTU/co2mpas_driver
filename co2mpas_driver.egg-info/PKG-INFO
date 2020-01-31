@@ -4,7 +4,7 @@ Version: 1.0.0
 Summary: A lightweight microsimulation free-flow acceleration model(MFC) that is able to capture the vehicle acceleration dynamics accurately and consistently
 Home-page: UNKNOWN
 License: European Union Public Licence 1.1 or later (EUPL 1.1+)
-Project-URL: Sources, https://github.com/ashenafimenza/binder_co2mpas_driver.gitt
+Project-URL: Sources, https://github.com/JRCSTU/co2mpas_driver.git
 Description: ## Com2pas_driver: Try it live
         <!--move them to CONTRIBUTING.md -->
         [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JRCSTU/co2mpas_driver/master?urlpath=lab/tree/examples)
