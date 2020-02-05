@@ -172,9 +172,9 @@ def veh_resistances(f0, f1, f2, sp_bins, total_mass):
         Total mass.
     :type total_mass: float
 
-    :return:
+    :return: resistance_spline_curve, resistance_spline_curve_f
         Resistance forces being applied per speed.
-    :rtype:
+    :rtype: scipy.interpolate._cubic.CubicSpline, scipy.interpolate._cubic.CubicSpline
     """
     sp_bins = list(sp_bins)
     resistance_force = []

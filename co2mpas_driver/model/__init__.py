@@ -80,12 +80,12 @@ def get_speeds_n_accelerations_per_gear(
 
     :param full_load_speeds:
         Full load speeds.
-    :type full_load_speeds: ndarray
+    :type full_load_speeds: numpy.array
 
     :param full_load_torques:
-    :type full_load_torques: ndarray
+    :type full_load_torques: numpy.array
 
-    :return: speed_per_gear
+    :return: speed_per_gear, acc_per_gear
     """
 
     speed_per_gear, acc_per_gear = [], []
@@ -404,7 +404,7 @@ def define_discrete_car_res_curve_force(car_res_curve_force, sp_bins):
 
     :return:
         Discrete resistance force.
-    :rtype:
+    :rtype: numpy.array
     """
     return car_res_curve_force(sp_bins)
 
@@ -456,7 +456,7 @@ def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
 
     :return:
         Car resistance curve.
-    :rtype:
+    :rtype: tuple[scipy.interpolate._cubic.CubicSpline]
     """
 
     from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
@@ -805,6 +805,27 @@ def define_times(sim_start, duration, sim_step):
 
 @sh.add_function(dsp, outputs=['driver_simulation_model'])
 def define_driver_simulation_model(transmission, gs, curves, driver_style):
+    """
+        Defines the drivers simulation model.
+
+    :param transmission:
+        Vehicle transmission system.
+    :type: str
+
+    :param gs:
+        Gear cuts.
+    :param curves:
+        Acceleration curves per gear.
+    :type: list
+
+    :param driver_style:
+        Driver style.
+    :type: int
+
+    :return:
+        Driver simulation model.
+    :rtype
+    """
     from .driver import Driver
     return Driver(transmission, gs, curves, driver_style)
 
@@ -839,7 +860,7 @@ def run_simulation(
 
     :return:
         Gears & velocities.
-    :rtype: int, list
+    :rtype: list[numpy.array]
     """
     model = driver_simulation_model.reset(starting_velocity)
     r = [(model._gear, starting_velocity, 0)]  # Gather data
