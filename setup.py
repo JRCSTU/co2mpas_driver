@@ -74,6 +74,7 @@ if __name__ == '__main__':
             'regex',
             'lmfit>=0.9.7',
             'numpy',
+            'matplotlib'
             'schema',
             'scipy',
             'wltp',
@@ -83,18 +84,9 @@ if __name__ == '__main__':
         package_data={
             'co2mpas_driver': [
                 'template/*.xlsx',
+                'db/*.csv',
                 '*'
             ]
-        },
-        entry_points={
-            "console_scripts": [
-                                "sample_4degree_with_linear=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_different_curves=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_EV=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_gear_shifting=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_light_co2mpas=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_mfc_curves=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run",
-                                "sample_simulation=new_MFC.co2mpas_driver.examples.sample_4degree_with_linear:simple_run"]
         },
         include_package_data=True,
         zip_safe=True,
