@@ -84,7 +84,7 @@ def simple_run():
     '''Core loop'''
     for t in times:
         speed, gear, gear_count = sp.simulation_step_function(
-            selected_car.transmission, speed, gear, gear_count, gs, Curves,
+            selected_car, speed, gear, gear_count, gs, Curves,
             vdes, driver_style, sim_step)
 
         '''Gather data'''
