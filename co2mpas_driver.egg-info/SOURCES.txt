@@ -9,7 +9,6 @@ co2mpas_driver/vehicle_functions.py
 co2mpas_driver.egg-info/PKG-INFO
 co2mpas_driver.egg-info/SOURCES.txt
 co2mpas_driver.egg-info/dependency_links.txt
-co2mpas_driver.egg-info/entry_points.txt
 co2mpas_driver.egg-info/requires.txt
 co2mpas_driver.egg-info/top_level.txt
 co2mpas_driver.egg-info/zip-safe
@@ -30,8 +29,9 @@ co2mpas_driver/model/co2mpas.py
 co2mpas_driver/model/driver.py
 co2mpas_driver/model/simulation.py
 tests/__init__.py
-tests/new_test.py
 tests/test_core.py
 tests/test_load.py
 tests/test_model.py
+tests/test_old_versus_new_model.py
+tests/test_vehicle_database.py
 tests/utils.py
