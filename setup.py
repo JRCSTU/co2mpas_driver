@@ -74,7 +74,6 @@ if __name__ == '__main__':
             'regex',
             'lmfit>=0.9.7',
             'numpy',
-            'matplotlib'
             'schema',
             'scipy',
             'wltp',

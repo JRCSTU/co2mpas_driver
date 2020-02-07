@@ -5,7 +5,7 @@ scikit-learn
 regex
 lmfit>=0.9.7
 numpy
-matplotlibschema
+schema
 scipy
 wltp
 xgboost
