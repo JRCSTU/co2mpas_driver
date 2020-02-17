@@ -14,7 +14,6 @@ corresponding plot.
 
 
 def simple_run():
-    # db_name = '../db/car_db_sample'
     db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
                                    'co2mpas_driver', 'db',
                                    'EuroSegmentCar'))
@@ -50,4 +49,5 @@ def simple_run():
     return 0
 
 
-simple_run()
+if __name__ == '__main__':
+    simple_run()

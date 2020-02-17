@@ -19,8 +19,6 @@ import schedula as sh
 from .driver import Driver as dr
 from co2mpas_driver.model.co2mpas import get_full_load, \
     calculate_full_load_speeds_and_powers, calculate_full_load_torques
-from co2mpas_driver.generic_co2mpas import light_co2mpas_series, \
-    light_co2mpas_instant
 
 dsp = sh.Dispatcher(name='model')
 dsp.add_func(get_full_load, outputs=['full_load_curve'])
@@ -31,11 +29,6 @@ dsp.add_func(
 dsp.add_func(
     calculate_full_load_torques,
     outputs=['full_load_torques']
-)
-
-dsp.add_func(
-    light_co2mpas_instant,
-    outputs=['fc']
 )
 
 
@@ -951,6 +944,103 @@ def run_simulation(
 #     dv = np.ediff1d(velocities, to_begin=[0])
 #     dt = np.ediff1d(times, to_begin=[0])
 #     return np.round(np.nan_to_num(dv / dt)).tolist()
+
+@sh.add_function(dsp, outputs=['fp'])
+def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
+                         gear_box_ratios, gearbox_type, type_of_car, car_width,
+                         car_height, engine_max_torque, fuel_eng_capacity,
+                         max_power, fuel_engine_stroke, fuel_type, fuel_turbo,
+                         sim_step, velocities, gs, **kwargs):
+    """
+        Computes the CO2 emissions in grams for
+        a series of speed profile.
+
+    :param vehicle_mass:
+    :param r_dynamic:
+    :param car_type:
+    :param final_drive_ratio:
+    :param gear_box_ratios:
+    :param gearbox_type:
+    :param type_of_car:
+    :param car_width:
+    :param car_height:
+    :param engine_max_torque:
+    :param fuel_eng_capacity:
+    :param max_power:
+    :param fuel_engine_stroke:
+    :param fuel_type:
+    :param fuel_turbo:
+    :param sim_step:
+    :param velocities:
+    :param gs:
+    :param kwargs:
+    :return:
+    """
+
+    from co2mpas_driver.common import vehicle_specs_class as vcc, \
+        gear_functions as fg
+    from .co2mpas import estimate_f_coefficients
+    gear_list = {}
+    clutch_list = []
+    gear_list_flag = False
+    if 'gear_list' in kwargs:
+        gear_list_flag = True
+        gear_list = kwargs['gear_list']
+        if 'clutch_duration' in kwargs:
+            clutch_duration = kwargs['clutch_duration']
+        else:
+            clutch_duration = int(0.5 % sim_step)
+        clutch_list = fg.create_clutch_list(gear_list, clutch_duration)
+
+    hardcoded_params = vcc.hardcoded_params()
+
+    # n_wheel_drive = my_car.car_type
+    road_loads = estimate_f_coefficients(vehicle_mass, type_of_car, car_width,
+                                         car_height, passengers=0)
+
+    slope = 0
+    # FIX First convert km/h to m/s in order to have acceleration in m/s^2
+    ap = np.diff([i / (3.6 * sim_step) for i in velocities])
+
+    # gear number and gear count for shifting duration
+    # simulated_gear = [0, 30]
+    fp = []
+
+    if gearbox_type == 'manual':
+        veh_params = hardcoded_params.params_gearbox_losses['Manual']
+        gb_type = 0
+    else:
+        veh_params = hardcoded_params.params_gearbox_losses['Automatic']
+        gb_type = 1
+
+    # gear is the current gear and gear_count counts the time-steps
+    # in order to prevent continuous gear shifting.
+    gear = 0
+    # Initializing gear count.
+    gear_count = 30
+
+    for i in range(1, len(velocities)):
+        speed = velocities[i]
+        acceleration = ap[i - 1]
+
+        if gear_list_flag:
+            gear = gear_list[i]
+            gear_count = clutch_list[i]
+        else:
+            gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear,
+                                                          gear_count, gb_type)
+        from co2mpas_driver.generic_co2mpas import light_co2mpas_instant
+        fc = light_co2mpas_instant(vehicle_mass, r_dynamic, car_type,
+                                   final_drive_ratio, gear_box_ratios,
+                                   veh_params, engine_max_torque,
+                                   fuel_eng_capacity, speed, acceleration,
+                                   max_power, fuel_engine_stroke, fuel_type,
+                                   fuel_turbo, hardcoded_params, road_loads,
+                                   slope, gear, gear_count, sim_step)
+
+        fp.append(fc)
+
+    return fp
 
 
 if __name__ == '__main__':

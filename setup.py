@@ -44,8 +44,9 @@ if __name__ == '__main__':
         ]),
         license="European Union Public Licence 1.1 or later (EUPL 1.1+)",
         description='A lightweight microsimulation free-flow acceleration model'
-                    '(MFC) that is able to capture the vehicle acceleration '
-                    'dynamics accurately and consistently',
+                    '(MFC) or co2mpas_driver is a model that is able to '
+                    'capture the vehicle acceleration dynamics accurately and '
+                    'consistently',
         long_description=readme(),
         long_description_content_type='text/markdown',
         project_urls={"Sources": url},
@@ -87,6 +88,8 @@ if __name__ == '__main__':
                 '*'
             ]
         },
+        entry_points='''[console_scripts]
+        run_simulation=co2mpas_driver.sample_simulation:run_simulation''',
         include_package_data=True,
         zip_safe=True,
         options={

@@ -2,6 +2,7 @@ from os import path as osp, chdir
 from co2mpas_driver.common import generic_co2mpas as lco
 import matplotlib.pyplot as plt
 from co2mpas_driver.common import reading_n_organizing as rno
+from co2mpas_driver import dsp as driver
 
 my_dir = osp.dirname(osp.abspath(__file__))
 chdir(my_dir)
@@ -57,22 +58,23 @@ def simple_run():
           22.832902038337586]
     sim_step = 0.1
 
+    vehicles = driver(dict(vehicle_id=car_id,
+                           inputs=dict(inputs={'gs': gs,
+                                               'velocities': sp,
+                                               'duration': 100,
+                                               'sim_step': sim_step})))['outputs']
+
     """
-      Function "light_co2mpas_series" computes the CO2 emissions in grams for a series
-      of speed profile. If the gear-shifting is not given as input it uses the an 
-      internal function to compute the current gear.
+      Function "light_co2mpas_series" computes the CO2 emissions in grams for a 
+      series of speed profile. If the gear-shifting is not given as input it 
+      uses an internal function to compute the current gear.
       """
     fp = lco.light_co2mpas_series(my_car, sp, gs, sim_step)
 
+    plt.plot(vehicles['velocities'][1:], vehicles['fp'])
+    plt.plot(sp[1:], fp, 'x')
     plt.plot(fp)
-    # plt.plot(fp2)
     plt.show()
-
-    # print(fp)
-    #
-    # plt.plot(fp)
-    # plt.plot(sp)
-    # plt.show()
 
 
 if __name__ == '__main__':

@@ -1,88 +1,7 @@
-"""The two functions of light co2mpass to be used"""
+"""light co2mpass to be used"""
 
-import numpy as np
+import math
 from co2mpas_driver.common import functions as func
-from co2mpas_driver.common import vehicle_specs_class as vcc
-from co2mpas_driver.common import gear_functions as fg
-from co2mpas_driver.common import vehicle_functions as vf
-
-
-def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive,
-                          gear_box_ratios, gearbox_type, gb_type, veh_params,
-                         type_of_car, car_width, car_height,
-                         engine_max_torque, fuel_eng_capacity, max_power,
-                         fuel_engine_stroke, fuel_type, fuel_turbo, sim_step,
-                         sp, gs, **kwargs):
-    """
-    :param my_car:
-    :param sp:          In km/h!!!
-    :param gs:
-    :param sim_step:    in sec
-    :param gb_type:
-    :param veh_params:
-    :return:
-    """
-
-    gear_list = {}
-    clutch_list = []
-    gear_list_flag = False
-    if 'gear_list' in kwargs:
-        gear_list_flag = True
-        gear_list = kwargs['gear_list']
-        if 'clutch_duration' in kwargs:
-            clutch_duration = kwargs['clutch_duration']
-        else:
-            clutch_duration = int(0.5 % sim_step)
-        clutch_list = fg.create_clutch_list(gear_list, clutch_duration)
-
-    hardcoded_params = vcc.HardcodedParams()
-
-    # n_wheel_drive = my_car.car_type
-    road_loads = vf.estimate_f_coefficients(type_of_car, vehicle_mass,
-                                            car_width, car_height, passengers=0)
-
-    slope = 0
-    # FIX First convert km/h to m/s in order to have acceleration in m/s^2
-    ap = np.diff([i / (3.6 * sim_step) for i in sp])
-
-    # gear number and gear count for shifting duration
-    # simulated_gear = [0, 30]
-    fp = []
-
-    if gearbox_type == 'manual':
-        veh_params = hardcoded_params.params_gearbox_losses['Manual']
-        gb_type = 0
-    else:
-        veh_params = hardcoded_params.params_gearbox_losses['Automatic']
-        gb_type = 1
-
-    # gear is the current gear and gear_count counts the time-steps
-    # in order to prevent continuous gear shifting.
-    gear = 0
-    # Initializing gear count.
-    gear_count = 30
-
-    for i in range(1, len(sp)):
-        speed = sp[i]
-        acceleration = ap[i - 1]
-
-        if gear_list_flag:
-            gear = gear_list[i]
-            gear_count = clutch_list[i]
-        else:
-            gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear,
-                                                          gear_count, gb_type)
-
-        fc = light_co2mpas_instant(vehicle_mass, r_dynamic, car_type, final_drive,
-                          gear_box_ratios, veh_params, engine_max_torque,
-                          fuel_eng_capacity, speed, acceleration, max_power,
-                          fuel_engine_stroke, fuel_type, fuel_turbo,
-                          hardcoded_params, road_loads,  slope, gear,
-                          gear_count, sim_step)
-
-        fp.append(fc)
-
-    return fp
 
 
 def light_co2mpas_instant(vehicle_mass, r_dynamic, car_type, final_drive,
@@ -142,8 +61,11 @@ def light_co2mpas_instant(vehicle_mass, r_dynamic, car_type, final_drive,
              gear_box_speeds_in,
              final_drive_speed, gearbox_params, gear_count)
 
-    gear_box_power_out = func.calculate_gear_box_power_out(gear_box_torques_in,
-                                                           gear_box_speeds_in)
+    gear_box_power_out = \
+        2 * math.pi * gear_box_torques_in * gear_box_speeds_in / 60000
+
+    # gear_box_power_out = func.calculate_gear_box_power_out(gear_box_torques_in,
+    #                                                        gear_box_speeds_in)
 
     br_eff_pres = \
         func.calculate_brake_mean_effective_pressures \
