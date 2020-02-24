@@ -342,6 +342,24 @@ def calculate_curves_to_use(poly_spline, Start, Stop, Alimit, car_res_curve,
     return Res
 
 
+def calculate_dec_curves_to_use(sp_bins):
+    '''
+    Calculates deceleration curves.
+    :param sp_bins:
+    :return:
+    '''
+    ppar = [0.0045, -0.1710, -1.8835]
+    dec_curves = np.poly1d(ppar)
+    final_dec = []
+    Curves_dec = []
+    for k in range(len(sp_bins)):
+        final_dec.append(dec_curves(sp_bins[k]))
+    from scipy.interpolate import interp1d
+    Curves_dec.append(interp1d(sp_bins, final_dec))
+
+    return Curves_dec
+
+
 def get_starting_speed(speed_per_gear):
     starting_speed = speed_per_gear[0][0]
     return starting_speed
