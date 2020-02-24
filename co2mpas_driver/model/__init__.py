@@ -103,7 +103,7 @@ def get_speeds_n_accelerations_per_gear(
     return speed_per_gear, acc_per_gear
 
 
-dsp.add_data('degree', 4)
+dsp.add_data('degree', 2)
 
 
 @sh.add_function(dsp, outputs=['coefs_per_gear'])
@@ -189,10 +189,17 @@ def ev_curve(fuel_type, engine_max_power, tyre_radius,
 
     max_a = motor_max_torque * fdr * eff / (tyre_radius * vehicle_mass)  # m/s2
     s = np.arange(0, vehicle_max_speed + 0.1, 0.1)  # m/s
+    a = np.round((s[0]), 2) - 0.01
+    b = np.round((s[-1]), 2) + 0.01
+    prefix = np.asarray([a - k * 0.1 for k in range(10, -1, -1)])
+    suffix = np.asarray([b + k * 0.1 for k in range(0, 11, 1)])
+
     with np.errstate(divide='ignore'):
         a = (engine_max_power * 1e3 * eff / (s * vehicle_mass)).clip(0, max_a)
 
-    return [CubicSpline(s, a)], [0], [vehicle_max_speed]
+    return [CubicSpline(np.append(np.append(prefix, s), suffix),
+                        np.append(np.append(np.repeat(a[0], len(prefix)), a),
+                                  np.repeat(a[-1], len(suffix))))], [s[0]], [s[-1]]
 
 
 @sh.add_function(dsp, inputs_kwargs=True, outputs=['poly_spline'])
@@ -230,8 +237,7 @@ def get_cubic_splines_of_speed_acceleration_relationship(
     return [Spl(*d) for d in zip(np.concatenate(v, 1), np.concatenate(a, 1))]
 
 
-@sh.add_function(dsp, inputs_kwargs=True, inputs_defaults=True,
-                 outputs=['poly_spline'])
+@sh.add_function(dsp, inputs_kwargs=True, outputs=['poly_spline'])
 def get_spline_out_of_coefs(coefs_per_gear, speed_per_gear, use_cubic=False):
     """
     Use the coefficients to get a "spline" that could be used.
@@ -379,7 +385,7 @@ def define_sp_bins(stop):
         Speed bins.
     :rtype: list[float]
     """
-    return np.arange(0, stop[-1] + 1, 0.01)
+    return np.arange(0, stop[-1] + 0.1, 0.1)
 
 
 @sh.add_function(dsp, outputs=['discrete_car_res_curve_force'])
@@ -498,8 +504,8 @@ def Armax(car_type, vehicle_mass, engine_max_power, road_type=1):
 
 
 @sh.add_function(dsp, outputs=['curves'])
-def calculate_curves_to_use(
-        poly_spline, start, stop, Alimit, car_res_curve, sp_bins):
+def calculate_curves_to_use(poly_spline, start, stop, Alimit, car_res_curve,
+                            sp_bins):
     """
     Calculate the final speed acceleration curves based on full load curves and
     resistances for all curves.
@@ -538,6 +544,8 @@ def calculate_curves_to_use(
     for gear, acc in enumerate(poly_spline):
         Start = start[gear] * 0.9
         Stop = stop[gear] + 0.1
+        if len(poly_spline) == 1:  # for EV
+            Stop = stop[gear]
 
         final_acc = acc(sp_bins) - car_res_curve(sp_bins)
         final_acc[final_acc > Alimit] = Alimit
@@ -549,6 +557,31 @@ def calculate_curves_to_use(
         res.append(interp1d(sp_bins, final_acc))
 
     return res
+
+
+@sh.add_function(dsp, outputs=['curves_dec'])
+def calculate_deceleration_curves_to_use(sp_bins):
+    """
+    Calculate deceleration curves .
+
+    :param sp_bins:
+        Speed boundaries per gear.
+    :type sp_bins: numpy.array
+
+    :return:
+        Deceleration curves.
+    :rtype: list
+    """
+    ppar = [0.0045, -0.1710, -1.8835]
+    dec_curves = np.poly1d(ppar)
+    final_dec = []
+    curves_dec = []
+    for k in range(len(sp_bins)):
+        final_dec.append(dec_curves(sp_bins[k]))
+    from scipy.interpolate import interp1d
+    curves_dec.append(interp1d(sp_bins, final_dec))
+
+    return curves_dec
 
 
 @sh.add_function(dsp, outputs=['discrete_acceleration_curves'])
@@ -572,6 +605,32 @@ def define_discrete_acceleration_curves(curves, start, stop):
     """
     res = []
     for gear, f in enumerate(curves):
+        x = np.arange(start[gear], stop[gear], 0.2)
+        res.append(dict(x=x, y=f(x)))
+    return res
+
+
+@sh.add_function(dsp, outputs=['discrete_deceleration_curves'])
+def define_discrete_deceleration_curves(curves_dec, start, stop):
+    """
+    Define discrete deceleration curves.
+
+    :param curves_dec:
+        Deceleration curves.
+    :type curves_dec: list
+
+    :param start:
+        Start speed per gear.
+    :type start: list
+
+    :param stop:
+        Stop speed per gear.
+    :type stop: list
+
+    :rtype: list[dict[numpy.array[float]]]
+    """
+    res = []
+    for gear, f in enumerate(curves_dec):
         x = np.arange(start[gear], stop[gear], 0.2)
         res.append(dict(x=x, y=f(x)))
     return res
@@ -630,7 +689,7 @@ dsp.add_function(
 )
 
 
-@sh.add_function(dsp, outputs=['Tans'])
+@sh.add_function(dsp, outputs=['tans'])
 def find_list_of_tans_from_coefs(coefs_per_gear, start, stop):
     """
     Get coefficients and speed boundaries and return Tans value for per speed
@@ -856,7 +915,7 @@ def run_simulation(
     :rtype: list[numpy.array]
     """
     model = driver_simulation_model.reset(starting_velocity)
-    r = [(model._gear, starting_velocity, 0)]  # Gather data
+    r = [(model._gear, starting_velocity, 0, 0)]  # Gather data
     r.extend(model(sim_step, desired_velocity) for t in times)
     return list(zip(*r))[:4]
 # @sh.add_function(dsp, outputs=['gears', 'velocities'])
@@ -977,7 +1036,7 @@ def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
     :return:
     """
 
-    from co2mpas_driver.common import vehicle_specs_class as vcc, \
+    from co2mpas_driver import vehicle_specs_class as vcc, \
         gear_functions as fg
     from .co2mpas import estimate_f_coefficients
     gear_list = {}
