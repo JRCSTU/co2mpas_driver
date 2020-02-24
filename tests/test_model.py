@@ -29,8 +29,6 @@ class TestProcess(unittest.TestCase):
 
     @ddt.idata((
             # `get_speeds_n_accelerations_per_gear`.
-            ['speed_per_gear', 'acc_per_gear'],
-            # ``
             ['speed_per_gear_updated', 'acc_per_gear_updated'],
             # `get_tan_coefs`.
             ['coefs_per_gear'],
@@ -118,8 +116,6 @@ class TestProcess(unittest.TestCase):
             ['discrete_car_res_curve'],
             # `define_discrete_car_res_curve_force`.
             ['discrete_car_res_curve_force'],
-            # `define_discrete_acceleration_curves`.
-            ['discrete_acceleration_curves'],
     ))
     def test_sample_ev(self, out):
         _check(dsp, self.data['sample_EV'], out)

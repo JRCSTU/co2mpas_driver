@@ -5,7 +5,8 @@ import numpy as np
 
 def simple_run():
     """
-        parameters of the simulation
+    Test vehicle simulation.
+
     :return:
     """
     veh_ids = [39393, 8188, 40516, 35452, 40225, 7897, 7972, 41388, 5766,
@@ -21,7 +22,9 @@ def simple_run():
                                              'driver_style': 1,
                                              'starting_velocity': 0,
                                              'duration': 100, 'sim_start': 0,
-                                             'sim_step': dt})))
+                                             'sim_step': dt,
+                                             'use_linear_gs': True,
+                                             'use_cubic': False})))
                 ['outputs']['driver_simulation_model'] for i in veh_ids]
     res = {}
     for myt in times:
@@ -45,4 +48,5 @@ def simple_run():
     return 0
 
 
-simple_run()
+if __name__ == '__main__':
+    simple_run()

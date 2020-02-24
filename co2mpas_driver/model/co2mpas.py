@@ -13,7 +13,7 @@ Functions to process a CO2MPAS input file.
 import functools
 import numpy as np
 from scipy.interpolate import CubicSpline
-from co2mpas_driver.common import defaults as defaults
+from co2mpas_driver import defaults as defaults
 
 
 def get_full_load(ignition_type):

@@ -1,5 +1,5 @@
 Alimit: !!python/object/apply:numpy.core.multiarray.scalar
-- &id001 !!python/object/apply:numpy.dtype
+- &id003 !!python/object/apply:numpy.dtype
   args:
   - f8
   - 0
@@ -15,17 +15,13 @@ Alimit: !!python/object/apply:numpy.core.multiarray.scalar
   - 0
 - !!binary |
   iIPTkbVRE0A=
-start:
-- 0
-stop:
-- 37
 car_height: 1.466
 car_type: 2
 car_width: 1.823
 discrete_acceleration_curves:
 - x: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
-    - &id002 !!python/name:numpy.ndarray 
+    - &id001 !!python/name:numpy.ndarray 
     - !!python/tuple
       - 0
     - !!binary |
@@ -34,7 +30,20 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 185
-    - *id001
+    - &id002 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - 0
+      - 1
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
     - false
     - !!binary |
       AAAAAAAAAACamZmZmZnJP5qZmZmZmdk/NDMzMzMz4z+amZmZmZnpPwAAAAAAAPA/NDMzMzMz8z9n
@@ -65,7 +74,7 @@ discrete_acceleration_curves:
       zMzMzMxBQGdmZmZm5kFAAAAAAAAAQkCamZmZmRlCQDMzMzMzM0JAzczMzMxMQkBnZmZmZmZCQA==
   y: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
-    - *id002
+    - *id001
     - !!python/tuple
       - 0
     - !!binary |
@@ -74,7 +83,7 @@ discrete_acceleration_curves:
     - 1
     - !!python/tuple
       - 185
-    - *id001
+    - *id002
     - false
     - !!binary |
       u+dHvM6uCUC32aQ0Ua4JQJ5r0V3JrQlAcZ3NNzetCUAvb5nCmqwJQNngNP7zqwlAbvKf6kKrCUDv
@@ -112,7 +121,7 @@ gear_box_ratios: 1
 motor_max_torque: 250.0
 sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
-  - *id002
+  - *id001
   - !!python/tuple
     - 0
   - !!binary |
@@ -120,21 +129,8 @@ sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
   state: !!python/tuple
   - 1
   - !!python/tuple
-    - 380
-  - !!python/object/apply:numpy.dtype
-    args:
-    - f8
-    - 0
-    - 1
-    state: !!python/tuple
-    - 3
-    - <
-    - null
-    - null
-    - null
-    - -1
-    - -1
-    - 0
+    - 371
+  - *id003
   - false
   - !!binary |
     AAAAAAAAAACamZmZmZm5P5qZmZmZmck/NDMzMzMz0z+amZmZmZnZPwAAAAAAAOA/NDMzMzMz4z9n
@@ -189,9 +185,12 @@ sp_bins: !!python/object/apply:numpy.core.multiarray._reconstruct
     MzMzM3NBQAAAAAAAgEFAzczMzMyMQUCamZmZmZlBQGdmZmZmpkFAMzMzMzOzQUAAAAAAAMBBQM3M
     zMzMzEFAmpmZmZnZQUBnZmZmZuZBQDMzMzMz80FAAAAAAAAAQkDNzMzMzAxCQJqZmZmZGUJAZ2Zm
     ZmYmQkAzMzMzMzNCQAAAAAAAQEJAzczMzMxMQkCamZmZmVlCQGdmZmZmZkJAMzMzMzNzQkAAAAAA
-    AIBCQM3MzMzMjEJAmpmZmZmZQkBnZmZmZqZCQDMzMzMzs0JAAAAAAADAQkDNzMzMzMxCQJqZmZmZ
-    2UJAZ2ZmZmbmQkAzMzMzM/NCQA==
-tyre_radius: 0.32339999999999997
+    AIBCQA==
+start:
+- 0
+stop:
+- 37
 type_of_car: hatchback
+tyre_radius: 0.32339999999999997
 vehicle_mass: 1644.0
 vehicle_max_speed: 37

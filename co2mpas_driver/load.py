@@ -142,11 +142,15 @@ def load_vehicle_db(db_path):
     df['driveline_slippage'] = 0
 
     b = df['gearbox_type'] == 'automatic'
-    b |= df['gearbox_type'] == 'single-speed fixed gear'
+    # b |= df['gearbox_type'] == 'single-speed fixed gear'
     df['transmission'] = np.where(b, 'automatic', 'manual')
     df['driveline_efficiency'] = np.where(b, .9, .93)
 
+    df.loc[(df['fuel_type'] == 'electricity') & (df['gearbox_type'] == 'single-speed fixed gear'), 'driveline_efficiency'] = 0.93
+    df.loc[(df['fuel_type'] == 'electricity') & (df['gearbox_type'] != 'single-speed fixed gear'), 'driveline_efficiency'] = 0.93
+
     df['vehicle_max_speed'] = (df['vehicle_max_speed'] / 3.6).values.astype(int)
+    df.round({'vehicle_max_speed': 2})
     df['type_of_car'] = df["type_of_car"].str.strip()
     r = np.where(df['car_type'] == 'front', 2, 6)
     r[df['car_type'] == 'rear'] = 4

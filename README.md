@@ -37,7 +37,7 @@ European Commission for more details https://journals.sagepub.com/doi/10.1177/03
 
         pip uninstall co2mpas_driver
          
-## How to use co2mpas_driver library
+## Usage
 
 In this example we will use co2mpas_driver model in order to extract the drivers 
 acceleration behavior as approaching the desired speed.
@@ -191,6 +191,25 @@ e. **Results**
    Pull requests and stars are very welcome.
    
    For bugs and feature requests, please [create an issue](https://github.com/ashenafimenza/new_MFC/issues/new).
+   
+   **Release**\
+   1.0.0
+   
+   **Release date**\
+   2020-01-12
+   
+   **Repository**\
+   https://github.com/JRCSTU/co2mpas_driver
+   
+   **copyright**\
+   2015-2019 European Commission JRC <https://ec.europa.eu/jrc/>
+   
+   **pypi-repo**\
+   https://pypi.org/project/co2mpas_driver/
+   
+   **License**\
+   EUPL 1.1+ <https://joinup.ec.europa.eu/software/page/eupl>
+   
                
 [1]: https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/
 [2]: https://black.readthedocs.io/  

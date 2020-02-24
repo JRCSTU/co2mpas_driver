@@ -1,44 +1,28 @@
 from os import path as osp, chdir
 import matplotlib.pyplot as plt
-import numpy as np
-from co2mpas_driver.common import curve_functions as mf
-from co2mpas_driver.common import reading_n_organizing as rno
+from co2mpas_driver import dsp as driver
 
 my_dir = osp.dirname(osp.abspath(__file__))
 chdir(my_dir)
 
 
 def simple_run():
-    # Vehicles database path
-    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
-                                   'co2mpas_driver', 'db',
-                                   'EuroSegmentCar'))
     car_id = 39393
     gs_style = 0.8  # gear shifting can take value from 0(timid driver)
     degree = 2
 
-    db = rno.load_db_to_dictionary(db_path)
-    selected_car = rno.get_vehicle_from_db(db, car_id)
-
-    curves, cs_acc_per_gear, start_stop, gs = mf.gear_curves_n_gs_from_poly(
-        selected_car, gs_style, degree)
-
-    from co2mpas_driver.model import define_discrete_acceleration_curves as func, \
-        define_discrete_poly as func_, define_discrete_car_res_curve as rc, get_resistances as gr, \
-        define_discrete_car_res_curve_force as cf, define_discrete_acceleration_curves as ac
-    sp_bins = np.arange(0, start_stop[1][-1] + 1, 0.1)
-    discrete_acceleration_curves = func(curves, *start_stop)
-    discrete_poly_spline = func_(cs_acc_per_gear, sp_bins)
-    car_res_curve, car_res_curve_force = gr(selected_car.type_of_car,
-                                            selected_car.veh_mass,
-                                            selected_car.car_width,
-                                            selected_car.car_height, sp_bins)
-    discrete_car_res_curve = rc(car_res_curve, sp_bins)
-    discrete_car_res_curve_force = cf(car_res_curve_force, sp_bins)
-    discrete_acceleration_curves = ac(curves, *start_stop)
-    for d in discrete_acceleration_curves:
-        plt.plot(d['x'], d['y'])
-
+    # How to use co2mpas_driver library
+    # You can also pass vehicle database path db_path='path to vehicle db'
+    sol = driver(dict(vehicle_id=car_id, inputs=dict(inputs=dict(
+        gear_shifting_style=gs_style, degree=degree, use_linear_gs=True,
+        use_cubic=False))))[
+        'outputs']
+    discrete_acceleration_curves = sol['discrete_acceleration_curves']
+    # driver.plot(1)
+    for curve in discrete_acceleration_curves:
+        sp_bins = list(curve['x'])
+        acceleration = list(curve['y'])
+        plt.plot(sp_bins, acceleration)
     plt.show()
 
     return 0

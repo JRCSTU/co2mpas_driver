@@ -18,7 +18,7 @@ import schedula as sh
 class TestCore(unittest.TestCase):
     def setUp(self):
         res_dir = osp.join(osp.dirname(__file__), 'results')
-        out_fpath = 'gear_4degree_curves_with_linear_gs.yaml'
+        out_fpath = 'gear_4degree_curves_with_linear_gs_core.yaml'
         with open(osp.join(res_dir, out_fpath)) as f:
             self.data = dict(outputs=yaml.load(f, yaml.CLoader))
         with open(osp.join(res_dir, 'core.yaml')) as f:

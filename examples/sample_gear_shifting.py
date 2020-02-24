@@ -1,51 +1,44 @@
-from co2mpas_driver.common import vehicle_functions as vf
-from co2mpas_driver.common import gear_functions as fg
-from co2mpas_driver.common import plot_templates as pt
-
 from os import path as osp, chdir
 import matplotlib.pyplot as plt
-from co2mpas_driver.common import reading_n_organizing as rno
+import numpy as np
+from co2mpas_driver import dsp as driver
 
 my_dir = osp.dirname(osp.abspath(__file__))
 chdir(my_dir)
 
 
 def simple_run():
-    db_path = osp.abspath(osp.join(osp.dirname(my_dir + '/../'),
-                                   'co2mpas_driver', 'db',
-                                   'EuroSegmentCar'))
     car_id = 27748
     gs_style = 1
+    degree = 2
 
-    db = rno.load_db_to_dictionary(db_path)
+    # How to use co2mpas_driver library
+    # You can also pass vehicle database path db_path='path to vehicle db'
+    sol = driver(dict(vehicle_id=car_id, inputs=dict(inputs=dict(
+        gear_shifting_style=gs_style, gedree=degree, use_linear_gs=False,
+        use_cubic=True))))[
+        'outputs']
+    # driver.plot(1)
+    # gs = sol['gs']
 
-    selected_car = rno.get_vehicle_from_db(db, car_id)
+    coefs_per_gear = sol['coefs_per_gear']
+    speed_per_gear = sol['speed_per_gear']
+    acc_per_gear = sol['acc_per_gear']
 
-    full_load_speeds, full_load_torques = vf.get_load_speed_n_torque(selected_car)
-    speed_per_gear, acc_per_gear = vf.get_speeds_n_accelerations_per_gear(
-        selected_car, full_load_speeds, full_load_torques)
+    degree = len(coefs_per_gear[0]) - 1
+    vars = np.arange(degree, -1, -1)
 
-    coefs_per_gear = vf.get_tan_coefs(speed_per_gear, acc_per_gear, 2)
+    plt.figure('speed acceleration regression results of degree = ' + str(degree))
 
-    degree, speeds_new, acceleration_new = \
-        pt.calculate_speed_acceleration_from_coefs(coefs_per_gear,
-                                                   speed_per_gear, acc_per_gear)
+    for speeds, acceleration, fit_coef in zip(speed_per_gear, acc_per_gear,
+                                              coefs_per_gear):
+        plt.plot(speeds, acceleration)
 
-    for x_new, a_new in zip(speeds_new, acceleration_new):
-        plt.plot(x_new, a_new, 'rx')
+        # x_new = np.linspace(speeds[0], speeds[-1], 100)
+        x_new = np.arange(speeds[0], speeds[-1], 0.1)
+        a_new = np.array([np.dot(fit_coef, np.power(i, vars)) for i in x_new])
 
-    poly_spline = vf.get_cubic_splines_of_speed_acceleration_relationship(
-        selected_car, speed_per_gear, acc_per_gear)
-
-    Start, Stop = vf.get_start_stop(selected_car, speed_per_gear, acc_per_gear,
-                                    poly_spline)
-
-    tans = fg.find_list_of_tans_from_coefs(coefs_per_gear, Start, Stop)
-
-    gs = fg.gear_points_from_tan(tans, gs_style, Start, Stop)
-
-    for gear in gs:
-        plt.plot([gear, gear], [0, 5], 'k')
+        plt.plot(x_new, a_new)
 
     plt.show()
 

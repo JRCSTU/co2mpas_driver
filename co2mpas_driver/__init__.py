@@ -47,13 +47,12 @@ dsp.add_function(
 )
 
 if __name__ == '__main__':
-    sol = dsp(dict(vehicle_id=35135,
-                           inputs=dict(inputs={'gear_shifting_style': 0.7,
-                                               'starting_velocity': 0,
-                                               'driver_style': 1,
-                                               'desired_velocity': 124/3.6,
-                                               'sim_start': 0, 'sim_step': 0.1,
-                                               'duration': 100})))
+    sol = dsp(dict(vehicle_id=39393, inputs=dict(inputs=dict(
+        gear_shifting_style=0.9, desired_velocity=124/3.6,
+        starting_velocity=0, degree=4, driver_style=1,
+        sim_start=0, sim_step=0.1, duration=100, use_linear_gs=True,
+        use_cubic=False))))[
+        'outputs']
     # velocity = sol['outputs']['velocities']
     # acceleration = sol['outputs']['accelerations']
     # plt.figure('Speed-Acceleration')
