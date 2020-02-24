@@ -17,15 +17,11 @@ def simple_run():
     dt = 0.1
     times = np.arange(0, 100, dt)
 
-    vehicles = [driver(dict(vehicle_id=i,
-                         inputs=dict(inputs={'gear_shifting_style': 1,
-                                             'driver_style': 1,
-                                             'starting_velocity': 0,
-                                             'duration': 100, 'sim_start': 0,
-                                             'sim_step': dt,
-                                             'use_linear_gs': True,
-                                             'use_cubic': False})))
-                ['outputs']['driver_simulation_model'] for i in veh_ids]
+    vehicles = [driver(dict(vehicle_id=i, inputs=dict(inputs=dict(
+        gear_shifting_style=1, driver_style=1, starting_velocity=0,
+        duration=100, sim_start=0, sim_step=dt, use_linear_gs=True,
+        use_cubic=False))))['outputs']['driver_simulation_model'] for i in
+                veh_ids]
     res = {}
     for myt in times:
         for my_veh in vehicles:

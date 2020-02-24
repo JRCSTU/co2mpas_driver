@@ -19,8 +19,7 @@ def simple_run():
         use_cubic=True))))[
         'outputs']
     # driver.plot(1)
-    # gs = sol['gs']
-
+    gs = sol['gs']
     coefs_per_gear = sol['coefs_per_gear']
     speed_per_gear = sol['speed_per_gear']
     acc_per_gear = sol['acc_per_gear']
@@ -29,6 +28,8 @@ def simple_run():
     vars = np.arange(degree, -1, -1)
 
     plt.figure('speed acceleration regression results of degree = ' + str(degree))
+    for gear in gs:
+        plt.plot([gear, gear], [0, 5])
 
     for speeds, acceleration, fit_coef in zip(speed_per_gear, acc_per_gear,
                                               coefs_per_gear):
