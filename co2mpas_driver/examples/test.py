@@ -14,30 +14,33 @@ def simple_run():
                5635, 5630, 7661, 7683]
     v_des = 124/3.6
     v_start = 0
+    # coefficients of resistances in case provided by user
+    f0 = 200
+    f1 = 0.2
+    f2 = 0.005
     dt = 0.1
     times = np.arange(0, 100, dt)
 
-    vehicles = [driver(dict(vehicle_id=i, inputs=dict(inputs=dict(
-        gear_shifting_style=1, driver_style=1, starting_velocity=0,
+    vehicles = [(i, driver(dict(vehicle_id=i, inputs=dict(inputs=dict(
+        f0=f0, f1=f1, f2=f2,
+        gear_shifting_style=0.8, driver_style=0.8, starting_velocity=0,
         duration=100, sim_start=0, sim_step=dt, use_linear_gs=True,
-        use_cubic=False))))['outputs']['driver_simulation_model'] for i in
+        use_cubic=False))))['outputs']['driver_simulation_model']) for i in
                 veh_ids]
     res = {}
     for myt in times:
-        for my_veh in vehicles:
+        for veh_id, my_veh in vehicles:
             if myt == times[0]:
                 my_veh.reset(v_start)
-                res[my_veh] = {'accel': [0], 'speed': [v_start],
-                               'position': [0], 'gear': [0]}
+                res[my_veh] = {'accel': [0], 'speed': [v_start], 'gear': [0]}
                 continue
 
-            gear, next_velocity, acc, position = my_veh(dt, v_des)
+            gear, gear_count, next_velocity, acc = my_veh(dt, v_des)
             res[my_veh]['accel'].append(acc)
             res[my_veh]['speed'].append(next_velocity)
             res[my_veh]['gear'].append(gear)
-            res[my_veh]['position'].append(position)
 
-    for my_veh in vehicles:
+    for car_id, my_veh in vehicles:
         plt.figure('Acceleration-Speed')
         plt.plot(res[my_veh]['speed'], res[my_veh]['accel'])
         plt.show()
