@@ -13,7 +13,7 @@ Functions to process a CO2MPAS input file.
 import functools
 import numpy as np
 from scipy.interpolate import CubicSpline
-from co2mpas_driver import defaults as defaults
+from co2mpas_driver.common import defaults as defaults
 
 
 def get_full_load(ignition_type):
@@ -147,7 +147,7 @@ def Armax(car_type, veh_mass, engine_max_power, road_type=1):
 
 
 # Calculates a spline with the resistances
-def veh_resistances(f0, f1, f2, sp_bins, total_mass):
+def veh_resistances(f0, f1, f2, sp_bins, total_mass, angle_slopes=0., g=9.81):
     """
     Calculate the resistances that a vehicle faces, per speed.
 
@@ -172,6 +172,14 @@ def veh_resistances(f0, f1, f2, sp_bins, total_mass):
         Total mass.
     :type total_mass: float
 
+    :param angle_slopes:
+        Angle slope of the road.
+    :type angle_slopes: float
+
+    :param g:
+        Acceleration due to gravity.
+    :type g: float
+
     :return: resistance_spline_curve, resistance_spline_curve_f
         Resistance forces being applied per speed.
     :rtype: scipy.interpolate._cubic.CubicSpline, scipy.interpolate._cubic.CubicSpline
@@ -179,13 +187,17 @@ def veh_resistances(f0, f1, f2, sp_bins, total_mass):
     sp_bins = list(sp_bins)
     resistance_force = []
     for i in range(len(sp_bins)):
-        resistance_force.append(f0 + f1 * sp_bins[i] * 3.6 + f2 * pow(sp_bins[i] * 3.6, 2))
+        resistance_force.append(f0 * np.cos(angle_slopes) + \
+                                f1 * sp_bins[i] * 3.6 + f2 * pow(sp_bins[i] * 3.6, 2) + \
+                                total_mass * g * np.sin(angle_slopes))
         # Facc = Fmax @ wheel - f0 * cos(a) - f1 * v - f2 * v2 - m * g * sin(a)
+        # F @ wheel = m * acceleration = f0 * cos(a) + f1 * v + f2 * v2 + m * g * sin(a)
 
     approximate_mass = int(total_mass)
     acc_resistance = [x / approximate_mass for x in resistance_force]
     a = int(np.floor(sp_bins[0]))
     b = int(np.floor(sp_bins[-1]))
+    from scipy.interpolate import CubicSpline
     resistance_spline_curve = CubicSpline(
         [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)], \
         [acc_resistance[0]] * 10 + acc_resistance + [acc_resistance[-1]] * 10)
