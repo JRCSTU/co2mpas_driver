@@ -134,11 +134,9 @@ def load_vehicle_db(db_path):
     df.loc[df['fuel_type'] == 'petrol', 'ignition_type'] = 'positive'
     df.loc[df['fuel_type'] == 'diesel', 'ignition_type'] = 'compression'
     b = df['fuel_type'] == 'electricity'
-    c = df['fuel_type'] != 'electricity'
     df.loc[b, ['ignition_type']] = 'electricity'
     df.loc[b, ['gear_box_ratios']] = 1
-    df.loc[b, ['tyre_radius']] /= 1000  # meters.
-    df.loc[c, ['tyre_radius']] = (24.5 / 2 * 2.54) / 100  # meters.
+    df['tyre_radius'] /= 1000  # meters.
     df['driveline_slippage'] = 0
 
     b = df['gearbox_type'] == 'automatic'
