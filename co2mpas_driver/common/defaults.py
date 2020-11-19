@@ -11,7 +11,7 @@ It provides constants for the CO2MPAS formulas.
 """
 
 import numpy as np
-from co2mpas_driver import utils as co2_utl
+from co2mpas_driver.common import utils as co2_utl
 
 
 #: Container of node default values.

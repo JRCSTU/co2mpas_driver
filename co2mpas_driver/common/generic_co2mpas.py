@@ -1,7 +1,7 @@
 """light co2mpass to be used"""
 
 import math
-from co2mpas_driver import functions as func
+from co2mpas_driver.common import functions as func
 
 
 def light_co2mpas_instant(vehicle_mass, r_dynamic, car_type, final_drive,

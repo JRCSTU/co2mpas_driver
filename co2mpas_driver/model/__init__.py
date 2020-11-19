@@ -90,7 +90,7 @@ def get_speeds_n_accelerations_per_gear(
         mask = full_load_speeds > 1.25 * idle_engine_speed[0]
 
         temp_speed = 2 * np.pi * tyre_radius * full_load_speeds[mask] * (
-                    1 - driveline_slippage) / (
+                1 - driveline_slippage) / (
                              60 * final_drive_ratio * gear_box_ratios[j])
         speed_per_gear.append(temp_speed)
 
@@ -263,26 +263,23 @@ def get_spline_out_of_coefs(coefs_per_gear, speed_per_gear, use_cubic=False):
         return sh.NONE
     from scipy.interpolate import interp1d
     degree = len(coefs_per_gear[0]) - 1
-    vars = np.arange(degree, -1, -1)
+    vars_ = np.arange(degree, -1, -1)
 
     spline_from_poly = []
 
-    """
-    For the first gear, some points are added at the beginning to avoid 
-    unrealistic drops 
-    
-    """
+    # For the first gear, some points are added at the beginning to avoid
+    # unrealistic drops
     x_new = np.insert(np.arange(speed_per_gear[0][0], 70, 0.1), [0, 0],
                       [0, speed_per_gear[0][0] / 2])
     a_new = np.array(
-        [np.dot(coefs_per_gear[0], np.power(i, vars)) for i in x_new])
+        [np.dot(coefs_per_gear[0], np.power(i, vars_)) for i in x_new])
     a_new[0] = a_new[2]
     a_new[1] = a_new[2]
     spline_from_poly.append(interp1d(x_new, a_new, fill_value='extrapolate'))
 
     for fit_coef in coefs_per_gear[1:]:
         x_new = np.arange(0, 70, 0.1)
-        a_new = np.array([np.dot(fit_coef, np.power(i, vars)) for i in x_new])
+        a_new = np.array([np.dot(fit_coef, np.power(i, vars_)) for i in x_new])
         spline_from_poly.append(
             interp1d(x_new, a_new, fill_value='extrapolate'))
 
@@ -363,13 +360,13 @@ def get_start_stop(gear_box_ratios, acc_per_gear, vehicle_max_speed,
                 break
 
     # The limits of the gears that should be provided to the gear shifting model
-    Start = []
-    Stop = []
+    start = []
+    stop = []
     for i in speed_per_gear:
-        Start.append(i[0])
-        Stop.append(min(i[-1], vehicle_max_speed))
-    Start[0] = 0
-    return Start, Stop, speed_per_gear, acc_per_gear
+        start.append(i[0])
+        stop.append(min(i[-1], vehicle_max_speed))
+    start[0] = 0
+    return start, stop, speed_per_gear, acc_per_gear
 
 
 @sh.add_function(dsp, outputs=['sp_bins'])
@@ -428,41 +425,61 @@ def define_discrete_car_res_curve(car_res_curve, sp_bins):
     return car_res_curve(sp_bins)
 
 
-@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force'])
-def get_resistances(type_of_car, vehicle_mass, car_width, car_height, sp_bins):
-    """
-    Calculate resistances and return spline.
+# Calculates a spline with the resistances when f0, f1, f2 input by the user
+@sh.add_function(dsp, outputs=['f0', 'f1', 'f2'])
+def calculate_veh_road_loads(vehicle_mass, type_of_car, car_width, car_height):
+    from .co2mpas import estimate_f_coefficients
+    return estimate_f_coefficients(vehicle_mass, type_of_car, car_width, car_height)
 
-    :param type_of_car:
-        Type of car.
-    :type type_of_car: str
+
+dsp.add_data('angle_slopes', 0.)
+
+
+# Calculates a spline with the resistances when f0, f1, f2 input by the user
+@sh.add_function(dsp, outputs=['car_res_curve', 'car_res_curve_force'])
+def get_resistances(f0, f1, f2, sp_bins, vehicle_mass, angle_slopes=0., g=9.81):
+    """
+    Calculate the resistances that a vehicle faces, per speed.
+
+    :param f0:
+        Tire rolling resistance.
+    :type f0: float
+
+    :param f1:
+        Partly tire rolling resistance & partly drivetrain losses.
+    :type f1: float
+
+    :param f2:
+        Aerodynamic component (proportional to the square of the vehicles
+        velocity)
+    :type f2: float
+
+    :param sp_bins:
+        Speed bins.
+    :type sp_bins: list[float]
 
     :param vehicle_mass:
         Vehicle mass.
     :type vehicle_mass: float
 
-    :param car_width:
-        Car width.
-    :type car_width: float
+    :param angle_slopes:
+        Angle slope of the road.
+    :type angle_slopes: float
 
-    :param car_height:
-        Car height.
-    :type car_height: float
+    :param g:
+        Acceleration due to gravity.
+    :type g: float
 
-    :param sp_bins:
-        Speed boundaries.
-    :type sp_bins: numpy.array
+    :param use_estimated_res:
+        Use estimated resistances.
+    :type use_estimated_res: bool
 
-    :return:
-        Car resistance curve.
-    :rtype: tuple[scipy.interpolate._cubic.CubicSpline]
+    :return: resistance_spline_curve, resistance_spline_curve_f
+        Resistance forces being applied per speed.
+    :rtype: scipy.interpolate._cubic.CubicSpline, scipy.interpolate._cubic.CubicSpline
     """
-
-    from .co2mpas import estimate_f_coefficients, veh_resistances, Armax
-    f0, f1, f2 = estimate_f_coefficients(
-        vehicle_mass, type_of_car, car_width, car_height
-    )
-    return veh_resistances(f0, f1, f2, sp_bins, vehicle_mass)
+    from .co2mpas import veh_resistances
+    return veh_resistances(f0, f1, f2, sp_bins, vehicle_mass, angle_slopes, g)
 
 
 # The maximum force that the vehicle can have on the road
@@ -542,16 +559,16 @@ def calculate_curves_to_use(poly_spline, start, stop, Alimit, car_res_curve,
     res = []
 
     for gear, acc in enumerate(poly_spline):
-        Start = start[gear] * 0.9
-        Stop = stop[gear] + 0.1
+        start_ = start[gear] * 0.9
+        stop_ = stop[gear] + 0.1
         if len(poly_spline) == 1:  # for EV
-            Stop = stop[gear]
+            stop_ = stop[gear]
 
         final_acc = acc(sp_bins) - car_res_curve(sp_bins)
         final_acc[final_acc > Alimit] = Alimit
 
-        final_acc[(sp_bins < Start)] = 0
-        final_acc[(sp_bins > Stop)] = 0
+        final_acc[(sp_bins < start_)] = 0
+        final_acc[(sp_bins > stop_)] = 0
         final_acc[final_acc < 0] = 0
 
         res.append(interp1d(sp_bins, final_acc))
@@ -560,26 +577,29 @@ def calculate_curves_to_use(poly_spline, start, stop, Alimit, car_res_curve,
 
 
 @sh.add_function(dsp, outputs=['curves_dec'])
-def calculate_deceleration_curves_to_use(sp_bins):
+def calculate_deceleration_curves_to_use(stop):
     """
     Calculate deceleration curves .
 
-    :param sp_bins:
-        Speed boundaries per gear.
-    :type sp_bins: numpy.array
+    :param stop:
+        Stop speed per gear.
+    :type stop: list
 
     :return:
         Deceleration curves.
     :rtype: list
     """
+    from scipy.interpolate import interp1d
     ppar = [0.0045, -0.1710, -1.8835]
     dec_curves = np.poly1d(ppar)
-    final_dec = []
+
     curves_dec = []
-    for k in range(len(sp_bins)):
-        final_dec.append(dec_curves(sp_bins[k]))
-    from scipy.interpolate import interp1d
-    curves_dec.append(interp1d(sp_bins, final_dec))
+    for gear in range(len(stop)):
+        sp_bins = np.arange(0, stop[gear] + 0.1, 0.1)
+        final_dec = []
+        for k in range(len(sp_bins)):
+            final_dec.append(min(dec_curves(sp_bins[k]), -1))
+        curves_dec.append(interp1d(sp_bins, final_dec))
 
     return curves_dec
 
@@ -856,9 +876,74 @@ def define_times(sim_start, duration, sim_step):
 
 
 @sh.add_function(dsp, outputs=['driver_simulation_model'])
-def define_driver_simulation_model(transmission, gs, curves, driver_style):
+def define_driver_simulation_model(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
+                                   gear_box_ratios, gearbox_type, engine_max_torque,
+                                   fuel_eng_capacity, max_power, fuel_engine_stroke,
+                                   fuel_type, fuel_turbo, type_of_car, car_width,
+                                   car_height, transmission, gs, curves, curves_dec,
+                                   driver_style):
     """
         Defines the drivers simulation model.
+
+    :param vehicle_mass:
+        Vehicle mass.
+    :type: float
+
+    :param r_dynamic:
+        Dynamic radius.
+    :type: float
+
+    :param car_type:
+        Car type.
+    :type: int
+
+    :param final_drive_ratio:
+        Final drive ratio.
+    :type: float
+
+    :param gear_box_ratios:
+        Gear box ratios.
+    :type: list
+
+    :param gearbox_type:
+        Gearbox type.
+    :type: str
+
+    :param engine_max_torque:
+        Engine maximum torque.
+    :type: float
+
+    :param fuel_eng_capacity:
+        Fuel engine capacity.
+    :type: float
+
+    :param max_power:
+        Maximum power.
+    :type: int
+
+    :param fuel_engine_stroke:
+        Fuel engine stroke.
+    :type: float
+
+    :param fuel_type:
+        Fuel type.
+    :type: str
+
+    :param fuel_turbo:
+        Fuel turbo.
+    :type: str
+
+    :param type_of_car:
+        Type of car.
+    :type: str
+
+    :param car_width:
+        Car width.
+    :type: float
+
+    :param car_height:
+        Car height.
+    :type: float
 
     :param transmission:
         Vehicle transmission system.
@@ -866,8 +951,14 @@ def define_driver_simulation_model(transmission, gs, curves, driver_style):
 
     :param gs:
         Gear cuts.
+    :type: list
+
     :param curves:
-        Acceleration curves per gear.
+        Acceleration potential curves per gear.
+    :type: list
+
+    :param curves_dec:
+        Deceleration potential curves per gear.
     :type: list
 
     :param driver_style:
@@ -879,11 +970,90 @@ def define_driver_simulation_model(transmission, gs, curves, driver_style):
     :rtype
     """
     from .driver import Driver
-    return Driver(transmission, gs, curves, driver_style)
+    if fuel_type == 'electricity':
+        return sh.NONE
+    return Driver(vehicle_mass, car_type, final_drive_ratio, gearbox_type, max_power,
+                  fuel_type, type_of_car, car_width, car_height, transmission, gs, curves,
+                  curves_dec, driver_style, r_dynamic, gear_box_ratios, engine_max_torque,
+                  fuel_eng_capacity, fuel_engine_stroke, fuel_turbo)
 
 
-@sh.add_function(dsp, outputs=['gears', 'velocities', 'accelerations',
-                               'positions'])
+@sh.add_function(dsp, outputs=['driver_simulation_model'])
+def define_ev_driver_simulation_model(vehicle_mass, car_type, final_drive_ratio, gearbox_type, max_power,
+                                      fuel_type, type_of_car, car_width, car_height, transmission, gs, curves,
+                                      curves_dec, driver_style):
+    """
+        Defines the drivers simulation model.
+
+    :param vehicle_mass:
+        Vehicle mass.
+    :type: float
+
+    :param car_type:
+        Car type.
+    :type: int
+
+    :param final_drive_ratio:
+        Final drive ratio.
+    :type: float
+
+    :param gearbox_type:
+        Gearbox type.
+    :type: str
+
+    :param max_power:
+        Maximum power.
+    :type: int
+
+    :param fuel_type:
+        Fuel type.
+    :type: str
+
+    :param car_width:
+        Car width.
+    :type: float
+
+    :param car_height:
+        Car height.
+    :type: float
+
+    :param type_of_car:
+        Type of car.
+    :type: str
+
+    :param transmission:
+        Vehicle transmission system.
+    :type: str
+
+    :param gs:
+        Gear cuts.
+    :type: list
+
+    :param curves:
+        Acceleration potential curves per gear.
+    :type: list
+
+    :param curves_dec:
+        Deceleration potential curves per gear.
+    :type: list
+
+    :param driver_style:
+        Driver style.
+    :type: int
+
+    :return:
+        Driver simulation model.
+    :rtype
+    """
+    from .driver import Driver
+    if fuel_type != 'electricity':
+        return sh.NONE
+    return Driver(vehicle_mass, car_type, final_drive_ratio, gearbox_type, max_power,
+                  fuel_type, type_of_car, car_width, car_height, transmission, gs, curves,
+                  curves_dec, driver_style)
+
+
+@sh.add_function(dsp, outputs=['gears', 'gear_counts', 'velocities', 'accelerations'])
 def run_simulation(
         driver_simulation_model, starting_velocity, sim_step, times,
         desired_velocity):
@@ -915,94 +1085,10 @@ def run_simulation(
     :rtype: list[numpy.array]
     """
     model = driver_simulation_model.reset(starting_velocity)
-    r = [(model._gear, starting_velocity, 0, 0)]  # Gather data
+    r = [(model._gear, model._gear_count, starting_velocity, 0)]  # Gather data
     r.extend(model(sim_step, desired_velocity) for t in times)
     return list(zip(*r))[:4]
-# @sh.add_function(dsp, outputs=['gears', 'velocities'])
-# def run_simulation(transmission, starting_velocity, gs, times, curves,
-#                    desired_velocity, driver_style):
-#     """
-#     Run simulation.
-#
-#     :param transmission:
-#         Transmission type of vehicle.
-#     :type transmission: str
-#
-#     :param starting_velocity:
-#         Current speed.
-#     :type starting_velocity: int
-#
-#     :param gs: list
-#         Gear shifting style.
-#     :type gs: int
-#
-#     :param times:
-#         Sample time series.
-#     :type times: np.array
-#
-#     :param curves: list
-#         Final acceleration curves.
-#     :type curves: list
-#
-#     :param desired_velocity:
-#         Desired velocity.
-#     :type desired_velocity: int
-#
-#     :param driver_style:
-#         Driving style.
-#     :type driver_style: int
-#
-#     :return:
-#         Gears & velocities.
-#     :rtype: int, list
-#     """
-#     from .simulation import (
-#         gear_for_speed_profiles, accMFC, correct_acc_clutch_on
-#     )
-#     velocities = [starting_velocity]
-#
-#     velocity = starting_velocity
-#
-#     # Returns the gear that must be used and the clutch condition
-#     gear = gear_for_speed_profiles(gs, velocity, 0, 0)[0]
-#     gear_count = 0
-#     gears = [gear]
-#
-#     # Core loop
-#     for dt in np.diff(times):
-#         gear, gear_count = gear_for_speed_profiles(gs, velocity, gear,
-#                                                    gear_count)
-#         acc = accMFC(
-#             velocity, driver_style, desired_velocity, curves[gear - 1]
-#         )
-#         velocity += correct_acc_clutch_on(gear_count, acc, transmission) * dt
-#
-#         # Gather data
-#         gears.append(gear)
-#         velocities.append(velocity)
-#     return gears, velocities
 
-
-# @sh.add_function(dsp, outputs=['accelerations'])
-# def calculate_accelerations(times, velocities):
-#     """
-#     Calculate the accelerations across the vehicles speed range.
-#
-#     :param times:
-#         Sample time series.
-#     :type times: numpy.array[float]
-#
-#     :param velocities:
-#         Velocities over the time series.
-#     :type velocities:
-#
-#     :return:
-#         Accelerations over the time series.
-#     :rtype:
-#     """
-#     dv = np.ediff1d(velocities, to_begin=[0])
-#     dt = np.ediff1d(times, to_begin=[0])
-#     return np.round(np.nan_to_num(dv / dt)).tolist()
 
 @sh.add_function(dsp, outputs=['fp'])
 def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
@@ -1015,28 +1101,82 @@ def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
         a series of speed profile.
 
     :param vehicle_mass:
+        Vehicle mass.
+    :type: float
+
     :param r_dynamic:
+        Dynamic radius.
+    :type: float
+
     :param car_type:
+        Car type.
+    :type: int
+
     :param final_drive_ratio:
+        Final drive ratio.
+    :type: float
+
     :param gear_box_ratios:
+        Gear box ratios.
+    :type: list
+
     :param gearbox_type:
+        Gearbox type.
+    :type: str
+
     :param type_of_car:
+        Type of car.
+    :type: str
+
     :param car_width:
+        Car width.
+    :type: float
+
     :param car_height:
+        Car height.
+    :type: float
+
     :param engine_max_torque:
+        Engine maximum torque.
+    :type: float
+
     :param fuel_eng_capacity:
+        Fuel engine capacity.
+    :type: float
+
     :param max_power:
+        Maximum power.
+    :type: int
+
     :param fuel_engine_stroke:
+        Fuel engine stroke.
+    :type: float
+
     :param fuel_type:
+        Fuel type.
+    :type: str
+
     :param fuel_turbo:
+        Fuel turbo.
+    :type: str
+
     :param sim_step:
+        Simulation step.
+    :type sim_step: int (sec)
+
     :param velocities:
     :param gs:
+        Gear cuts.
+    :type: list
+
     :param kwargs:
+        Key word arguments.
+    :type: dict
+
     :return:
     """
 
-    from co2mpas_driver import vehicle_specs_class as vcc, \
+    from co2mpas_driver.common import vehicle_specs_class as vcc, \
         gear_functions as fg
     from .co2mpas import estimate_f_coefficients
     gear_list = {}
@@ -1088,7 +1228,7 @@ def light_co2mpas_series(vehicle_mass, r_dynamic, car_type, final_drive_ratio,
         else:
             gear, gear_count = fg.gear_for_speed_profiles(gs, speed / 3.6, gear,
                                                           gear_count, gb_type)
-        from co2mpas_driver.generic_co2mpas import light_co2mpas_instant
+        from co2mpas_driver.common.generic_co2mpas import light_co2mpas_instant
         fc = light_co2mpas_instant(vehicle_mass, r_dynamic, car_type,
                                    final_drive_ratio, gear_box_ratios,
                                    veh_params, engine_max_torque,

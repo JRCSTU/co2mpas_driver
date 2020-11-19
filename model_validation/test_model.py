@@ -8,7 +8,8 @@
 import unittest
 from co2mpas_driver.model import dsp
 import ddt
-from tests.utils import _check
+# from tests.utils import _check
+from model-validation.utils import _check
 
 import yaml
 import os.path as osp

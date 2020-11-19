@@ -10,17 +10,21 @@ def calculate_wheel_power(velocities, acc, road_loads, veh_mass, slope):
         Velocity [km/h].
     :type velocities: numpy.array | float
 
-    :param accelerations:
+    :param acc:
         Acceleration [m/s2].
-    :type accelerations: numpy.array | float
+    :type acc: numpy.array | float
 
     :param road_loads:
         Cycle road loads [N, N/(km/h), N/(km/h)^2].
     :type road_loads: list, tuple
 
-    :param vehicle_mass:
+    :param veh_mass:
         Vehicle mass [kg].
-    :type vehicle_mass: float
+    :type veh_mass: float
+
+    :param slope:
+        Slope.
+    :type slope: float
 
     :return:
         Power at wheels [kW].
@@ -64,6 +68,14 @@ def calculate_min_wheel_torque(velocities, accelerations, road_loads, vehicle_ma
     :param vehicle_mass:
         Vehicle mass [kg].
     :type vehicle_mass: float
+
+    :param f:
+        Tyre rolling resistance.
+    :type f: float
+
+    :param r_dynamic
+        Tyre radius.
+    :type r_dynamic: float
 
     :return:
         Power at wheels [kW].
