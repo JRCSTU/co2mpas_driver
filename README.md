@@ -11,14 +11,18 @@ This will take you directly to JupyterLab where we used Jupyter notebook to
 present examples on how to use co2mpas_driver model (i.e., MFC) to simulate 
 the driver behaviour of a vehicle.
 
-## What is co2mpas_driver?
+## co2mpas_driver
 
-Co2mpas_driver is a library used to implement a lightweight microsimulation 
-free-flow acceleration model (MFC) that is able to capture the vehicle acceleration 
-dynamics accurately and consistently, it provides a link between the model and 
-the driver and can be easily implemented and tested without raising the 
-computational complexity. The proposed model has been developed by the Joint Research Centre of the 
-European Commission for more details https://journals.sagepub.com/doi/10.1177/0361198119838515
+Co2mpas_driver is a library used to implement the microsimulation free-flow acceleration model (MFC). 
+The MFC is able to accurately and consistently capture the acceleration dynamics of road vehicles 
+using a lightweight and parsimonious approach. The model has been developed to be integrated in traffic 
+simulation environments to enhance the realism of vehicles movements, to explicitly take into account 
+driver behaviour during the vehicle acceleration phases, and to improve the estimation of fuel/energy 
+consumptions and emissions, without significantly increasing their computational complexity. The proposed model 
+is valid for both internal combustion engine and battery electric vehicles. The MFC has been developed by the Joint 
+Research Centre of the European Commission in the framework of the Proof of Concept programme 2018/2019. 
+For more details on the model please refer to Makridis et al. [(2019)<sup>1</sup>](https://doi.org/10.1177/0361198119838515) 
+and He et al. [(2020)<sup>2</sup>](https://doi.org/10.1177/0361198120931842) 
 
 ## Installation
 
@@ -193,10 +197,10 @@ e. **Results**
    For bugs and feature requests, please [create an issue](https://github.com/ashenafimenza/new_MFC/issues/new).
    
    **Release**\
-   1.0.0
+   1.0.2
    
    **Release date**\
-   2020-01-12
+   2020-06-26
    
    **Repository**\
    https://github.com/JRCSTU/co2mpas_driver
