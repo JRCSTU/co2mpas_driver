@@ -6,6 +6,7 @@
     :alt: alternate text
     :figclass: align-center
 
+|
 
 .. include:: ../README.rst
     :start-after: .. _start-info:
