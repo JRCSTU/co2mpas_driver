@@ -9,7 +9,7 @@
 :versions:      |gh-version| |rel-date| |python-ver|
 :documentation: Under construction.
 :sources:       https://github.com/JRCSTU/co2mpas_driver  |codestyle|
-:keywords:      automotive, car, cars, driver, MCF, driving, simulation, simulator, standard, vehicle, vehicles.
+:keywords:      automotive, car, cars, driver, MCF, driving, simulation, simulator, standard, vehicle, vehicles, driver characterisation, driver profile, free-flow acceleration model, acceleration dynamics, driver behaviour, fuel/energy consumption
 :short name:    co2mpas_driver
 :live-demo:     |binder|
 :Copyright and License:     © Copyright (c) 2021 European Union.
@@ -21,8 +21,6 @@
               Unless required by applicable law or agreed to in writing, software distributed under the Licence is distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS
               OF ANY KIND, either express or implied. See the Licence for the specific language governing permissions and limitations under the Licence.
 
-
-A python-3.6+ package to generate the *gear-shifts* of Light-duty vehicles
 
 .. _end-info:
 
@@ -71,7 +69,7 @@ Install
 -------
 From within the project directory, run one of these commands to install it:
 
-- for standard python, installing with ``pip`` is enough (but might)::
+- for standard python, installing with ``pip`` is enough::
 
       pip install -e .[path_to_co2mpas_driver]
 
@@ -93,13 +91,13 @@ Usage
 =====
 
 In this example we will use co2mpas_driver model in order to extract the drivers
-acceleration behavior as approaching the desired speed.
+acceleration behavior as approaching the target speed.
 
 Setup
 -----
-* First, set up python, numpy, matplotlib.
+* First, setup python, numpy, matplotlib.
 
-    set up python environment: numpy for numerical routines, and matplotlib
+    setup python environment: numpy for numerical routines, and matplotlib
     for plotting
 
         >>> import numpy as np
@@ -154,9 +152,9 @@ Dispatcher
 
       >>> core.plot()
 
-  This will automatically open an internet browser and show the work flow
-  of the core model as below. you can click all the rectangular boxes to see
-  in detail sub models like load, model, write and plot.
+  This will plot the workflow of the core model on an internet browser (see below).
+  You can click all the rectangular boxes to see in detail the sub-models like *load*,
+  *model*, *write* and *plot*.
 
   .. image:: ./co2mpas_driver/images/core_example.PNG
       :align: center
