@@ -1,0 +1,8 @@
+## Somehow these do not apply from setup.py :-(
+click
+sphinx-click
+jinja2
+co2mpas-dice
+graphviz
+schedula[sphinx]
+cython
