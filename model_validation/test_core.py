@@ -17,14 +17,12 @@ import schedula as sh
 @ddt.ddt
 class TestCore(unittest.TestCase):
     def setUp(self):
-        res_dir = osp.join(osp.dirname(__file__), 'results')
-        out_fpath = 'gear_4degree_curves_with_linear_gs_core.yaml'
+        res_dir = osp.join(osp.dirname(__file__), "results")
+        out_fpath = "gear_4degree_curves_with_linear_gs_core.yaml"
         with open(osp.join(res_dir, out_fpath)) as f:
             self.data = dict(outputs=yaml.load(f, yaml.CLoader))
-        with open(osp.join(res_dir, 'core.yaml')) as f:
-             sh.combine_nested_dicts(
-                 yaml.load(f, yaml.CLoader), base=self.data, depth=2
-             )
+        with open(osp.join(res_dir, "core.yaml")) as f:
+            sh.combine_nested_dicts(yaml.load(f, yaml.CLoader), base=self.data, depth=2)
 
     def test_sample_simulation(self):
-        _check(dsp, self.data, ['outputs'])
+        _check(dsp, self.data, ["outputs"])

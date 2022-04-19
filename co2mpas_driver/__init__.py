@@ -26,33 +26,38 @@ from co2mpas_driver.plot import dsp as _plot
 dsp = sh.Dispatcher()
 dsp.add_dispatcher(
     dsp=_load,
-    inputs=['inputs', 'vehicle_id', 'db_path', 'input_path'],
-    outputs=['data']
+    inputs=["inputs", "vehicle_id", "db_path", "input_path"],
+    outputs=["data"],
 )
+
+dsp.add_function(function=sh.SubDispatch(_model), inputs=["data"], outputs=["outputs"])
+
+dsp.add_function(function_id="write", inputs=["output_path", "outputs"])
 
 dsp.add_function(
-    function=sh.SubDispatch(_model),
-    inputs=['data'],
-    outputs=['outputs']
+    function=sh.SubDispatch(_plot), inputs=["output_plot_folder", "outputs"]
 )
 
-dsp.add_function(
-    function_id='write',
-    inputs=['output_path', 'outputs']
-)
-
-dsp.add_function(
-    function=sh.SubDispatch(_plot),
-    inputs=['output_plot_folder', 'outputs']
-)
-
-if __name__ == '__main__':
-    sol = dsp(dict(vehicle_id=39393, inputs=dict(inputs=dict(
-        gear_shifting_style=0.9, desired_velocity=124/3.6,
-        starting_velocity=0, degree=4, driver_style=1,
-        sim_start=0, sim_step=0.1, duration=100, use_linear_gs=True,
-        use_cubic=False))))[
-        'outputs']
+if __name__ == "__main__":
+    sol = dsp(
+        dict(
+            vehicle_id=39393,
+            inputs=dict(
+                inputs=dict(
+                    gear_shifting_style=0.9,
+                    desired_velocity=124 / 3.6,
+                    starting_velocity=0,
+                    degree=4,
+                    driver_style=1,
+                    sim_start=0,
+                    sim_step=0.1,
+                    duration=100,
+                    use_linear_gs=True,
+                    use_cubic=False,
+                )
+            ),
+        )
+    )["outputs"]
     # velocity = sol['outputs']['velocities']
     # acceleration = sol['outputs']['accelerations']
     # plt.figure('Speed-Acceleration')

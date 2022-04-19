@@ -28,21 +28,26 @@ import numpy as np
 try:
     isidentifier = str.isidentifier
 except AttributeError:
-    isidentifier = re.compile(r'[a-z_]\w*$', re.I).match
+    isidentifier = re.compile(r"[a-z_]\w*$", re.I).match
 
 __all__ = [
-    'grouper', 'sliding_window', 'median_filter', 'reject_outliers',
-    'clear_fluctuations', 'argmax', 'derivative'
+    "grouper",
+    "sliding_window",
+    "median_filter",
+    "reject_outliers",
+    "clear_fluctuations",
+    "argmax",
+    "derivative",
 ]
 
 
 class Constants(dict):
-    @nx.utils.open_file(1, mode='rb')
+    @nx.utils.open_file(1, mode="rb")
     def load(self, file, **kw):
         self.from_dict(yaml.load(file, **kw))
         return self
 
-    @nx.utils.open_file(1, mode='w')
+    @nx.utils.open_file(1, mode="w")
     def dump(self, file, default_flow_style=False, **kw):
         d = self.to_dict()
         yaml.dump(d, file, default_flow_style=default_flow_style, **kw)
@@ -66,9 +71,9 @@ class Constants(dict):
 
     def to_dict(self, base=None):
         pr = {} if base is None else base
-        s = (set(dir(self)) - set(dir(Constants)))
+        s = set(dir(self)) - set(dir(Constants))
         for n in s.union(self.__class__.__dict__.keys()):
-            if n.startswith('__'):
+            if n.startswith("__"):
                 continue
             v = getattr(self, n)
             if inspect.ismethod(v) or inspect.isbuiltin(v):
@@ -330,8 +335,7 @@ def stds_redirected(stdout=None, stderr=None):
     sys.stdout, sys.stderr = orig_out, orig_err
 
 
-_key_value_regex = re.compile(r'^\s*([/_A-Za-z][\w/\.]*)\s*([+*?:@]?)=\s*(.*?)\s*$')
-
+_key_value_regex = re.compile(r"^\s*([/_A-Za-z][\w/\.]*)\s*([+*?:@]?)=\s*(.*?)\s*$")
 
 
 ##############################
@@ -348,8 +352,8 @@ def _construct_ordered_dict(loader, node):
 
 def _ordered_dict_representer(dumper, data):
     return dumper.represent_mapping(
-        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
-        data.items())
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, data.items()
+    )
 
 
 def yaml_load(stream, Loader=yaml.SafeLoader):
@@ -372,7 +376,7 @@ def setup_yaml_ordered():
     """
     Invoke it once it to enable app-wide ordered yaml.
 
-    From http://stackoverflow.com/a/8661021 """
+    From http://stackoverflow.com/a/8661021"""
     yaml.add_representer(OrderedDict, _ordered_dict_representer)
     yaml.add_representer(defaultdict, _ordered_dict_representer)
     yaml.add_representer(tuple, yaml.SafeDumper.represent_list)

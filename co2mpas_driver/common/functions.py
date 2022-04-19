@@ -40,16 +40,21 @@ def calculate_wheel_power(velocities, acc, road_loads, veh_mass, slope):
     #
     # vel = velocities / 3600
 
-    quadratic_term = f0 * math.cos(math.atan(slope)) + (
-            f1 + f2 * velocities) * velocities + 1.03 * veh_mass * acc + veh_mass * math.sin(
-        math.atan(slope)) * 9.81
+    quadratic_term = (
+        f0 * math.cos(math.atan(slope))
+        + (f1 + f2 * velocities) * velocities
+        + 1.03 * veh_mass * acc
+        + veh_mass * math.sin(math.atan(slope)) * 9.81
+    )
 
     res = float(quadratic_term * velocities) / 3600
 
     return res
 
 
-def calculate_min_wheel_torque(velocities, accelerations, road_loads, vehicle_mass, f, r_dynamic):
+def calculate_min_wheel_torque(
+    velocities, accelerations, road_loads, vehicle_mass, f, r_dynamic
+):
     """
     Calculates the wheel power [kW].
 
@@ -88,7 +93,11 @@ def calculate_min_wheel_torque(velocities, accelerations, road_loads, vehicle_ma
 
     vel = velocities / 3600
 
-    return (quadratic_term + 1.03 * vehicle_mass * accelerations + vehicle_mass * math.sin(f)) * r_dynamic
+    return (
+        quadratic_term
+        + 1.03 * vehicle_mass * accelerations
+        + vehicle_mass * math.sin(f)
+    ) * r_dynamic
 
 
 def calculate_wheel_speeds(velocities, r_dynamic):
@@ -134,8 +143,7 @@ def calculate_wheel_torques(wheel_powers, wheel_speeds):
     return wheel_powers / wheel_speeds * (30000.0 / pi) if wheel_speeds else 0.0
 
 
-def calculate_final_drive_speeds_in(
-        final_drive_speeds_out, final_drive_ratio_vector):
+def calculate_final_drive_speeds_in(final_drive_speeds_out, final_drive_ratio_vector):
     """
     Calculates final drive speed [RPM].
 
@@ -156,8 +164,11 @@ def calculate_final_drive_speeds_in(
 
 
 def calculate_final_drive_torque_losses_v1(
-        n_wheel_drive, final_drive_torques_out, final_drive_ratio_vector,
-        final_drive_efficiency):
+    n_wheel_drive,
+    final_drive_torques_out,
+    final_drive_ratio_vector,
+    final_drive_efficiency,
+):
     """
     Calculates final drive torque losses [N*m].
 
@@ -188,8 +199,8 @@ def calculate_final_drive_torque_losses_v1(
 
 
 def calculate_final_drive_torques_in(
-        final_drive_torques_out, final_drive_ratio_vector,
-        final_drive_torque_losses):
+    final_drive_torques_out, final_drive_ratio_vector, final_drive_torque_losses
+):
     """
     Calculates final drive torque [N*m].
 
@@ -215,8 +226,7 @@ def calculate_final_drive_torques_in(
     return t + final_drive_torque_losses
 
 
-def calculate_gear_box_speeds_in_v1(
-        gear, final_drive_speed, gear_box_ratios, clutch):
+def calculate_gear_box_speeds_in_v1(gear, final_drive_speed, gear_box_ratios, clutch):
     """
     Calculates Gear box speed vector [RPM].
 
@@ -249,8 +259,13 @@ def calculate_gear_box_speeds_in_v1(
 
 
 def gear_box_torques_in(
-        min_engine_on_speed, gear_box_torques_out, gear_box_speeds_in,
-        gear_box_speeds_out, par, clutch):
+    min_engine_on_speed,
+    gear_box_torques_out,
+    gear_box_speeds_in,
+    gear_box_speeds_out,
+    par,
+    clutch,
+):
     """
     Calculates torque required according to the temperature profile [N*m].
 
@@ -290,27 +305,27 @@ def gear_box_torques_in(
         ratio = 0
 
     if tgb >= 0:
-        if (es == 0 or ws == 0 or clutch == 1):
+        if es == 0 or ws == 0 or clutch == 1:
             res = 0
         else:
-            res = (tgb * ratio - par['gbp10'] * es - par['gbp00']) / par['gbp01']
+            res = (tgb * ratio - par["gbp10"] * es - par["gbp00"]) / par["gbp01"]
     else:
-        res = -(-tgb * ratio * par['gbp01'] + par['gbp10'] * ws + par['gbp00'])
+        res = -(-tgb * ratio * par["gbp01"] + par["gbp10"] * ws + par["gbp00"])
 
     return res
 
 
 def create_gearbox_params(params, max_engine_torque):
-    gbp10 = params['gbp10']['m'] * max_engine_torque + params['gbp10']['q']
-    gbp00 = params['gbp00']['m'] * max_engine_torque + params['gbp00']['q']
-    gbp01 = params['gbp01']['q']
-    par = {'gbp00': gbp00, 'gbp10': gbp10, 'gbp01': gbp01}
+    gbp10 = params["gbp10"]["m"] * max_engine_torque + params["gbp10"]["q"]
+    gbp00 = params["gbp00"]["m"] * max_engine_torque + params["gbp00"]["q"]
+    gbp01 = params["gbp01"]["q"]
+    par = {"gbp00": gbp00, "gbp10": gbp10, "gbp01": gbp01}
     return par
 
 
 def calculate_brake_mean_effective_pressures(
-        engine_speeds_out, engine_powers_out, engine_capacity,
-        min_engine_on_speed):
+    engine_speeds_out, engine_powers_out, engine_capacity, min_engine_on_speed
+):
     """
     Calculates engine brake mean effective pressure [bar].
 
@@ -357,41 +372,44 @@ def mean_piston_speed(engine_speed, fuel_engine_stroke):
 
 
 def parameters(max_power, capacity, eng_fuel, fuel_turbo):
-    if eng_fuel == 'diesel':
+    if eng_fuel == "diesel":
         params = {
-            'a': -0.0005 * max_power + 0.438451,
-            'b': -0.26503 * (-0.0005 * max_power + 0.43845) + 0.12675,
-            'c': -0.08528 * (-0.26503 * (-0.0005 * max_power + 0.43845) + 0.12675) + 0.0003,
-            'a2': -0.0012,
-            'b2': 0,
-            'l': -1.55291,
-            'l2': -0.0076,
-            't': 3.5,  # 2.7,
-            'trg': 85.
+            "a": -0.0005 * max_power + 0.438451,
+            "b": -0.26503 * (-0.0005 * max_power + 0.43845) + 0.12675,
+            "c": -0.08528 * (-0.26503 * (-0.0005 * max_power + 0.43845) + 0.12675)
+            + 0.0003,
+            "a2": -0.0012,
+            "b2": 0,
+            "l": -1.55291,
+            "l2": -0.0076,
+            "t": 3.5,  # 2.7,
+            "trg": 85.0,
         }
-    elif fuel_turbo == 'yes':
+    elif fuel_turbo == "yes":
         params = {
-            'a': 0.8882 * max_power / capacity + 0.377,
-            'b': -0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899,
-            'c': -0.06492 * (-0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899) + 0.000117,
-            'a2': -0.00385,
-            'b2': 0,
-            'l': -2.14063,
-            'l2': -0.00286,
-            't': 3.5,  # 2.7,
-            'trg': 85.
+            "a": 0.8882 * max_power / capacity + 0.377,
+            "b": -0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899,
+            "c": -0.06492 * (-0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899)
+            + 0.000117,
+            "a2": -0.00385,
+            "b2": 0,
+            "l": -2.14063,
+            "l2": -0.00286,
+            "t": 3.5,  # 2.7,
+            "trg": 85.0,
         }
     else:
         params = {
-            'a': 0.8882 * max_power / capacity + 0.377,
-            'b': -0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899,
-            'c': -0.06492 * (-0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899) + 0.000117,
-            'a2': -0.00266,
-            'b2': 0,
-            'l': -2.49882,
-            'l2': -0.0025,
-            't': 3.5,  # 2.7,
-            'trg': 85.
+            "a": 0.8882 * max_power / capacity + 0.377,
+            "b": -0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899,
+            "c": -0.06492 * (-0.17988 * (0.882 * max_power / capacity + 0.377) + 0.0899)
+            + 0.000117,
+            "a2": -0.00266,
+            "b2": 0,
+            "l": -2.49882,
+            "l2": -0.0025,
+            "t": 3.5,  # 2.7,
+            "trg": 85.0,
         }
 
     return params
@@ -440,29 +458,35 @@ def parameters(max_power, capacity, eng_fuel, fuel_turbo):
 #
 #     return -engine_wfb_idle / engine_wfa_idle
 
+
 def calculate_fuel_ABC(params, mean_piston_speed, n_powers, n_temperatures):
     p = params
-    A = p['a2'] + p['b2'] * mean_piston_speed
-    B = p['a'] + (p['b'] + p['c'] * mean_piston_speed) * mean_piston_speed
-    C = numpy.power(n_temperatures, 0) * (p['l'] + p['l2'] * mean_piston_speed ** 2)
+    A = p["a2"] + p["b2"] * mean_piston_speed
+    B = p["a"] + (p["b"] + p["c"] * mean_piston_speed) * mean_piston_speed
+    C = numpy.power(n_temperatures, 0) * (p["l"] + p["l2"] * mean_piston_speed**2)
     C -= n_powers
 
     return A, B, C
 
 
 def calculate_VMEP(A, B, C):
-    if (B ** 2 - 4 * A * C) < 0:
-        print('Negative (B ** 2 - 4 * A * C) ')
-    if A != 0 and (B ** 2 - 4 * A * C) >= 0:
-        res = (-B + math.sqrt(B ** 2 - 4 * A * C)) / (2 * A)
+    if (B**2 - 4 * A * C) < 0:
+        print("Negative (B ** 2 - 4 * A * C) ")
+    if A != 0 and (B**2 - 4 * A * C) >= 0:
+        res = (-B + math.sqrt(B**2 - 4 * A * C)) / (2 * A)
     else:
         res = float(-C) / B
     return res
 
 
-def calc_fuel_consumption(VMEP, engine_capacity, engine_fuel_lower_heating_value, engine_rpm, sim_step):
+def calc_fuel_consumption(
+    VMEP, engine_capacity, engine_fuel_lower_heating_value, engine_rpm, sim_step
+):
     # fuel consumption in grams per time step
-    res = sim_step * ((VMEP * engine_capacity * 0.1 * (float(engine_rpm) / 60)) / (2 * engine_fuel_lower_heating_value))
+    res = sim_step * (
+        (VMEP * engine_capacity * 0.1 * (float(engine_rpm) / 60))
+        / (2 * engine_fuel_lower_heating_value)
+    )
     if res < 0:
         return 0
     return res

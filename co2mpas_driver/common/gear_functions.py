@@ -128,8 +128,11 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, clutch_durat
     gear_limits.extend(gs)
     gear_limits.append(200)
 
-    if gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off <= curr_speed < gear_limits[
-        current_gear] + gear_limits[current_gear] * upshift_offs:
+    if (
+        gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off
+        <= curr_speed
+        < gear_limits[current_gear] + gear_limits[current_gear] * upshift_offs
+    ):
         if gear_cnt == 0:
             return current_gear, gear_cnt
         else:
@@ -165,8 +168,9 @@ def gear_linear(speed_per_gear, gs_style):
     gs = []
 
     for gear in range(n_gears - 1):
-        speed_by_gs = speed_per_gear[gear][-1] * gs_style + \
-                      speed_per_gear[gear][0] * (1 - gs_style)
+        speed_by_gs = speed_per_gear[gear][-1] * gs_style + speed_per_gear[gear][0] * (
+            1 - gs_style
+        )
         speed_for_continuity = speed_per_gear[gear + 1][0]
         cutoff_s = max(speed_by_gs, speed_for_continuity)
 
@@ -186,11 +190,11 @@ def create_clutch_list(gear_list, clutch_duration):
     """
 
     l1 = len(gear_list) + clutch_duration
-    clutch_list = [0]*l1
+    clutch_list = [0] * l1
 
-    for i,gear in enumerate(gear_list[1:]):
+    for i, gear in enumerate(gear_list[1:]):
         if gear != gear_list[i]:
-            clutch_list[i+1:i+clutch_duration] = [1] * clutch_duration
+            clutch_list[i + 1 : i + clutch_duration] = [1] * clutch_duration
 
     if clutch_duration != 0:
         clutch_list = clutch_list[:-clutch_duration]

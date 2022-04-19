@@ -13,14 +13,16 @@ new_MFC setup.
 import os
 import shutil
 from os import path as osp
+
 my_dir = osp.dirname(osp.abspath(__file__))
 os.chdir(my_dir)
 
-name = 'co2mpas_driver'
+name = "co2mpas_driver"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from setuptools import setup, find_packages
-    dir_list = ['build', 'dist', '{}.egg-info'.format(name)]
+
+    dir_list = ["build", "dist", "{}.egg-info".format(name)]
 
     for d in dir_list:
         try:
@@ -29,71 +31,66 @@ if __name__ == '__main__':
             pass
 
     def readme():
-        with open('README.md') as f:
+        with open("README.md") as f:
             return f.read()
 
-    test_deps = ['pytest']
+    test_deps = ["pytest"]
 
-    url = 'https://github.com/JRCSTU/%s' % name
+    url = "https://github.com/JRCSTU/%s" % name
 
     setup(
         name=name,
-        version='1.0.0',
-        packages=find_packages(exclude=[
-            'test', 'test.*',
-        ]),
+        version="1.0.0",
+        packages=find_packages(
+            exclude=[
+                "test",
+                "test.*",
+            ]
+        ),
         license="European Union Public Licence 1.1 or later (EUPL 1.1+)",
-        description='A lightweight microsimulation free-flow acceleration model'
-                    '(MFC) or co2mpas_driver is a model that is able to '
-                    'capture the vehicle acceleration dynamics accurately and '
-                    'consistently',
+        description="A lightweight microsimulation free-flow acceleration model"
+        "(MFC) or co2mpas_driver is a model that is able to "
+        "capture the vehicle acceleration dynamics accurately and "
+        "consistently",
         long_description=readme(),
-        long_description_content_type='text/markdown',
+        long_description_content_type="text/markdown",
         project_urls={"Sources": url},
         classifiers=[
-            'Development Status :: 4 - Beta',
-            'Intended Audience :: Developers',
-            'Intended Audience :: Science/Research',
-            'Intended Audience :: Manufacturing',
-            'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6',
-            'Programming Language :: Python :: 3.7',
-            'Programming Language :: Python :: Implementation :: CPython',
-            'Natural Language :: English',
-            'Environment :: Console',
-            'Operating System :: MacOS :: MacOS X',
-            'Operating System :: Microsoft :: Windows',
-            'Operating System :: POSIX',
-            'Operating System :: Unix',
+            "Development Status :: 4 - Beta",
+            "Intended Audience :: Developers",
+            "Intended Audience :: Science/Research",
+            "Intended Audience :: Manufacturing",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.5",
+            "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Natural Language :: English",
+            "Environment :: Console",
+            "Operating System :: MacOS :: MacOS X",
+            "Operating System :: Microsoft :: Windows",
+            "Operating System :: POSIX",
+            "Operating System :: Unix",
         ],
         install_requires=[
-            'PyYAML',
-            'schedula>=0.3.2',
-            'tqdm',
-            'scikit-learn',
-            'regex',
-            'lmfit>=0.9.7',
-            'numpy',
-            'schema',
-            'scipy',
-            'wltp',
-            'xgboost'
+            "PyYAML",
+            "schedula>=0.3.2",
+            "tqdm",
+            "scikit-learn",
+            "regex",
+            "lmfit>=0.9.7",
+            "numpy",
+            "schema",
+            "scipy",
+            "wltp",
+            "xgboost",
         ],
         tests_require=test_deps,
-        package_data={
-            'co2mpas_driver': [
-                'template/*.xlsx',
-                'db/*.csv',
-                '*'
-            ]
-        },
-        entry_points='''[console_scripts]
-        run_simulation=co2mpas_driver.sample_simulation:run_simulation''',
+        package_data={"co2mpas_driver": ["template/*.xlsx", "db/*.csv", "*"]},
+        entry_points="""[console_scripts]
+        run_simulation=co2mpas_driver.sample_simulation:run_simulation""",
         include_package_data=True,
         zip_safe=True,
-        options={
-            'bdist_wheel': {'universal': True}
-        },
-        platforms=['any'],
+        options={"bdist_wheel": {"universal": True}},
+        platforms=["any"],
     )

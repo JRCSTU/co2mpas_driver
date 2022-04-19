@@ -5,14 +5,14 @@ import os.path as osp
 import schedula as sh
 
 log = logging.getLogger(__name__)
-dsp = sh.BlueDispatcher(name='load', description='Read/merge/parse input data.')
+dsp = sh.BlueDispatcher(name="load", description="Read/merge/parse input data.")
 
 
-def check_ext(fpath, *args, ext=('xls', 'xlsx')):
+def check_ext(fpath, *args, ext=("xls", "xlsx")):
     return osp.splitext(fpath)[1][1:] in ext
 
 
-@sh.add_function(dsp, outputs=['raw_data'], input_domain=check_ext)
+@sh.add_function(dsp, outputs=["raw_data"], input_domain=check_ext)
 def read_excel(input_path):
     """
     Read input file.
@@ -27,27 +27,28 @@ def read_excel(input_path):
     """
     import xlrd
     import pandas as pd
+
     raw_data = {}
     with pd.ExcelFile(input_path) as xl:
-        for k in ('inputs', 'config', 'vehicle_inputs', 'time_series'):
+        for k in ("inputs", "config", "vehicle_inputs", "time_series"):
             try:
-                if k == 'time_series':
-                    raw_data[k] = xl.parse(k).dropna(1).to_dict(orient='list')
+                if k == "time_series":
+                    raw_data[k] = xl.parse(k).dropna(1).to_dict(orient="list")
                 else:
                     df = xl.parse(k, header=None, index_col=0, usecols=[0, 1]).T
-                    raw_data[k] = df.dropna(1).to_dict(orient='records')[0]
+                    raw_data[k] = df.dropna(1).to_dict(orient="records")[0]
             except IndexError:
-                log.warning('Sheet `%s` is not well formatted!' % k)
+                log.warning("Sheet `%s` is not well formatted!" % k)
             except xlrd.biffh.XLRDError:
-                log.warning('Missing sheet (`%s`)!' % k)
+                log.warning("Missing sheet (`%s`)!" % k)
 
     return raw_data
 
 
-dsp.add_data('raw_data', {}, sh.inf(1, 0))
+dsp.add_data("raw_data", {}, sh.inf(1, 0))
 
 
-@sh.add_function(dsp, outputs=['vehicle_id'])
+@sh.add_function(dsp, outputs=["vehicle_id"])
 def get_vehicle_id(raw_data):
     """
     Get vehicle ID from raw data.
@@ -60,16 +61,17 @@ def get_vehicle_id(raw_data):
         Vehicle ID.
     :rtype: int
     """
-    return raw_data['config']['vehicle_id']
+    return raw_data["config"]["vehicle_id"]
 
 
 dsp.add_data(
-    'db_path', osp.join(osp.dirname(__file__), 'db', 'EuroSegmentCar_cleaned.csv'),
-    sh.inf(1, 0)
+    "db_path",
+    osp.join(osp.dirname(__file__), "db", "EuroSegmentCar_cleaned.csv"),
+    sh.inf(1, 0),
 )
 
 
-@sh.add_function(dsp, outputs=['db_path'])
+@sh.add_function(dsp, outputs=["db_path"])
 def get_db_path(raw_data):
     """
     Get data base file path from raw data.
@@ -82,36 +84,37 @@ def get_db_path(raw_data):
         Data base file path.
     :rtype: str
     """
-    return raw_data.get('config', {}).get('db_path', sh.NONE)
+    return raw_data.get("config", {}).get("db_path", sh.NONE)
 
 
 _db_map = {
-    "Transmission  / Gear ratio-Final drive": 'final_drive_ratio',
+    "Transmission  / Gear ratio-Final drive": "final_drive_ratio",
     "Transmission  / Gear ratio-Gear Box Ratios": "gear_box_ratios",
-    'Weights-Empty mass': 'vehicle_mass',
-    'Performance-Top speed': 'vehicle_max_speed',
-    'General Specifications-Carbody': 'type_of_car',
-    'Exterior sizes-Width': 'car_width',
-    'Exterior sizes-Height': 'car_height',
-    'Weights-Unladen mass': 'kerb_weight',
-    'Exterior sizes-Wheelbase': 'wheelbase',
-    'Drive-Wheel drive': 'car_type', 'Drive-Fuel': 'fuel_type',
-    'Chassis-Rolling Radius Dynamic': 'r_dynamic',
-    'Fuel Engine-Max torque': 'engine_max_torque',
-    'Fuel Engine-Stroke': 'fuel_engine_stroke',
-    'Drive-Total max power': 'max_power',
-    'Fuel Engine-Turbo': 'fuel_turbo',
-    'Fuel Engine-Capacity': 'fuel_eng_capacity',
-    'General Specifications-Transmission': 'gearbox_type',
-    'Fuel Engine-Max power': 'engine_max_power',
-    'Electric Engine-Total max power': 'motor_max_power',
-    'Electric Engine-Max torque': 'motor_max_torque',
-    'Chassis-Rolling Radius Static': 'tyre_radius',
-    "Fuel Engine-Max power RPM": "engine_max_speed_at_max_power"
+    "Weights-Empty mass": "vehicle_mass",
+    "Performance-Top speed": "vehicle_max_speed",
+    "General Specifications-Carbody": "type_of_car",
+    "Exterior sizes-Width": "car_width",
+    "Exterior sizes-Height": "car_height",
+    "Weights-Unladen mass": "kerb_weight",
+    "Exterior sizes-Wheelbase": "wheelbase",
+    "Drive-Wheel drive": "car_type",
+    "Drive-Fuel": "fuel_type",
+    "Chassis-Rolling Radius Dynamic": "r_dynamic",
+    "Fuel Engine-Max torque": "engine_max_torque",
+    "Fuel Engine-Stroke": "fuel_engine_stroke",
+    "Drive-Total max power": "max_power",
+    "Fuel Engine-Turbo": "fuel_turbo",
+    "Fuel Engine-Capacity": "fuel_eng_capacity",
+    "General Specifications-Transmission": "gearbox_type",
+    "Fuel Engine-Max power": "engine_max_power",
+    "Electric Engine-Total max power": "motor_max_power",
+    "Electric Engine-Max torque": "motor_max_torque",
+    "Chassis-Rolling Radius Static": "tyre_radius",
+    "Fuel Engine-Max power RPM": "engine_max_speed_at_max_power",
 }
 
 
-@sh.add_function(dsp, outputs=['vehicle_db'])
+@sh.add_function(dsp, outputs=["vehicle_db"])
 def load_vehicle_db(db_path):
     """
     Load vehicle data base.
@@ -125,44 +128,55 @@ def load_vehicle_db(db_path):
     :rtype: dict
     """
     import pandas as pd
+
     df = pd.read_csv(db_path, encoding="ISO-8859-1", index_col=0)
     df = df[list(_db_map)].rename(columns=_db_map)
 
-    df['gear_box_ratios'] = df['gear_box_ratios'].fillna('[]').apply(
-        lambda x: [float(v) for v in x[1:-1].split('-') if v != '']
+    df["gear_box_ratios"] = (
+        df["gear_box_ratios"]
+        .fillna("[]")
+        .apply(lambda x: [float(v) for v in x[1:-1].split("-") if v != ""])
     )
-    df.loc[df['fuel_type'] == 'petrol', 'ignition_type'] = 'positive'
-    df.loc[df['fuel_type'] == 'diesel', 'ignition_type'] = 'compression'
-    b = df['fuel_type'] == 'electricity'
-    df.loc[b, ['ignition_type']] = 'electricity'
-    df.loc[b, ['gear_box_ratios']] = 1
-    df['tyre_radius'] /= 1000  # meters.
-    df['driveline_slippage'] = 0
+    df.loc[df["fuel_type"] == "petrol", "ignition_type"] = "positive"
+    df.loc[df["fuel_type"] == "diesel", "ignition_type"] = "compression"
+    b = df["fuel_type"] == "electricity"
+    df.loc[b, ["ignition_type"]] = "electricity"
+    df.loc[b, ["gear_box_ratios"]] = 1
+    df["tyre_radius"] /= 1000  # meters.
+    df["driveline_slippage"] = 0
 
-    b = df['gearbox_type'] == 'automatic'
+    b = df["gearbox_type"] == "automatic"
     # b |= df['gearbox_type'] == 'single-speed fixed gear'
-    df['transmission'] = np.where(b, 'automatic', 'manual')
-    df['driveline_efficiency'] = np.where(b, .9, .93)
+    df["transmission"] = np.where(b, "automatic", "manual")
+    df["driveline_efficiency"] = np.where(b, 0.9, 0.93)
 
-    df.loc[(df['fuel_type'] == 'electricity') & (df['gearbox_type'] == 'single-speed fixed gear'), 'driveline_efficiency'] = 0.93
-    df.loc[(df['fuel_type'] == 'electricity') & (df['gearbox_type'] != 'single-speed fixed gear'), 'driveline_efficiency'] = 0.93
+    df.loc[
+        (df["fuel_type"] == "electricity")
+        & (df["gearbox_type"] == "single-speed fixed gear"),
+        "driveline_efficiency",
+    ] = 0.93
+    df.loc[
+        (df["fuel_type"] == "electricity")
+        & (df["gearbox_type"] != "single-speed fixed gear"),
+        "driveline_efficiency",
+    ] = 0.93
 
-    df['vehicle_max_speed'] = (df['vehicle_max_speed'] / 3.6).values.astype(int)
-    df.round({'vehicle_max_speed': 2})
-    df['type_of_car'] = df["type_of_car"].str.strip()
-    r = np.where(df['car_type'] == 'front', 2, 6)
-    r[df['car_type'] == 'rear'] = 4
-    df['car_type'] = r
+    df["vehicle_max_speed"] = (df["vehicle_max_speed"] / 3.6).values.astype(int)
+    df.round({"vehicle_max_speed": 2})
+    df["type_of_car"] = df["type_of_car"].str.strip()
+    r = np.where(df["car_type"] == "front", 2, 6)
+    r[df["car_type"] == "rear"] = 4
+    df["car_type"] = r
 
-    b = df['ignition_type'] == 'positive'
-    df['idle_engine_speed_median'] = np.where(b, 750, 850)
-    df['idle_engine_speed_std'] = 50
-    df['r_dynamic'] /= 1000
+    b = df["ignition_type"] == "positive"
+    df["idle_engine_speed_median"] = np.where(b, 750, 850)
+    df["idle_engine_speed_std"] = 50
+    df["r_dynamic"] /= 1000
 
-    return df.to_dict('index')
+    return df.to_dict("index")
 
 
-@sh.add_function(dsp, outputs=['vehicle_inputs'])
+@sh.add_function(dsp, outputs=["vehicle_inputs"])
 def get_vehicle_inputs(vehicle_id, vehicle_db):
     """
     Get vehicle data.
@@ -182,10 +196,10 @@ def get_vehicle_inputs(vehicle_id, vehicle_db):
     return vehicle_db[vehicle_id]
 
 
-dsp.add_data('inputs', {}, sh.inf(2, 0))
+dsp.add_data("inputs", {}, sh.inf(2, 0))
 
 
-@sh.add_function(dsp, outputs=['data'])
+@sh.add_function(dsp, outputs=["data"])
 def merge_data(vehicle_inputs, raw_data, inputs):
     """
     Merge data.
@@ -206,11 +220,10 @@ def merge_data(vehicle_inputs, raw_data, inputs):
         Merged data.
     :rtype: dict
     """
-    d = {'vehicle_inputs': vehicle_inputs}
+    d = {"vehicle_inputs": vehicle_inputs}
     d = sh.combine_nested_dicts(d, raw_data, inputs, depth=2)
     return sh.combine_dicts(
-        d.pop('time_series', {}), d.pop('vehicle_inputs', {}),
-        d.get('inputs', {})
+        d.pop("time_series", {}), d.pop("vehicle_inputs", {}), d.get("inputs", {})
     )
 
 
@@ -227,9 +240,10 @@ def format_data(data):
     :rtype: dict
     """
     data = copy.deepcopy(data)
-    if isinstance(data.get('gear_box_ratios'), str):
+    if isinstance(data.get("gear_box_ratios"), str):
         import json
-        data['gear_box_ratios'] = json.loads(data['gear_box_ratios'])
+
+        data["gear_box_ratios"] = json.loads(data["gear_box_ratios"])
     for k, v in list(data.items()):
         if isinstance(v, str):
             if v:
@@ -240,7 +254,7 @@ def format_data(data):
     return data
 
 
-dsp.add_data('data', filters=[format_data])
+dsp.add_data("data", filters=[format_data])
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dsp.register(memo={}).plot()

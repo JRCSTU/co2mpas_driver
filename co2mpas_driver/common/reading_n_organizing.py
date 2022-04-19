@@ -12,30 +12,30 @@ def load_db_to_dictionary(name):
     """
 
     ##First replace any , with - in the csv
-    file = open(name+'.csv', 'r', encoding="ISO-8859-1")
+    file = open(name + ".csv", "r", encoding="ISO-8859-1")
     A = file.readline()
     Characteristics = []
     Out = {}
 
     ##create the list of the names of the characteristic
-    while A != '':
-        k = A.find(',')
+    while A != "":
+        k = A.find(",")
         if k == -1:
             Characteristics.append(A)
-            A = ''
+            A = ""
         else:
             Characteristics.append(A[:k])
-            A = A[k + 1:]
+            A = A[k + 1 :]
 
     ##for every line of the csv creates a dictionary
     ##then for every cell of the line, stores the value to the dictionary using the characteristic's name as key
     for line in file:
         C = {}
         for i in range(len(Characteristics) - 1):
-            k = line.find(',')
+            k = line.find(",")
             C[Characteristics[i]] = line[:k]
-            line = line[k + 1:]
-        C[Characteristics[-1].rstrip('\n')] = line.rstrip('\n')
+            line = line[k + 1 :]
+        C[Characteristics[-1].rstrip("\n")] = line.rstrip("\n")
         Out[int(C[Characteristics[0]])] = C
 
     file.close()

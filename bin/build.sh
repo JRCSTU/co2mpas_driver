@@ -5,4 +5,3 @@ Go into your package folder and execute this command:
 # python setup.py bdist_wininst /or
 # python setup.py bdist --formats=wininst
 # python setup.py bdist_wheel
-

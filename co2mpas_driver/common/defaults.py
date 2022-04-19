@@ -192,30 +192,35 @@ class Functions(co2_utl.Constants):
     class _tech_mult_factors(co2_utl.Constants):
         #: Multiplication factors of the engine parameters [-].
         factors = {
-            'vva': {
-                #0: {},
-                1: {'a': 0.98, 'l': 0.92},
+            "vva": {
+                # 0: {},
+                1: {"a": 0.98, "l": 0.92},
             },
-            'lb': {
-                #0: {},
-                1: {'a': 1.1, 'b' : 0.72, 'c': 0.76, 'a2': 1.25, 'l2': 2.85}
+            "lb": {
+                # 0: {},
+                1: {"a": 1.1, "b": 0.72, "c": 0.76, "a2": 1.25, "l2": 2.85}
             },
-            'egr': {
-                #0: {},
-                1: {'a': 1.02, 'b': 1.1, 'c': 1.5, 'a2': 1.1},  # positive turbo
-                2: {'a': 1.02, 'b': 1.1, 'c': 1.5, 'a2': 1.1},  # positive natural aspiration
-                3: {'b': 1.08, 'c': 1.15, 'a2': 1.1}, # compression
-                4: {'b': 1.08, 'c': 1.15, 'a2': 1.1}  # compression + scr
-            }
+            "egr": {
+                # 0: {},
+                1: {"a": 1.02, "b": 1.1, "c": 1.5, "a2": 1.1},  # positive turbo
+                2: {
+                    "a": 1.02,
+                    "b": 1.1,
+                    "c": 1.5,
+                    "a2": 1.1,
+                },  # positive natural aspiration
+                3: {"b": 1.08, "c": 1.15, "a2": 1.1},  # compression
+                4: {"b": 1.08, "c": 1.15, "a2": 1.1},  # compression + scr
+            },
         }
 
     class FMEP_egr(co2_utl.Constants):
         #: Exhausted gas recirculation multiplication factors ids [-].
         egr_fact_map = {
-            ('positive turbo', False): 1,
-            ('positive natural aspiration', False): 2,
-            ('compression', False): 3,
-            ('compression', True): 4
+            ("positive turbo", False): 1,
+            ("positive natural aspiration", False): 2,
+            ("compression", False): 3,
+            ("compression", True): 4,
         }
 
     class calibrate_co2_params(co2_utl.Constants):
@@ -224,7 +229,6 @@ class Functions(co2_utl.Constants):
 
         #: Use co2 error function against co2_emissions on the third step? [-]
         third_step_against_emissions = False
-
 
     class identify_co2_emissions(co2_utl.Constants):
         #: Number of perturbations to identify the co2_emissions [-].
@@ -324,39 +328,39 @@ class Functions(co2_utl.Constants):
     class define_initial_co2_emission_model_params_guess(co2_utl.Constants):
         #: Initial guess CO2 emission model params.
         CO2_PARAMS = {
-            'positive turbo': {
-                'a': {'value': 0.468678},  # 'min': 0.398589, 'max': 0.538767},
-                'b': {'value': 0.011859},  # 'min': 0.006558, 'max': 0.01716},
-                'c': {'value': -0.00069},  # 'min': -0.00099, 'max': -0.00038},
-                'a2': {'value': -0.00266},  # 'min': -0.00354, 'max': -0.00179},
-                'b2': {'value': 0, 'min': -1, 'max': 1, 'vary': False},
-                'l': {'value': -2.14063},  # 'min': -3.17876, 'max': -1.1025},
-                'l2': {'value': -0.0025},  # 'min': -0.00796, 'max': 0.0},
-                't0': {'value': 4.5},  # 'min': 0.0, 'max': 8.0},
-                't1': {'value': 3.5},  # 'min': 0.0, 'max': 8.0},
+            "positive turbo": {
+                "a": {"value": 0.468678},  # 'min': 0.398589, 'max': 0.538767},
+                "b": {"value": 0.011859},  # 'min': 0.006558, 'max': 0.01716},
+                "c": {"value": -0.00069},  # 'min': -0.00099, 'max': -0.00038},
+                "a2": {"value": -0.00266},  # 'min': -0.00354, 'max': -0.00179},
+                "b2": {"value": 0, "min": -1, "max": 1, "vary": False},
+                "l": {"value": -2.14063},  # 'min': -3.17876, 'max': -1.1025},
+                "l2": {"value": -0.0025},  # 'min': -0.00796, 'max': 0.0},
+                "t0": {"value": 4.5},  # 'min': 0.0, 'max': 8.0},
+                "t1": {"value": 3.5},  # 'min': 0.0, 'max': 8.0},
             },
-            'positive natural aspiration': {
-                'a': {'value': 0.4851},  # 'min': 0.40065, 'max': 0.54315},
-                'b': {'value': 0.01193},  # 'min': -0.00247, 'max': 0.026333},
-                'c': {'value': -0.00065},  # 'min': -0.00138, 'max': 0.0000888},
-                'a2': {'value': -0.00385},  # 'min': -0.00663, 'max': -0.00107},
-                'b2': {'value': 0, 'min': -1, 'max': 1, 'vary': False},
-                'l': {'value': -2.39882},  # 'min': -3.27698, 'max': -1.72066},
-                'l2': {'value': -0.00286},  # 'min': -0.00577, 'max': 0.0},
-                't0': {'value': 4.5},  # 'min': 0.0, 'max': 8.0},
-                't1': {'value': 3.5},  # 'min': 0.0, 'max': 8.0},
+            "positive natural aspiration": {
+                "a": {"value": 0.4851},  # 'min': 0.40065, 'max': 0.54315},
+                "b": {"value": 0.01193},  # 'min': -0.00247, 'max': 0.026333},
+                "c": {"value": -0.00065},  # 'min': -0.00138, 'max': 0.0000888},
+                "a2": {"value": -0.00385},  # 'min': -0.00663, 'max': -0.00107},
+                "b2": {"value": 0, "min": -1, "max": 1, "vary": False},
+                "l": {"value": -2.39882},  # 'min': -3.27698, 'max': -1.72066},
+                "l2": {"value": -0.00286},  # 'min': -0.00577, 'max': 0.0},
+                "t0": {"value": 4.5},  # 'min': 0.0, 'max': 8.0},
+                "t1": {"value": 3.5},  # 'min': 0.0, 'max': 8.0},
             },
-            'compression': {
-                'a': {'value': 0.391197},  # 'min': 0.346548, 'max': 0.435846},
-                'b': {'value': 0.028604},  # 'min': 0.002519, 'max': 0.054688},
-                'c': {'value': -0.00196},  # 'min': -0.00386, 'max': -0.000057},
-                'a2': {'value': -0.0012},  # 'min': -0.00233, 'max': -0.000064},
-                'b2': {'value': 0, 'min': -1, 'max': 1, 'vary': False},
-                'l': {'value': -1.55291},  # 'min': -2.2856, 'max': -0.82022},
-                'l2': {'value': -0.0076},  # 'min': -0.01852, 'max': 0.0},
-                't0': {'value': 4.5},  # 'min': 0.0, 'max': 8.0},
-                't1': {'value': 3.5},  # 'min': 0.0, 'max': 8.0},
-            }
+            "compression": {
+                "a": {"value": 0.391197},  # 'min': 0.346548, 'max': 0.435846},
+                "b": {"value": 0.028604},  # 'min': 0.002519, 'max': 0.054688},
+                "c": {"value": -0.00196},  # 'min': -0.00386, 'max': -0.000057},
+                "a2": {"value": -0.0012},  # 'min': -0.00233, 'max': -0.000064},
+                "b2": {"value": 0, "min": -1, "max": 1, "vary": False},
+                "l": {"value": -1.55291},  # 'min': -2.2856, 'max': -0.82022},
+                "l2": {"value": -0.0076},  # 'min': -0.01852, 'max': 0.0},
+                "t0": {"value": 4.5},  # 'min': 0.0, 'max': 8.0},
+                "t1": {"value": 3.5},  # 'min': 0.0, 'max': 8.0},
+            },
         }
 
     class identify_charging_statuses(co2_utl.Constants):
@@ -365,14 +369,20 @@ class Functions(co2_utl.Constants):
     class restrict_bounds(co2_utl.Constants):
         #: Multipliers applied into the `restrict_bounds` function.
         CO2_PARAMS_LIMIT_MULTIPLIERS = {
-            't0': (0.5, 1.5), 't1': (0.5, 1.5), 'trg': (0.9, 1.1),
-            'a': (0.8, 1.2), 'b': (0.8, 1.2), 'c': (1.2, 0.8),
-            'a2': (1.2, 0.8), 'l': (1.2, 0.8), 'l2': (1.2, 0.0),
+            "t0": (0.5, 1.5),
+            "t1": (0.5, 1.5),
+            "trg": (0.9, 1.1),
+            "a": (0.8, 1.2),
+            "b": (0.8, 1.2),
+            "c": (1.2, 0.8),
+            "a2": (1.2, 0.8),
+            "l": (1.2, 0.8),
+            "l2": (1.2, 0.0),
         }
 
     class default_specific_gear_shifting(co2_utl.Constants):
         #: Specific gear shifting model.
-        SPECIFIC_GEAR_SHIFTING = 'ALL'
+        SPECIFIC_GEAR_SHIFTING = "ALL"
 
     class default_clutch_k_factor_curve(co2_utl.Constants):
         #: Torque ratio when speed ratio==0 for clutch model.
@@ -390,107 +400,126 @@ class Functions(co2_utl.Constants):
 
     class select_default_n_dyno_axes(co2_utl.Constants):
         #: Number of dyno axes [-].
-        DYNO_AXES = {'WLTP': 2, 'NEDC': 1}
+        DYNO_AXES = {"WLTP": 2, "NEDC": 1}
 
     class select_phases_integration_times(co2_utl.Constants):
         #: Cycle phases integration times [s].
         INTEGRATION_TIMES = {
-            'WLTP': (0.0, 590.0, 1023.0, 1478.0, 1800.0),
-            'NEDC': (0.0, 780.0, 1180.0)
+            "WLTP": (0.0, 590.0, 1023.0, 1478.0, 1800.0),
+            "NEDC": (0.0, 780.0, 1180.0),
         }
 
     class get_gear_box_efficiency_constants(co2_utl.Constants):
         #: Vehicle gear box efficiency constants (gbp00, gbp10, and gbp01).
         PARAMS = {
             True: {
-                'gbp00': {'m': -0.0034, 'q': {'hot': -0.3, 'cold': -0.7}},
-                'gbp10': {'m': -0.0034 / 2000, 'q': {'hot': -0.3 / 2000,
-                                                     'cold': -1 / 2000}},
-                'gbp01': {'q': {'hot': 0.965, 'cold': 0.955}},
+                "gbp00": {"m": -0.0034, "q": {"hot": -0.3, "cold": -0.7}},
+                "gbp10": {
+                    "m": -0.0034 / 2000,
+                    "q": {"hot": -0.3 / 2000, "cold": -1 / 2000},
+                },
+                "gbp01": {"q": {"hot": 0.965, "cold": 0.955}},
             },
             False: {
-                'gbp00': {'m': -0.0034, 'q': {'hot': -0.3, 'cold': -0.7}},
-                'gbp10': {'m': -0.0034 / 2000, 'q': {'hot': -0.1 / 2000,
-                                                     'cold': -0.25 / 2000}},
-                'gbp01': {'q': {'hot': 0.975, 'cold': 0.965}},
-            }
+                "gbp00": {"m": -0.0034, "q": {"hot": -0.3, "cold": -0.7}},
+                "gbp10": {
+                    "m": -0.0034 / 2000,
+                    "q": {"hot": -0.1 / 2000, "cold": -0.25 / 2000},
+                },
+                "gbp01": {"q": {"hot": 0.975, "cold": 0.965}},
+            },
         }
 
     class calculate_engine_mass(co2_utl.Constants):
         #: Equivalent gear box heat capacity parameters.
         PARAMS = {
-            'mass_coeff': {
-                'compression': 1.1,
-                'positive': 1.0
-            },
-            'mass_reg_coeff': (0.4208, 60)
+            "mass_coeff": {"compression": 1.1, "positive": 1.0},
+            "mass_reg_coeff": (0.4208, 60),
         }
 
     class calculate_engine_heat_capacity(co2_utl.Constants):
         #: Equivalent gear box heat capacity parameters.
         PARAMS = {
-            'heated_mass_percentage': {
-                'coolant': 0.04,     # coolant: 50%/50% (0.85*4.186)
-                'oil': 0.055,        # oil: lubricant
-                'crankcase': 0.18,   # crankcase: cast iron
-                'cyl_head': 0.09,    # cyl_head: aluminium
-                'pistons': 0.025,    # pistons: aluminium
-                'crankshaft': 0.08,  # crankshaft: steel
-                'body': 0.1          # body: cast iron
+            "heated_mass_percentage": {
+                "coolant": 0.04,  # coolant: 50%/50% (0.85*4.186)
+                "oil": 0.055,  # oil: lubricant
+                "crankcase": 0.18,  # crankcase: cast iron
+                "cyl_head": 0.09,  # cyl_head: aluminium
+                "pistons": 0.025,  # pistons: aluminium
+                "crankshaft": 0.08,  # crankshaft: steel
+                "body": 0.1,  # body: cast iron
             },
             # Cp in (J/kgK)
-            'heat_capacity': {
-                'coolant': 0.85 * 4186.0,
-                'oil': 2090.0,
-                'crankcase': 460.0,
-                'cyl_head': 910.0,
-                'pistons': 910.0,
-                'crankshaft': 490.0,
-                'body': 460.0
-            }
+            "heat_capacity": {
+                "coolant": 0.85 * 4186.0,
+                "oil": 2090.0,
+                "crankcase": 460.0,
+                "cyl_head": 910.0,
+                "pistons": 910.0,
+                "crankshaft": 490.0,
+                "body": 460.0,
+            },
         }
 
     class calculate_equivalent_gear_box_heat_capacity(co2_utl.Constants):
         #: Equivalent gear box heat capacity parameters.
         PARAMS = {
-            'gear_box_mass_engine_ratio': 0.25,
+            "gear_box_mass_engine_ratio": 0.25,
             # Cp in (J/kgK)
-            'heat_capacity': {
-                'oil': 2090.0,
+            "heat_capacity": {
+                "oil": 2090.0,
             },
-            'thermal_management_factor': 0.5
+            "thermal_management_factor": 0.5,
         }
 
     class get_full_load(co2_utl.Constants):
         #: Vehicle normalized full load curve.
         FULL_LOAD = {
-            'positive': (
-                [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2],
-                [0.1, 0.198238659, 0.30313392, 0.410104642, 0.516920841,
-                 0.621300767, 0.723313491, 0.820780368, 0.901750158,
-                 0.962968496, 0.995867804, 0.953356174, 0.85]
+            "positive": (
+                [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2],
+                [
+                    0.1,
+                    0.198238659,
+                    0.30313392,
+                    0.410104642,
+                    0.516920841,
+                    0.621300767,
+                    0.723313491,
+                    0.820780368,
+                    0.901750158,
+                    0.962968496,
+                    0.995867804,
+                    0.953356174,
+                    0.85,
+                ],
             ),
-            'compression': (
-                [0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1., 1.1, 1.2],
-                [0.1, 0.278071182, 0.427366185, 0.572340499, 0.683251935,
-                 0.772776746, 0.846217049, 0.906754984, 0.94977083, 0.981937981,
-                 1, 0.937598144, 0.85]
-            )
+            "compression": (
+                [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2],
+                [
+                    0.1,
+                    0.278071182,
+                    0.427366185,
+                    0.572340499,
+                    0.683251935,
+                    0.772776746,
+                    0.846217049,
+                    0.906754984,
+                    0.94977083,
+                    0.981937981,
+                    1,
+                    0.937598144,
+                    0.85,
+                ],
+            ),
         }
 
     class calculate_engine_max_torque(co2_utl.Constants):
         #: Engine nominal torque params.
-        PARAMS = {
-            'positive': 1.25,
-            'compression': 1.1
-        }
+        PARAMS = {"positive": 1.25, "compression": 1.1}
 
     class calculate_engine_moment_inertia(co2_utl.Constants):
         #: Engine moment of inertia params.
-        PARAMS = {
-            'positive': 1,
-            'compression': 2
-        }
+        PARAMS = {"positive": 1, "compression": 2}
 
     class calculate_co2_emissions(co2_utl.Constants):
         # idle ratio to define the fuel cutoff [-].
@@ -498,17 +527,14 @@ class Functions(co2_utl.Constants):
 
     class default_initial_state_of_charge(co2_utl.Constants):
         # default initial state of charge of the battery [%].
-        initial_state_of_charge = {
-            'WLTP': 90,
-            'NEDC': 99
-        }
+        initial_state_of_charge = {"WLTP": 90, "NEDC": 99}
 
     # TODO: add default fuel densities.
     class default_fuel_density(co2_utl.Constants):
         #: Fuel density [g/l].
         FUEL_DENSITY = {
-            'gasoline': 750.0,
-            'diesel': 835.0,
+            "gasoline": 750.0,
+            "diesel": 835.0,
             # 'LPG': ,
             # 'NG': ,
             # 'ethanol': ,
@@ -542,9 +568,9 @@ class Functions(co2_utl.Constants):
     class calibrate_cold_start_speed_model_v1(co2_utl.Constants):
         #: Cold start engine speed model v1 params.
         PARAMS = {
-            'first_seconds': 10.0,  # [s]
-            'delta_speed_limits': (0.05, 0.2),  # [-, -]
-            'max_temperature': 30.0  # [°C]
+            "first_seconds": 10.0,  # [s]
+            "delta_speed_limits": (0.05, 0.2),  # [-, -]
+            "max_temperature": 30.0,  # [°C]
         }
 
     class calculate_cold_start_speeds_delta(co2_utl.Constants):
@@ -570,5 +596,6 @@ class Defaults(co2_utl.Constants):
 
     #: Infinite value.
     INF = 10000.0
+
 
 dfl = Defaults()

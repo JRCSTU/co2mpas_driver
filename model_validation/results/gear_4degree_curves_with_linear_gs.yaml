@@ -18,7 +18,7 @@ Alimit: !!python/object/apply:numpy.core.multiarray.scalar
 acc_per_gear:
 - !!python/object/apply:numpy.core.multiarray._reconstruct
   args:
-  - &id002 !!python/name:numpy.ndarray 
+  - &id002 !!python/name:numpy.ndarray
   - !!python/tuple
     - 0
   - !!binary |

@@ -30,16 +30,14 @@ def get_full_load(ignition_type):
     """
 
     xp, fp = defaults.dfl.functions.get_full_load.FULL_LOAD[ignition_type]
-    func = functools.partial(
-        np.interp, xp=xp, fp=fp, left=fp[0], right=fp[-1]
-    )
+    func = functools.partial(np.interp, xp=xp, fp=fp, left=fp[0], right=fp[-1])
 
     return func
 
 
 def calculate_full_load_speeds_and_powers(
-        full_load_curve, engine_max_power, engine_max_speed_at_max_power,
-        idle_engine_speed):
+    full_load_curve, engine_max_power, engine_max_speed_at_max_power, idle_engine_speed
+):
     """
     Calculates the full load speeds and powers [RPM, kW].
 
@@ -88,8 +86,9 @@ def calculate_full_load_torques(full_load_speeds, full_load_powers):
         Full load torques.
     :rtype:
     """
-    full_load_torques = full_load_powers * 1000 * (
-            full_load_speeds / 60 * 2 * np.pi) ** -1
+    full_load_torques = (
+        full_load_powers * 1000 * (full_load_speeds / 60 * 2 * np.pi) ** -1
+    )
 
     return full_load_torques
 
@@ -147,7 +146,7 @@ def Armax(car_type, veh_mass, engine_max_power, road_type=1):
 
 
 # Calculates a spline with the resistances
-def veh_resistances(f0, f1, f2, sp_bins, total_mass, angle_slopes=0., g=9.81):
+def veh_resistances(f0, f1, f2, sp_bins, total_mass, angle_slopes=0.0, g=9.81):
     """
     Calculate the resistances that a vehicle faces, per speed.
 
@@ -187,9 +186,12 @@ def veh_resistances(f0, f1, f2, sp_bins, total_mass, angle_slopes=0., g=9.81):
     sp_bins = list(sp_bins)
     resistance_force = []
     for i in range(len(sp_bins)):
-        resistance_force.append(f0 * np.cos(angle_slopes) + \
-                                f1 * sp_bins[i] * 3.6 + f2 * pow(sp_bins[i] * 3.6, 2) + \
-                                total_mass * g * np.sin(angle_slopes))
+        resistance_force.append(
+            f0 * np.cos(angle_slopes)
+            + f1 * sp_bins[i] * 3.6
+            + f2 * pow(sp_bins[i] * 3.6, 2)
+            + total_mass * g * np.sin(angle_slopes)
+        )
         # Facc = Fmax @ wheel - f0 * cos(a) - f1 * v - f2 * v2 - m * g * sin(a)
         # F @ wheel = m * acceleration = f0 * cos(a) + f1 * v + f2 * v2 + m * g * sin(a)
 
@@ -198,18 +200,20 @@ def veh_resistances(f0, f1, f2, sp_bins, total_mass, angle_slopes=0., g=9.81):
     a = int(np.floor(sp_bins[0]))
     b = int(np.floor(sp_bins[-1]))
     from scipy.interpolate import CubicSpline
+
     resistance_spline_curve = CubicSpline(
-        [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)], \
-        [acc_resistance[0]] * 10 + acc_resistance + [acc_resistance[-1]] * 10)
+        [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)],
+        [acc_resistance[0]] * 10 + acc_resistance + [acc_resistance[-1]] * 10,
+    )
     resistance_spline_curve_f = CubicSpline(
         [k for k in range(a - 10, a)] + sp_bins + [k for k in range(b + 1, b + 11)],
-        [resistance_force[0]] * 10 + resistance_force + [resistance_force[-1]] * 10)
+        [resistance_force[0]] * 10 + resistance_force + [resistance_force[-1]] * 10,
+    )
 
     return resistance_spline_curve, resistance_spline_curve_f
 
 
-def estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height,
-                            passengers=0):
+def estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height, passengers=0):
     """
     Estimate f0, f1, f2 coefficients of resistance.
 
@@ -254,9 +258,7 @@ def estimate_f_coefficients(veh_mass, type_of_car, car_width, car_height,
 
     operating_mass = veh_mass + 100 + 75 * passengers
     f0 = (operating_mass + 100) * rolling_res_coef * 9.81
-    f2 = 0.5 * 1.2 * (
-            0.84 * car_width * car_height * theor_aero_coeff) / pow(
-        3.6, 2)
+    f2 = 0.5 * 1.2 * (0.84 * car_width * car_height * theor_aero_coeff) / pow(3.6, 2)
     f1 = -71.735 * f2 + 2.7609
 
     return f0, f1, f2

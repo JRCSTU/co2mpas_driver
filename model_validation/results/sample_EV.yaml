@@ -4,7 +4,7 @@ car_width: 1.823
 discrete_acceleration_curves:
 - x: !!python/object/apply:numpy.core.multiarray._reconstruct
     args:
-    - &id001 !!python/name:numpy.ndarray 
+    - &id001 !!python/name:numpy.ndarray
     - !!python/tuple
       - 0
     - !!binary |

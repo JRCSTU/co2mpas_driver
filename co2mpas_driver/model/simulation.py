@@ -9,8 +9,7 @@ Functions to process a CO2MPAS input file.
 """
 
 
-def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
-                            clutch_duration=5):
+def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt, clutch_duration=5):
     """
     Return the gear that must be used and the clutch condition.
 
@@ -47,9 +46,11 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
     gear_limits.extend(gs)
     gear_limits.append(200)
 
-    if gear_limits[current_gear - 1] - gear_limits[
-        current_gear - 1] * downshift_off <= curr_speed < gear_limits[
-        current_gear] + gear_limits[current_gear] * up_shift_offs:
+    if (
+        gear_limits[current_gear - 1] - gear_limits[current_gear - 1] * downshift_off
+        <= curr_speed
+        < gear_limits[current_gear] + gear_limits[current_gear] * up_shift_offs
+    ):
         if gear_cnt == 0:
             return current_gear, gear_cnt
         else:
@@ -59,8 +60,7 @@ def gear_for_speed_profiles(gs, curr_speed, current_gear, gear_cnt,
         itr = 1
         gear_search = 1
         while itr == 1 and gear_search < len(gear_limits):
-            if gear_limits[gear_search - 1] <= curr_speed < gear_limits[
-                gear_search]:
+            if gear_limits[gear_search - 1] <= curr_speed < gear_limits[gear_search]:
                 gear_cnt = clutch_duration  # in simulation steps for 0.5 second
                 current_gear = gear_search
                 itr = 0
@@ -93,11 +93,11 @@ def accMFC(velocity, driver_style, desired_velocity, acc_p_curve):
     """
     if velocity / desired_velocity > 0.5:
         if desired_velocity > velocity:
-            on_off = (1 - pow(velocity / desired_velocity, 60))
+            on_off = 1 - pow(velocity / desired_velocity, 60)
         else:
             on_off = 10 * (1 - velocity / desired_velocity)
     else:
-        on_off = (1 - 0.8 * pow(1 - velocity / desired_velocity, 60))
+        on_off = 1 - 0.8 * pow(1 - velocity / desired_velocity, 60)
     acc = acc_p_curve(velocity) * driver_style * on_off
 
     return acc
@@ -127,8 +127,8 @@ def correct_acc_clutch_on(gear_count, acc, transmission):
 
     if gear_count > 0:
 
-        if transmission == 'manual':
-            return 0.
+        if transmission == "manual":
+            return 0.0
         else:
             return acc * 2 / 3
     else:

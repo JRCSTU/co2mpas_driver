@@ -267,7 +267,7 @@ Acceleration(m/s*2) versus speed graph(m/s)
     :target: https://github.com/JRCSTU/gearshift/releases
     :alt: Latest version in GitHub
 
-.. |rel-date| image:: https://img.shields.io/badge/rel--date-TODO-orange
+.. |rel-date| image:: https://img.shields.io/badge/rel--date-2020/01/12-orange
     :target: https://github.com/JRCSTU/gearshift/releases
     :alt: release date
 
