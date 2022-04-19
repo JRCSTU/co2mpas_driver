@@ -11,6 +11,7 @@ Sub-Modules:
 .. autosummary::
     :nosignatures:
     :toctree: model/
+
     co2mpas
     simulation
 """

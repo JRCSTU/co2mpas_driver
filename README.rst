@@ -5,6 +5,7 @@
 
 .. _start-info:
 
+
 :versions:      |gh-version| |rel-date| |python-ver|
 :documentation: Under construction.
 :sources:       https://github.com/JRCSTU/co2mpas_driver  |codestyle|
@@ -85,6 +86,8 @@ To uninstall the package, run the following command from the project directory::
         pip uninstall co2mpas_driver
 
 .. _end-installation:
+
+.. _start-usage:
 
 Usage
 =====
@@ -256,7 +259,10 @@ Acceleration(m/s*2) versus speed graph(m/s)
       :height: 400px
       :width: 500px
 
+
+
 **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range.
+.. _end-usage::
 
 .. _start-sub:
 
