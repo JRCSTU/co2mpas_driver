@@ -7,7 +7,7 @@
 
 
 :versions:      |gh-version| |rel-date| |python-ver|
-:documentation: Under construction.
+:documentation: https://co2mpas-driver.readthedocs.io/en/latest/
 :sources:       https://github.com/JRCSTU/co2mpas_driver |pypi-ins| |codestyle|
 :keywords:      automotive, car, cars, driver, MCF, driving, simulation, simulator, standard, vehicle, vehicles, driver characterisation, driver profile, free-flow acceleration model, acceleration dynamics, driver behaviour, fuel/energy consumption
 :short name:    co2mpas_driver
