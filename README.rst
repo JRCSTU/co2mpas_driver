@@ -55,7 +55,7 @@ Prerequisites
 
 .. Tip::
     On *Windows*, it is preferable to use the `Anaconda <https://www.anaconda.com/products/individual>`__ distribution.
-    To avoid possible incompatibilities with other projects, it is recommended to install the package in a dedicated.
+    To avoid possible incompatibilities with other projects, it is recommended to install the package in a dedicated environment.
 
 Download
 --------
@@ -93,20 +93,20 @@ Usage
 In this example we will use co2mpas_driver model in order to extract the drivers
 acceleration behavior as approaching the target speed.
 
-Setup
------
-* First, setup python, numpy, matplotlib.
+Set up
+------
+* First, set up python, *numpy*, *matplotlib*.
 
-    setup python environment: numpy for numerical routines, and matplotlib
+    Set up python environment: *numpy* for numerical routines, and *matplotlib*
     for plotting
 
         >>> import numpy as np
         >>> import matplotlib.pyplot as plt
 
-* Import dispatcher(dsp) from co2mpas_driver that contains functions
-  and simulation model to process vehicle data and Import also schedula
-  for selecting and executing functions. for more information on how to use
-  schedula https://pypi.org/project/schedula/
+*  Import dispatcher (dsp) from co2mpas_driver that contains functions and
+   a simulation model to process vehicle data
+   and import schedula for selecting and executing functions.
+   For more information on how to use schedula: https://pypi.org/project/schedula/
 
       >>> from co2mpas_driver import dsp
       >>> import schedula as sh
@@ -142,7 +142,7 @@ Load data
 
 Dispatcher
 ----------
-* Dispatcher will select and execute the proper functions for the given inputs
+* *Dispatcher* will select and execute the proper functions for the given inputs
   and the requested outputs
 
       >>> core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
@@ -178,8 +178,7 @@ Dispatcher
       :height: 400px
       :width: 500px
 
-* Load outputs of dispatcher
-  Select the chosen dictionary key (outputs) from the given dictionary.
+* Load outputs of dispatcher and select the chosen dictionary key (outputs) from the given dictionary.
 
       >>> outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
 
@@ -189,23 +188,16 @@ Dispatcher
                     'discrete_acceleration_curves', 'velocities',
                     'accelerations', 'transmission'], outputs['outputs'])
 
-  The final acceleration curves, the engine acceleration potential
-  curves (poly_spline), before the calculation of the resistances and the
-  limitation due to max possible acceleration (friction).
+  The final acceleration curves, the engine acceleration potential curves
+  (poly_spline), start, stop, gear shift, discrete acceleration curves,
+  velocities, accelerations and transmission, before calculating the
+  resistances and the limitation due to max possible acceleration (friction).
 
-      >>> curves, poly_spline, start, stop, gs, discrete_acceleration_curves, \
-      velocities, accelerations, transmission = \
-      output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'], \
-      output['discrete_acceleration_curves'], output['velocities'], \
-      output['accelerations'], output['transmission'], \
-
-  curves: Final acceleration curves
-  poly_spline:
-  start and stop: Start and stop speed for each gear
-  gs:
-  discrete_acceleration_curves
-  velocities:
-  accelerations:
+      >>> curves, poly_spline, start, stop, gs, discrete_acceleration_curves,
+      velocities, accelerations, transmission =
+      output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'],
+      output['discrete_acceleration_curves'], output['velocities'],
+      output['accelerations'], output['transmission']
 
 Plot
 ----
