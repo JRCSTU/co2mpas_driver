@@ -8,7 +8,7 @@
 
 :versions:      |gh-version| |rel-date| |python-ver|
 :documentation: Under construction.
-:sources:       https://github.com/JRCSTU/co2mpas_driver  |codestyle|
+:sources:       https://github.com/JRCSTU/co2mpas_driver |pypi-ins| |codestyle|
 :keywords:      automotive, car, cars, driver, MCF, driving, simulation, simulator, standard, vehicle, vehicles, driver characterisation, driver profile, free-flow acceleration model, acceleration dynamics, driver behaviour, fuel/energy consumption
 :short name:    co2mpas_driver
 :live-demo:     |binder|
@@ -260,19 +260,20 @@ Acceleration(m/s*2) versus speed graph(m/s)
 
 
 **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range.
-.. _end-usage::
+
+.. _end-usage:
 
 .. _start-sub:
 
 .. |python-ver| image::  https://img.shields.io/badge/PyPi%20python-3.5%20%7C%203.6%20%7C%203.7%20%7C%203.8%20%7C%203.9%20%7C%203.10%20-informational
     :alt: Supported Python versions of latest release in PyPi
 
-.. |gh-version| image::  https://img.shields.io/badge/GitHub%20-TODO-orange
-    :target: https://github.com/JRCSTU/gearshift/releases
+.. |gh-version| image::  https://img.shields.io/badge/GitHub%20-1.3.0-orange
+    :target: https://github.com/JRCSTU/co2mpas_driver/releases
     :alt: Latest version in GitHub
 
-.. |rel-date| image:: https://img.shields.io/badge/rel--date-2020/01/12-orange
-    :target: https://github.com/JRCSTU/gearshift/releases
+.. |rel-date| image:: https://img.shields.io/badge/rel--date-2020/09/08-orange
+    :target: https://github.com/JRCSTU/co2mpas_driver/releases
     :alt: release date
 
 .. |br| image:: https://img.shields.io/badge/docs-working%20on%20that-red
@@ -295,7 +296,11 @@ Acceleration(m/s*2) versus speed graph(m/s)
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg
     :target: https://mybinder.org/v2/gh/JRCSTU/co2mpas_driver/master?urlpath=lab/tree/examples
-    :alt: JupyterLab for Gerashift Calculation Tool (stable)
+    :alt: JupyterLab for co2mpas_driver (stable)
+
+.. |pypi-ins| image:: https://img.shields.io/badge/pypi-v1.3.0-informational
+    :target: https://pypi.org/project/co2mpas-driver/
+    :alt: pip installation
 
 .. |CO2| replace:: CO\ :sub:`2`
 
