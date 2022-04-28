@@ -2,13 +2,13 @@ Usage
 =====
 
 In this example we will use co2mpas_driver model in order to extract the drivers
-acceleration behavior as approaching the desired speed.
+acceleration behavior as approaching the target speed.
 
 Setup
------
-* First, set up python, numpy, matplotlib.
+------
+* First, set up python, *numpy*, *matplotlib*.
 
-    set up python environment: numpy for numerical routines, and matplotlib
+    Set up python environment: *numpy* for numerical routines, and *matplotlib*
     for plotting
 
         >>> import numpy as np
@@ -18,7 +18,6 @@ Setup
   functions to process vehicle data and run the *com2pas_driver* model. Also is necessary
   to import *schedula* for selecting and executing functions from the *co2mpas_driver*.
   For more information on how to use *schedula*: https://pypi.org/project/schedula/
-
       >>> from co2mpas_driver import dsp
       >>> import schedula as sh
 
@@ -53,7 +52,7 @@ Load data
 
 Dispatcher
 ----------
-* Dispatcher will select and execute the proper functions for the given inputs
+* *Dispatcher* will select and execute the proper functions for the given inputs
   and the requested outputs
 
       >>> core = dsp(dict(db_path=db_path, input_path=input_path, inputs=inputs),
@@ -63,11 +62,11 @@ Dispatcher
 
       >>> core.plot()
 
-  This will automatically open an internet browser and show the work flow
-  of the core model as below. you can click all the rectangular boxes to see
-  in detail sub models like load, model, write and plot.
+  This will plot the workflow of the core model on an internet browser (see below).
+  You can click all the rectangular boxes to see in detail the sub-models like *load*,
+  *model*, *write* and *plot*.
 
-  .. image:: ../co2mpas_driver/images/core_example.PNG
+  .. image:: ./co2mpas_driver/images/core_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -75,48 +74,40 @@ Dispatcher
 
   **The Load module**
 
- .. image:: ../co2mpas_driver/images/load_example.PNG
+  .. image:: ./co2mpas_driver/images/load_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
       :width: 500px
 
-**Merged vehicle data for the vehicle_id used above**
+  **Merged vehicle data for the vehicle_id used above**
 
- .. image:: ../co2mpas_driver/images/data.PNG
+  .. image:: ./co2mpas_driver/images/data.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
       :width: 500px
 
-* Load outputs of dispatcher
-  Select the chosen dictionary key (outputs) from the given dictionary.
+* Load outputs of dispatcher and select the chosen dictionary key (outputs) from the given dictionary.
 
       >>> outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
 
-* select the desired output
+* Select the desired output
 
       >>> output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
                     'discrete_acceleration_curves', 'velocities',
                     'accelerations', 'transmission'], outputs['outputs'])
 
-  The final acceleration curves, the engine acceleration potential
-  curves (poly_spline), before the calculation of the resistances and the
-  limitation due to max possible acceleration (friction).
+  The final acceleration curves, the engine acceleration potential curves
+  (poly_spline), start, stop, gear shift, discrete acceleration curves,
+  velocities, accelerations and transmission, before calculating the
+  resistances and the limitation due to max possible acceleration (friction).
 
-      >>> curves, poly_spline, start, stop, gs, discrete_acceleration_curves, \
-      velocities, accelerations, transmission = \
-      output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'], \
-      output['discrete_acceleration_curves'], output['velocities'], \
-      output['accelerations'], output['transmission'], \
-
-  curves: Final acceleration curves
-  poly_spline:
-  start and stop: Start and stop speed for each gear
-  gs:
-  discrete_acceleration_curves
-  velocities:
-  accelerations:
+      >>> curves, poly_spline, start, stop, gs, discrete_acceleration_curves,
+      velocities, accelerations, transmission =
+      output['Curves'], output['poly_spline'], output['Start'], output['Stop'], output['gs'],
+      output['discrete_acceleration_curves'], output['velocities'],
+      output['accelerations'], output['transmission']
 
 Plot
 ----
@@ -141,7 +132,7 @@ Plot
 Results
 -------
 
-.. image:: ../co2mpas_driver/images/speed-time.PNG
+.. image:: ./co2mpas_driver/images/speed-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -151,17 +142,18 @@ Results
 
 Acceleration(m/s*2) versus speed(m/s) graph
 
-.. image:: ../co2mpas_driver/images/acce-speed.PNG
+.. image:: ./co2mpas_driver/images/acce-speed.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
       :width: 500px
 
-**Figure 2.** Acceleration per gear, the gear-shifting points and final acceleration potential of our selected vehicle over the desired speed range
+**Figure 2.** Acceleration per gear, the gear-shifting points and final acceleration potential of our selected
+  vehicle over the desired speed range
 
 Acceleration(m/s*2) versus speed graph(m/s)
 
-.. image:: ../co2mpas_driver/images/acc-time.PNG
+.. image:: ./co2mpas_driver/images/acc-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
