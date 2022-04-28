@@ -18,8 +18,8 @@ Setup
   functions to process vehicle data and run the *com2pas_driver* model. Also is necessary
   to import *schedula* for selecting and executing functions from the *co2mpas_driver*.
   For more information on how to use *schedula*: https://pypi.org/project/schedula/
-    >>> from co2mpas_driver import dsp
-    >>> import schedula as sh
+   >>> from co2mpas_driver import dsp
+   >>> import schedula as sh
 
 Load data
 ---------
@@ -66,7 +66,7 @@ Dispatcher
   You can click all the rectangular boxes to see in detail the sub-models like *load*,
   *model*, *write* and *plot*.
 
-  .. figure:: ./co2mpas_driver/images/core_example.PNG
+  .. image:: ../doc/_static/images/core_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -74,7 +74,7 @@ Dispatcher
 
   **The Load module**
 
-  .. image:: ./co2mpas_driver/images/load_example.PNG
+  .. image:: ../doc/_static/images/load_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -82,7 +82,7 @@ Dispatcher
 
   **Merged vehicle data for the vehicle_id used above**
 
-  .. image:: ./co2mpas_driver/images/data.PNG
+  .. image:: ../doc/_static/images/data.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -132,7 +132,7 @@ Plot
 Results
 -------
 
-.. image:: ./co2mpas_driver/images/speed-time.PNG
+.. image:: ../doc/_static/images/speed-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -142,7 +142,7 @@ Results
 
 Acceleration(m/s*2) versus speed(m/s) graph
 
-.. image:: ./co2mpas_driver/images/acc-time.PNG
+.. image:: ../doc/_static/images/acc-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -153,7 +153,7 @@ Acceleration(m/s*2) versus speed(m/s) graph
 
 Acceleration(m/s*2) versus speed graph(m/s)
 
-.. image:: ./co2mpas_driver/images/acc-time.PNG
+.. image:: ../doc/_static/images/acc-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
