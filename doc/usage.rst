@@ -149,7 +149,7 @@ Acceleration(m/s*2) versus speed(m/s) graph
       :width: 500px
 
 **Figure 2.** Acceleration per gear, the gear-shifting points and final acceleration potential of our selected
-  vehicle over the desired speed range
+vehicle over the desired speed range.
 
 Acceleration(m/s*2) versus speed graph(m/s)
 
