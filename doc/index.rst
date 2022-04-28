@@ -1,12 +1,10 @@
 .. meta::
     :theme-color:   #CCCC00
 
-.. figure:: ./co2mpas_driver/images/co2mpas_driver_logo.png
+.. figure:: ../doc/_static/images/co2mpas_driver_logo.png
     :align: center
     :alt: alternate text
     :figclass: align-center
-
-|
 
 .. include:: ../README.rst
     :start-after: .. _start-info:
@@ -20,7 +18,7 @@
 .. include:: ../AUTHORS.rst
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: Table of Contents
     :name: mastertoc
 
