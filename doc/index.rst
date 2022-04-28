@@ -17,6 +17,8 @@
     :start-after: .. _start-sub:
     :end-before: .. _end-sub:
 
+.. include:: ../AUTHORS.rst
+
 .. toctree::
     :maxdepth: 1
     :caption: Table of Contents
