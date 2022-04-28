@@ -49,6 +49,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "schedula.ext.dispatcher",
     "sphinx_click.ext",
+    "sphinx.ext.autodoc",
 ]
 
 graphviz_output_format = "svg"
