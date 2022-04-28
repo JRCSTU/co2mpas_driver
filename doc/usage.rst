@@ -66,7 +66,7 @@ Dispatcher
   You can click all the rectangular boxes to see in detail the sub-models like *load*,
   *model*, *write* and *plot*.
 
-  .. figure:: ./co2mpas_driver/images/core_example.PNG
+  .. image:: ../co2mpas_driver/images/core_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
