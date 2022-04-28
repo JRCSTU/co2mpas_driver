@@ -66,7 +66,7 @@ Dispatcher
   You can click all the rectangular boxes to see in detail the sub-models like *load*,
   *model*, *write* and *plot*.
 
-  .. image:: ./co2mpas_driver/images/core_example.PNG
+  .. image:: ../co2mpas_driver/images/core_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -74,7 +74,7 @@ Dispatcher
 
   **The Load module**
 
-  .. image:: ./co2mpas_driver/images/load_example.PNG
+  .. image:: ../co2mpas_driver/images/load_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -82,7 +82,7 @@ Dispatcher
 
   **Merged vehicle data for the vehicle_id used above**
 
-  .. image:: ./co2mpas_driver/images/data.PNG
+  .. image:: ../co2mpas_driver/images/data.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -132,7 +132,7 @@ Plot
 Results
 -------
 
-.. image:: ./co2mpas_driver/images/speed-time.PNG
+.. image:: ../co2mpas_driver/images/speed-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -142,7 +142,7 @@ Results
 
 Acceleration(m/s*2) versus speed(m/s) graph
 
-.. image:: ./co2mpas_driver/images/acce-speed.PNG
+.. image:: ../co2mpas_driver/images/acce-speed.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -153,12 +153,10 @@ Acceleration(m/s*2) versus speed(m/s) graph
 
 Acceleration(m/s*2) versus speed graph(m/s)
 
-.. image:: ./co2mpas_driver/images/acc-time.PNG
+.. image:: ../co2mpas_driver/images/acc-time.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
       :width: 500px
-
-
 
 **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range.
