@@ -163,15 +163,15 @@ Dispatcher
 
   **The Load module**
 
- .. image:: ./co2mpas_driver/images/load_example.PNG
+  .. image:: ./co2mpas_driver/images/load_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
       :width: 500px
 
-**Merged vehicle data for the vehicle_id used above**
+  **Merged vehicle data for the vehicle_id used above**
 
- .. image:: ./co2mpas_driver/images/data.PNG
+  .. image:: ./co2mpas_driver/images/data.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
@@ -181,7 +181,7 @@ Dispatcher
 
       >>> outputs = sh.selector(['outputs'], sh.selector(['outputs'], core))
 
-* select the desired output
+* Select the desired output
 
       >>> output = sh.selector(['Curves', 'poly_spline', 'Start', 'Stop', 'gs',
                     'discrete_acceleration_curves', 'velocities',
