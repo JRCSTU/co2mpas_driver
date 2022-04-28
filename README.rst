@@ -93,7 +93,7 @@ Usage
 In this example we will use co2mpas_driver model in order to extract the drivers
 acceleration behavior as approaching the target speed.
 
-Set up
+Setup
 ------
 * First, set up python, *numpy*, *matplotlib*.
 
@@ -103,11 +103,10 @@ Set up
         >>> import numpy as np
         >>> import matplotlib.pyplot as plt
 
-*  Import dispatcher (dsp) from co2mpas_driver that contains functions and
-   a simulation model to process vehicle data
-   and import schedula for selecting and executing functions.
-   For more information on how to use schedula: https://pypi.org/project/schedula/
-
+* *co2mpas_driver* must be imported as a dispatcher (dsp). The dsp contains
+  functions to process vehicle data and run the *com2pas_driver* model. Also is necessary
+  to import *schedula* for selecting and executing functions from the *co2mpas_driver*.
+  For more information on how to use *schedula*: https://pypi.org/project/schedula/
       >>> from co2mpas_driver import dsp
       >>> import schedula as sh
 
@@ -281,10 +280,6 @@ Acceleration(m/s*2) versus speed graph(m/s)
 .. |codestyle| image:: https://img.shields.io/badge/code%20style-black-black.svg
     :target: https://github.com/ambv/black
     :alt: Code Style
-
-.. |pypi-ins| image:: https://img.shields.io/badge/pypi-v1.1.3-informational
-    :target: https://pypi.org/project/wltp-gearshift/
-    :alt: pip installation
 
 .. |binder| image:: https://mybinder.org/badge_logo.svg
     :target: https://mybinder.org/v2/gh/JRCSTU/co2mpas_driver/master?urlpath=lab/tree/examples
