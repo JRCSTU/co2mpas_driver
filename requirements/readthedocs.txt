@@ -8,3 +8,4 @@ schedula[sphinx]
 cython
 nbsphinx
 matplotlib
+networkx
