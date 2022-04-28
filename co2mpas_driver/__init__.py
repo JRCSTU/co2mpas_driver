@@ -7,9 +7,6 @@
 """
 Functions and a model `dsp` to processes a CO2MPAS input file.
 
-Sub-Modules:
-.. currentmodule:: co2mpas_driver
-
 .. autosummary::
     :nosignatures:
     :toctree: toctree/co2mpas_driver/
