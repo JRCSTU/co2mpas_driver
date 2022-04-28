@@ -14,10 +14,10 @@ Setup
         >>> import numpy as np
         >>> import matplotlib.pyplot as plt
 
-* Import dispatcher(dsp) from co2mpas_driver that contains functions
-  and simulation model to process vehicle data and Import also schedula
-  for selecting and executing functions. for more information on how to use
-  schedula https://pypi.org/project/schedula/
+* *co2mpas_driver* must be imported as a dispatcher (dsp). The dsp contains
+  functions to process vehicle data and run the *com2pas_driver* model. Also is necessary
+  to import *schedula* for selecting and executing functions from the *co2mpas_driver*.
+  For more information on how to use *schedula*: https://pypi.org/project/schedula/
 
       >>> from co2mpas_driver import dsp
       >>> import schedula as sh

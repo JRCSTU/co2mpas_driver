@@ -16,7 +16,6 @@ Sub-Modules:
 
     load
     model
-    write
     plot
 """
 import matplotlib.pyplot as plt
