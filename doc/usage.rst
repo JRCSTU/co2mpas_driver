@@ -159,5 +159,4 @@ Acceleration(m/s*2) versus speed graph(m/s)
       :height: 400px
       :width: 500px
 
-
 **Figure 3.** The final acceleration potential of our selected vehicle over the desired speed range.
