@@ -5,15 +5,6 @@
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 """
 Functions and a model `dsp` to process a CO2MPAS input file.
-
-Sub-Modules:
-.. currentmodule:: co2mpas_driver.model
-.. autosummary::
-:nosignatures:
-:toctree: model/
-
-    co2mpas
-    simulation
 """
 import numpy as np
 import schedula as sh

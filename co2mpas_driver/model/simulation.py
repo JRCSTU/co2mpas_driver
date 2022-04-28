@@ -6,12 +6,6 @@
 # You may obtain a copy of the Licence at: http://ec.europa.eu/idabc/eupl
 """
 Functions to process a CO2MPAS input file.
-
-Sub-Modules:
-.. currentmodule:: co2mpas_driver.model.simulation
-.. autosummary::
-:nosignatures:
-:toctree: simulation/
 """
 
 
