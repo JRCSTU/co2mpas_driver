@@ -18,8 +18,8 @@ Setup
   functions to process vehicle data and run the *com2pas_driver* model. Also is necessary
   to import *schedula* for selecting and executing functions from the *co2mpas_driver*.
   For more information on how to use *schedula*: https://pypi.org/project/schedula/
-      >>> from co2mpas_driver import dsp
-      >>> import schedula as sh
+    >>> from co2mpas_driver import dsp
+    >>> import schedula as sh
 
 Load data
 ---------
@@ -66,7 +66,7 @@ Dispatcher
   You can click all the rectangular boxes to see in detail the sub-models like *load*,
   *model*, *write* and *plot*.
 
-  .. image:: ../co2mpas_driver/images/core_example.PNG
+  .. figure:: ./co2mpas_driver/images/core_example.PNG
       :align: center
       :alt: dispatcher
       :height: 400px
