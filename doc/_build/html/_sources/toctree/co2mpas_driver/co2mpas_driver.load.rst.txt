@@ -1,0 +1,36 @@
+﻿co2mpas\_driver.load
+====================
+
+.. automodule:: co2mpas_driver.load
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      check_ext
+      format_data
+      get_db_path
+      get_vehicle_id
+      get_vehicle_inputs
+      load_vehicle_db
+      merge_data
+      read_excel
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

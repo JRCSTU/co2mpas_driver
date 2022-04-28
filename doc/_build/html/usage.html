@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usage &mdash; co2mpas_driver 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> co2mpas_driver
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-data">Load data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispatcher">Dispatcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot">Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">co2mpas_driver</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Usage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<p>In this example we will use co2mpas_driver model in order to extract the drivers
+acceleration behavior as approaching the target speed.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>First, set up python, <em>numpy</em>, <em>matplotlib</em>.</p>
+<blockquote>
+<div><p>Set up python environment: <em>numpy</em> for numerical routines, and <em>matplotlib</em>
+for plotting</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><em>co2mpas_driver</em> must be imported as a dispatcher (dsp). The dsp contains
+functions to process vehicle data and run the <em>com2pas_driver</em> model. Also is necessary
+to import <em>schedula</em> for selecting and executing functions from the <em>co2mpas_driver</em>.
+For more information on how to use <em>schedula</em>: <a class="reference external" href="https://pypi.org/project/schedula/">https://pypi.org/project/schedula/</a></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">co2mpas_driver</span> <span class="kn">import</span> <span class="n">dsp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">schedula</span> <span class="k">as</span> <span class="nn">sh</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="load-data">
+<h2>Load data<a class="headerlink" href="#load-data" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p>Load vehicle data for a specific vehicle from vehicles database</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">db_path</span> <span class="o">=</span> <span class="s1">&#39;EuroSegmentCar.csv&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Load user input parameters from an excel file</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_path</span> <span class="o">=</span> <span class="s1">&#39;sample.xlsx&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sample time series</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sim_step</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1">#The simulation step in seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">duration</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1">#Duration of the simulation in seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span> <span class="o">+</span> <span class="n">sim_step</span><span class="p">,</span> <span class="n">sim_step</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Load user input parameters directly writing in your sample script</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="go">&#39;vehicle_id&#39;: 35135,  # A sample car id from the database</span>
+<span class="go">&#39;inputs&#39;: {&#39;gear_shifting_style&#39;: 0.7, #The gear shifting style as</span>
+<span class="go">                                        described in the TRR paper</span>
+<span class="go">            &#39;starting_speed&#39;: 0,</span>
+<span class="go">           &#39;desired_velocity&#39;: 40,</span>
+<span class="go">           &#39;driver_style&#39;: 1},  # gear shifting can take value</span>
+<span class="go"># from 0(timid driver) to 1(aggressive driver)</span>
+<span class="go">&#39;time_series&#39;: {&#39;times&#39;: times}</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="dispatcher">
+<h2>Dispatcher<a class="headerlink" href="#dispatcher" title="Permalink to this headline"></a></h2>
+<ul>
+<li><p><em>Dispatcher</em> will select and execute the proper functions for the given inputs
+and the requested outputs</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">core</span> <span class="o">=</span> <span class="n">dsp</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="n">db_path</span><span class="p">,</span> <span class="n">input_path</span><span class="o">=</span><span class="n">input_path</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">),</span>
+<span class="go">   outputs=[&#39;outputs&#39;], shrink=True)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Plot workflow of the core model from the dispatcher</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">core</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will plot the workflow of the core model on an internet browser (see below).
+You can click all the rectangular boxes to see in detail the sub-models like <em>load</em>,
+<em>model</em>, <em>write</em> and <em>plot</em>.</p>
+<a class="reference internal image-reference" href="_images/core_example.PNG"><img alt="dispatcher" class="align-center" src="_images/core_example.PNG" style="width: 500px; height: 400px;" /></a>
+<p><strong>The Load module</strong></p>
+<a class="reference internal image-reference" href="_images/load_example.PNG"><img alt="dispatcher" class="align-center" src="_images/load_example.PNG" style="width: 500px; height: 400px;" /></a>
+<p><strong>Merged vehicle data for the vehicle_id used above</strong></p>
+<a class="reference internal image-reference" href="_images/data.PNG"><img alt="dispatcher" class="align-center" src="_images/data.PNG" style="width: 500px; height: 400px;" /></a>
+</li>
+<li><p>Load outputs of dispatcher and select the chosen dictionary key (outputs) from the given dictionary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">outputs</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">selector</span><span class="p">([</span><span class="s1">&#39;outputs&#39;</span><span class="p">],</span> <span class="n">sh</span><span class="o">.</span><span class="n">selector</span><span class="p">([</span><span class="s1">&#39;outputs&#39;</span><span class="p">],</span> <span class="n">core</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Select the desired output</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">selector</span><span class="p">([</span><span class="s1">&#39;Curves&#39;</span><span class="p">,</span> <span class="s1">&#39;poly_spline&#39;</span><span class="p">,</span> <span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;Stop&#39;</span><span class="p">,</span> <span class="s1">&#39;gs&#39;</span><span class="p">,</span>
+<span class="go">              &#39;discrete_acceleration_curves&#39;, &#39;velocities&#39;,</span>
+<span class="go">              &#39;accelerations&#39;, &#39;transmission&#39;], outputs[&#39;outputs&#39;])</span>
+</pre></div>
+</div>
+<p>The final acceleration curves, the engine acceleration potential curves
+(poly_spline), start, stop, gear shift, discrete acceleration curves,
+velocities, accelerations and transmission, before calculating the
+resistances and the limitation due to max possible acceleration (friction).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">curves</span><span class="p">,</span> <span class="n">poly_spline</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">gs</span><span class="p">,</span> <span class="n">discrete_acceleration_curves</span><span class="p">,</span>
+<span class="go">velocities, accelerations, transmission =</span>
+<span class="go">output[&#39;Curves&#39;], output[&#39;poly_spline&#39;], output[&#39;Start&#39;], output[&#39;Stop&#39;], output[&#39;gs&#39;],</span>
+<span class="go">output[&#39;discrete_acceleration_curves&#39;], output[&#39;velocities&#39;],</span>
+<span class="go">output[&#39;accelerations&#39;], output[&#39;transmission&#39;]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="plot">
+<h2>Plot<a class="headerlink" href="#plot" title="Permalink to this headline"></a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s1">&#39;Time-Speed&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">velocities</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s1">&#39;Speed-Acceleration&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">velocities</span><span class="p">,</span> <span class="n">accelerations</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s1">&#39;Acceleration-Time&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">accelerations</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="s1">&#39;Speed-Acceleration&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">curve</span> <span class="ow">in</span> <span class="n">discrete_acceleration_curves</span><span class="p">:</span>
+<span class="go">    sp_bins = list(curve[&#39;x&#39;])</span>
+<span class="go">    acceleration = list(curve[&#39;y&#39;])</span>
+<span class="go">    plt.plot(sp_bins, acceleration, &#39;k&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline"></a></h2>
+<a class="reference internal image-reference" href="_images/speed-time.PNG"><img alt="dispatcher" class="align-center" src="_images/speed-time.PNG" style="width: 500px; height: 400px;" /></a>
+<p><strong>Figure 1.</strong> Speed(m/s) versus time(s) graph over the desired speed range.</p>
+<p>Acceleration(m/s*2) versus speed(m/s) graph</p>
+<a class="reference internal image-reference" href="_images/acce-speed.PNG"><img alt="dispatcher" class="align-center" src="_images/acce-speed.PNG" style="width: 500px; height: 400px;" /></a>
+<dl class="simple">
+<dt><strong>Figure 2.</strong> Acceleration per gear, the gear-shifting points and final acceleration potential of our selected</dt><dd><p>vehicle over the desired speed range</p>
+</dd>
+</dl>
+<p>Acceleration(m/s*2) versus speed graph(m/s)</p>
+<a class="reference internal image-reference" href="_images/acc-time.PNG"><img alt="dispatcher" class="align-center" src="_images/acc-time.PNG" style="width: 500px; height: 400px;" /></a>
+<p><strong>Figure 3.</strong> The final acceleration potential of our selected vehicle over the desired speed range.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright (c) 2021 European Union.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
