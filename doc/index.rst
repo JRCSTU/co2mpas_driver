@@ -1,7 +1,7 @@
 .. meta::
     :theme-color:   #CCCC00
 
-.. figure:: ../co2mpas_driver/images/co2mpas_driver_logo.png
+.. figure:: ./co2mpas_driver/images/co2mpas_driver_logo.png
     :align: center
     :alt: alternate text
     :figclass: align-center
