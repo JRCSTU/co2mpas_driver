@@ -15,13 +15,14 @@ import io
 import sys
 from os.path import abspath, join, dirname
 
-prj_dir = abspath(join(dirname(__file__), ".."))
+prj_dir = abspath(join(dirname(__file__), "..", "co2mpas_driver"))
+print("Project directory: {}".format(prj_dir))
 sys.path.insert(0, prj_dir)
 
 
 def read_project_version(prj_dir):
     fglobals = {}
-    with io.open(os.path.join(prj_dir, "co2mpas_driver", "_version.py")) as fd:
+    with io.open(os.path.join(prj_dir, "_version.py")) as fd:
         exec(fd.read(), fglobals)  # To read __version__
     return fglobals["__version__"]
 
