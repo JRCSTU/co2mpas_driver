@@ -2,6 +2,9 @@
     :align: center
     :alt: alternate text
     :figclass: align-center
+    
+Project has MOVE to https://code.europa.eu/jrc-ldv/co2mpas-driver
+=================================================================
 
 .. _start-info:
 
